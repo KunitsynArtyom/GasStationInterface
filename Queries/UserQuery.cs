@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Npgsql;
 using System.Windows.Forms;
+using Npgsql;
 using System.Data.Common;
+using Connection;
 
-namespace KursWork
+namespace Queries
 {
-    class UserQuery //класс, содержащий в себе методы-запросы к таблице GasStation
+    public class UserQuery //класс, содержащий в себе методы-запросы к таблице GasStation
     {
         public DataGridView dgv;
         //DBConnection dbc = new DBConnection();
@@ -63,7 +64,7 @@ namespace KursWork
                         this.dgv.Rows.Add(dbDataRecord["orgname"].ToString(), dbDataRecord["country"].ToString(), dbDataRecord["city"].ToString(), dbDataRecord["street"].ToString());
                     }
                 }
-            dbc.closeConnection();
+                dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {

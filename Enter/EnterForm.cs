@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
+using User;
+using Admin;
 
-namespace KursWork
+
+namespace Enter
 {
     public partial class EnterForm : Form //форма логина
     {

@@ -1,4 +1,4 @@
-﻿namespace KursWork
+﻿namespace Enter
 {
     partial class EnterForm
     {

@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
+using Queries;
 
-namespace KursWork
+namespace User
 {
     public partial class UserForm : Form //форма пользователя
     {
@@ -25,8 +26,8 @@ namespace KursWork
 
         private void UserForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            EnterForm frm1 = new EnterForm();
-            frm1.Show();
+            //EnterForm frm1 = new EnterForm();
+            //frm1.Show();
         }
 
 

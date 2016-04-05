@@ -1,4 +1,4 @@
-﻿namespace KursWork
+﻿namespace Admin
 {
     partial class AdminForm
     {
@@ -30,13 +30,15 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabStaffTable = new System.Windows.Forms.TabPage();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnTableView = new System.Windows.Forms.Button();
             this.dgvVievStaff = new System.Windows.Forms.DataGridView();
             this.surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.function = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnTableView = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabStaffTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievStaff)).BeginInit();
@@ -54,6 +56,8 @@
             // 
             // tabStaffTable
             // 
+            this.tabStaffTable.Controls.Add(this.btnAdd);
+            this.tabStaffTable.Controls.Add(this.btnUpdate);
             this.tabStaffTable.Controls.Add(this.btnTableView);
             this.tabStaffTable.Controls.Add(this.dgvVievStaff);
             this.tabStaffTable.Location = new System.Drawing.Point(4, 22);
@@ -63,6 +67,26 @@
             this.tabStaffTable.TabIndex = 0;
             this.tabStaffTable.Text = "Таблица сотрудников";
             this.tabStaffTable.UseVisualStyleBackColor = true;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(514, 196);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 2;
+            this.btnUpdate.Text = "Заменить Иванова";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnTableView
+            // 
+            this.btnTableView.Location = new System.Drawing.Point(488, 75);
+            this.btnTableView.Name = "btnTableView";
+            this.btnTableView.Size = new System.Drawing.Size(126, 23);
+            this.btnTableView.TabIndex = 1;
+            this.btnTableView.Text = "Обноваить таблицу";
+            this.btnTableView.UseVisualStyleBackColor = true;
+            this.btnTableView.Click += new System.EventHandler(this.btnTableView_Click);
             // 
             // dgvVievStaff
             // 
@@ -107,15 +131,15 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnTableView
+            // btnAdd
             // 
-            this.btnTableView.Location = new System.Drawing.Point(488, 75);
-            this.btnTableView.Name = "btnTableView";
-            this.btnTableView.Size = new System.Drawing.Size(126, 23);
-            this.btnTableView.TabIndex = 1;
-            this.btnTableView.Text = "Обноваить таблицу";
-            this.btnTableView.UseVisualStyleBackColor = true;
-            this.btnTableView.Click += new System.EventHandler(this.btnTableView_Click);
+            this.btnAdd.Location = new System.Drawing.Point(514, 140);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 3;
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // AdminForm
             // 
@@ -144,5 +168,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn gender;
         private System.Windows.Forms.DataGridViewTextBoxColumn function;
         private System.Windows.Forms.Button btnTableView;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button btnAdd;
     }
 }
+

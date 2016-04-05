@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Npgsql;
 using System.Windows.Forms;
-using System.Data.Common;
+using Npgsql;
 
-namespace KursWork
+namespace Connection
 {
-    class DBConnection //класс, устанавливающий соединение с базой данных
+    public class DBConnection //класс, устанавливающий соединение с базой данных
     {
         public NpgsqlConnection conn;
         public DBConnection(NpgsqlConnection conn)
@@ -39,11 +38,11 @@ namespace KursWork
 
         public void closeConnection()
         {
-        try
-        { 
-            conn.Close();
-        }
-        catch (NpgsqlException ne) { MessageBox.Show(Convert.ToString(ne)); }
+            try
+            {
+                conn.Close();
+            }
+            catch (NpgsqlException ne) { MessageBox.Show(Convert.ToString(ne)); }
         }
     }
 }

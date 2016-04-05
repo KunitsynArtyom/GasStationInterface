@@ -1,4 +1,4 @@
-﻿namespace KursWork
+﻿namespace User
 {
     partial class UserForm
     {
