@@ -7,69 +7,85 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
 using Connection;
+using System.Collections;
 
 namespace Queries
 {
     public class UserQuery //класс, содержащий в себе методы-запросы к таблице GasStation
     {
-        public DataGridView dgv;
+        //public DataGridView dgv;
         //DBConnection dbc = new DBConnection();
         public DBConnection dbc;
-        public UserQuery(NpgsqlConnection conn, DataGridView dgv)
+        public UserQuery(NpgsqlConnection conn/*, DataGridView dgv*/)
         {
             dbc = new DBConnection(conn);
-            this.dgv = dgv;
+            //this.dgv = dgv;
         }
-        public void showAZSTabele()
-        {
+        public ArrayList showAZSTable()
+        {        
+            var dgvElements = new ArrayList();
+            //Station st = new Station();
             try
             {
+
                 dbc.openConnection();
-                if (!dgv.Equals(0))
-                {
-                    dgv.Rows.Clear();
-                }
+                //if (!dgv.Equals(0))
+                //{
+                //    dgv.Rows.Clear();
+                //}
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
-                        dgv.Rows.Add(dbDataRecord["orgname"].ToString(), dbDataRecord["country"].ToString(), dbDataRecord["city"].ToString(), dbDataRecord["street"].ToString());
+                        Station st = new Station();
+                        st.stationSet(Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["orgname"].ToString(), dbDataRecord["country"].ToString(),
+                            dbDataRecord["city"].ToString(), dbDataRecord["street"].ToString(), Convert.ToInt32(dbDataRecord["storagecap"]));
+                        dgvElements.Add(st);
                     }
                 }
                 dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {
-                MessageBox.Show(Convert.ToString(ne));
+                
             }
+            finally { dbc.closeConnection(); }
+            return dgvElements;
         }
 
-        public void findAZS(TextBox tbCountry, TextBox tbCity)
+        public ArrayList findAZS(string fCountry, string fCity)
         {
+            var dgvElements = new ArrayList();
             dbc.openConnection();
-            dgv.Rows.Clear();
-            String countrySearch, citySearch;
-            countrySearch = tbCountry.Text;
-            citySearch = tbCity.Text;
             try
             {
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" + "'%" + countrySearch + "%' AND city LIKE" + "'%" + citySearch + "%'", dbc.getConnection());
+                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
+                    "'%" + fCountry + "%' AND city LIKE" + "'%" + fCity + "%'", dbc.getConnection());
                 NpgsqlDataReader AZSTableSearcher = command.ExecuteReader();
                 if (AZSTableSearcher.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableSearcher)
                     {
-                        this.dgv.Rows.Add(dbDataRecord["orgname"].ToString(), dbDataRecord["country"].ToString(), dbDataRecord["city"].ToString(), dbDataRecord["street"].ToString());
+                        Station st = new Station();
+                        st.stationSet(Convert.ToInt32(dbDataRecord["station_id"]),
+                            dbDataRecord["orgname"].ToString(),
+                            dbDataRecord["country"].ToString(),
+                            dbDataRecord["city"].ToString(),
+                            dbDataRecord["street"].ToString(),
+                            Convert.ToInt32(dbDataRecord["storagecap"]));
+                        dgvElements.Add(st);
                     }
                 }
                 dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {
-                MessageBox.Show(Convert.ToString(ne));
+                
             }
+            finally { dbc.closeConnection(); }
+            return dgvElements;
         }
     }
 }

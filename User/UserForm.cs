@@ -16,12 +16,14 @@ namespace User
     public partial class UserForm : Form //форма пользователя
     {
         UserQuery userQuery;
+        dgvStationFiller fillTable;
         public NpgsqlConnection conn;
         public UserForm(NpgsqlConnection conn)
         {
             InitializeComponent();
             this.conn = conn;
-            userQuery = new UserQuery(conn, dgvVievAZS);
+            userQuery = new UserQuery(conn/*, dgvVievAZS*/);
+            fillTable = new dgvStationFiller(dgvVievAZS, userQuery);
         }
 
         private void UserForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -34,19 +36,26 @@ namespace User
         private void UserForm_Load(object sender, EventArgs e)
         {
             //uq = new UserQuery(dgvVievAZS);
-            userQuery.showAZSTabele();
+            //userQuery.showAZSTable();
+            //fillTable = new dgvStationFiller(dgvVievAZS, userQuery);
+            fillTable.showTable();
         }
 
         private void dataView1_Click(object sender, EventArgs e)
         {
             //uq = new UserQuery(dgvVievAZS);
-            userQuery.showAZSTabele();
+            //userQuery.showAZSTable();
+            //fillTable = new dgvStationFiller(dgvVievAZS, userQuery);
+            fillTable.showTable();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            string fCountry = tbCountry.Text;
+            string fCity = tbCity.Text;
+            fillTable.findInTable(fCountry, fCity);
             //uq = new UserQuery(dgvVievAZS);
-            userQuery.findAZS(tbCountry, tbCity);
+            //userQuery.findAZS(tbCountry, tbCity);
         }
     }
 }

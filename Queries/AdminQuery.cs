@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
 using Connection;
+using System.Collections;
 
 namespace Queries
 {
@@ -14,68 +15,83 @@ namespace Queries
     {
         public DataGridView dgv;
         public DBConnection dbc;
-        public AdminQuery(NpgsqlConnection conn, DataGridView dgv)
+        public AdminQuery(NpgsqlConnection conn/*, DataGridView dgv*/)
         {
             dbc = new DBConnection(conn);
-            this.dgv = dgv;
+            //this.dgv = dgv;
         }
 
-        public void showStaffTabele()
+        public ArrayList showStaffTable()
         {
+            var dgvElements = new ArrayList();
             try
             {
                 dbc.openConnection();
-                if (!dgv.Equals(0))
-                {
-                    dgv.Rows.Clear();
-                }
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Staff\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
-                        dgv.Rows.Add(dbDataRecord["surname"].ToString(), dbDataRecord["name"].ToString(), dbDataRecord["gender"].ToString(), dbDataRecord["function"].ToString());
+                        //dgv.Rows.Add(dbDataRecord["surname"].ToString(), dbDataRecord["name"].ToString(), dbDataRecord["gender"].ToString(), dbDataRecord["function"].ToString());
+                        Worker wk = new Worker();
+                        try
+                        {
+                            wk.workerSet(Convert.ToInt32(dbDataRecord["staff_id"]), Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["surname"].ToString(),
+                                dbDataRecord["name"].ToString(), dbDataRecord["gender"].ToString(), Convert.ToDateTime(dbDataRecord["birthdate"]),
+                                dbDataRecord["function"].ToString(), Convert.ToInt32(dbDataRecord["manager"]), Convert.ToInt32(dbDataRecord["salary"]));
+                        }
+                        catch (InvalidCastException)
+                        {
+                            wk.workerSet(Convert.ToInt32(dbDataRecord["staff_id"]), Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["surname"].ToString(),
+                                dbDataRecord["name"].ToString(), dbDataRecord["gender"].ToString(), Convert.ToDateTime(dbDataRecord["birthdate"]),
+                                dbDataRecord["function"].ToString(), 0, Convert.ToInt32(dbDataRecord["salary"]));
+                        }
+                        dgvElements.Add(wk);
                     }
                 }
-                dbc.closeConnection();
+                //dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {
-                MessageBox.Show(Convert.ToString(ne));
+                
             }
+            finally { dbc.closeConnection(); }
+            return dgvElements;
         }
 
-        public void addToStaffTable(int staff_id, int station_id, String surname, String name, String gender, DateTime birthdate, String function, int manager, int salary)
+        public void addToStaffTable(Worker wk)
         {
             NpgsqlCommand queryCommand;
             try
             {
                 dbc.openConnection();
-                if (manager != 0)
+                if (wk.GetManager() != 0)
                 {
-                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Manager, Salary) VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Manager, @Salary)", dbc.getConnection());
+                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Manager, Salary)" + 
+                        "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Manager, @Salary)", dbc.getConnection());
                     //queryCommand.Parameters.AddWithValue("@Staff_id", staff_id);
-                    queryCommand.Parameters.AddWithValue("@Station_id", station_id);
-                    queryCommand.Parameters.AddWithValue("@Surname", surname);
-                    queryCommand.Parameters.AddWithValue("@Name", name);
-                    queryCommand.Parameters.AddWithValue("@Gender", gender);
-                    queryCommand.Parameters.AddWithValue("@Birthdate", birthdate);
-                    queryCommand.Parameters.AddWithValue("@Function", function);
-                    queryCommand.Parameters.AddWithValue("@Manager", manager);
-                    queryCommand.Parameters.AddWithValue("@Salary", salary);
+                    queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
+                    queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
+                    queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
+                    queryCommand.Parameters.AddWithValue("@Gender", wk.GetGender());
+                    queryCommand.Parameters.AddWithValue("@Birthdate", wk.GetBirthdate());
+                    queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
+                    queryCommand.Parameters.AddWithValue("@Manager", wk.GetManager());
+                    queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
                 }
                 else
                 {
-                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Salary) VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Salary)", dbc.getConnection());
+                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Salary)" + 
+                        "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Salary)", dbc.getConnection());
                     //queryCommand.Parameters.AddWithValue("@Staff_id", staff_id);
-                    queryCommand.Parameters.AddWithValue("@Station_id", station_id);
-                    queryCommand.Parameters.AddWithValue("@Surname", surname);
-                    queryCommand.Parameters.AddWithValue("@Name", name);
-                    queryCommand.Parameters.AddWithValue("@Gender", gender);
-                    queryCommand.Parameters.AddWithValue("@Birthdate", birthdate);
-                    queryCommand.Parameters.AddWithValue("@Function", function);
-                    queryCommand.Parameters.AddWithValue("@Salary", salary);
+                    queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
+                    queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
+                    queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
+                    queryCommand.Parameters.AddWithValue("@Gender", wk.GetGender());
+                    queryCommand.Parameters.AddWithValue("@Birthdate", wk.GetBirthdate());
+                    queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
+                    queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
                 }
                 try
                 {
@@ -83,41 +99,33 @@ namespace Queries
                 }
                 catch (NpgsqlException ne)
                 {
-                    MessageBox.Show(Convert.ToString(ne));
+
                 }
-                //queryCommand.ExecuteNonQuery();
-                //NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
-                dbc.closeConnection();
+                finally { dbc.closeConnection(); }
             }
             catch (NpgsqlException ne)
             {
-                MessageBox.Show(Convert.ToString(ne));
+
             }
+            finally { dbc.closeConnection(); }
         }
 
-        public void updateStaffTabele(DataGridViewRow updateRow, int station_id, String surname, String name, String gender, DateTime birthdate, String function, int manager, int salary)
+        public void updateStaffTabele(string oldSurname, string oldName, string oldGender, string oldFunction, Worker wk)
         {
             try
             {
                 dbc.openConnection();
-                string oldSurname = Convert.ToString(updateRow.Cells["surname"].Value);
-                string oldName = Convert.ToString(updateRow.Cells["name"].Value);
-                string oldGender = Convert.ToString(updateRow.Cells["gender"].Value);
-                string oldFunction = Convert.ToString(updateRow.Cells["function"].Value);
-                MessageBox.Show(Convert.ToString(surname + name + gender + function));
-                //row.Cells[ratingColumn].Value = stars;
-                //DataGridViewRow updateRow = dgv.Rows[0];
-                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = '" + surname + "', name = '" + name + "', gender = '" + gender + "', function = '" + function + "' WHERE surname = '" + oldSurname + "' AND name = '" + oldName + "' AND gender = '" + oldGender + "' AND function = '" + oldFunction + "' ", dbc.getConnection());
-                //NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = 'azv' WHERE surname = 'a'", dbc.getConnection());
+                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = '" + wk.GetSurname() + "', name = '" + wk.GetName() + "', gender = '" + wk.GetGender() + "', function = '" + wk.GetFunction() +
+                "' WHERE surname = '" + oldSurname + "' AND name = '" + oldName + "' AND gender = '" + oldGender + "' AND function = '" + oldFunction + "' ", dbc.getConnection());
                 queryCommand.ExecuteNonQuery();
 
-                dbc.closeConnection();
+                //dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {
-                MessageBox.Show(Convert.ToString(ne));
+
             }
+            finally { dbc.closeConnection(); }
         }
     }
 }

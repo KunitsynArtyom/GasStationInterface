@@ -16,49 +16,47 @@ namespace Admin
     public partial class AdminForm : Form
     {
         private Form additionalForm;
+        dgvStaffFiller fillTable;
         public AdminQuery adminQuery;
         public NpgsqlConnection conn;
+
         public AdminForm(NpgsqlConnection conn)
         {
             InitializeComponent();
             this.conn = conn;
-            adminQuery = new AdminQuery(conn, dgvVievStaff);
+            adminQuery = new AdminQuery(conn/*, dgvVievStaff*/);
             additionalForm = this;
         }
 
         private void AdminForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //EnterForm frm1 = new EnterForm();
-            //frm1.Show();
+
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            adminQuery.showStaffTabele();
-            //btnUpdate.Enabled = false;
+            fillTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillTable.showTable();
+
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
         {
-            adminQuery.showStaffTabele();
+            fillTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillTable.showTable();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            updateStaffTableForm updateForm = new updateStaffTableForm(dgvVievStaff.CurrentRow, adminQuery);
+            updateStaffTableForm updateForm = new updateStaffTableForm(dgvVievStaff.CurrentRow, adminQuery, dgvVievStaff);
             updateForm.ShowDialog();
             Hide();
             Show();
-            //dgvVievStaff.currentrow.index;
-            //this.dgvVievStaff.EditMode = DataGridViewEditMode.EditOnEnter;
-            //DataGridViewRow updateRow = dgvVievStaff.Rows[0];
-            //btnUpdate.Enabled = true;
-            //adminQuery.updateStaffTabele(dgvVievStaff.CurrentRow);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToStaffTableForm addForm = new addToStaffTableForm(additionalForm, adminQuery);
+            addToStaffTableForm addForm = new addToStaffTableForm(additionalForm, adminQuery, dgvVievStaff);
             addForm.ShowDialog();
             Hide();
             Show();
