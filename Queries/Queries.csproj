@@ -50,8 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminQuery.cs" />
+    <Compile Include="comboBoxStaffFiller.cs" />
     <Compile Include="dgvStaffFiller.cs" />
     <Compile Include="dgvStationFiller.cs" />
+    <Compile Include="IAdminQuery.cs" />
+    <Compile Include="IUserQuery.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Station.cs" />

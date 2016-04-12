@@ -37,7 +37,6 @@ namespace Admin
         {
             fillTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
             fillTable.showTable();
-
         }
 
         private void btnTableView_Click(object sender, EventArgs e)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Queries
 {
-    class Station
+    public class Station
     {
         public int s_station_id { private set; get; }
         public string s_orgname { private set; get; }

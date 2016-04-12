@@ -42,7 +42,7 @@ namespace Connection
             {
                 conn.Close();
             }
-            catch (NpgsqlException ne) { MessageBox.Show(Convert.ToString(ne)); }
+            catch (NpgsqlException) { }
         }
     }
 }

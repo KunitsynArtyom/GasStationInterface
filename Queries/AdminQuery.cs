@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace Queries
 {
-    public class AdminQuery
+    public class AdminQuery : IAdminQuery
     {
         public DataGridView dgv;
         public DBConnection dbc;

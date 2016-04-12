@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
+using System.Collections;
 using Queries;
+using Connection;
 
 namespace Admin
 {
@@ -45,7 +47,7 @@ namespace Admin
                 dgvStaffFiller dgvs = new dgvStaffFiller(dgv, adminQuery);
                 dgvs.addToTable(wk);
             }
-            catch (FormatException) {  }
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             Close();
         }
 

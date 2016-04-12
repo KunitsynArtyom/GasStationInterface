@@ -104,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Connection\Connection.csproj">
+      <Project>{13fea3da-9a55-4af8-aa75-18f6b28d2041}</Project>
+      <Name>Connection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Queries\Queries.csproj">
       <Project>{a8ed16ba-4f85-4eca-8fd4-4672f2e42f34}</Project>
       <Name>Queries</Name>

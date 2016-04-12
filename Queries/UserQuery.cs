@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace Queries
 {
-    public class UserQuery //класс, содержащий в себе методы-запросы к таблице GasStation
+    public class UserQuery : IUserQuery //класс, содержащий в себе методы-запросы к таблице GasStation
     {
         //public DataGridView dgv;
         //DBConnection dbc = new DBConnection();
