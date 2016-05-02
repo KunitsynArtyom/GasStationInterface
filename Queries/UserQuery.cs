@@ -8,6 +8,7 @@ using Npgsql;
 using System.Data.Common;
 using Connection;
 using System.Collections;
+using Queries.Entities;
 
 namespace Queries
 {
@@ -45,7 +46,7 @@ namespace Queries
                         dgvElements.Add(st);
                     }
                 }
-                dbc.closeConnection();
+                //dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {
@@ -78,7 +79,7 @@ namespace Queries
                         dgvElements.Add(st);
                     }
                 }
-                dbc.closeConnection();
+                //dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {

@@ -12,17 +12,41 @@ namespace Queries
     {
         ComboBox cb;       
         ArrayList comboBoxElements;
-        UserQuery userQuery;
-        public comboBoxStaffFiller(ComboBox cb, UserQuery userQuery)
+        AdminQuery adminQuery;
+        public comboBoxStaffFiller(ComboBox cb, AdminQuery adminQuery)
         {
             this.cb = cb;
-            this.userQuery = userQuery; ;
+            this.adminQuery = adminQuery; ;
         }
 
-        public ArrayList cb_stationFill()
+        public void cb_orgFill()
         {
-            comboBoxElements = userQuery.showAZSTable();
-            return comboBoxElements;
+            comboBoxElements = adminQuery.getOrgList();
+            //foreach (Station ps in comboBoxElements)
+            foreach (String st in comboBoxElements)
+            {
+                cb.Items.Add(st);
+            }
+        }
+
+        public void cb_stationFill(string Orgname)
+        {
+            comboBoxElements = adminQuery.getStationList(Orgname);
+            //foreach (Station ps in comboBoxElements)
+            foreach (String st in comboBoxElements)
+            {
+                string cbString = RemoveSpaces(st);
+                //st.Trim();
+                cb.Items.Add(cbString);
+            }
+        }
+
+        private string RemoveSpaces(string inputString)
+        {
+            inputString = inputString.Replace("  ", string.Empty);
+            inputString = inputString.Trim().Replace(" ", string.Empty);
+
+            return inputString;
         }
     }
 }

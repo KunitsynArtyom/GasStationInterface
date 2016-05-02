@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using Queries.Entities;
 
-namespace Queries
+namespace Queries.dgvMediators
 {
     public class dgvStaffFiller
     {
@@ -36,14 +37,18 @@ namespace Queries
             adminQuery.addToStaffTable(wk);
         }
 
-        public void updateTable(DataGridViewRow updateRow, Worker wk)
+        public void updateTable(/*DataGridViewRow updateRow*/int number, Worker wk)
         {
-            //int oldStaff_id = Convert.ToInt32(updateRow.Cells["staff_id"].Value);
-            string oldSurname = Convert.ToString(updateRow.Cells["surname"].Value);
-            string oldName = Convert.ToString(updateRow.Cells["name"].Value);
-            string oldGender = Convert.ToString(updateRow.Cells["gender"].Value);
-            string oldFunction = Convert.ToString(updateRow.Cells["function"].Value);
-            adminQuery.updateStaffTabele(oldSurname, oldName, oldGender, oldFunction, wk);
+            var workerList = adminQuery.showStaffTable();
+            Worker wkToUpdate = (Worker)workerList[number];
+            adminQuery.updateStaffTabele(wkToUpdate, wk);
+        }
+
+        public void deleteFromTable(int number)
+        {
+            var workerList = adminQuery.showStaffTable();
+            Worker wkToDelete = (Worker)workerList[number];
+            adminQuery.deleteFromStaffTabele(wkToDelete);
         }
     }
 }

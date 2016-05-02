@@ -10,13 +10,15 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
 using Queries;
+using Queries.dgvMediators;
 
 namespace Admin
 {
     public partial class AdminForm : Form
     {
         private Form additionalForm;
-        dgvStaffFiller fillTable;
+        dgvStaffFiller fillStaffTable;
+        dgvCarFiller fillCarTable;
         public AdminQuery adminQuery;
         public NpgsqlConnection conn;
 
@@ -28,21 +30,23 @@ namespace Admin
             additionalForm = this;
         }
 
-        private void AdminForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
+        //private void AdminForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
 
-        }
+        //}
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            fillTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
-            fillTable.showTable();
+            fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillStaffTable.showTable();
+            fillCarTable = new dgvCarFiller(dgvVievCars, adminQuery);
+            fillCarTable.showTable();
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
         {
-            fillTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
-            fillTable.showTable();
+            fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillStaffTable.showTable();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -59,6 +63,19 @@ namespace Admin
             addForm.ShowDialog();
             Hide();
             Show();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillStaffTable.deleteFromTable(dgvVievStaff.CurrentRow.Index);
+        }
+
+        private void btnFindDeals_Click(object sender, EventArgs e)
+        {
+            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, adminQuery);
+            dealList.ShowDialog();
+            Hide();
         }
     }
 }

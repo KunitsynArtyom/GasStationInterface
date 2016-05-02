@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabAdmin = new System.Windows.Forms.TabControl();
             this.tabStaffTable = new System.Windows.Forms.TabPage();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnTableView = new System.Windows.Forms.Button();
             this.dgvVievStaff = new System.Windows.Forms.DataGridView();
@@ -37,25 +39,31 @@
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.function = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
+            this.tabCarTable = new System.Windows.Forms.TabPage();
+            this.dgvVievCars = new System.Windows.Forms.DataGridView();
+            this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnFindDeals = new System.Windows.Forms.Button();
+            this.tabAdmin.SuspendLayout();
             this.tabStaffTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievStaff)).BeginInit();
+            this.tabCarTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVievCars)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabAdmin
             // 
-            this.tabControl1.Controls.Add(this.tabStaffTable);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(652, 357);
-            this.tabControl1.TabIndex = 0;
+            this.tabAdmin.Controls.Add(this.tabStaffTable);
+            this.tabAdmin.Controls.Add(this.tabCarTable);
+            this.tabAdmin.Location = new System.Drawing.Point(12, 12);
+            this.tabAdmin.Name = "tabAdmin";
+            this.tabAdmin.SelectedIndex = 0;
+            this.tabAdmin.Size = new System.Drawing.Size(652, 357);
+            this.tabAdmin.TabIndex = 0;
             // 
             // tabStaffTable
             // 
+            this.tabStaffTable.Controls.Add(this.btnDelete);
             this.tabStaffTable.Controls.Add(this.btnAdd);
             this.tabStaffTable.Controls.Add(this.btnUpdate);
             this.tabStaffTable.Controls.Add(this.btnTableView);
@@ -68,13 +76,33 @@
             this.tabStaffTable.Text = "Таблица сотрудников";
             this.tabStaffTable.UseVisualStyleBackColor = true;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(514, 248);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Удалить";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(514, 140);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 3;
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(514, 196);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 2;
-            this.btnUpdate.Text = "Заменить Иванова";
+            this.btnUpdate.Text = "Заменить ";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -121,47 +149,74 @@
             this.function.HeaderText = "Профессия";
             this.function.Name = "function";
             // 
-            // tabPage2
+            // tabCarTable
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(644, 331);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabCarTable.Controls.Add(this.btnFindDeals);
+            this.tabCarTable.Controls.Add(this.dgvVievCars);
+            this.tabCarTable.Location = new System.Drawing.Point(4, 22);
+            this.tabCarTable.Name = "tabCarTable";
+            this.tabCarTable.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCarTable.Size = new System.Drawing.Size(644, 331);
+            this.tabCarTable.TabIndex = 1;
+            this.tabCarTable.Text = "Таблица покупателей";
+            this.tabCarTable.UseVisualStyleBackColor = true;
             // 
-            // btnAdd
+            // dgvVievCars
             // 
-            this.btnAdd.Location = new System.Drawing.Point(514, 140);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 3;
-            this.btnAdd.Text = "Добавить";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.dgvVievCars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVievCars.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.carmark,
+            this.cardnum});
+            this.dgvVievCars.Location = new System.Drawing.Point(6, 3);
+            this.dgvVievCars.Name = "dgvVievCars";
+            this.dgvVievCars.Size = new System.Drawing.Size(450, 325);
+            this.dgvVievCars.TabIndex = 1;
+            // 
+            // carmark
+            // 
+            this.carmark.HeaderText = "Марка автомобиля";
+            this.carmark.Name = "carmark";
+            this.carmark.Width = 200;
+            // 
+            // cardnum
+            // 
+            this.cardnum.HeaderText = "Номер карты";
+            this.cardnum.Name = "cardnum";
+            this.cardnum.Width = 200;
+            // 
+            // btnFindDeals
+            // 
+            this.btnFindDeals.Location = new System.Drawing.Point(488, 125);
+            this.btnFindDeals.Name = "btnFindDeals";
+            this.btnFindDeals.Size = new System.Drawing.Size(127, 34);
+            this.btnFindDeals.TabIndex = 2;
+            this.btnFindDeals.Text = "Показать сделки";
+            this.btnFindDeals.UseVisualStyleBackColor = true;
+            this.btnFindDeals.Click += new System.EventHandler(this.btnFindDeals_Click);
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(676, 381);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabAdmin);
             this.Name = "AdminForm";
             this.Text = "Раздел администратора";
             this.Load += new System.EventHandler(this.AdminForm_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabAdmin.ResumeLayout(false);
             this.tabStaffTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievStaff)).EndInit();
+            this.tabCarTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVievCars)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabAdmin;
         private System.Windows.Forms.TabPage tabStaffTable;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabCarTable;
         private System.Windows.Forms.DataGridView dgvVievStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn surname;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
@@ -170,6 +225,11 @@
         private System.Windows.Forms.Button btnTableView;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridView dgvVievCars;
+        private System.Windows.Forms.DataGridViewTextBoxColumn carmark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
+        private System.Windows.Forms.Button btnFindDeals;
     }
 }
 

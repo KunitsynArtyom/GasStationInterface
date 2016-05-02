@@ -8,6 +8,7 @@ using Npgsql;
 using System.Data.Common;
 using Connection;
 using System.Collections;
+using Queries.Entities;
 
 namespace Queries
 {
@@ -15,6 +16,6 @@ namespace Queries
     {
         ArrayList showStaffTable();
         void addToStaffTable(Worker wk);
-        void updateStaffTabele(string oldSurname, string oldName, string oldGender, string oldFunction, Worker wk);
+        void updateStaffTabele(Worker wkToUpdate, Worker wk);
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Queries
+namespace Queries.Entities
 {
     public class Worker
     {
@@ -22,6 +22,17 @@ namespace Queries
         {
             w_staff_id = staff_id;
             w_station_id = station_id;
+            w_surname = surname;
+            w_name = name;
+            w_gender = gender;
+            w_birthdate = birthdate;
+            w_function = function;
+            w_manager = manager;
+            w_salary = salary;
+        }
+
+        public void workerSet(string surname, string name, string gender, DateTime birthdate, string function, int manager, int salary)
+        {
             w_surname = surname;
             w_name = name;
             w_gender = gender;

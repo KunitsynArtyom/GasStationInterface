@@ -12,6 +12,8 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Connection;
+using Queries.Entities;
+using Queries.dgvMediators;
 
 namespace Admin
 {
@@ -23,24 +25,62 @@ namespace Admin
         int station_id, staff_id, manager, salary;
         string surname, name, gender, function;
         DateTime birthdate;
+  
+
+        private void addToStaffTableForm_Load(object sender, EventArgs e)
+        {
+            cb_gender.Items.Add("male");
+            cb_gender.Items.Add("female");
+            try
+            {
+                comboBoxStaffFiller cbsf;
+                cbStationList.Visible = false;
+                label2.Visible = false;
+                cbsf = new comboBoxStaffFiller(cbOrgList, adminQuery);
+                cbsf.cb_orgFill();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void cbOrgList_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (cbOrgList.SelectedIndex != -1)
+                {
+                    comboBoxStaffFiller cbsf;
+                    cbStationList.Visible = true;
+                    label2.Visible = true;
+                    cbsf = new comboBoxStaffFiller(cbStationList, adminQuery);
+                    cbsf.cb_stationFill(cbOrgList.Text);
+                }
+            }
+            catch (Exception ex) { }
+        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //staff_id = Convert.ToInt32(tb_staff_id.Text);
+
             try
             {
-                station_id = Convert.ToInt32(tb_station_id.Text);
+                station_id = Convert.ToInt32(adminQuery.findIDByLocation(cbStationList.Text));
                 surname = tb_surname.Text;
                 name = tb_name.Text;
-                gender = tb_gender.Text;
-                birthdate = Convert.ToDateTime(tb_birthdate.Text);
+                try
+                {
+                    if (cb_gender.SelectedIndex != -1)
+                    {
+                        gender = Convert.ToString(cb_gender.Text);
+                    }
+                }catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
+                birthdate = Convert.ToDateTime(birthDatePick.Text);
                 function = tb_function.Text;
                 try
                 {
                     manager = Convert.ToInt32(tb_manager.Text);
                 }
                 catch (FormatException) { manager = 0; }
-                //else manager = 0;
                 salary = Convert.ToInt32(tb_salary.Text);
                 Worker wk = new Worker();
                 wk.workerSet(staff_id, station_id, surname, name, gender, birthdate, function, manager, salary);
@@ -50,9 +90,7 @@ namespace Admin
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             Close();
         }
-
-        //private NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS");
-
+      
         public addToStaffTableForm(Form adminForm, AdminQuery adminQuery, DataGridView dgv)
         {
             InitializeComponent();

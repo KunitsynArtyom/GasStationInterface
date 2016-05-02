@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Queries
+namespace Queries.Entities
 {
     public class Station
     {
@@ -31,6 +31,5 @@ namespace Queries
         public string GetCity() => s_city;
         public string GetStreet() => s_street;
         public int GetStorageCap() => s_storagecap;
-
     }
 }

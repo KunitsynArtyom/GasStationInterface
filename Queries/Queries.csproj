@@ -51,13 +51,17 @@
   <ItemGroup>
     <Compile Include="AdminQuery.cs" />
     <Compile Include="comboBoxStaffFiller.cs" />
-    <Compile Include="dgvStaffFiller.cs" />
-    <Compile Include="dgvStationFiller.cs" />
-    <Compile Include="IAdminQuery.cs" />
-    <Compile Include="IUserQuery.cs" />
-    <Compile Include="Worker.cs" />
+    <Compile Include="dgvMediators\dgvCarFiller.cs" />
+    <Compile Include="dgvMediators\dgvDealFiller.cs" />
+    <Compile Include="dgvMediators\dgvStaffFiller.cs" />
+    <Compile Include="dgvMediators\dgvStationFiller.cs" />
+    <Compile Include="Entities\Car.cs" />
+    <Compile Include="Entities\Deal.cs" />
+    <Compile Include="Interfaces\IAdminQuery.cs" />
+    <Compile Include="Interfaces\IUserQuery.cs" />
+    <Compile Include="Entities\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Station.cs" />
+    <Compile Include="Entities\Station.cs" />
     <Compile Include="UserQuery.cs" />
   </ItemGroup>
   <ItemGroup>
