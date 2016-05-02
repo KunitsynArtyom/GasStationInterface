@@ -19,6 +19,12 @@ namespace Queries.Entities
             b_cardnum = cardnum;
         }
 
+        public void buyerSet(string carmark, string cardnum)
+        {
+            b_carmark = carmark;
+            b_cardnum = cardnum;
+        }
+
         public int GetCar_id() => b_car_id;
         public string GetCarMark() => b_carmark;
         public string GetCardNum() => b_cardnum;

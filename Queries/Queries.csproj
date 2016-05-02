@@ -50,11 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminQuery.cs" />
-    <Compile Include="comboBoxStaffFiller.cs" />
+    <Compile Include="combBoxFillers\comboBoxCardNumFiller.cs" />
+    <Compile Include="combBoxFillers\comboBoxStaffFiller.cs" />
+    <Compile Include="dgvMediators\dgvAccountFiller.cs" />
     <Compile Include="dgvMediators\dgvCarFiller.cs" />
     <Compile Include="dgvMediators\dgvDealFiller.cs" />
     <Compile Include="dgvMediators\dgvStaffFiller.cs" />
     <Compile Include="dgvMediators\dgvStationFiller.cs" />
+    <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\Deal.cs" />
     <Compile Include="Interfaces\IAdminQuery.cs" />

@@ -239,11 +239,11 @@ namespace Queries
         {
             int station_id = 0;
             var splittedLocation = new ArrayList();
-            string[] split = location.Split(new Char[] {','});
+            string[] split = location.Split(new Char[] { ',' });
             foreach (string s in split)
             {
                 //if (s.Trim() != "")
-                    splittedLocation.Add(s);
+                splittedLocation.Add(s);
             }
             try
             {
@@ -292,7 +292,7 @@ namespace Queries
             return dgvElements;
         }
 
-        public ArrayList showDealTable()
+        public ArrayList showBuyerDealTable()
         {
             var dgvElements = new ArrayList();
             try
@@ -308,7 +308,7 @@ namespace Queries
                         deal.dealSet(Convert.ToInt32(dbDataRecord["deal_id"]), Convert.ToInt32(dbDataRecord["car_id"]),
                             Convert.ToInt32(dbDataRecord["station_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
                             dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"]), 
-                            dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()));
+                            dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()).Date);
                         dgvElements.Add(deal);
                     }
                 }
@@ -322,20 +322,31 @@ namespace Queries
             return dgvElements;
         }
 
-        public ArrayList findDealList(Deal deal)
+        public ArrayList findDealList(Car car, string searchFlag)
         {
             var dgvElements = new ArrayList();
+            
             try
             {
+                NpgsqlDataReader AZSTableReader = null;
                 dbc.openConnection();
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, cardnum, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = '" + deal.GetCar_id() + "' ", dbc.getConnection());
-                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (searchFlag.Equals("car_id"))
+                {
+                    NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, cardnum, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = '" + car.GetCar_id() + "' ", dbc.getConnection());
+                    AZSTableReader = queryCommand.ExecuteReader();
+                }
+                else if (searchFlag.Equals("cardnum"))
+                {
+                    NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, cardnum, dealdate FROM \"AZS\".\"Deal\" WHERE cardnum = '" + car.GetCardNum() + "' ", dbc.getConnection());
+                    AZSTableReader = queryCommand.ExecuteReader();
+                }
+                //NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
                         Deal foundDeal = new Deal();
-                        foundDeal.dealSet(dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"].ToString()), dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()));
+                        foundDeal.dealSet(dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"].ToString()), dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()).Date);
                         dgvElements.Add(foundDeal);
                     }
                 }
@@ -347,6 +358,53 @@ namespace Queries
             finally { dbc.closeConnection(); }
 
             return dgvElements;
+        }
+
+        public ArrayList getCardNumList()
+        {
+            var comboBoxElements = new ArrayList();
+
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT DISTINCT cardnum FROM \"AZS\".\"Car\"", dbc.getConnection());
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        comboBoxElements.Add(dbDataRecord["cardnum"].ToString());
+                    }
+                }
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+
+            return comboBoxElements;
+        }
+
+        public void addToCarTable(Car car)
+        {
+            NpgsqlCommand queryCommand;
+            try
+            {
+                dbc.openConnection();
+
+                queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Car\"(carmark, cardnum)" +
+                "VALUES(@carmark, @cardnum)", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@carmark", car.GetCarMark());
+                queryCommand.Parameters.AddWithValue("@cardnum", car.GetCardNum());
+
+                queryCommand.ExecuteNonQuery();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
         }
     }
 }

@@ -30,11 +30,6 @@ namespace Admin
             additionalForm = this;
         }
 
-        //private void AdminForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        //{
-
-        //}
-
         private void AdminForm_Load(object sender, EventArgs e)
         {
             fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
@@ -55,6 +50,8 @@ namespace Admin
             updateForm.ShowDialog();
             Hide();
             Show();
+            fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillStaffTable.showTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -63,19 +60,39 @@ namespace Admin
             addForm.ShowDialog();
             Hide();
             Show();
+            fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillStaffTable.showTable();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
             fillStaffTable.deleteFromTable(dgvVievStaff.CurrentRow.Index);
+            fillStaffTable = new dgvStaffFiller(dgvVievStaff, adminQuery);
+            fillStaffTable.showTable();
         }
 
         private void btnFindDeals_Click(object sender, EventArgs e)
         {
-            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, adminQuery);
+            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, adminQuery, "car_id");
             dealList.ShowDialog();
-            Hide();
+            //Hide();
+            //Show();
+        }
+
+        private void btnCarAdd_Click(object sender, EventArgs e)
+        {
+            addToCarTableForm addForm = new addToCarTableForm(additionalForm, adminQuery, dgvVievCars);
+            addForm.ShowDialog();
+            fillCarTable = new dgvCarFiller(dgvVievCars, adminQuery);
+            fillCarTable.showTable();
+            //Hide();
+        }
+
+        private void btnFindDealsByCard_id_Click(object sender, EventArgs e)
+        {
+            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, adminQuery, "cardnum");
+            dealList.ShowDialog();
         }
     }
 }

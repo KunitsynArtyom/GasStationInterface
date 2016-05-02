@@ -40,21 +40,31 @@
             this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.function = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabCarTable = new System.Windows.Forms.TabPage();
+            this.btnCarAdd = new System.Windows.Forms.Button();
+            this.btnFindDealsByCar_id = new System.Windows.Forms.Button();
             this.dgvVievCars = new System.Windows.Forms.DataGridView();
             this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnFindDeals = new System.Windows.Forms.Button();
+            this.tabAccountingTable = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.fuelaccounttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelaccountamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnFindDealsByCard_id = new System.Windows.Forms.Button();
             this.tabAdmin.SuspendLayout();
             this.tabStaffTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievStaff)).BeginInit();
             this.tabCarTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievCars)).BeginInit();
+            this.tabAccountingTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabAdmin
             // 
             this.tabAdmin.Controls.Add(this.tabStaffTable);
             this.tabAdmin.Controls.Add(this.tabCarTable);
+            this.tabAdmin.Controls.Add(this.tabAccountingTable);
             this.tabAdmin.Location = new System.Drawing.Point(12, 12);
             this.tabAdmin.Name = "tabAdmin";
             this.tabAdmin.SelectedIndex = 0;
@@ -151,7 +161,9 @@
             // 
             // tabCarTable
             // 
-            this.tabCarTable.Controls.Add(this.btnFindDeals);
+            this.tabCarTable.Controls.Add(this.btnFindDealsByCard_id);
+            this.tabCarTable.Controls.Add(this.btnCarAdd);
+            this.tabCarTable.Controls.Add(this.btnFindDealsByCar_id);
             this.tabCarTable.Controls.Add(this.dgvVievCars);
             this.tabCarTable.Location = new System.Drawing.Point(4, 22);
             this.tabCarTable.Name = "tabCarTable";
@@ -161,6 +173,26 @@
             this.tabCarTable.Text = "Таблица покупателей";
             this.tabCarTable.UseVisualStyleBackColor = true;
             // 
+            // btnCarAdd
+            // 
+            this.btnCarAdd.Location = new System.Drawing.Point(493, 218);
+            this.btnCarAdd.Name = "btnCarAdd";
+            this.btnCarAdd.Size = new System.Drawing.Size(122, 34);
+            this.btnCarAdd.TabIndex = 3;
+            this.btnCarAdd.Text = "Добавить покупателя";
+            this.btnCarAdd.UseVisualStyleBackColor = true;
+            this.btnCarAdd.Click += new System.EventHandler(this.btnCarAdd_Click);
+            // 
+            // btnFindDealsByCar_id
+            // 
+            this.btnFindDealsByCar_id.Location = new System.Drawing.Point(488, 65);
+            this.btnFindDealsByCar_id.Name = "btnFindDealsByCar_id";
+            this.btnFindDealsByCar_id.Size = new System.Drawing.Size(127, 34);
+            this.btnFindDealsByCar_id.TabIndex = 2;
+            this.btnFindDealsByCar_id.Text = "Поиск сделок по автомобилю";
+            this.btnFindDealsByCar_id.UseVisualStyleBackColor = true;
+            this.btnFindDealsByCar_id.Click += new System.EventHandler(this.btnFindDeals_Click);
+            // 
             // dgvVievCars
             // 
             this.dgvVievCars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -169,7 +201,7 @@
             this.cardnum});
             this.dgvVievCars.Location = new System.Drawing.Point(6, 3);
             this.dgvVievCars.Name = "dgvVievCars";
-            this.dgvVievCars.Size = new System.Drawing.Size(450, 325);
+            this.dgvVievCars.Size = new System.Drawing.Size(444, 325);
             this.dgvVievCars.TabIndex = 1;
             // 
             // carmark
@@ -184,15 +216,52 @@
             this.cardnum.Name = "cardnum";
             this.cardnum.Width = 200;
             // 
-            // btnFindDeals
+            // tabAccountingTable
             // 
-            this.btnFindDeals.Location = new System.Drawing.Point(488, 125);
-            this.btnFindDeals.Name = "btnFindDeals";
-            this.btnFindDeals.Size = new System.Drawing.Size(127, 34);
-            this.btnFindDeals.TabIndex = 2;
-            this.btnFindDeals.Text = "Показать сделки";
-            this.btnFindDeals.UseVisualStyleBackColor = true;
-            this.btnFindDeals.Click += new System.EventHandler(this.btnFindDeals_Click);
+            this.tabAccountingTable.Controls.Add(this.dataGridView1);
+            this.tabAccountingTable.Location = new System.Drawing.Point(4, 22);
+            this.tabAccountingTable.Name = "tabAccountingTable";
+            this.tabAccountingTable.Size = new System.Drawing.Size(644, 331);
+            this.tabAccountingTable.TabIndex = 2;
+            this.tabAccountingTable.Text = "Таблица учёта";
+            this.tabAccountingTable.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.fuelaccounttype,
+            this.fuelaccountamount,
+            this.accountdate});
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(485, 325);
+            this.dataGridView1.TabIndex = 2;
+            // 
+            // fuelaccounttype
+            // 
+            this.fuelaccounttype.HeaderText = "Тип топлива";
+            this.fuelaccounttype.Name = "fuelaccounttype";
+            // 
+            // fuelaccountamount
+            // 
+            this.fuelaccountamount.HeaderText = "Количество топлива";
+            this.fuelaccountamount.Name = "fuelaccountamount";
+            // 
+            // accountdate
+            // 
+            this.accountdate.HeaderText = "Дата проверки";
+            this.accountdate.Name = "accountdate";
+            // 
+            // btnFindDealsByCard_id
+            // 
+            this.btnFindDealsByCard_id.Location = new System.Drawing.Point(488, 140);
+            this.btnFindDealsByCard_id.Name = "btnFindDealsByCard_id";
+            this.btnFindDealsByCard_id.Size = new System.Drawing.Size(127, 34);
+            this.btnFindDealsByCard_id.TabIndex = 4;
+            this.btnFindDealsByCard_id.Text = "Поиск сделок по карте";
+            this.btnFindDealsByCard_id.UseVisualStyleBackColor = true;
+            this.btnFindDealsByCard_id.Click += new System.EventHandler(this.btnFindDealsByCard_id_Click);
             // 
             // AdminForm
             // 
@@ -208,6 +277,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievStaff)).EndInit();
             this.tabCarTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievCars)).EndInit();
+            this.tabAccountingTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -229,7 +300,14 @@
         private System.Windows.Forms.DataGridView dgvVievCars;
         private System.Windows.Forms.DataGridViewTextBoxColumn carmark;
         private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
-        private System.Windows.Forms.Button btnFindDeals;
+        private System.Windows.Forms.Button btnFindDealsByCar_id;
+        private System.Windows.Forms.TabPage tabAccountingTable;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnCarAdd;
+        private System.Windows.Forms.Button btnFindDealsByCard_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccounttype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccountamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountdate;
     }
 }
 

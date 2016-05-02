@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addToCarTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addToCarTableForm.Designer.cs">
+      <DependentUpon>addToCarTableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="addToStaffTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="updateStaffTableForm.Designer.cs">
       <DependentUpon>updateStaffTableForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="addToCarTableForm.resx">
+      <DependentUpon>addToCarTableForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="addToStaffTableForm.resx">
       <DependentUpon>addToStaffTableForm.cs</DependentUpon>
     </EmbeddedResource>

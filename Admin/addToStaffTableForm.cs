@@ -14,6 +14,7 @@ using Queries;
 using Connection;
 using Queries.Entities;
 using Queries.dgvMediators;
+using Queries.combBoxFillers;
 
 namespace Admin
 {
@@ -61,7 +62,6 @@ namespace Admin
         private void btnAdd_Click(object sender, EventArgs e)
         {
             //staff_id = Convert.ToInt32(tb_staff_id.Text);
-
             try
             {
                 station_id = Convert.ToInt32(adminQuery.findIDByLocation(cbStationList.Text));
@@ -83,7 +83,8 @@ namespace Admin
                 catch (FormatException) { manager = 0; }
                 salary = Convert.ToInt32(tb_salary.Text);
                 Worker wk = new Worker();
-                wk.workerSet(staff_id, station_id, surname, name, gender, birthdate, function, manager, salary);
+                //wk.workerSet(staff_id, station_id, surname, name, gender, birthdate, function, manager, salary);
+                wk.workerSet(station_id, surname, name, gender, birthdate, function, manager, salary);
                 dgvStaffFiller dgvs = new dgvStaffFiller(dgv, adminQuery);
                 dgvs.addToTable(wk);
             }
@@ -103,7 +104,6 @@ namespace Admin
         {
             Hide();
             Close();
-            //AdminForm adminForm = new AdminForm(conn);
             af.Show();
         }
     }

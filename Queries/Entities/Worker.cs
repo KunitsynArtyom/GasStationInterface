@@ -31,6 +31,18 @@ namespace Queries.Entities
             w_salary = salary;
         }
 
+        public void workerSet(int station_id, string surname, string name, string gender, DateTime birthdate, string function, int manager, int salary)
+        {
+            w_station_id = station_id;
+            w_surname = surname;
+            w_name = name;
+            w_gender = gender;
+            w_birthdate = birthdate;
+            w_function = function;
+            w_manager = manager;
+            w_salary = salary;
+        }
+
         public void workerSet(string surname, string name, string gender, DateTime birthdate, string function, int manager, int salary)
         {
             w_surname = surname;

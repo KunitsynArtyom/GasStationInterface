@@ -31,5 +31,10 @@ namespace Queries.dgvMediators
                 dgv.Rows.Add(car.GetCarMark(), car.GetCardNum());
             }
         }
+
+        public void addToTable(Car car)
+        {
+            adminQuery.addToCarTable(car);
+        }
     }
 }
