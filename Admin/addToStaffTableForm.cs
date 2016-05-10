@@ -11,7 +11,6 @@ using Npgsql;
 using System.Data.Common;
 using System.Collections;
 using Queries;
-using Connection;
 using Queries.Entities;
 using Queries.dgvMediators;
 using Queries.combBoxFillers;
@@ -64,7 +63,7 @@ namespace Admin
             //staff_id = Convert.ToInt32(tb_staff_id.Text);
             try
             {
-                station_id = Convert.ToInt32(adminQuery.findIDByLocation(cbStationList.Text));
+                station_id = Convert.ToInt32(adminQuery.FindStationIDByLocation(cbStationList.Text));
                 surname = tb_surname.Text;
                 name = tb_name.Text;
                 try

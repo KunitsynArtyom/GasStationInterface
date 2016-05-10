@@ -11,7 +11,6 @@ using Npgsql;
 using System.Data.Common;
 using System.Collections;
 using Queries;
-using Connection;
 using Queries.Entities;
 using Queries.dgvMediators;
 using Queries.combBoxFillers;
@@ -27,12 +26,12 @@ namespace Admin
 
         private void addToStaffTableForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                comboBoxCardNumFiller comboBoxFiller = new comboBoxCardNumFiller(cbCardNum, adminQuery);
-                comboBoxFiller.cb_CardNumFill();
-            }
-            catch (Exception ex) { }
+            //try
+            //{
+            //    comboBoxCardNumFiller comboBoxFiller = new comboBoxCardNumFiller(cbCardNum, adminQuery);
+            //    comboBoxFiller.cb_CardNumFill();
+            //}
+            //catch (Exception ex) { }
         }
 
         public addToCarTableForm(Form adminForm, AdminQuery adminQuery, DataGridView dgv)
@@ -49,12 +48,12 @@ namespace Admin
             {
                 string carMark, cardNum;
                 carMark = tbCarMark.Text.ToString();
-                if (tbCardNum.Text != "" && cbCardNum.SelectedIndex == -1)
-                {
+                //if (tbCardNum.Text != "" && cbCardNum.SelectedIndex == -1)
+                //{
                     cardNum = tbCardNum.Text.ToString();
-                }
-                else
-                    cardNum = cbCardNum.Text.ToString();
+                //}
+                //else
+                //    cardNum = cbCardNum.Text.ToString();
                 Car car = new Car();
                 car.buyerSet(carMark, cardNum);
                 dgvCarFiller dgvc = new dgvCarFiller(dgv, adminQuery);

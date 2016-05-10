@@ -13,7 +13,7 @@ namespace Queries.dgvMediators
     {
         DataGridView dgv;
         UserQuery userQuery;
-        ArrayList dgvElements;
+        List<Station> dgvElements;
 
         public dgvStationFiller(DataGridView dgv, UserQuery userQuery)
         {
@@ -24,8 +24,8 @@ namespace Queries.dgvMediators
 
         public void showTable()
         {
-            dgvElements = new ArrayList();
-            dgvElements = userQuery.showAZSTable();
+            dgvElements = new List<Station>();
+            dgvElements = userQuery.getStations();
             dgv.Rows.Clear();
             foreach (Station ps in dgvElements)
             {
@@ -35,8 +35,8 @@ namespace Queries.dgvMediators
 
         public void findInTable(string country, string city)
         {
-            dgvElements = new ArrayList();
-            dgvElements = userQuery.findAZS(country, city);
+            dgvElements = new List<Station>();
+            dgvElements = userQuery.findStation(country, city);
             dgv.Rows.Clear();
             foreach (Station ps in dgvElements)
             {

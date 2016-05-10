@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
-using Connection;
 using System.Collections;
 using Queries.Entities;
 
@@ -14,17 +13,16 @@ namespace Queries
 {
     public class AdminQuery : IAdminQuery
     {
-        public DataGridView dgv;
         public DBConnection dbc;
-        public AdminQuery(NpgsqlConnection conn/*, DataGridView dgv*/)
+        public AdminQuery(NpgsqlConnection conn)
         {
             dbc = new DBConnection(conn);
-            //this.dgv = dgv;
         }
 
-        public ArrayList showStaffTable()
+        public List<Worker> GetStaff()
         {
-            var dgvElements = new ArrayList();
+            //var dgvElements = new ArrayList();
+            List<Worker> dgvElements = new List<Worker>();
             try
             {
                 dbc.openConnection();
@@ -51,7 +49,6 @@ namespace Queries
                         dgvElements.Add(wk);
                     }
                 }
-                //dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {
@@ -61,7 +58,7 @@ namespace Queries
             return dgvElements;
         }
 
-        public void addToStaffTable(Worker wk)
+        public void AddToStaffTable(Worker wk)
         {
             NpgsqlCommand queryCommand;
             try
@@ -71,7 +68,6 @@ namespace Queries
                 {
                     queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Manager, Salary)" + 
                         "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Manager, @Salary)", dbc.getConnection());
-                    //queryCommand.Parameters.AddWithValue("@Staff_id", staff_id);
                     queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
                     queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
                     queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
@@ -85,7 +81,6 @@ namespace Queries
                 {
                     queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Salary)" + 
                         "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Salary)", dbc.getConnection());
-                    //queryCommand.Parameters.AddWithValue("@Staff_id", staff_id);
                     queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
                     queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
                     queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
@@ -111,16 +106,25 @@ namespace Queries
             finally { dbc.closeConnection(); }
         }
 
-        public void updateStaffTabele(Worker wkToUpdate, Worker wk)
+        public void UpdateStaffTabele(Worker wkToUpdate, Worker wk)
         {
             try
             {
                 dbc.openConnection();
-                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = '" + wk.GetSurname() + "', name = '" + wk.GetName() + "', gender = '" + wk.GetGender() + "', function = '" + wk.GetFunction() + "'" +
-                " WHERE staff_id = " + Convert.ToInt32(wkToUpdate.GetStaff_id()) + " ", dbc.getConnection());
-                queryCommand.ExecuteNonQuery();
+                //NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = '" + wk.GetSurname() + "', name = '" + wk.GetName() +
+                //"', gender = '" + wk.GetGender() + "', function = '" + wk.GetFunction() + "'" +
+                //" WHERE staff_id = " + Convert.ToInt32(wkToUpdate.GetStaff_id()) + " ", dbc.getConnection());
+                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = @Surname, name = @Name, gender = @Gender, function = @Function, " +
+                "salary = @Salary WHERE staff_id = @Staff_id ", dbc.getConnection());
 
-                //dbc.closeConnection();
+                queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
+                queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
+                queryCommand.Parameters.AddWithValue("@Gender", wk.GetGender());
+                queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
+                queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
+                queryCommand.Parameters.AddWithValue("@Staff_id", wkToUpdate.GetStaff_id());
+
+                queryCommand.ExecuteNonQuery();
             }
             catch (NpgsqlException ne)
             {
@@ -129,15 +133,15 @@ namespace Queries
             finally { dbc.closeConnection(); }
         }
 
-        public void deleteFromStaffTabele(Worker wkToDelete)
+        public void DeleteFromStaffTabele(Worker wkToDelete)
         {
             try
             {
                 dbc.openConnection();
-                NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"AZS\".\"Staff\"  WHERE staff_id = " + Convert.ToInt32(wkToDelete.GetStaff_id()) + " ", dbc.getConnection());
+                NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"AZS\".\"Staff\"  WHERE staff_id = @Staff_id", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Staff_id", Convert.ToInt32(wkToDelete.GetStaff_id()));
                 queryCommand.ExecuteNonQuery();
 
-                //dbc.closeConnection();
             }
             catch (NpgsqlException ne)
             {
@@ -146,9 +150,10 @@ namespace Queries
             finally { dbc.closeConnection(); }
         }
 
-        public ArrayList getOrgList()
+        public List<string> GetOrganisations()
         {
-            var comboBoxElements = new ArrayList();
+            //var comboBoxElements = new ArrayList();
+            List<string>  comboBoxElements = new List<string>();
 
             try
             {
@@ -158,7 +163,7 @@ namespace Queries
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
-                    {                     
+                    {
                         comboBoxElements.Add(dbDataRecord["orgname"].ToString());
                     }
                 }
@@ -172,9 +177,9 @@ namespace Queries
             return comboBoxElements;
         }
 
-        public ArrayList getStationList(string Orgname)
+        public List<string> GetStationsAdres(string Orgname)
         {
-            var comboBoxElements = new ArrayList();
+            List<string> comboBoxElements = new List<string>();
             try
             {
                 dbc.openConnection();
@@ -183,7 +188,7 @@ namespace Queries
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
-                    {                    
+                    {
                         comboBoxElements.Add(dbDataRecord["country"].ToString() + "," + dbDataRecord["city"].ToString() + "," + dbDataRecord["street"].ToString());
                     }
                 }
@@ -197,52 +202,13 @@ namespace Queries
             return comboBoxElements;
         }
 
-        //public ArrayList splitLocation(string location)
-        //{
-        //    int station_id = 0;
-        //    var splittedLocation = new ArrayList();
-        //    string[] split = location.Split(new Char[] { ',' });
-        //    foreach (string s in split)
-        //    {
-        //        //if (s.Trim() != "")
-        //        splittedLocation.Add(s);
-        //    }
-        //    return splittedLocation;
-        //}
-
-
-        //public int[] findIDsByInfo(string surname, string name)
-        //{
-        //    int[] IDs = new int[2];
-        //    try
-        //    {
-        //        dbc.openConnection();
-        //        NpgsqlCommand command = new NpgsqlCommand("SELECT station_id, staff_id FROM \"AZS\".\"Staff\" WHERE surname LIKE" +
-        //               "'%" + surname + "%' AND name LIKE" + "'%" + name + "%'", dbc.getConnection());
-        //        NpgsqlDataReader Station_ID_TableSearcher = command.ExecuteReader();
-        //        if (Station_ID_TableSearcher.HasRows)
-        //        {
-        //            foreach (DbDataRecord dbDataRecord in Station_ID_TableSearcher)
-        //            {
-        //                IDs[0] = Convert.ToInt32(dbDataRecord["station_id"]);
-        //                IDs[1] = Convert.ToInt32(dbDataRecord["staff_id"]);
-        //                //station_id = Convert.ToInt32(dbDataRecord["station_id"]);
-        //            }
-        //        }
-        //    }
-        //    catch (NpgsqlException ne) { }
-        //    finally { dbc.closeConnection(); }
-        //    return IDs;
-        //}
-
-        public int findIDByLocation(string location)
+        public int FindStationIDByLocation(string location)
         {
             int station_id = 0;
             var splittedLocation = new ArrayList();
             string[] split = location.Split(new Char[] { ',' });
             foreach (string s in split)
             {
-                //if (s.Trim() != "")
                 splittedLocation.Add(s);
             }
             try
@@ -260,14 +226,18 @@ namespace Queries
                     }
                 }
             }
-            catch (NpgsqlException ne) { }
+            catch (NpgsqlException ne)
+            {
+
+            }
             finally { dbc.closeConnection(); }
+
             return station_id;
         }
 
-        public ArrayList showCarTable()
+        public List<Car> GetCars()
         {
-            var dgvElements = new ArrayList();
+            List<Car> dgvElements = new List<Car>();
             try
             {
                 dbc.openConnection();
@@ -292,9 +262,9 @@ namespace Queries
             return dgvElements;
         }
 
-        public ArrayList showBuyerDealTable()
+        public List<Deal> ShowBuyerDealTable()
         {
-            var dgvElements = new ArrayList();
+            List<Deal> dgvElements = new List<Deal>();
             try
             {
                 dbc.openConnection();
@@ -306,8 +276,8 @@ namespace Queries
                     {
                         Deal deal = new Deal();
                         deal.dealSet(Convert.ToInt32(dbDataRecord["deal_id"]), Convert.ToInt32(dbDataRecord["car_id"]),
-                            Convert.ToInt32(dbDataRecord["station_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
-                            dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"]), 
+                            Convert.ToInt32(dbDataRecord["staff_id"]),dbDataRecord["fueltype"].ToString(), 
+                            Convert.ToInt32(dbDataRecord["fuelamount"]), Convert.ToInt32(dbDataRecord["dealprice"]),
                             dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()).Date);
                         dgvElements.Add(deal);
                     }
@@ -322,31 +292,26 @@ namespace Queries
             return dgvElements;
         }
 
-        public ArrayList findDealList(Car car, string searchFlag)
+        public List<Deal> GetDeals(Car car)
         {
-            var dgvElements = new ArrayList();
+            List<Deal> dgvElements = new List<Deal>();
             
             try
             {
                 NpgsqlDataReader AZSTableReader = null;
                 dbc.openConnection();
-                if (searchFlag.Equals("car_id"))
-                {
-                    NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, cardnum, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = '" + car.GetCar_id() + "' ", dbc.getConnection());
-                    AZSTableReader = queryCommand.ExecuteReader();
-                }
-                else if (searchFlag.Equals("cardnum"))
-                {
-                    NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, cardnum, dealdate FROM \"AZS\".\"Deal\" WHERE cardnum = '" + car.GetCardNum() + "' ", dbc.getConnection());
-                    AZSTableReader = queryCommand.ExecuteReader();
-                }
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = @Car_id", dbc.getConnection());
+                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = '" + car.GetCar_id() + "' ", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Car_id", car.GetCar_id());
+                AZSTableReader = queryCommand.ExecuteReader();
                 //NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
                         Deal foundDeal = new Deal();
-                        foundDeal.dealSet(dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"].ToString()), dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()).Date);
+                        foundDeal.dealSet(dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"].ToString()),
+                            Convert.ToInt32(dbDataRecord["dealprice"]), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()));
                         dgvElements.Add(foundDeal);
                     }
                 }
@@ -360,9 +325,9 @@ namespace Queries
             return dgvElements;
         }
 
-        public ArrayList getCardNumList()
+        public List<string> GetCardNumList()
         {
-            var comboBoxElements = new ArrayList();
+            List<string> comboBoxElements = new List<string>();
 
             try
             {
@@ -386,7 +351,7 @@ namespace Queries
             return comboBoxElements;
         }
 
-        public void addToCarTable(Car car)
+        public void AddToCarTable(Car car)
         {
             NpgsqlCommand queryCommand;
             try
@@ -399,6 +364,120 @@ namespace Queries
                 queryCommand.Parameters.AddWithValue("@cardnum", car.GetCardNum());
 
                 queryCommand.ExecuteNonQuery();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+        }
+
+        public List<Account> GetAccounting()
+        {
+            List<Account> dgvElements = new List<Account>();
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT  * FROM \"AZS\".\"Accounting\" ORDER BY accountdate", dbc.getConnection());
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        Account account = new Account();
+                        account.accountSet(Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["station_adres"].ToString(),
+                            dbDataRecord["fuelaccounttype"].ToString(), Convert.ToInt32(dbDataRecord["fuelaccountamount"]),
+                            Convert.ToDateTime(dbDataRecord["accountdate"].ToString()));
+                        dgvElements.Add(account);
+                    }
+                }
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+
+            return dgvElements;
+        }
+
+        public ArrayList ShowDealTable()
+        {
+            var dgvElements = new ArrayList();
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\"", dbc.getConnection());
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        Deal deal = new Deal();
+
+                        deal.dealSet(Convert.ToInt32(dbDataRecord["deal_id"]), Convert.ToInt32(dbDataRecord["car_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
+                            dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"]), Convert.ToInt32(dbDataRecord["dealprice"]),
+                            dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()));
+                        dgvElements.Add(deal);
+                    }
+                }
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+
+            return dgvElements;
+        }
+
+        public string FindStaffByID(int staff_id)
+        {
+            string SName = "", name, surname;
+            try
+            {
+                NpgsqlDataReader AZSTableReader = null;
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT surname, name FROM \"AZS\".\"Staff\" WHERE staff_id = @Staff_id ", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Staff_id", staff_id);
+                AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        surname = dbDataRecord["surname"].ToString().Replace(" ", string.Empty);
+                        name = dbDataRecord["name"].ToString().Replace(" ", string.Empty);
+                        SName = surname + " " + name;
+                    }
+                }
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+
+            return SName;
+        }
+
+        public void UpdateDealTabele(Deal dealToUpdate, Deal deal)
+        {
+            try
+            {
+                dbc.openConnection();
+                //NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Deal\" SET fueltype = '" + deal.GetFuelType() + "', fuelamount = '" + deal.GetFuelAmount() + 
+                //"', dealprice = '" + deal.GetDealPrice() + "', cardnum = '" + deal.GetCardNum() + "', dealdate = '" + deal.GetDealDate() + "'" +
+                //" WHERE deal_id = " + Convert.ToInt32(dealToUpdate.GetDeal_id()) + " ", dbc.getConnection());
+                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Deal\" SET fueltype = @Fueltype, fuelamount = @Fuelamount, dealprice = @DealPrice,"+
+                    "cardnum = @Cardnum, dealdate = @DealDate WHERE deal_id = @Deal_id ", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Fueltype", deal.GetFuelType());
+                queryCommand.Parameters.AddWithValue("@Fuelamount", deal.GetFuelAmount());
+                queryCommand.Parameters.AddWithValue("@DealPrice", deal.GetDealPrice());
+                queryCommand.Parameters.AddWithValue("@Cardnum", deal.GetCardNum());
+                queryCommand.Parameters.AddWithValue("@DealDate", deal.GetDealDate());
+                queryCommand.Parameters.AddWithValue("@Deal_id", dealToUpdate.GetDeal_id());
+                queryCommand.ExecuteNonQuery();
+
             }
             catch (NpgsqlException ne)
             {

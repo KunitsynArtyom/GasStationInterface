@@ -9,12 +9,10 @@ using System.Data.Common;
 using System.Collections;
 using Queries.Entities;
 
-namespace Queries
+namespace Queries.Interfaces
 {
-    interface IUserQuery
+    interface IWorkerQuery
     {
-        List<Station> getStations();
-
-        List<Station> findStation(string fCountry, string fCity);
+        List<Deal> getDealList();
     }
 }

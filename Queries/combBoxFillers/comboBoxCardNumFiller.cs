@@ -11,7 +11,7 @@ namespace Queries.combBoxFillers
     public class comboBoxCardNumFiller
     {
         ComboBox cb;
-        ArrayList comboBoxElements;
+        List<string> comboBoxElements;
         AdminQuery adminQuery;
         public comboBoxCardNumFiller(ComboBox cb, AdminQuery adminQuery)
         {
@@ -21,8 +21,8 @@ namespace Queries.combBoxFillers
 
         public void cb_CardNumFill()
         {
-            comboBoxElements = adminQuery.getCardNumList();
-            foreach (String st in comboBoxElements)
+            comboBoxElements = adminQuery.GetCardNumList();
+            foreach (string st in comboBoxElements)
             {
                 cb.Items.Add(st);
             }

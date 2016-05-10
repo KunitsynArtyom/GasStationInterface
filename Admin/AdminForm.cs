@@ -19,6 +19,8 @@ namespace Admin
         private Form additionalForm;
         dgvStaffFiller fillStaffTable;
         dgvCarFiller fillCarTable;
+        dgvAccountFiller fillAccountingTable;
+        dgvDealFiller fillDealTable;
         public AdminQuery adminQuery;
         public NpgsqlConnection conn;
 
@@ -26,7 +28,7 @@ namespace Admin
         {
             InitializeComponent();
             this.conn = conn;
-            adminQuery = new AdminQuery(conn/*, dgvVievStaff*/);
+            adminQuery = new AdminQuery(conn);
             additionalForm = this;
         }
 
@@ -36,6 +38,10 @@ namespace Admin
             fillStaffTable.showTable();
             fillCarTable = new dgvCarFiller(dgvVievCars, adminQuery);
             fillCarTable.showTable();
+            fillAccountingTable = new dgvAccountFiller(dgvViewAccounting, adminQuery);
+            fillAccountingTable.showTable();
+            fillDealTable = new dgvDealFiller(dgvVievDeal, adminQuery);
+            fillDealTable.showTable();
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
@@ -74,7 +80,7 @@ namespace Admin
 
         private void btnFindDeals_Click(object sender, EventArgs e)
         {
-            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, adminQuery, "car_id");
+            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, adminQuery);
             dealList.ShowDialog();
             //Hide();
             //Show();
@@ -89,10 +95,14 @@ namespace Admin
             //Hide();
         }
 
-        private void btnFindDealsByCard_id_Click(object sender, EventArgs e)
+        private void btnDealUpdate_Click(object sender, EventArgs e)
         {
-            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, adminQuery, "cardnum");
-            dealList.ShowDialog();
+            updateDealTableForm updateDealForm = new updateDealTableForm(dgvVievDeal.CurrentRow, adminQuery, dgvVievDeal);
+            updateDealForm.ShowDialog();
+            Hide();
+            Show();
+            fillDealTable = new dgvDealFiller(dgvVievDeal, adminQuery);
+            fillDealTable.showTable();
         }
     }
 }

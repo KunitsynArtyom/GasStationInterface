@@ -13,42 +13,43 @@ namespace Queries.dgvMediators
     {
         DataGridView dgv;
         AdminQuery adminQuery;
-        ArrayList dgvElements;
+        //ArrayList dgvElements;
+        List<Worker> dgvElements;
 
         public dgvStaffFiller(DataGridView dgv, AdminQuery adminQuery)
         {
-            dgvElements = new ArrayList();
+            dgvElements = new List<Worker>();
             this.adminQuery = adminQuery;
             this.dgv = dgv;
         }
 
         public void showTable()
         {
-            dgvElements = adminQuery.showStaffTable();
+            dgvElements = adminQuery.GetStaff();
             dgv.Rows.Clear();
             foreach (Worker wk in dgvElements)
             {
-                dgv.Rows.Add(wk.GetSurname(), wk.GetName(), wk.GetGender(), wk.GetFunction());
+                dgv.Rows.Add(wk.GetSurname(), wk.GetName(), wk.GetGender(), wk.GetFunction(), wk.GetSalary());
             }
         }
 
         public void addToTable(Worker wk)
         {
-            adminQuery.addToStaffTable(wk);
+            adminQuery.AddToStaffTable(wk);
         }
 
         public void updateTable(/*DataGridViewRow updateRow*/int number, Worker wk)
         {
-            var workerList = adminQuery.showStaffTable();
+            var workerList = adminQuery.GetStaff();
             Worker wkToUpdate = (Worker)workerList[number];
-            adminQuery.updateStaffTabele(wkToUpdate, wk);
+            adminQuery.UpdateStaffTabele(wkToUpdate, wk);
         }
 
         public void deleteFromTable(int number)
         {
-            var workerList = adminQuery.showStaffTable();
+            var workerList = adminQuery.GetStaff();
             Worker wkToDelete = (Worker)workerList[number];
-            adminQuery.deleteFromStaffTabele(wkToDelete);
+            adminQuery.DeleteFromStaffTabele(wkToDelete);
         }
     }
 }

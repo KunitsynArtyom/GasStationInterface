@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
-using Connection;
 using System.Collections;
 using Queries.Entities;
 
@@ -14,26 +13,20 @@ namespace Queries
 {
     public class UserQuery : IUserQuery //класс, содержащий в себе методы-запросы к таблице GasStation
     {
-        //public DataGridView dgv;
-        //DBConnection dbc = new DBConnection();
+
         public DBConnection dbc;
-        public UserQuery(NpgsqlConnection conn/*, DataGridView dgv*/)
+        public UserQuery(NpgsqlConnection conn)
         {
             dbc = new DBConnection(conn);
             //this.dgv = dgv;
         }
-        public ArrayList showAZSTable()
+        public List<Station> getStations()
         {        
-            var dgvElements = new ArrayList();
-            //Station st = new Station();
+            List<Station> stationList = new List<Station>();
             try
             {
 
                 dbc.openConnection();
-                //if (!dgv.Equals(0))
-                //{
-                //    dgv.Rows.Clear();
-                //}
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -43,7 +36,7 @@ namespace Queries
                         Station st = new Station();
                         st.stationSet(Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["orgname"].ToString(), dbDataRecord["country"].ToString(),
                             dbDataRecord["city"].ToString(), dbDataRecord["street"].ToString(), Convert.ToInt32(dbDataRecord["storagecap"]));
-                        dgvElements.Add(st);
+                        stationList.Add(st);
                     }
                 }
                 //dbc.closeConnection();
@@ -53,12 +46,12 @@ namespace Queries
                 
             }
             finally { dbc.closeConnection(); }
-            return dgvElements;
+            return stationList;
         }
 
-        public ArrayList findAZS(string fCountry, string fCity)
+        public List<Station> findStation(string fCountry, string fCity)
         {
-            var dgvElements = new ArrayList();
+            List<Station> stationList = new List<Station>();
             dbc.openConnection();
             try
             {
@@ -76,7 +69,7 @@ namespace Queries
                             dbDataRecord["city"].ToString(),
                             dbDataRecord["street"].ToString(),
                             Convert.ToInt32(dbDataRecord["storagecap"]));
-                        dgvElements.Add(st);
+                        stationList.Add(st);
                     }
                 }
                 //dbc.closeConnection();
@@ -86,7 +79,7 @@ namespace Queries
                 
             }
             finally { dbc.closeConnection(); }
-            return dgvElements;
+            return stationList;
         }
     }
 }

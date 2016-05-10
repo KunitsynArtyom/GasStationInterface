@@ -11,6 +11,7 @@ using Npgsql;
 using System.Data.Common;
 using User;
 using Admin;
+using Worker;
 
 
 namespace Enter
@@ -40,9 +41,13 @@ namespace Enter
             Show();
         }
 
-        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void btnManagerLog_Click(object sender, EventArgs e)
         {
-            //connection.Close();
+            NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS"); // якобы заходим под админом
+            WorkerForm workerForm = new WorkerForm(conn);
+            Hide();
+            workerForm.ShowDialog();
+            Show();
         }
     }
 }

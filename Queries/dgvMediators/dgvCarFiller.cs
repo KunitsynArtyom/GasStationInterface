@@ -13,18 +13,18 @@ namespace Queries.dgvMediators
     {
         DataGridView dgv;
         AdminQuery adminQuery;
-        ArrayList dgvElements;
+        List<Car> dgvElements;
 
         public dgvCarFiller(DataGridView dgv, AdminQuery adminQuery)
         {
-            dgvElements = new ArrayList();
+            dgvElements = new List<Car>();
             this.adminQuery = adminQuery;
             this.dgv = dgv;
         }
 
         public void showTable()
         {
-            dgvElements = adminQuery.showCarTable();
+            dgvElements = adminQuery.GetCars();
             dgv.Rows.Clear();
             foreach (Car car in dgvElements)
             {
@@ -34,7 +34,7 @@ namespace Queries.dgvMediators
 
         public void addToTable(Car car)
         {
-            adminQuery.addToCarTable(car);
+            adminQuery.AddToCarTable(car);
         }
     }
 }

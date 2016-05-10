@@ -31,7 +31,7 @@
             this.dgvDealList = new System.Windows.Forms.DataGridView();
             this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealList)).BeginInit();
             this.SuspendLayout();
@@ -42,7 +42,7 @@
             this.dgvDealList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.fueltype,
             this.fuelamount,
-            this.cardnum,
+            this.dealprice,
             this.dealdate});
             this.dgvDealList.Location = new System.Drawing.Point(12, 12);
             this.dgvDealList.Name = "dgvDealList";
@@ -59,10 +59,10 @@
             this.fuelamount.HeaderText = "Количество топлива";
             this.fuelamount.Name = "fuelamount";
             // 
-            // cardnum
+            // dealprice
             // 
-            this.cardnum.HeaderText = "Номер карты";
-            this.cardnum.Name = "cardnum";
+            this.dealprice.HeaderText = "Цена сделки";
+            this.dealprice.Name = "dealprice";
             // 
             // dealdate
             // 
@@ -86,9 +86,9 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvDealList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
         private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
     }
 }

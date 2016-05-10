@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
-using Connection;
 using System.Collections;
 using Queries.Entities;
 
@@ -14,29 +13,31 @@ namespace Queries
 {
     interface IAdminQuery
     {
-        ArrayList showStaffTable();
+        List<Worker> GetStaff();
 
-        void addToStaffTable(Worker wk);
+        void AddToStaffTable(Worker wk);
 
-        void updateStaffTabele(Worker wkToUpdate, Worker wk);
+        void UpdateStaffTabele(Worker wkToUpdate, Worker wk);
 
-        void deleteFromStaffTabele(Worker wkToDelete);
+        void DeleteFromStaffTabele(Worker wkToDelete);
 
-        ArrayList getOrgList();
+        List<string> GetOrganisations();
 
-        ArrayList getStationList(string Orgname);
+        List<string> GetStationsAdres(string Orgname);
 
-        int findIDByLocation(string location);
+        int FindStationIDByLocation(string location);
 
-        ArrayList showCarTable();
+        List<Car> GetCars();
 
-        ArrayList showBuyerDealTable();
+        List<Deal> ShowBuyerDealTable();
 
-        ArrayList findDealList(Car car, string searchFlag);
+        List<Deal> GetDeals(Car car);
 
-        ArrayList getCardNumList();
+        List<string> GetCardNumList();
 
-        void addToCarTable(Car car);
+        void AddToCarTable(Car car);
+
+        List<Account> GetAccounting();
 
     }
 }

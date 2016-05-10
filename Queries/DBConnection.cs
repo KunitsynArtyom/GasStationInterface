@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 
-namespace Connection
+namespace Queries
 {
     public class DBConnection //класс, устанавливающий соединение с базой данных
     {

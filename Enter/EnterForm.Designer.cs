@@ -30,11 +30,12 @@
         {
             this.btnUserLog = new System.Windows.Forms.Button();
             this.btnAdminLog = new System.Windows.Forms.Button();
+            this.btnManagerLog = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUserLog
             // 
-            this.btnUserLog.Location = new System.Drawing.Point(42, 69);
+            this.btnUserLog.Location = new System.Drawing.Point(42, 83);
             this.btnUserLog.Name = "btnUserLog";
             this.btnUserLog.Size = new System.Drawing.Size(191, 23);
             this.btnUserLog.TabIndex = 0;
@@ -52,11 +53,22 @@
             this.btnAdminLog.UseVisualStyleBackColor = true;
             this.btnAdminLog.Click += new System.EventHandler(this.btnAdminLog_Click);
             // 
+            // btnManagerLog
+            // 
+            this.btnManagerLog.Location = new System.Drawing.Point(42, 54);
+            this.btnManagerLog.Name = "btnManagerLog";
+            this.btnManagerLog.Size = new System.Drawing.Size(191, 23);
+            this.btnManagerLog.TabIndex = 2;
+            this.btnManagerLog.Text = "Вход от имени работника";
+            this.btnManagerLog.UseVisualStyleBackColor = true;
+            this.btnManagerLog.Click += new System.EventHandler(this.btnManagerLog_Click);
+            // 
             // EnterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 117);
+            this.ClientSize = new System.Drawing.Size(280, 128);
+            this.Controls.Add(this.btnManagerLog);
             this.Controls.Add(this.btnAdminLog);
             this.Controls.Add(this.btnUserLog);
             this.Name = "EnterForm";
@@ -69,6 +81,7 @@
 
         private System.Windows.Forms.Button btnUserLog;
         private System.Windows.Forms.Button btnAdminLog;
+        private System.Windows.Forms.Button btnManagerLog;
     }
 }
 
