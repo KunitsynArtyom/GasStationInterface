@@ -401,9 +401,9 @@ namespace Queries
             return dgvElements;
         }
 
-        public ArrayList ShowDealTable()
+        public List<Deal> ShowDealTable()
         {
-            var dgvElements = new ArrayList();
+            List<Deal> dealList = new List<Deal>();
             try
             {
                 dbc.openConnection();
@@ -418,7 +418,7 @@ namespace Queries
                         deal.dealSet(Convert.ToInt32(dbDataRecord["deal_id"]), Convert.ToInt32(dbDataRecord["car_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
                             dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"]), Convert.ToInt32(dbDataRecord["dealprice"]),
                             dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()));
-                        dgvElements.Add(deal);
+                        dealList.Add(deal);
                     }
                 }
             }
@@ -428,7 +428,7 @@ namespace Queries
             }
             finally { dbc.closeConnection(); }
 
-            return dgvElements;
+            return dealList;
         }
 
         public string FindStaffByID(int staff_id)

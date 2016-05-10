@@ -53,7 +53,7 @@
     <Compile Include="combBoxFillers\comboBoxCardNumFiller.cs" />
     <Compile Include="combBoxFillers\comboBoxDealFiller.cs" />
     <Compile Include="combBoxFillers\comboBoxStaffFiller.cs" />
-    <Compile Include="DBConnection.cs" />
+    <Compile Include="Connection\DBConnection.cs" />
     <Compile Include="dgvMediators\dgvAccountFiller.cs" />
     <Compile Include="dgvMediators\dgvCarFiller.cs" />
     <Compile Include="dgvMediators\dgvDealFiller.cs" />
@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\IWorkerQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Station.cs" />
+    <Compile Include="TableQueries\StationQuery.cs" />
     <Compile Include="UserQuery.cs" />
     <Compile Include="WorkerQuery.cs" />
   </ItemGroup>
