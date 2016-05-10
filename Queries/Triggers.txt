@@ -1,0 +1,169 @@
+﻿trigger1 отвечает за разбиение размера цистерны на 3 вида топлива при добавлении в базу новой станции(insert GasStation); 
+добавляет при это в таблицу учета(Accounting) запись лога с количеством топлива каждого вида.
+------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION trigger_1() RETURNS TRIGGER
+AS $$
+DECLARE
+
+account_station_id int;
+fuelamount int;
+station_adres char(100);
+	
+BEGIN
+
+account_station_id = NEW.station_id;
+fuelamount = NEW.StorageCap/3;
+
+SELECT country || ',' || city || ',' || street INTO station_adres
+FROM "AZS"."GasStation"
+WHERE station_id = account_station_id
+;
+
+INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, FuelAccountType, FuelAccountAmount, AccountDate)
+VALUES (account_station_id, station_adres, 'A92', fuelamount, now()),
+(account_station_id, station_adres, 'A95', fuelamount, now()),
+(account_station_id, station_adres, 'A95+', fuelamount, now())
+;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgSQL;
+
+CREATE TRIGGER trigger1
+AFTER INSERT ON "AZS"."GasStation"
+FOR EACH ROW EXECUTE PROCEDURE trigger_1();
+
+trigger2 отвечает за ведение логов в таблицу учета(Accounting); 
+перед добавлением новой сделки в таблицу сделок(Deal) происходит проверка на возможность продажи данного количества топлива определенного вида(смотрит в логах осталось ли в цистернах нужное количество)
+------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION trigger_2() RETURNS TRIGGER
+AS $$
+DECLARE
+
+d_staff_id int;
+d_station_id int;
+d_fueltype char(30);
+d_fuelamount int;
+d_dealdate timestamp without time zone;
+a_fuelamount int;
+station_adres char(100);
+	
+BEGIN
+
+d_staff_id = NEW.staff_id;
+d_fueltype = NEW.fueltype;
+d_fuelamount = NEW.fuelamount;
+d_dealdate = NEW.dealdate;
+
+SELECT station_id INTO d_station_id
+FROM "AZS"."Staff"
+WHERE staff_id = d_staff_id
+;
+
+SELECT country || ',' || city || ',' || street INTO station_adres
+FROM "AZS"."GasStation"
+WHERE station_id = d_station_id
+;
+
+SELECT fuelaccountamount INTO a_fuelamount
+FROM "AZS"."Accounting"
+WHERE station_id = d_station_id 
+AND fuelaccounttype = d_fueltype
+;
+
+IF(a_fuelamount >= d_fuelamount) THEN
+
+a_fuelamount = a_fuelamount - d_fuelamount;
+
+INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, FuelAccountType, FuelAccountAmount, AccountDate)
+VALUES (d_station_id, station_adres, d_fueltype, a_fuelamount, d_dealdate)
+;
+
+RETURN NEW;
+ELSE
+
+END IF;
+END;
+$$ LANGUAGE plpgSQL;
+
+CREATE TRIGGER trigger2
+BEFORE INSERT ON "AZS"."Deal"
+FOR EACH ROW EXECUTE PROCEDURE trigger_2();
+
+trigger3 отвечает за изменения в таблице сделок(Deal);
+при изменении записи происходит поиск последнего учета и зависимо от того, с каким топливом ошиблись и на сколько пишет лог исправления. 
+trigger3 не закончен, осталось добавить еще несколько проверок.
+------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION trigger_3() RETURNS TRIGGER
+AS $$
+DECLARE
+
+d_staff_id int;
+d_station_id int;
+d_fueltype char(30);
+d_fuelamount int;
+d_dealdate timestamp without time zone;
+a_fuelamount int;
+d_prevamount int;
+a_lastaccountdate timestamp without time zone;
+station_adres char(100);
+amountdifference int;
+	
+BEGIN
+
+d_prevamount = OLD.fuelamount;
+d_staff_id = NEW.staff_id;
+d_fueltype = NEW.fueltype;
+d_fuelamount = NEW.fuelamount;
+d_dealdate = NEW.dealdate;
+
+SELECT station_id INTO d_station_id
+FROM "AZS"."Staff"
+WHERE staff_id = d_staff_id
+;
+
+SELECT country || ',' || city || ',' || street INTO station_adres
+FROM "AZS"."GasStation"
+WHERE station_id = d_station_id
+;
+
+SELECT MAX(accountdate) INTO a_lastaccountdate
+FROM "AZS"."Accounting"
+WHERE station_id = d_station_id 
+AND fuelaccounttype = d_fueltype
+;
+
+SELECT fuelaccountamount INTO a_fuelamount
+FROM "AZS"."Accounting"
+WHERE station_id = d_station_id 
+AND accountdate = a_lastaccountdate
+AND fuelaccounttype = d_fueltype
+;
+
+amountdifference = d_fuelamount - d_prevamount;
+
+IF(amountdifference > 0) THEN
+
+
+INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, FuelAccountType, FuelAccountAmount, AccountDate)
+VALUES (d_station_id, station_adres, d_fueltype, a_fuelamount - amountdifference, d_dealdate)
+;
+
+RETURN NEW;
+ELSE
+
+INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, FuelAccountType, FuelAccountAmount, AccountDate)
+VALUES (d_station_id, station_adres, d_fueltype, a_fuelamount + amountdifference, d_dealdate)
+;
+
+RETURN NEW;
+END IF;
+END;
+$$ LANGUAGE plpgSQL;
+
+CREATE TRIGGER trigger3
+AFTER UPDATE ON "AZS"."Deal"
+FOR EACH ROW EXECUTE PROCEDURE trigger_3();

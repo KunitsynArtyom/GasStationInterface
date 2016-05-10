@@ -59,9 +59,9 @@ namespace Queries.TableQueries
             dbc.openConnection();
             try
             {
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
                     "'%" + fCountry + "%' AND city LIKE" + "'%" + fCity + "%'", dbc.getConnection());
-                NpgsqlDataReader AZSTableSearcher = command.ExecuteReader();
+                NpgsqlDataReader AZSTableSearcher = queryCommand.ExecuteReader();
                 if (AZSTableSearcher.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableSearcher)
