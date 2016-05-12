@@ -20,7 +20,7 @@ namespace Admin
     public partial class updateDealTableForm : Form
     {
         public Form af;
-        AdminQuery adminQuery;
+        NpgsqlConnection conn;
         DataGridViewRow updateRow;
         DataGridView dgv;
         int fuelamount, dealprice;
@@ -55,16 +55,16 @@ namespace Admin
             catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
             Deal deal = new Deal();
             deal.dealSet(fueltype, fuelamount, dealprice, cardnum, dealdate);
-            dgvDealFiller dgds = new dgvDealFiller(dgv, adminQuery);
+            dgvDealFiller dgds = new dgvDealFiller(dgv, conn);
             dgds.updateTable(updateRow.Index, deal);
             Close();
         }
 
-        public updateDealTableForm(DataGridViewRow updateRow, AdminQuery adminQuery, DataGridView dgv)
+        public updateDealTableForm(DataGridViewRow updateRow, NpgsqlConnection conn, DataGridView dgv)
         {
             InitializeComponent();
             this.updateRow = updateRow;
-            this.adminQuery = adminQuery;
+            this.conn = conn;
             this.dgv = dgv;
         }
 
@@ -76,7 +76,7 @@ namespace Admin
             cbFuelType.Items.Add("A95");
             cbFuelType.Items.Add("A95+");
             comboBoxDealFiller cbdf;
-            cbdf = new comboBoxDealFiller(cbCardNum, adminQuery);
+            cbdf = new comboBoxDealFiller(cbCardNum, conn);
             cbdf.cb_cardnumFill();
             //cbCardNum.Items.Add("");
         }

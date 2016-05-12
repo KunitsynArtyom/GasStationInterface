@@ -18,30 +18,28 @@ namespace Worker
     {
         public Form additionalForm;
         dgvDealFiller fillDealTable;
-        WorkerQuery workerQuery;
         public NpgsqlConnection conn;
 
         public WorkerForm(NpgsqlConnection conn)
         {
             InitializeComponent();
-            workerQuery = new WorkerQuery(conn);
             this.conn = conn;
             additionalForm = this;
         }
 
         private void WorkerForm_Load(object sender, EventArgs e)
         {
-            fillDealTable = new dgvDealFiller(dgvVievDeal, workerQuery);
+            fillDealTable = new dgvDealFiller(dgvVievDeal, conn);
             fillDealTable.showTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToDealTableForm addForm = new addToDealTableForm(additionalForm, workerQuery, dgvVievDeal);
+            addToDealTableForm addForm = new addToDealTableForm(additionalForm, conn, dgvVievDeal);
             addForm.ShowDialog();
             Hide();
             Show();
-            fillDealTable = new dgvDealFiller(dgvVievDeal, workerQuery);
+            fillDealTable = new dgvDealFiller(dgvVievDeal, conn);
             fillDealTable.showTable();
         }
     }

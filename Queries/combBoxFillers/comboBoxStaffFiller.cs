@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Npgsql;
+using System.Data.Common;
 using System.Collections;
+using Queries;
+using Queries.Entities;
+using Queries.dgvMediators;
+using Queries.combBoxFillers;
+using Queries.TableRepositories;
 
 namespace Queries.combBoxFillers
 {
@@ -13,17 +23,22 @@ namespace Queries.combBoxFillers
         ComboBox cb;
         //ArrayList comboBoxElements;
         List<string> comboBoxElements;
-        AdminQuery adminQuery;
+        StaffRepository staffQuery;
+        StationRepository stationQuery;
+        NpgsqlConnection conn;
 
-        public comboBoxStaffFiller(ComboBox cb, AdminQuery adminQuery)
+        public comboBoxStaffFiller(ComboBox cb, NpgsqlConnection conn)
         {
             this.cb = cb;
-            this.adminQuery = adminQuery; ;
+            this.conn = conn;
+            staffQuery = new StaffRepository(conn);
+            stationQuery = new StationRepository(conn);
+
         }
 
         public void cb_orgFill()
         {
-            comboBoxElements = adminQuery.GetOrganisations();
+            comboBoxElements = stationQuery.GetOrganisations();
             foreach (string st in comboBoxElements)
             {
                 cb.Items.Add(st);
@@ -32,7 +47,7 @@ namespace Queries.combBoxFillers
 
         public void cb_stationFill(string Orgname)
         {
-            comboBoxElements = adminQuery.GetStationsAdres(Orgname);
+            comboBoxElements = stationQuery.GetStationsAdres(Orgname);
             foreach (string st in comboBoxElements)
             {
                 string cbString = RemoveSpaces(st);

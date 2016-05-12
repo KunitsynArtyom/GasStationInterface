@@ -5,27 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using Npgsql;
 using Queries.Entities;
+using Queries.TableRepositories;
 
 namespace Queries.dgvMediators
 {
     public class dgvStaffFiller
     {
         DataGridView dgv;
-        AdminQuery adminQuery;
-        //ArrayList dgvElements;
+        StaffRepository staffQuery;
         List<Worker> dgvElements;
 
-        public dgvStaffFiller(DataGridView dgv, AdminQuery adminQuery)
+        public dgvStaffFiller(DataGridView dgv, NpgsqlConnection conn)
         {
             dgvElements = new List<Worker>();
-            this.adminQuery = adminQuery;
+            staffQuery = new StaffRepository(conn);
             this.dgv = dgv;
         }
 
         public void showTable()
         {
-            dgvElements = adminQuery.GetStaff();
+            dgvElements = staffQuery.GetStaff();
             dgv.Rows.Clear();
             foreach (Worker wk in dgvElements)
             {
@@ -35,21 +36,21 @@ namespace Queries.dgvMediators
 
         public void addToTable(Worker wk)
         {
-            adminQuery.AddToStaffTable(wk);
+            staffQuery.AddToStaffTable(wk);
         }
 
-        public void updateTable(/*DataGridViewRow updateRow*/int number, Worker wk)
+        public void updateTable(int number, Worker wk)
         {
-            var workerList = adminQuery.GetStaff();
-            Worker wkToUpdate = (Worker)workerList[number];
-            adminQuery.UpdateStaffTabele(wkToUpdate, wk);
+            var workerList = staffQuery.GetStaff();
+            Worker wkToUpdate = workerList[number];
+            staffQuery.UpdateStaffTabele(wkToUpdate, wk);
         }
 
         public void deleteFromTable(int number)
         {
-            var workerList = adminQuery.GetStaff();
-            Worker wkToDelete = (Worker)workerList[number];
-            adminQuery.DeleteFromStaffTabele(wkToDelete);
+            var workerList = staffQuery.GetStaff();
+            Worker wkToDelete = workerList[number];
+            staffQuery.DeleteFromStaffTabele(wkToDelete);
         }
     }
 }

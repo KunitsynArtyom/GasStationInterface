@@ -13,31 +13,31 @@ namespace Queries
 {
     interface IAdminQuery
     {
-        List<Worker> GetStaff();
+        //List<Worker> GetStaff();
 
-        void AddToStaffTable(Worker wk);
+        //void AddToStaffTable(Worker wk);
 
-        void UpdateStaffTabele(Worker wkToUpdate, Worker wk);
+        //void UpdateStaffTabele(Worker wkToUpdate, Worker wk);
 
-        void DeleteFromStaffTabele(Worker wkToDelete);
+        //void DeleteFromStaffTabele(Worker wkToDelete);
 
-        List<string> GetOrganisations();
+        //List<string> GetOrganisations();
 
-        List<string> GetStationsAdres(string Orgname);
+        //List<string> GetStationsAdres(string Orgname);
 
-        int FindStationIDByLocation(string location);
+        //int FindStationIDByLocation(string location);
 
-        List<Car> GetCars();
+        //List<Car> GetCars();
 
-        List<Deal> ShowBuyerDealTable();
+        //List<Deal> ShowBuyerDealTable();
 
-        List<Deal> GetDeals(Car car);
+        //List<Deal> GetDeals(Car car);
 
-        List<string> GetCardNumList();
+        //List<string> GetCardNumList();
 
-        void AddToCarTable(Car car);
+        //void AddToCarTable(Car car);
 
-        List<Account> GetAccounting();
+        //List<Account> GetAccounting();
 
     }
 }

@@ -20,14 +20,14 @@ namespace Worker
     public partial class addToDealTableForm : Form
     {
         public Form wf;
-        WorkerQuery workerQuery;
         DataGridView dgv;
+        NpgsqlConnection conn;
 
-        public addToDealTableForm(Form workerForm, WorkerQuery workerQuery, DataGridView dgv)
+        public addToDealTableForm(Form workerForm, NpgsqlConnection conn, DataGridView dgv)
         {
             InitializeComponent();
             wf = workerForm;
-            this.workerQuery = workerQuery;
+            this.conn = conn;
             this.dgv = dgv;
         }
 
@@ -38,7 +38,7 @@ namespace Worker
                 comboBoxDealFiller cbsf;
                 cbStationList.Visible = false;
                 label2.Visible = false;
-                cbsf = new comboBoxDealFiller(cbOrgList, workerQuery);
+                cbsf = new comboBoxDealFiller(cbOrgList, conn);
                 cbsf.cb_orgFill();
             }
             catch (Exception ex) { }
@@ -53,7 +53,7 @@ namespace Worker
                     comboBoxDealFiller cbdf;
                     cbStationList.Visible = true;
                     label2.Visible = true;
-                    cbdf = new comboBoxDealFiller(cbStationList, workerQuery);
+                    cbdf = new comboBoxDealFiller(cbStationList, conn);
                     cbdf.cb_stationFill(cbOrgList.Text);
                 }
             }
@@ -69,7 +69,7 @@ namespace Worker
                     comboBoxDealFiller cbdf;
                     cbStaffList.Visible = true;
                     label2.Visible = true;
-                    cbdf = new comboBoxDealFiller(cbStaffList, workerQuery);
+                    cbdf = new comboBoxDealFiller(cbStaffList, conn);
                     cbdf.cb_stationFill(cbOrgList.Text);
                 }
             }

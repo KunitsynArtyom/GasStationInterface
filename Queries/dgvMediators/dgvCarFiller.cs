@@ -5,26 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using Npgsql;
 using Queries.Entities;
+using Queries.TableRepositories;
 
 namespace Queries.dgvMediators
 {
     public class dgvCarFiller
     {
         DataGridView dgv;
-        AdminQuery adminQuery;
+        NpgsqlConnection conn;
+        CarRepository carQuery;
         List<Car> dgvElements;
 
-        public dgvCarFiller(DataGridView dgv, AdminQuery adminQuery)
+        public dgvCarFiller(DataGridView dgv, NpgsqlConnection conn)
         {
             dgvElements = new List<Car>();
-            this.adminQuery = adminQuery;
+            this.conn = conn;
             this.dgv = dgv;
+            carQuery = new CarRepository(conn);
         }
 
         public void showTable()
         {
-            dgvElements = adminQuery.GetCars();
+            dgvElements = carQuery.GetCars();
             dgv.Rows.Clear();
             foreach (Car car in dgvElements)
             {
@@ -34,7 +38,7 @@ namespace Queries.dgvMediators
 
         public void addToTable(Car car)
         {
-            adminQuery.AddToCarTable(car);
+            carQuery.AddToCarTable(car);
         }
     }
 }

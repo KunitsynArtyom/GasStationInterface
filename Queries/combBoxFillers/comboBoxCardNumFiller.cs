@@ -1,10 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Npgsql;
+using System.Data.Common;
 using System.Collections;
+using Queries;
+using Queries.Entities;
+using Queries.dgvMediators;
+using Queries.combBoxFillers;
+using Queries.TableRepositories;
 
 namespace Queries.combBoxFillers
 {
@@ -12,16 +22,18 @@ namespace Queries.combBoxFillers
     {
         ComboBox cb;
         List<string> comboBoxElements;
-        AdminQuery adminQuery;
-        public comboBoxCardNumFiller(ComboBox cb, AdminQuery adminQuery)
+        NpgsqlConnection conn;
+        CarRepository carQuery;
+        public comboBoxCardNumFiller(ComboBox cb, NpgsqlConnection conn)
         {
             this.cb = cb;
-            this.adminQuery = adminQuery; ;
+            this.conn = conn;
+            carQuery = new CarRepository(conn);
         }
 
         public void cb_CardNumFill()
         {
-            comboBoxElements = adminQuery.GetCardNumList();
+            comboBoxElements = carQuery.GetCardNumList();
             foreach (string st in comboBoxElements)
             {
                 cb.Items.Add(st);

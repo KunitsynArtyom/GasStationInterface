@@ -14,17 +14,21 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvMediators;
 using Queries.combBoxFillers;
+using Queries.TableRepositories;
 
 namespace Admin
 {
     public partial class addToStaffTableForm : Form
     {
         public Form af;
-        AdminQuery adminQuery;
+        NpgsqlConnection conn;
+        StationRepository stationQuery;
+        StaffRepository staffQuery;
         DataGridView dgv;
         int station_id, staff_id, manager, salary;
         string surname, name, gender, function;
         DateTime birthdate;
+
   
 
         private void addToStaffTableForm_Load(object sender, EventArgs e)
@@ -36,7 +40,7 @@ namespace Admin
                 comboBoxStaffFiller cbsf;
                 cbStationList.Visible = false;
                 label2.Visible = false;
-                cbsf = new comboBoxStaffFiller(cbOrgList, adminQuery);
+                cbsf = new comboBoxStaffFiller(cbOrgList, conn);
                 cbsf.cb_orgFill();
             }
             catch (Exception ex) { }
@@ -51,7 +55,7 @@ namespace Admin
                     comboBoxStaffFiller cbsf;
                     cbStationList.Visible = true;
                     label2.Visible = true;
-                    cbsf = new comboBoxStaffFiller(cbStationList, adminQuery);
+                    cbsf = new comboBoxStaffFiller(cbStationList, conn);
                     cbsf.cb_stationFill(cbOrgList.Text);
                 }
             }
@@ -63,7 +67,7 @@ namespace Admin
             //staff_id = Convert.ToInt32(tb_staff_id.Text);
             try
             {
-                station_id = Convert.ToInt32(adminQuery.FindStationIDByLocation(cbStationList.Text));
+                station_id = Convert.ToInt32(stationQuery.FindStationIDByLocation(cbStationList.Text));
                 surname = tb_surname.Text;
                 name = tb_name.Text;
                 try
@@ -84,19 +88,21 @@ namespace Admin
                 Worker wk = new Worker();
                 //wk.workerSet(staff_id, station_id, surname, name, gender, birthdate, function, manager, salary);
                 wk.workerSet(station_id, surname, name, gender, birthdate, function, manager, salary);
-                dgvStaffFiller dgvs = new dgvStaffFiller(dgv, adminQuery);
+                dgvStaffFiller dgvs = new dgvStaffFiller(dgv, conn);
                 dgvs.addToTable(wk);
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             Close();
         }
       
-        public addToStaffTableForm(Form adminForm, AdminQuery adminQuery, DataGridView dgv)
+        public addToStaffTableForm(Form adminForm, NpgsqlConnection conn, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
-            this.adminQuery = adminQuery;
+            this.conn = conn;
             this.dgv = dgv;
+            stationQuery = new StationRepository(conn);
+            staffQuery = new StaffRepository(conn);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

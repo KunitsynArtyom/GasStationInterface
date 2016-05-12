@@ -5,27 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using Npgsql;
 using Queries.Entities;
+using Queries.TableRepositories;
 
 namespace Queries.dgvMediators
 {
     public class dgvStationFiller
     {
         DataGridView dgv;
-        UserQuery userQuery;
+        //UserQuery userQuery;
+        //StationRepository stationQuery;
+        StationRepository stationQuery;
         List<Station> dgvElements;
 
-        public dgvStationFiller(DataGridView dgv, UserQuery userQuery)
+        public dgvStationFiller(DataGridView dgv, NpgsqlConnection conn)
         {
             //dgvElements = new ArrayList();
-            this.userQuery = userQuery;
+            stationQuery = new StationRepository(conn);
             this.dgv = dgv;
         }
 
         public void showTable()
         {
             dgvElements = new List<Station>();
-            dgvElements = userQuery.getStations();
+            dgvElements = stationQuery.getStations();
             dgv.Rows.Clear();
             foreach (Station ps in dgvElements)
             {
@@ -36,7 +40,7 @@ namespace Queries.dgvMediators
         public void findInTable(string country, string city)
         {
             dgvElements = new List<Station>();
-            dgvElements = userQuery.findStation(country, city);
+            dgvElements = stationQuery.findStations(country, city);
             dgv.Rows.Clear();
             foreach (Station ps in dgvElements)
             {

@@ -20,8 +20,8 @@ namespace Admin
     public partial class addToCarTableForm : Form
     {
         public Form af;
-        AdminQuery adminQuery;
         DataGridView dgv;
+        NpgsqlConnection conn;
 
 
         private void addToStaffTableForm_Load(object sender, EventArgs e)
@@ -34,11 +34,11 @@ namespace Admin
             //catch (Exception ex) { }
         }
 
-        public addToCarTableForm(Form adminForm, AdminQuery adminQuery, DataGridView dgv)
+        public addToCarTableForm(Form adminForm, NpgsqlConnection conn, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
-            this.adminQuery = adminQuery;
+            this.conn = conn;
             this.dgv = dgv;
         }
 
@@ -56,7 +56,7 @@ namespace Admin
                 //    cardNum = cbCardNum.Text.ToString();
                 Car car = new Car();
                 car.buyerSet(carMark, cardNum);
-                dgvCarFiller dgvc = new dgvCarFiller(dgv, adminQuery);
+                dgvCarFiller dgvc = new dgvCarFiller(dgv, conn);
                 dgvc.addToTable(car);
             }
             catch (FormatException) { MessageBox.Show("Данные введены некорректно!"); }
