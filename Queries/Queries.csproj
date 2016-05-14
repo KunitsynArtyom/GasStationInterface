@@ -53,6 +53,8 @@
     <Compile Include="comboBoxFillers\comboBoxDealFiller.cs" />
     <Compile Include="comboBoxFillers\comboBoxStaffFiller.cs" />
     <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="Controllers\CarController.cs" />
+    <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="dgvControllers\dgvAccountController.cs" />
     <Compile Include="dgvControllers\dgvCarController.cs" />
@@ -62,10 +64,7 @@
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\Deal.cs" />
-    <Compile Include="Interfaces\IAdminQuery.cs" />
-    <Compile Include="Interfaces\IUserQuery.cs" />
     <Compile Include="Entities\Worker.cs" />
-    <Compile Include="Interfaces\IWorkerQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Station.cs" />
     <Compile Include="TableRepositories\AccountRepository.cs" />

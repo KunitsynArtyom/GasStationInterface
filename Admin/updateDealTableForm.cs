@@ -14,6 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
+using Queries.Controllers;
 
 namespace Admin
 {
@@ -55,6 +56,8 @@ namespace Admin
             catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
             Deal deal = new Deal();
             deal.dealSet(fueltype, fuelamount, dealprice, cardnum, dealdate);
+            //DealController dc = new DealController(dgv, dbc);
+            //dc.checkUpdate(updateRow.Index, deal);
             dgvDealController dgds = new dgvDealController(dgv, dbc);
             dgds.updateTable(updateRow.Index, deal);
             Close();

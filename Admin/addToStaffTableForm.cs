@@ -15,18 +15,18 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.Controllers;
 
 namespace Admin
 {
     public partial class addToStaffTableForm : Form
     {
         public Form af;
-        NpgsqlConnection conn;
         DBConnection dbc;
         StationRepository stationQuery;
         StaffRepository staffQuery;
         DataGridView dgv;
-        int station_id, staff_id, manager, salary;
+        int station_id, manager, salary;
         string surname, name, gender, function;
         DateTime birthdate;
 
@@ -68,7 +68,7 @@ namespace Admin
             //staff_id = Convert.ToInt32(tb_staff_id.Text);
             try
             {
-                station_id = Convert.ToInt32(stationQuery.FindStationIDByLocation(cbStationList.Text));
+                station_id = stationQuery.FindStationIDByLocation(cbStationList.Text);
                 surname = tb_surname.Text;
                 name = tb_name.Text;
                 try
@@ -77,7 +77,7 @@ namespace Admin
                     {
                         gender = Convert.ToString(cb_gender.Text);
                     }
-                }catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
+                } catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
                 birthdate = Convert.ToDateTime(birthDatePick.Text);
                 function = tb_function.Text;
                 try
@@ -89,8 +89,10 @@ namespace Admin
                 Worker wk = new Worker();
                 //wk.workerSet(staff_id, station_id, surname, name, gender, birthdate, function, manager, salary);
                 wk.workerSet(station_id, surname, name, gender, birthdate, function, manager, salary);
-                dgvStaffController dgvs = new dgvStaffController(dgv, dbc);
-                dgvs.addToTable(wk);
+                StaffController sc = new StaffController(dgv, dbc);
+                sc.checkAddition(wk);
+                //dgvStaffController dgvs = new dgvStaffController(dgv, dbc);
+                //dgvs.addToTable(wk);
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             Close();

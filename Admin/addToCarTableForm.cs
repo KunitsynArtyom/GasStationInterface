@@ -14,6 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
+using Queries.Controllers;
 
 namespace Admin
 {
@@ -22,12 +23,6 @@ namespace Admin
         public Form af;
         DataGridView dgv;
         DBConnection dbc;
-
-
-        private void addToStaffTableForm_Load(object sender, EventArgs e)
-        {
-
-        }
 
         public addToCarTableForm(Form adminForm, DBConnection dbc, DataGridView dgv)
         {
@@ -46,8 +41,10 @@ namespace Admin
                 cardNum = tbCardNum.Text.ToString();
                 Car car = new Car();
                 car.buyerSet(carMark, cardNum);
-                dgvCarController dgvc = new dgvCarController(dgv, dbc);
-                dgvc.addToTable(car);
+                CarController cc = new CarController(dgv, dbc);
+                cc.checkAddition(car);
+                //dgvCarController dgvc = new dgvCarController(dgv, dbc);
+                //dgvc.addToTable(car);
             }
             catch (FormatException) { MessageBox.Show("Данные введены некорректно!"); }
             Close();

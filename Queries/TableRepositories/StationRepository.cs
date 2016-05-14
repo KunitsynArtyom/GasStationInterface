@@ -99,19 +99,26 @@ namespace Queries.TableRepositories
             try
             {
                 //dbc.openConnection();
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT station_id FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
-                       "@fCountry AND city LIKE @fStreet AND street LIKE" +
-                       "@fStreet", dbc.getConnection());
 
-                queryCommand.Parameters.AddWithValue("@fCountry", "%" + splittedLocation[0] + "%");
-                queryCommand.Parameters.AddWithValue("@fCity", "%" + splittedLocation[1] + "%");
-                queryCommand.Parameters.AddWithValue("@fStreet", "%" + splittedLocation[2] + "%");
+                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
+                //       "@fCountry AND city LIKE @fCity AND street LIKE @fStreet ", dbc.getConnection());
 
-                NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
+                //queryCommand.Parameters.AddWithValue("@fCountry", "%" + splittedLocation[0] + "%");
+                //queryCommand.Parameters.AddWithValue("@fCity", "%" + splittedLocation[1] + "%");
+                //queryCommand.Parameters.AddWithValue("@fStreet", "%" + splittedLocation[2] + "%");
+
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
+                    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
+
+                MessageBox.Show(splittedLocation[0]);
+            MessageBox.Show(splittedLocation[1]);
+            MessageBox.Show(splittedLocation[2]);
+
+            NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in Station_ID_TableSearcher)
-                    {
+                    {                   
                         station_id = Convert.ToInt32(dbDataRecord["station_id"]);
                     }
                     
@@ -123,7 +130,7 @@ namespace Queries.TableRepositories
 
             }
             //finally { dbc.closeConnection(); }
-
+            MessageBox.Show(station_id.ToString());
             return station_id;
         }
 

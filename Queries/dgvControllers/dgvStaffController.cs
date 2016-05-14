@@ -46,7 +46,7 @@ namespace Queries.dgvControllers
         {
             var workerList = staffQuery.GetStaff();
             Worker wkToUpdate = workerList[number];
-            staffQuery.UpdateStaffTabele(wkToUpdate, wk);
+            staffQuery.UpdateStaffTable(wkToUpdate, wk);
         }
 
         public void deleteFromTable(int number)

@@ -101,7 +101,6 @@
             this.Controls.Add(this.tbCarMark);
             this.Name = "addToCarTableForm";
             this.Text = "Добавление покупателя";
-            this.Load += new System.EventHandler(this.addToStaffTableForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

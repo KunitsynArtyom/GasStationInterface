@@ -76,6 +76,7 @@ namespace Queries.TableRepositories
                     queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
                     queryCommand.Parameters.AddWithValue("@Manager", wk.GetManager());
                     queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
+                    queryCommand.ExecuteNonQuery();
                 }
                 else
                 {
@@ -88,14 +89,7 @@ namespace Queries.TableRepositories
                     queryCommand.Parameters.AddWithValue("@Birthdate", wk.GetBirthdate());
                     queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
                     queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
-                }
-                try
-                {
                     queryCommand.ExecuteNonQuery();
-                }
-                catch (NpgsqlException ne)
-                {
-
                 }
                 //finally { dbc.closeConnection(); }
             }
@@ -103,10 +97,11 @@ namespace Queries.TableRepositories
             {
 
             }
-            finally { dbc.closeConnection(); }
+
+            //finally { dbc.closeConnection(); }
         }
 
-        public void UpdateStaffTabele(Worker wkToUpdate, Worker wk)
+        public void UpdateStaffTable(Worker wkToUpdate, Worker wk)
         {
             try
             {

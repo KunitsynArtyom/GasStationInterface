@@ -37,7 +37,7 @@
             this.tabCarTable = new System.Windows.Forms.TabPage();
             this.btnCarAdd = new System.Windows.Forms.Button();
             this.btnFindDealsByCar_id = new System.Windows.Forms.Button();
-            this.dgvVievCars = new System.Windows.Forms.DataGridView();
+            this.dgvViewCars = new System.Windows.Forms.DataGridView();
             this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabStaffTable = new System.Windows.Forms.TabPage();
@@ -45,31 +45,31 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnTableView = new System.Windows.Forms.Button();
-            this.dgvVievStaff = new System.Windows.Forms.DataGridView();
+            this.dgvViewStaff = new System.Windows.Forms.DataGridView();
+            this.surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.function = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAdmin = new System.Windows.Forms.TabControl();
             this.tabDealTable = new System.Windows.Forms.TabPage();
             this.btnDealUpdate = new System.Windows.Forms.Button();
-            this.dgvVievDeal = new System.Windows.Forms.DataGridView();
+            this.dgvViewDeal = new System.Windows.Forms.DataGridView();
             this.sname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.function = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAccountingTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewAccounting)).BeginInit();
             this.tabCarTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVievCars)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewCars)).BeginInit();
             this.tabStaffTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVievStaff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewStaff)).BeginInit();
             this.tabAdmin.SuspendLayout();
             this.tabDealTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).BeginInit();
             this.SuspendLayout();
             // 
             // tabAccountingTable
@@ -123,7 +123,7 @@
             // 
             this.tabCarTable.Controls.Add(this.btnCarAdd);
             this.tabCarTable.Controls.Add(this.btnFindDealsByCar_id);
-            this.tabCarTable.Controls.Add(this.dgvVievCars);
+            this.tabCarTable.Controls.Add(this.dgvViewCars);
             this.tabCarTable.Location = new System.Drawing.Point(4, 22);
             this.tabCarTable.Name = "tabCarTable";
             this.tabCarTable.Padding = new System.Windows.Forms.Padding(3);
@@ -152,16 +152,16 @@
             this.btnFindDealsByCar_id.UseVisualStyleBackColor = true;
             this.btnFindDealsByCar_id.Click += new System.EventHandler(this.btnFindDeals_Click);
             // 
-            // dgvVievCars
+            // dgvViewCars
             // 
-            this.dgvVievCars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVievCars.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvViewCars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvViewCars.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.carmark,
             this.cardnum});
-            this.dgvVievCars.Location = new System.Drawing.Point(6, 3);
-            this.dgvVievCars.Name = "dgvVievCars";
-            this.dgvVievCars.Size = new System.Drawing.Size(493, 452);
-            this.dgvVievCars.TabIndex = 1;
+            this.dgvViewCars.Location = new System.Drawing.Point(6, 3);
+            this.dgvViewCars.Name = "dgvViewCars";
+            this.dgvViewCars.Size = new System.Drawing.Size(493, 452);
+            this.dgvViewCars.TabIndex = 1;
             // 
             // carmark
             // 
@@ -181,7 +181,7 @@
             this.tabStaffTable.Controls.Add(this.btnAdd);
             this.tabStaffTable.Controls.Add(this.btnUpdate);
             this.tabStaffTable.Controls.Add(this.btnTableView);
-            this.tabStaffTable.Controls.Add(this.dgvVievStaff);
+            this.tabStaffTable.Controls.Add(this.dgvViewStaff);
             this.tabStaffTable.Location = new System.Drawing.Point(4, 22);
             this.tabStaffTable.Name = "tabStaffTable";
             this.tabStaffTable.Padding = new System.Windows.Forms.Padding(3);
@@ -230,19 +230,46 @@
             this.btnTableView.UseVisualStyleBackColor = true;
             this.btnTableView.Click += new System.EventHandler(this.btnTableView_Click);
             // 
-            // dgvVievStaff
+            // dgvViewStaff
             // 
-            this.dgvVievStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVievStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvViewStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvViewStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.surname,
             this.name,
             this.gender,
             this.function,
             this.salary});
-            this.dgvVievStaff.Location = new System.Drawing.Point(6, 3);
-            this.dgvVievStaff.Name = "dgvVievStaff";
-            this.dgvVievStaff.Size = new System.Drawing.Size(525, 440);
-            this.dgvVievStaff.TabIndex = 0;
+            this.dgvViewStaff.Location = new System.Drawing.Point(6, 3);
+            this.dgvViewStaff.Name = "dgvViewStaff";
+            this.dgvViewStaff.Size = new System.Drawing.Size(525, 440);
+            this.dgvViewStaff.TabIndex = 0;
+            // 
+            // surname
+            // 
+            this.surname.HeaderText = "Фамилия";
+            this.surname.Name = "surname";
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Имя";
+            this.name.Name = "name";
+            // 
+            // gender
+            // 
+            this.gender.HeaderText = "Пол";
+            this.gender.Name = "gender";
+            this.gender.Width = 60;
+            // 
+            // function
+            // 
+            this.function.HeaderText = "Профессия";
+            this.function.Name = "function";
+            this.function.Width = 120;
+            // 
+            // salary
+            // 
+            this.salary.HeaderText = "Зарплата";
+            this.salary.Name = "salary";
             // 
             // tabAdmin
             // 
@@ -259,7 +286,7 @@
             // tabDealTable
             // 
             this.tabDealTable.Controls.Add(this.btnDealUpdate);
-            this.tabDealTable.Controls.Add(this.dgvVievDeal);
+            this.tabDealTable.Controls.Add(this.dgvViewDeal);
             this.tabDealTable.Location = new System.Drawing.Point(4, 22);
             this.tabDealTable.Name = "tabDealTable";
             this.tabDealTable.Padding = new System.Windows.Forms.Padding(3);
@@ -278,20 +305,20 @@
             this.btnDealUpdate.UseVisualStyleBackColor = true;
             this.btnDealUpdate.Click += new System.EventHandler(this.btnDealUpdate_Click);
             // 
-            // dgvVievDeal
+            // dgvViewDeal
             // 
-            this.dgvVievDeal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvVievDeal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvViewDeal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvViewDeal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.sname,
             this.fueltype,
             this.fuelamount,
             this.dealprice,
             this.dataGridViewTextBoxColumn1,
             this.dealdate});
-            this.dgvVievDeal.Location = new System.Drawing.Point(6, 0);
-            this.dgvVievDeal.Name = "dgvVievDeal";
-            this.dgvVievDeal.Size = new System.Drawing.Size(580, 455);
-            this.dgvVievDeal.TabIndex = 1;
+            this.dgvViewDeal.Location = new System.Drawing.Point(6, 0);
+            this.dgvViewDeal.Name = "dgvViewDeal";
+            this.dgvViewDeal.Size = new System.Drawing.Size(580, 455);
+            this.dgvViewDeal.TabIndex = 1;
             // 
             // sname
             // 
@@ -329,33 +356,6 @@
             this.dealdate.Name = "dealdate";
             this.dealdate.Width = 150;
             // 
-            // surname
-            // 
-            this.surname.HeaderText = "Фамилия";
-            this.surname.Name = "surname";
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Имя";
-            this.name.Name = "name";
-            // 
-            // gender
-            // 
-            this.gender.HeaderText = "Пол";
-            this.gender.Name = "gender";
-            this.gender.Width = 60;
-            // 
-            // function
-            // 
-            this.function.HeaderText = "Профессия";
-            this.function.Name = "function";
-            this.function.Width = 120;
-            // 
-            // salary
-            // 
-            this.salary.HeaderText = "Зарплата";
-            this.salary.Name = "salary";
-            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,12 +368,12 @@
             this.tabAccountingTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewAccounting)).EndInit();
             this.tabCarTable.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVievCars)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewCars)).EndInit();
             this.tabStaffTable.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVievStaff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewStaff)).EndInit();
             this.tabAdmin.ResumeLayout(false);
             this.tabDealTable.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -381,13 +381,13 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabAdmin;
-        private System.Windows.Forms.DataGridView dgvVievStaff;
+        private System.Windows.Forms.DataGridView dgvViewStaff;
         private System.Windows.Forms.Button btnTableView;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TabPage tabStaffTable;
-        private System.Windows.Forms.DataGridView dgvVievCars;
+        private System.Windows.Forms.DataGridView dgvViewCars;
         private System.Windows.Forms.Button btnFindDealsByCar_id;
         private System.Windows.Forms.Button btnCarAdd;
         private System.Windows.Forms.TabPage tabCarTable;
@@ -395,7 +395,7 @@
         private System.Windows.Forms.TabPage tabAccountingTable;
         private System.Windows.Forms.TabPage tabDealTable;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dgvVievDeal;
+        private System.Windows.Forms.DataGridView dgvViewDeal;
         private System.Windows.Forms.Button btnDealUpdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;

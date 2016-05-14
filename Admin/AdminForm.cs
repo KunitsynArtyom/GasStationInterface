@@ -12,6 +12,7 @@ using System.Data.Common;
 using Queries;
 using Queries.dgvControllers;
 using Queries.TableRepositories;
+using Queries.Controllers;
 
 namespace Admin
 {
@@ -38,53 +39,55 @@ namespace Admin
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
+            fillStaffTable = new dgvStaffController(dgvViewStaff, dbc);
             fillStaffTable.showTable();
-            fillCarTable = new dgvCarController(dgvVievCars, dbc);
+            fillCarTable = new dgvCarController(dgvViewCars, dbc);
             fillCarTable.showTable();
             fillAccountingTable = new dgvAccountController(dgvViewAccounting, dbc);
             fillAccountingTable.showTable();
-            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
+            fillDealTable = new dgvDealController(dgvViewDeal, dbc);
             fillDealTable.showTable();
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
         {
-            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
+            fillStaffTable = new dgvStaffController(dgvViewStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            updateStaffTableForm updateForm = new updateStaffTableForm(dgvVievStaff.CurrentRow, dbc, dgvVievStaff);
+            updateStaffTableForm updateForm = new updateStaffTableForm(dgvViewStaff.CurrentRow, dbc, dgvViewStaff);
             updateForm.ShowDialog();
             Hide();
             Show();
-            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
+            fillStaffTable = new dgvStaffController(dgvViewStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToStaffTableForm addForm = new addToStaffTableForm(additionalForm, dbc, dgvVievStaff);
+            addToStaffTableForm addForm = new addToStaffTableForm(additionalForm, dbc, dgvViewStaff);
             addForm.ShowDialog();
             Hide();
             Show();
-            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
+            fillStaffTable = new dgvStaffController(dgvViewStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
-            fillStaffTable.deleteFromTable(dgvVievStaff.CurrentRow.Index);
-            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
+            //fillStaffTable = new dgvStaffController(dgvViewStaff, dbc);
+            //fillStaffTable.deleteFromTable(dgvViewStaff.CurrentRow.Index);
+            StaffController sc = new StaffController(dgvViewStaff, dbc);
+            sc.checkDelete(dgvViewStaff.CurrentRow.Index);
+            fillStaffTable = new dgvStaffController(dgvViewStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnFindDeals_Click(object sender, EventArgs e)
         {
-            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, dbc);
+            DealList dealList = new DealList(dgvViewCars.CurrentRow.Index, dbc);
             dealList.ShowDialog();
 
 
@@ -94,9 +97,9 @@ namespace Admin
 
         private void btnCarAdd_Click(object sender, EventArgs e)
         {
-            addToCarTableForm addForm = new addToCarTableForm(additionalForm, dbc, dgvVievCars);
+            addToCarTableForm addForm = new addToCarTableForm(additionalForm, dbc, dgvViewCars);
             addForm.ShowDialog();
-            fillCarTable = new dgvCarController(dgvVievCars, dbc);
+            fillCarTable = new dgvCarController(dgvViewCars, dbc);
             fillCarTable.showTable();
 
 
@@ -105,11 +108,11 @@ namespace Admin
 
         private void btnDealUpdate_Click(object sender, EventArgs e)
         {
-            updateDealTableForm updateDealForm = new updateDealTableForm(dgvVievDeal.CurrentRow, dbc, dgvVievDeal);
+            updateDealTableForm updateDealForm = new updateDealTableForm(dgvViewDeal.CurrentRow, dbc, dgvViewDeal);
             updateDealForm.ShowDialog();
             Hide();
             Show();
-            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
+            fillDealTable = new dgvDealController(dgvViewDeal, dbc);
             fillDealTable.showTable();
         }
     }
