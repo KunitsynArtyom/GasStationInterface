@@ -12,8 +12,8 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
+using Queries.comboBoxFillers;
 
 namespace Admin
 {
@@ -21,24 +21,19 @@ namespace Admin
     {
         public Form af;
         DataGridView dgv;
-        NpgsqlConnection conn;
+        DBConnection dbc;
 
 
         private void addToStaffTableForm_Load(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    comboBoxCardNumFiller comboBoxFiller = new comboBoxCardNumFiller(cbCardNum, adminQuery);
-            //    comboBoxFiller.cb_CardNumFill();
-            //}
-            //catch (Exception ex) { }
+
         }
 
-        public addToCarTableForm(Form adminForm, NpgsqlConnection conn, DataGridView dgv)
+        public addToCarTableForm(Form adminForm, DBConnection dbc, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
-            this.conn = conn;
+            this.dbc = dbc;
             this.dgv = dgv;
         }
 
@@ -48,15 +43,10 @@ namespace Admin
             {
                 string carMark, cardNum;
                 carMark = tbCarMark.Text.ToString();
-                //if (tbCardNum.Text != "" && cbCardNum.SelectedIndex == -1)
-                //{
-                    cardNum = tbCardNum.Text.ToString();
-                //}
-                //else
-                //    cardNum = cbCardNum.Text.ToString();
+                cardNum = tbCardNum.Text.ToString();
                 Car car = new Car();
                 car.buyerSet(carMark, cardNum);
-                dgvCarFiller dgvc = new dgvCarFiller(dgv, conn);
+                dgvCarController dgvc = new dgvCarController(dgv, dbc);
                 dgvc.addToTable(car);
             }
             catch (FormatException) { MessageBox.Show("Данные введены некорректно!"); }

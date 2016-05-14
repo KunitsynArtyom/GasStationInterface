@@ -49,15 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="combBoxFillers\comboBoxCardNumFiller.cs" />
-    <Compile Include="combBoxFillers\comboBoxDealFiller.cs" />
-    <Compile Include="combBoxFillers\comboBoxStaffFiller.cs" />
+    <Compile Include="comboBoxFillers\comboBoxCardNumFiller.cs" />
+    <Compile Include="comboBoxFillers\comboBoxDealFiller.cs" />
+    <Compile Include="comboBoxFillers\comboBoxStaffFiller.cs" />
     <Compile Include="Connection\DBConnection.cs" />
-    <Compile Include="dgvMediators\dgvAccountFiller.cs" />
-    <Compile Include="dgvMediators\dgvCarFiller.cs" />
-    <Compile Include="dgvMediators\dgvDealFiller.cs" />
-    <Compile Include="dgvMediators\dgvStaffFiller.cs" />
-    <Compile Include="dgvMediators\dgvStationFiller.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="dgvControllers\dgvAccountController.cs" />
+    <Compile Include="dgvControllers\dgvCarController.cs" />
+    <Compile Include="dgvControllers\dgvDealController.cs" />
+    <Compile Include="dgvControllers\dgvStaffController.cs" />
+    <Compile Include="dgvControllers\dgvStationController.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\Deal.cs" />

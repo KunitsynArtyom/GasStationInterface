@@ -9,20 +9,19 @@ using Npgsql;
 using Queries.Entities;
 using Queries.TableRepositories;
 
-namespace Queries.dgvMediators
+namespace Queries.dgvControllers
 {
-    public class dgvStationFiller
+    public class dgvStationController
     {
         DataGridView dgv;
-        //UserQuery userQuery;
-        //StationRepository stationQuery;
         StationRepository stationQuery;
         List<Station> dgvElements;
+        DBConnection dbc;
 
-        public dgvStationFiller(DataGridView dgv, NpgsqlConnection conn)
+        public dgvStationController(DataGridView dgv, DBConnection dbc)
         {
-            //dgvElements = new ArrayList();
-            stationQuery = new StationRepository(conn);
+            this.dbc = dbc;
+            stationQuery = new StationRepository(dbc);
             this.dgv = dgv;
         }
 

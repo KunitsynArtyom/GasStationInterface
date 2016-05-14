@@ -10,36 +10,38 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
 using Queries;
-using Queries.dgvMediators;
+using Queries.dgvControllers;
 
 namespace Worker
 {
     public partial class WorkerForm : Form
     {
         public Form additionalForm;
-        dgvDealFiller fillDealTable;
-        public NpgsqlConnection conn;
+        dgvDealController fillDealTable;
+        DBConnection dbc;
+        NpgsqlConnection conn;
 
         public WorkerForm(NpgsqlConnection conn)
         {
             InitializeComponent();
-            this.conn = conn;
+            DBConnection dbc = new DBConnection(conn);
+            dbc.openConnection();
+            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
             additionalForm = this;
         }
 
         private void WorkerForm_Load(object sender, EventArgs e)
         {
-            fillDealTable = new dgvDealFiller(dgvVievDeal, conn);
             fillDealTable.showTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToDealTableForm addForm = new addToDealTableForm(additionalForm, conn, dgvVievDeal);
+            addToDealTableForm addForm = new addToDealTableForm(additionalForm, dbc, dgvVievDeal);
             addForm.ShowDialog();
             Hide();
             Show();
-            fillDealTable = new dgvDealFiller(dgvVievDeal, conn);
+            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
             fillDealTable.showTable();
         }
     }

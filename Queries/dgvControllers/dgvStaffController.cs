@@ -8,20 +8,23 @@ using System.Collections;
 using Npgsql;
 using Queries.Entities;
 using Queries.TableRepositories;
+using Queries.dgvControllers;
 
-namespace Queries.dgvMediators
+namespace Queries.dgvControllers
 {
-    public class dgvStaffFiller
+    public class dgvStaffController
     {
         DataGridView dgv;
         StaffRepository staffQuery;
         List<Worker> dgvElements;
+        DBConnection dbc;
 
-        public dgvStaffFiller(DataGridView dgv, NpgsqlConnection conn)
+        public dgvStaffController(DataGridView dgv, DBConnection dbc)
         {
             dgvElements = new List<Worker>();
-            staffQuery = new StaffRepository(conn);
+            this.dbc = dbc;
             this.dgv = dgv;
+            staffQuery = new StaffRepository(dbc);
         }
 
         public void showTable()

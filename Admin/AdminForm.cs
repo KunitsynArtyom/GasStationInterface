@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
 using Queries;
-using Queries.dgvMediators;
+using Queries.dgvControllers;
 using Queries.TableRepositories;
 
 namespace Admin
@@ -18,70 +18,73 @@ namespace Admin
     public partial class AdminForm : Form
     {
         private Form additionalForm;
-        dgvStaffFiller fillStaffTable;
-        dgvCarFiller fillCarTable;
-        dgvAccountFiller fillAccountingTable;
-        dgvDealFiller fillDealTable;
+        dgvStaffController fillStaffTable;
+        dgvCarController fillCarTable;
+        dgvAccountController fillAccountingTable;
+        dgvDealController fillDealTable;
         StaffRepository staffQuery;
         public NpgsqlConnection conn;
+        DBConnection dbc;
 
         public AdminForm(NpgsqlConnection conn)
         {
             InitializeComponent();
             this.conn = conn;
             additionalForm = this;
-            staffQuery = new StaffRepository(conn);
+            dbc = new DBConnection(conn);
+            dbc.openConnection();
+            staffQuery = new StaffRepository(dbc);          
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            fillStaffTable = new dgvStaffFiller(dgvVievStaff, conn);
+            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
             fillStaffTable.showTable();
-            fillCarTable = new dgvCarFiller(dgvVievCars, conn);
+            fillCarTable = new dgvCarController(dgvVievCars, dbc);
             fillCarTable.showTable();
-            fillAccountingTable = new dgvAccountFiller(dgvViewAccounting, conn);
+            fillAccountingTable = new dgvAccountController(dgvViewAccounting, dbc);
             fillAccountingTable.showTable();
-            fillDealTable = new dgvDealFiller(dgvVievDeal, conn);
+            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
             fillDealTable.showTable();
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
         {
-            fillStaffTable = new dgvStaffFiller(dgvVievStaff, conn);
+            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            updateStaffTableForm updateForm = new updateStaffTableForm(dgvVievStaff.CurrentRow, conn, dgvVievStaff);
+            updateStaffTableForm updateForm = new updateStaffTableForm(dgvVievStaff.CurrentRow, dbc, dgvVievStaff);
             updateForm.ShowDialog();
             Hide();
             Show();
-            fillStaffTable = new dgvStaffFiller(dgvVievStaff, conn);
+            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToStaffTableForm addForm = new addToStaffTableForm(additionalForm, conn, dgvVievStaff);
+            addToStaffTableForm addForm = new addToStaffTableForm(additionalForm, dbc, dgvVievStaff);
             addForm.ShowDialog();
             Hide();
             Show();
-            fillStaffTable = new dgvStaffFiller(dgvVievStaff, conn);
+            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            fillStaffTable = new dgvStaffFiller(dgvVievStaff, conn);
+            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
             fillStaffTable.deleteFromTable(dgvVievStaff.CurrentRow.Index);
-            fillStaffTable = new dgvStaffFiller(dgvVievStaff, conn);
+            fillStaffTable = new dgvStaffController(dgvVievStaff, dbc);
             fillStaffTable.showTable();
         }
 
         private void btnFindDeals_Click(object sender, EventArgs e)
         {
-            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, conn);
+            DealList dealList = new DealList(dgvVievCars.CurrentRow.Index, dbc);
             dealList.ShowDialog();
 
 
@@ -91,9 +94,9 @@ namespace Admin
 
         private void btnCarAdd_Click(object sender, EventArgs e)
         {
-            addToCarTableForm addForm = new addToCarTableForm(additionalForm, conn, dgvVievCars);
+            addToCarTableForm addForm = new addToCarTableForm(additionalForm, dbc, dgvVievCars);
             addForm.ShowDialog();
-            fillCarTable = new dgvCarFiller(dgvVievCars, conn);
+            fillCarTable = new dgvCarController(dgvVievCars, dbc);
             fillCarTable.showTable();
 
 
@@ -102,11 +105,11 @@ namespace Admin
 
         private void btnDealUpdate_Click(object sender, EventArgs e)
         {
-            updateDealTableForm updateDealForm = new updateDealTableForm(dgvVievDeal.CurrentRow, conn, dgvVievDeal);
+            updateDealTableForm updateDealForm = new updateDealTableForm(dgvVievDeal.CurrentRow, dbc, dgvVievDeal);
             updateDealForm.ShowDialog();
             Hide();
             Show();
-            fillDealTable = new dgvDealFiller(dgvVievDeal, conn);
+            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
             fillDealTable.showTable();
         }
     }

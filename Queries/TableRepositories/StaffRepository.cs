@@ -15,9 +15,9 @@ namespace Queries.TableRepositories
     {
         public DBConnection dbc;
 
-        public StaffRepository(NpgsqlConnection conn)
+        public StaffRepository(DBConnection dbc)
         {
-            dbc = new DBConnection(conn);
+            this.dbc = dbc;
         }
 
         public List<Worker> GetStaff()
@@ -25,14 +25,13 @@ namespace Queries.TableRepositories
             List<Worker> dgvElements = new List<Worker>();
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Staff\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
-                        //dgv.Rows.Add(dbDataRecord["surname"].ToString(), dbDataRecord["name"].ToString(), dbDataRecord["gender"].ToString(), dbDataRecord["function"].ToString());
                         Worker wk = new Worker();
                         try
                         {
@@ -47,14 +46,15 @@ namespace Queries.TableRepositories
                                 dbDataRecord["function"].ToString(), 0, Convert.ToInt32(dbDataRecord["salary"]));
                         }
                         dgvElements.Add(wk);
-                    }
+                    }                    
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
             return dgvElements;
         }
 
@@ -63,7 +63,7 @@ namespace Queries.TableRepositories
             NpgsqlCommand queryCommand;
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 if (wk.GetManager() != 0)
                 {
                     queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Manager, Salary)" +
@@ -97,7 +97,7 @@ namespace Queries.TableRepositories
                 {
 
                 }
-                finally { dbc.closeConnection(); }
+                //finally { dbc.closeConnection(); }
             }
             catch (NpgsqlException ne)
             {
@@ -110,7 +110,7 @@ namespace Queries.TableRepositories
         {
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = '" + wk.GetSurname() + "', name = '" + wk.GetName() +
                 //"', gender = '" + wk.GetGender() + "', function = '" + wk.GetFunction() + "'" +
                 //" WHERE staff_id = " + Convert.ToInt32(wkToUpdate.GetStaff_id()) + " ", dbc.getConnection());
@@ -130,14 +130,14 @@ namespace Queries.TableRepositories
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
         }
 
         public void DeleteFromStaffTabele(Worker wkToDelete)
         {
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"AZS\".\"Staff\"  WHERE staff_id = @Staff_id", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Staff_id", Convert.ToInt32(wkToDelete.GetStaff_id()));
                 queryCommand.ExecuteNonQuery();
@@ -147,7 +147,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
         }
 
         public string FindStaffByID(int staff_id)
@@ -156,7 +156,7 @@ namespace Queries.TableRepositories
             try
             {
                 NpgsqlDataReader AZSTableReader = null;
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT surname, name FROM \"AZS\".\"Staff\" WHERE staff_id = @Staff_id ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Staff_id", staff_id);
                 AZSTableReader = queryCommand.ExecuteReader();
@@ -167,18 +167,17 @@ namespace Queries.TableRepositories
                         surname = dbDataRecord["surname"].ToString().Replace(" ", string.Empty);
                         name = dbDataRecord["name"].ToString().Replace(" ", string.Empty);
                         SName = surname + " " + name;
-                    }
+                    }               
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return SName;
         }
-
-
     }
 }

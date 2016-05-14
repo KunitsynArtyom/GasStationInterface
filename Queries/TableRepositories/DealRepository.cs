@@ -16,9 +16,9 @@ namespace Queries.TableRepositories
     {
         public DBConnection dbc;
 
-        public DealRepository(NpgsqlConnection conn)
+        public DealRepository(DBConnection dbc)
         {
-            dbc = new DBConnection(conn);
+            this.dbc = dbc;
         }
 
         public List<Deal> ShowDealTable()
@@ -26,7 +26,7 @@ namespace Queries.TableRepositories
             List<Deal> dealList = new List<Deal>();
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -41,12 +41,13 @@ namespace Queries.TableRepositories
                         dealList.Add(deal);
                     }
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return dealList;
         }
@@ -58,7 +59,7 @@ namespace Queries.TableRepositories
             try
             {
                 NpgsqlDataReader AZSTableReader = null;
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = @Car_id", dbc.getConnection());
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = '" + car.GetCar_id() + "' ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Car_id", car.GetCar_id());
@@ -74,12 +75,13 @@ namespace Queries.TableRepositories
                         dgvElements.Add(foundDeal);
                     }
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return dgvElements;
         }
@@ -88,7 +90,7 @@ namespace Queries.TableRepositories
         {
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Deal\" SET fueltype = '" + deal.GetFuelType() + "', fuelamount = '" + deal.GetFuelAmount() + 
                 //"', dealprice = '" + deal.GetDealPrice() + "', cardnum = '" + deal.GetCardNum() + "', dealdate = '" + deal.GetDealDate() + "'" +
                 //" WHERE deal_id = " + Convert.ToInt32(dealToUpdate.GetDeal_id()) + " ", dbc.getConnection());
@@ -107,7 +109,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
         }
 
         public List<Deal> ShowBuyerDealTable()
@@ -115,7 +117,7 @@ namespace Queries.TableRepositories
             List<Deal> dgvElements = new List<Deal>();
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -130,16 +132,15 @@ namespace Queries.TableRepositories
                         dgvElements.Add(deal);
                     }
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return dgvElements;
         }
-
-
     }
 }

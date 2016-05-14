@@ -12,15 +12,15 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
+using Queries.comboBoxFillers;
 
 namespace Admin
 {
     public partial class updateDealTableForm : Form
     {
         public Form af;
-        NpgsqlConnection conn;
+        DBConnection dbc;
         DataGridViewRow updateRow;
         DataGridView dgv;
         int fuelamount, dealprice;
@@ -55,16 +55,16 @@ namespace Admin
             catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
             Deal deal = new Deal();
             deal.dealSet(fueltype, fuelamount, dealprice, cardnum, dealdate);
-            dgvDealFiller dgds = new dgvDealFiller(dgv, conn);
+            dgvDealController dgds = new dgvDealController(dgv, dbc);
             dgds.updateTable(updateRow.Index, deal);
             Close();
         }
 
-        public updateDealTableForm(DataGridViewRow updateRow, NpgsqlConnection conn, DataGridView dgv)
+        public updateDealTableForm(DataGridViewRow updateRow, DBConnection dbc, DataGridView dgv)
         {
             InitializeComponent();
             this.updateRow = updateRow;
-            this.conn = conn;
+            this.dbc = dbc;
             this.dgv = dgv;
         }
 
@@ -76,7 +76,7 @@ namespace Admin
             cbFuelType.Items.Add("A95");
             cbFuelType.Items.Add("A95+");
             comboBoxDealFiller cbdf;
-            cbdf = new comboBoxDealFiller(cbCardNum, conn);
+            cbdf = new comboBoxDealFiller(cbCardNum, dbc);
             cbdf.cb_cardnumFill();
             //cbCardNum.Items.Add("");
         }

@@ -12,23 +12,23 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
+using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 
-namespace Queries.combBoxFillers
+namespace Queries.comboBoxFillers
 {
     public class comboBoxCardNumFiller
     {
         ComboBox cb;
         List<string> comboBoxElements;
-        NpgsqlConnection conn;
+        DBConnection dbc;
         CarRepository carQuery;
-        public comboBoxCardNumFiller(ComboBox cb, NpgsqlConnection conn)
+        public comboBoxCardNumFiller(ComboBox cb, DBConnection dbc)
         {
             this.cb = cb;
-            this.conn = conn;
-            carQuery = new CarRepository(conn);
+            this.dbc = dbc;
+            carQuery = new CarRepository(dbc);
         }
 
         public void cb_CardNumFill()

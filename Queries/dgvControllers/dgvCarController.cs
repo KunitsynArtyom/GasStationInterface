@@ -9,21 +9,21 @@ using Npgsql;
 using Queries.Entities;
 using Queries.TableRepositories;
 
-namespace Queries.dgvMediators
+namespace Queries.dgvControllers
 {
-    public class dgvCarFiller
+    public class dgvCarController
     {
         DataGridView dgv;
         NpgsqlConnection conn;
         CarRepository carQuery;
         List<Car> dgvElements;
+        DBConnection dbc;
 
-        public dgvCarFiller(DataGridView dgv, NpgsqlConnection conn)
+        public dgvCarController(DataGridView dgv, DBConnection dbc)
         {
-            dgvElements = new List<Car>();
-            this.conn = conn;
+            this.dbc = dbc;
+            carQuery = new CarRepository(dbc);
             this.dgv = dgv;
-            carQuery = new CarRepository(conn);
         }
 
         public void showTable()

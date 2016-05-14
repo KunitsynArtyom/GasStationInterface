@@ -12,8 +12,8 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
+using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 
 namespace Admin
@@ -22,6 +22,7 @@ namespace Admin
     {
         public Form af;
         NpgsqlConnection conn;
+        DBConnection dbc;
         StationRepository stationQuery;
         StaffRepository staffQuery;
         DataGridView dgv;
@@ -40,7 +41,7 @@ namespace Admin
                 comboBoxStaffFiller cbsf;
                 cbStationList.Visible = false;
                 label2.Visible = false;
-                cbsf = new comboBoxStaffFiller(cbOrgList, conn);
+                cbsf = new comboBoxStaffFiller(cbOrgList, dbc);
                 cbsf.cb_orgFill();
             }
             catch (Exception ex) { }
@@ -55,7 +56,7 @@ namespace Admin
                     comboBoxStaffFiller cbsf;
                     cbStationList.Visible = true;
                     label2.Visible = true;
-                    cbsf = new comboBoxStaffFiller(cbStationList, conn);
+                    cbsf = new comboBoxStaffFiller(cbStationList, dbc);
                     cbsf.cb_stationFill(cbOrgList.Text);
                 }
             }
@@ -88,21 +89,21 @@ namespace Admin
                 Worker wk = new Worker();
                 //wk.workerSet(staff_id, station_id, surname, name, gender, birthdate, function, manager, salary);
                 wk.workerSet(station_id, surname, name, gender, birthdate, function, manager, salary);
-                dgvStaffFiller dgvs = new dgvStaffFiller(dgv, conn);
+                dgvStaffController dgvs = new dgvStaffController(dgv, dbc);
                 dgvs.addToTable(wk);
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             Close();
         }
       
-        public addToStaffTableForm(Form adminForm, NpgsqlConnection conn, DataGridView dgv)
+        public addToStaffTableForm(Form adminForm, DBConnection dbc, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
-            this.conn = conn;
+            this.dbc = dbc;
             this.dgv = dgv;
-            stationQuery = new StationRepository(conn);
-            staffQuery = new StaffRepository(conn);
+            stationQuery = new StationRepository(dbc);
+            staffQuery = new StaffRepository(dbc);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

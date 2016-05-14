@@ -15,9 +15,9 @@ namespace Queries.TableRepositories
     {
         public DBConnection dbc;
 
-        public CarRepository(NpgsqlConnection conn)
+        public CarRepository(DBConnection dbc)
         {
-            dbc = new DBConnection(conn);
+            this.dbc = dbc;
         }
 
         public List<Car> GetCars()
@@ -25,7 +25,7 @@ namespace Queries.TableRepositories
             List<Car> dgvElements = new List<Car>();
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Car\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -37,12 +37,13 @@ namespace Queries.TableRepositories
                         dgvElements.Add(buyerCar);
                     }
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return dgvElements;
         }
@@ -53,7 +54,7 @@ namespace Queries.TableRepositories
 
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT DISTINCT cardnum FROM \"AZS\".\"Car\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -63,12 +64,13 @@ namespace Queries.TableRepositories
                         comboBoxElements.Add(dbDataRecord["cardnum"].ToString());
                     }
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return comboBoxElements;
         }
@@ -78,7 +80,7 @@ namespace Queries.TableRepositories
             NpgsqlCommand queryCommand;
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
 
                 queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Car\"(carmark, cardnum)" +
                 "VALUES(@carmark, @cardnum)", dbc.getConnection());
@@ -91,7 +93,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
         }
     }
 }

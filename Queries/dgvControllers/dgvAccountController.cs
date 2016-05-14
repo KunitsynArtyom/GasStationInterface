@@ -12,25 +12,23 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
+using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 
-namespace Queries.dgvMediators
+namespace Queries.dgvControllers
 {
-    public class dgvAccountFiller
+    public class dgvAccountController
     {
         DataGridView dgv;
         AccountRepository accountQuery;
         List<Account> dgvElements;
-        NpgsqlConnection conn;
 
-        public dgvAccountFiller(DataGridView dgv, NpgsqlConnection conn)
+        public dgvAccountController(DataGridView dgv, DBConnection dbc)
         {
             dgvElements = new List<Account>();
-            this.conn = conn;
             this.dgv = dgv;
-            accountQuery = new AccountRepository(conn);
+            accountQuery = new AccountRepository(dbc);
         }
 
         public void showTable()

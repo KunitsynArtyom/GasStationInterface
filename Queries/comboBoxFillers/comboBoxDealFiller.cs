@@ -12,11 +12,11 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
+using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 
-namespace Queries.combBoxFillers
+namespace Queries.comboBoxFillers
 {
     public class comboBoxDealFiller
     {
@@ -27,20 +27,14 @@ namespace Queries.combBoxFillers
         StationRepository stationQuery;
         CarRepository carQuery;
 
-        public comboBoxDealFiller(ComboBox cb, NpgsqlConnection conn)
+
+        public comboBoxDealFiller(ComboBox cb, DBConnection dbc)
         {
             this.cb = cb;
-            this.conn = conn;
-            dealQuery = new DealRepository(conn);
-            stationQuery = new StationRepository(conn);
-            carQuery = new CarRepository(conn);
+            dealQuery = new DealRepository(dbc);
+            stationQuery = new StationRepository(dbc);
+            carQuery = new CarRepository(dbc);
         }
-
-        //public comboBoxDealFiller(ComboBox cb, AdminQuery adminQuery)
-        //{
-        //    this.cb = cb;
-        //    this.adminQuery = adminQuery; ;
-        //}
 
         public void cb_orgFill()
         {

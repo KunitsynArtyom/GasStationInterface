@@ -12,8 +12,8 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
+using Queries.comboBoxFillers;
 
 namespace Worker
 {
@@ -21,13 +21,13 @@ namespace Worker
     {
         public Form wf;
         DataGridView dgv;
-        NpgsqlConnection conn;
+        DBConnection dbc;
 
-        public addToDealTableForm(Form workerForm, NpgsqlConnection conn, DataGridView dgv)
+        public addToDealTableForm(Form workerForm, DBConnection dbc, DataGridView dgv)
         {
             InitializeComponent();
             wf = workerForm;
-            this.conn = conn;
+            this.dbc = dbc;
             this.dgv = dgv;
         }
 
@@ -38,7 +38,7 @@ namespace Worker
                 comboBoxDealFiller cbsf;
                 cbStationList.Visible = false;
                 label2.Visible = false;
-                cbsf = new comboBoxDealFiller(cbOrgList, conn);
+                cbsf = new comboBoxDealFiller(cbOrgList, dbc);
                 cbsf.cb_orgFill();
             }
             catch (Exception ex) { }
@@ -53,7 +53,7 @@ namespace Worker
                     comboBoxDealFiller cbdf;
                     cbStationList.Visible = true;
                     label2.Visible = true;
-                    cbdf = new comboBoxDealFiller(cbStationList, conn);
+                    cbdf = new comboBoxDealFiller(cbStationList, dbc);
                     cbdf.cb_stationFill(cbOrgList.Text);
                 }
             }
@@ -69,7 +69,7 @@ namespace Worker
                     comboBoxDealFiller cbdf;
                     cbStaffList.Visible = true;
                     label2.Visible = true;
-                    cbdf = new comboBoxDealFiller(cbStaffList, conn);
+                    cbdf = new comboBoxDealFiller(cbStaffList, dbc);
                     cbdf.cb_stationFill(cbOrgList.Text);
                 }
             }

@@ -15,9 +15,9 @@ namespace Queries.TableRepositories
     {
         public DBConnection dbc;
 
-        public AccountRepository(NpgsqlConnection conn)
+        public AccountRepository(DBConnection dbc)
         {
-            dbc = new DBConnection(conn);
+            this.dbc = dbc;
         }
 
         public List<Account> GetAccounting()
@@ -25,7 +25,7 @@ namespace Queries.TableRepositories
             List<Account> dgvElements = new List<Account>();
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT  * FROM \"AZS\".\"Accounting\" ORDER BY accountdate", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -39,12 +39,13 @@ namespace Queries.TableRepositories
                         dgvElements.Add(account);
                     }
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return dgvElements;
         }

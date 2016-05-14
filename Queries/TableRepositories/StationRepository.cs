@@ -15,9 +15,9 @@ namespace Queries.TableRepositories
     {
         public DBConnection dbc;
 
-        public StationRepository(NpgsqlConnection conn)
+        public StationRepository(DBConnection dbc)
         {
-            dbc = new DBConnection(conn);
+            this.dbc = dbc;
         }
 
         public List<Station> getStations()
@@ -26,7 +26,7 @@ namespace Queries.TableRepositories
             try
             {
 
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -39,19 +39,20 @@ namespace Queries.TableRepositories
                         stationList.Add(st);
                     }
                 }
+                 AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
             return stationList;
         }
 
         public List<Station> findStations(string fCountry, string fCity)
         {
             List<Station> stationList = new List<Station>();
-            dbc.openConnection();
+            //dbc.openConnection();
             try
             {
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
@@ -75,13 +76,14 @@ namespace Queries.TableRepositories
                             Convert.ToInt32(dbDataRecord["storagecap"]));
                         stationList.Add(st);
                     }
+                    AZSTableSearcher.Close();
                 }
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
             return stationList;
         }
 
@@ -96,7 +98,7 @@ namespace Queries.TableRepositories
             }
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT station_id FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
                        "@fCountry AND city LIKE @fStreet AND street LIKE" +
                        "@fStreet", dbc.getConnection());
@@ -112,13 +114,15 @@ namespace Queries.TableRepositories
                     {
                         station_id = Convert.ToInt32(dbDataRecord["station_id"]);
                     }
+                    
                 }
+                Station_ID_TableSearcher.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return station_id;
         }
@@ -128,7 +132,7 @@ namespace Queries.TableRepositories
             List<string> comboBoxElements = new List<string>();
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT country, city, street FROM \"AZS\".\"GasStation\" WHERE orgname LIKE @Orgname ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Orgname", "%" + Orgname + "%");
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
@@ -138,13 +142,15 @@ namespace Queries.TableRepositories
                     {
                         comboBoxElements.Add(dbDataRecord["country"].ToString() + "," + dbDataRecord["city"].ToString() + "," + dbDataRecord["street"].ToString());
                     }
+                    
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return comboBoxElements;
         }
@@ -155,7 +161,7 @@ namespace Queries.TableRepositories
 
             try
             {
-                dbc.openConnection();
+                //dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT DISTINCT orgname FROM \"AZS\".\"GasStation\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -165,12 +171,13 @@ namespace Queries.TableRepositories
                         comboBoxElements.Add(dbDataRecord["orgname"].ToString());
                     }
                 }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-            finally { dbc.closeConnection(); }
+            //finally { dbc.closeConnection(); }
 
             return comboBoxElements;
         }

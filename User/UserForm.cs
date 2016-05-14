@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
 using Queries;
-using Queries.dgvMediators;
+using Queries.dgvControllers;
 using Queries.TableRepositories;
 
 namespace User
@@ -18,14 +18,17 @@ namespace User
     public partial class UserForm : Form //форма пользователя
     {
         StationRepository stationQuery;
-        dgvStationFiller fillTable;
+        dgvStationController fillTable;
         public NpgsqlConnection conn;
+
         public UserForm(NpgsqlConnection conn)
         {
             InitializeComponent();
             this.conn = conn;
-            stationQuery = new StationRepository(conn);
-            fillTable = new dgvStationFiller(dgvVievAZS, conn);
+            DBConnection dbc = new DBConnection(conn);
+            dbc.openConnection();
+            stationQuery = new StationRepository(dbc);
+            fillTable = new dgvStationController(dgvVievAZS, dbc);
         }
 
         private void UserForm_Load(object sender, EventArgs e)

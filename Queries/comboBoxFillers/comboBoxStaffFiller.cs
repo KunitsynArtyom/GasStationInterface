@@ -12,27 +12,25 @@ using System.Data.Common;
 using System.Collections;
 using Queries;
 using Queries.Entities;
-using Queries.dgvMediators;
-using Queries.combBoxFillers;
+using Queries.dgvControllers;
 using Queries.TableRepositories;
 
-namespace Queries.combBoxFillers
+namespace Queries.comboBoxFillers
 {
     public class comboBoxStaffFiller
     {
         ComboBox cb;
-        //ArrayList comboBoxElements;
         List<string> comboBoxElements;
         StaffRepository staffQuery;
         StationRepository stationQuery;
-        NpgsqlConnection conn;
+        DBConnection dbc;
 
-        public comboBoxStaffFiller(ComboBox cb, NpgsqlConnection conn)
+        public comboBoxStaffFiller(ComboBox cb, DBConnection dbc)
         {
             this.cb = cb;
-            this.conn = conn;
-            staffQuery = new StaffRepository(conn);
-            stationQuery = new StationRepository(conn);
+            this.dbc = dbc;
+            staffQuery = new StaffRepository(dbc);
+            stationQuery = new StationRepository(dbc);
 
         }
 
