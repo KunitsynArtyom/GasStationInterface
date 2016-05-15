@@ -77,7 +77,6 @@ namespace Queries.Controllers
             if (checkFlag == true)
             {
                 dgsc.updateTable(number, wk);
-                //staffQuery.UpdateStaffTable(wkToUpdate, wk);
             }
             else
                 MessageBox.Show("Данные были введены неправильно!");

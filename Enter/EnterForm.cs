@@ -43,7 +43,7 @@ namespace Enter
 
         private void btnManagerLog_Click(object sender, EventArgs e)
         {
-            NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS"); // якобы заходим под админом
+            NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS"); // якобы заходим под работником
             WorkerForm workerForm = new WorkerForm(conn);
             Hide();
             workerForm.ShowDialog();

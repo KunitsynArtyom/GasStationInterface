@@ -162,6 +162,36 @@ namespace Queries.TableRepositories
             return comboBoxElements;
         }
 
+        public string GetStationsAdresByID(int station_id)
+        {
+            string location = "";
+            var comboBoxElements = new List<string>();
+            try
+            {
+                //dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT country, city, street FROM \"AZS\".\"GasStation\" WHERE station_id = @Station_id ", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Station_id", station_id);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        location = dbDataRecord["country"].ToString() + "," + dbDataRecord["city"].ToString() + "," + dbDataRecord["street"].ToString();
+                        //MessageBox.Show(location);
+                        //comboBoxElements.Add(dbDataRecord["country"].ToString() + "," + dbDataRecord["city"].ToString() + "," + dbDataRecord["street"].ToString());
+                    }
+
+                }
+                AZSTableReader.Close();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+
+            return location;
+        }
+
         public List<string> GetOrganisations()
         {
             List<string> comboBoxElements = new List<string>();
@@ -187,6 +217,28 @@ namespace Queries.TableRepositories
             //finally { dbc.closeConnection(); }
 
             return comboBoxElements;
+        }
+
+        public void AddToStationTable(Station st)
+        {
+            NpgsqlCommand queryCommand;
+            try
+            {
+                //dbc.openConnection();
+
+                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"GasStation\"(OrgName, Country, City, Street, StorageCap)" +
+                        "VALUES(@OrgName, @Country, @City, @Street, @StorageCap)", dbc.getConnection());
+                    queryCommand.Parameters.AddWithValue("@OrgName", st.GetOrgName());
+                    queryCommand.Parameters.AddWithValue("@Country", st.GetCountry());
+                    queryCommand.Parameters.AddWithValue("@City", st.GetCity());
+                    queryCommand.Parameters.AddWithValue("@Street", st.GetStreet());
+                    queryCommand.Parameters.AddWithValue("@StorageCap", st.GetStorageCap());
+                    queryCommand.ExecuteNonQuery();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
         }
     }
 }

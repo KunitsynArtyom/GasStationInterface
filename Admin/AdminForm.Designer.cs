@@ -52,6 +52,14 @@
             this.function = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAdmin = new System.Windows.Forms.TabControl();
+            this.tabStationTable = new System.Windows.Forms.TabPage();
+            this.btnStationAdd = new System.Windows.Forms.Button();
+            this.dgvVievAZS = new System.Windows.Forms.DataGridView();
+            this.orgname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.country = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.street = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.storagecap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabDealTable = new System.Windows.Forms.TabPage();
             this.btnDealUpdate = new System.Windows.Forms.Button();
             this.dgvViewDeal = new System.Windows.Forms.DataGridView();
@@ -68,6 +76,8 @@
             this.tabStaffTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewStaff)).BeginInit();
             this.tabAdmin.SuspendLayout();
+            this.tabStationTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).BeginInit();
             this.tabDealTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).BeginInit();
             this.SuspendLayout();
@@ -129,7 +139,7 @@
             this.tabCarTable.Padding = new System.Windows.Forms.Padding(3);
             this.tabCarTable.Size = new System.Drawing.Size(703, 458);
             this.tabCarTable.TabIndex = 1;
-            this.tabCarTable.Text = "Таблица покупателей";
+            this.tabCarTable.Text = "Список покупателей";
             this.tabCarTable.UseVisualStyleBackColor = true;
             // 
             // btnCarAdd
@@ -187,7 +197,7 @@
             this.tabStaffTable.Padding = new System.Windows.Forms.Padding(3);
             this.tabStaffTable.Size = new System.Drawing.Size(703, 458);
             this.tabStaffTable.TabIndex = 0;
-            this.tabStaffTable.Text = "Таблица сотрудников";
+            this.tabStaffTable.Text = "Список сотрудников";
             this.tabStaffTable.UseVisualStyleBackColor = true;
             // 
             // btnDelete
@@ -273,15 +283,77 @@
             // 
             // tabAdmin
             // 
+            this.tabAdmin.Controls.Add(this.tabStationTable);
             this.tabAdmin.Controls.Add(this.tabStaffTable);
             this.tabAdmin.Controls.Add(this.tabCarTable);
-            this.tabAdmin.Controls.Add(this.tabAccountingTable);
             this.tabAdmin.Controls.Add(this.tabDealTable);
+            this.tabAdmin.Controls.Add(this.tabAccountingTable);
             this.tabAdmin.Location = new System.Drawing.Point(12, 12);
             this.tabAdmin.Name = "tabAdmin";
             this.tabAdmin.SelectedIndex = 0;
             this.tabAdmin.Size = new System.Drawing.Size(711, 484);
             this.tabAdmin.TabIndex = 0;
+            // 
+            // tabStationTable
+            // 
+            this.tabStationTable.Controls.Add(this.btnStationAdd);
+            this.tabStationTable.Controls.Add(this.dgvVievAZS);
+            this.tabStationTable.Location = new System.Drawing.Point(4, 22);
+            this.tabStationTable.Name = "tabStationTable";
+            this.tabStationTable.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStationTable.Size = new System.Drawing.Size(703, 458);
+            this.tabStationTable.TabIndex = 4;
+            this.tabStationTable.Text = "Список станций";
+            this.tabStationTable.UseVisualStyleBackColor = true;
+            // 
+            // btnStationAdd
+            // 
+            this.btnStationAdd.Location = new System.Drawing.Point(580, 208);
+            this.btnStationAdd.Name = "btnStationAdd";
+            this.btnStationAdd.Size = new System.Drawing.Size(88, 42);
+            this.btnStationAdd.TabIndex = 2;
+            this.btnStationAdd.Text = "Добавить";
+            this.btnStationAdd.UseVisualStyleBackColor = true;
+            this.btnStationAdd.Click += new System.EventHandler(this.btnStationAdd_Click);
+            // 
+            // dgvVievAZS
+            // 
+            this.dgvVievAZS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVievAZS.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.orgname,
+            this.country,
+            this.city,
+            this.street,
+            this.storagecap});
+            this.dgvVievAZS.Location = new System.Drawing.Point(0, 0);
+            this.dgvVievAZS.Name = "dgvVievAZS";
+            this.dgvVievAZS.Size = new System.Drawing.Size(545, 458);
+            this.dgvVievAZS.TabIndex = 1;
+            // 
+            // orgname
+            // 
+            this.orgname.HeaderText = "Организация";
+            this.orgname.Name = "orgname";
+            // 
+            // country
+            // 
+            this.country.HeaderText = "Страна";
+            this.country.Name = "country";
+            // 
+            // city
+            // 
+            this.city.HeaderText = "Город";
+            this.city.Name = "city";
+            // 
+            // street
+            // 
+            this.street.HeaderText = "Улица";
+            this.street.Name = "street";
+            // 
+            // storagecap
+            // 
+            this.storagecap.HeaderText = "Объем цистерн";
+            this.storagecap.Name = "storagecap";
             // 
             // tabDealTable
             // 
@@ -372,6 +444,8 @@
             this.tabStaffTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewStaff)).EndInit();
             this.tabAdmin.ResumeLayout(false);
+            this.tabStationTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).EndInit();
             this.tabDealTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).EndInit();
             this.ResumeLayout(false);
@@ -414,6 +488,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn gender;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn surname;
+        private System.Windows.Forms.TabPage tabStationTable;
+        private System.Windows.Forms.DataGridView dgvVievAZS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orgname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn country;
+        private System.Windows.Forms.DataGridViewTextBoxColumn city;
+        private System.Windows.Forms.DataGridViewTextBoxColumn street;
+        private System.Windows.Forms.DataGridViewTextBoxColumn storagecap;
+        private System.Windows.Forms.Button btnStationAdd;
     }
 }
 

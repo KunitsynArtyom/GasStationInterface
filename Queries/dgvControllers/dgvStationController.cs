@@ -36,6 +36,17 @@ namespace Queries.dgvControllers
             }
         }
 
+        public void showAdminTable()
+        {
+            dgvElements = new List<Station>();
+            dgvElements = stationQuery.getStations();
+            dgv.Rows.Clear();
+            foreach (Station ps in dgvElements)
+            {
+                dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet(), ps.GetStorageCap());
+            }
+        }
+
         public void findInTable(string country, string city)
         {
             dgvElements = new List<Station>();
@@ -45,6 +56,11 @@ namespace Queries.dgvControllers
             {
                 dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet());
             }
+        }
+
+        public void addToTable(Station st)
+        {
+            stationQuery.AddToStationTable(st);
         }
     }
 }

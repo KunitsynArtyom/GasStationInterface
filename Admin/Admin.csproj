@@ -66,6 +66,12 @@
     <Compile Include="addToStaffTableForm.Designer.cs">
       <DependentUpon>addToStaffTableForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="addToStationTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addToStationTableForm.Designer.cs">
+      <DependentUpon>addToStationTableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="addToStaffTableForm.resx">
       <DependentUpon>addToStaffTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="addToStationTableForm.resx">
+      <DependentUpon>addToStationTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>

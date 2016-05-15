@@ -25,6 +25,15 @@ namespace Queries.Entities
             s_storagecap = storagecap;
         }
 
+        public void stationSet(string orgname, string country, string city, string street, int storagecap)
+        {
+            s_orgname = orgname;
+            s_country = country;
+            s_city = city;
+            s_street = street;
+            s_storagecap = storagecap;
+        }
+
         public int GetStation_id() => s_station_id;
         public string GetOrgName() => s_orgname;
         public string GetCountry() => s_country;

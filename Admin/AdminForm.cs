@@ -23,6 +23,7 @@ namespace Admin
         dgvCarController fillCarTable;
         dgvAccountController fillAccountingTable;
         dgvDealController fillDealTable;
+        dgvStationController fillStationTable;
         StaffRepository staffQuery;
         public NpgsqlConnection conn;
         DBConnection dbc;
@@ -34,11 +35,13 @@ namespace Admin
             additionalForm = this;
             dbc = new DBConnection(conn);
             dbc.openConnection();
-            staffQuery = new StaffRepository(dbc);          
+            staffQuery = new StaffRepository(dbc);                      
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            fillStationTable = new dgvStationController(dgvVievAZS, dbc);
+            fillStationTable.showAdminTable();
             fillStaffTable = new dgvStaffController(dgvViewStaff, dbc);
             fillStaffTable.showTable();
             fillCarTable = new dgvCarController(dgvViewCars, dbc);
@@ -114,6 +117,16 @@ namespace Admin
             Show();
             fillDealTable = new dgvDealController(dgvViewDeal, dbc);
             fillDealTable.showTable();
+        }
+
+        private void btnStationAdd_Click(object sender, EventArgs e)
+        {
+            addToStationTableForm addForm = new addToStationTableForm(additionalForm, dbc, dgvViewCars);
+            addForm.ShowDialog();
+            Hide();
+            Show();
+            fillStationTable = new dgvStationController(dgvVievAZS, dbc);
+            fillStationTable.showAdminTable();
         }
     }
 }

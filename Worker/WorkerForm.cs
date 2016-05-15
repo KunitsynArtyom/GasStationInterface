@@ -20,6 +20,7 @@ namespace Worker
         dgvDealController fillDealTable;
         DBConnection dbc;
         NpgsqlConnection conn;
+        dgvSupplyController fillSupplyTable;
 
         public WorkerForm(NpgsqlConnection conn)
         {
@@ -27,12 +28,14 @@ namespace Worker
             DBConnection dbc = new DBConnection(conn);
             dbc.openConnection();
             fillDealTable = new dgvDealController(dgvVievDeal, dbc);
+            fillSupplyTable = new dgvSupplyController(dgvViewSupply, dbc);
             additionalForm = this;
         }
 
         private void WorkerForm_Load(object sender, EventArgs e)
         {
             fillDealTable.showTable();
+            fillSupplyTable.showTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

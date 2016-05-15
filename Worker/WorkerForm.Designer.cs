@@ -39,14 +39,25 @@
             this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabSupplyTable = new System.Windows.Forms.TabPage();
+            this.btnAddSupply = new System.Windows.Forms.Button();
+            this.dgvViewSupply = new System.Windows.Forms.DataGridView();
+            this.stationadres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplystaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelsupplytype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelsupplyamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelsupplydate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAdmin.SuspendLayout();
             this.tabDealTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).BeginInit();
+            this.tabSupplyTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).BeginInit();
             this.SuspendLayout();
             // 
             // tabAdmin
             // 
             this.tabAdmin.Controls.Add(this.tabDealTable);
+            this.tabAdmin.Controls.Add(this.tabSupplyTable);
             this.tabAdmin.Location = new System.Drawing.Point(12, 12);
             this.tabAdmin.Name = "tabAdmin";
             this.tabAdmin.SelectedIndex = 0;
@@ -63,7 +74,7 @@
             this.tabDealTable.Padding = new System.Windows.Forms.Padding(3);
             this.tabDealTable.Size = new System.Drawing.Size(734, 372);
             this.tabDealTable.TabIndex = 0;
-            this.tabDealTable.Text = "Таблица сделок";
+            this.tabDealTable.Text = "Список сделок";
             this.tabDealTable.UseVisualStyleBackColor = true;
             // 
             // btnAdd
@@ -95,9 +106,9 @@
             this.dealprice,
             this.cardnum,
             this.dealdate});
-            this.dgvVievDeal.Location = new System.Drawing.Point(6, 3);
+            this.dgvVievDeal.Location = new System.Drawing.Point(3, 3);
             this.dgvVievDeal.Name = "dgvVievDeal";
-            this.dgvVievDeal.Size = new System.Drawing.Size(565, 363);
+            this.dgvVievDeal.Size = new System.Drawing.Size(568, 366);
             this.dgvVievDeal.TabIndex = 0;
             // 
             // sname
@@ -136,6 +147,68 @@
             this.dealdate.Name = "dealdate";
             this.dealdate.Width = 150;
             // 
+            // tabSupplyTable
+            // 
+            this.tabSupplyTable.Controls.Add(this.btnAddSupply);
+            this.tabSupplyTable.Controls.Add(this.dgvViewSupply);
+            this.tabSupplyTable.Location = new System.Drawing.Point(4, 22);
+            this.tabSupplyTable.Name = "tabSupplyTable";
+            this.tabSupplyTable.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSupplyTable.Size = new System.Drawing.Size(734, 372);
+            this.tabSupplyTable.TabIndex = 1;
+            this.tabSupplyTable.Text = "Таблица подвоза";
+            this.tabSupplyTable.UseVisualStyleBackColor = true;
+            // 
+            // btnAddSupply
+            // 
+            this.btnAddSupply.Location = new System.Drawing.Point(617, 161);
+            this.btnAddSupply.Name = "btnAddSupply";
+            this.btnAddSupply.Size = new System.Drawing.Size(85, 50);
+            this.btnAddSupply.TabIndex = 1;
+            this.btnAddSupply.Text = "Добавить";
+            this.btnAddSupply.UseVisualStyleBackColor = true;
+            // 
+            // dgvViewSupply
+            // 
+            this.dgvViewSupply.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvViewSupply.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.stationadres,
+            this.supplystaff,
+            this.fuelsupplytype,
+            this.fuelsupplyamount,
+            this.fuelsupplydate});
+            this.dgvViewSupply.Location = new System.Drawing.Point(3, 3);
+            this.dgvViewSupply.Name = "dgvViewSupply";
+            this.dgvViewSupply.Size = new System.Drawing.Size(586, 366);
+            this.dgvViewSupply.TabIndex = 0;
+            // 
+            // stationadres
+            // 
+            this.stationadres.HeaderText = "Станция";
+            this.stationadres.Name = "stationadres";
+            this.stationadres.Width = 120;
+            // 
+            // supplystaff
+            // 
+            this.supplystaff.HeaderText = "Сотрудник-оператор";
+            this.supplystaff.Name = "supplystaff";
+            this.supplystaff.Width = 120;
+            // 
+            // fuelsupplytype
+            // 
+            this.fuelsupplytype.HeaderText = "Тип топлива";
+            this.fuelsupplytype.Name = "fuelsupplytype";
+            // 
+            // fuelsupplyamount
+            // 
+            this.fuelsupplyamount.HeaderText = "Количество топлива";
+            this.fuelsupplyamount.Name = "fuelsupplyamount";
+            // 
+            // fuelsupplydate
+            // 
+            this.fuelsupplydate.HeaderText = "Дата подвоза";
+            this.fuelsupplydate.Name = "fuelsupplydate";
+            // 
             // WorkerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,6 +221,8 @@
             this.tabAdmin.ResumeLayout(false);
             this.tabDealTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).EndInit();
+            this.tabSupplyTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -165,6 +240,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
         private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
         private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
+        private System.Windows.Forms.TabPage tabSupplyTable;
+        private System.Windows.Forms.Button btnAddSupply;
+        private System.Windows.Forms.DataGridView dgvViewSupply;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationadres;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelsupplydate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelsupplyamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelsupplytype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn supplystaff;
     }
 }
 
