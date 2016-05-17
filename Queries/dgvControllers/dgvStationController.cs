@@ -8,20 +8,24 @@ using System.Collections;
 using Npgsql;
 using Queries.Entities;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.dgvControllers
 {
     public class dgvStationController
     {
         DataGridView dgv;
+        IRepositoryFactory factory;
         StationRepository stationQuery;
         List<Station> dgvElements;
         DBConnection dbc;
 
         public dgvStationController(DataGridView dgv, DBConnection dbc)
         {
+            factory = new RepositoryFactory(dbc);
+            stationQuery = factory.GetStationRepository();
             this.dbc = dbc;
-            stationQuery = new StationRepository(dbc);
+            //stationQuery = new StationRepository(dbc);
             this.dgv = dgv;
         }
 

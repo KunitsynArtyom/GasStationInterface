@@ -8,16 +8,22 @@ using Npgsql;
 using System.Data.Common;
 using System.Collections;
 using Queries.Entities;
+using Queries.Interfaces;
 
 namespace Queries.TableRepositories
 {
-    public class StationRepository
+    public class StationRepository : IStationRepository
     {
         public DBConnection dbc;
 
         public StationRepository(DBConnection dbc)
         {
             this.dbc = dbc;
+        }
+
+        public void Dispose()
+        {
+
         }
 
         public List<Station> getStations()

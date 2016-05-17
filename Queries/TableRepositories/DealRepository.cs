@@ -8,11 +8,12 @@ using Npgsql;
 using System.Data.Common;
 using System.Collections;
 using Queries.Entities;
+using Queries.Interfaces;
 
 
 namespace Queries.TableRepositories
 {
-    public class DealRepository
+    public class DealRepository : IDealRepository
     {
         public DBConnection dbc;
 

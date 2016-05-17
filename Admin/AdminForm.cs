@@ -13,11 +13,13 @@ using Queries;
 using Queries.dgvControllers;
 using Queries.TableRepositories;
 using Queries.Controllers;
+using Queries.Interfaces;
 
 namespace Admin
 {
     public partial class AdminForm : Form
     {
+        IRepositoryFactory factory;
         private Form additionalForm;
         dgvStaffController fillStaffTable;
         dgvCarController fillCarTable;
@@ -31,11 +33,12 @@ namespace Admin
         public AdminForm(NpgsqlConnection conn)
         {
             InitializeComponent();
-            this.conn = conn;
+            this.conn = conn;           
             additionalForm = this;
             dbc = new DBConnection(conn);
             dbc.openConnection();
-            staffQuery = new StaffRepository(dbc);                      
+            factory = new RepositoryFactory(dbc);       
+            staffQuery = factory.GetStaffRepository();                      
         }
 
         private void AdminForm_Load(object sender, EventArgs e)

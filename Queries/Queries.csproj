@@ -57,6 +57,14 @@
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StationController.cs" />
+    <Compile Include="Interfaces\IAccountRepository.cs" />
+    <Compile Include="Interfaces\ICarRepository.cs" />
+    <Compile Include="Interfaces\IDealRepository.cs" />
+    <Compile Include="Interfaces\IRepositoryFactory.cs" />
+    <Compile Include="Interfaces\IStaffRepository.cs" />
+    <Compile Include="Interfaces\IStationRepository.cs" />
+    <Compile Include="Interfaces\ISupplyRepository.cs" />
+    <Compile Include="RepositoryFactory.cs" />
     <Compile Include="TableRepositories\SupplyRepository.cs" />
     <Compile Include="dgvControllers\dgvAccountController.cs" />
     <Compile Include="dgvControllers\dgvCarController.cs" />

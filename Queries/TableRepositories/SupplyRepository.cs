@@ -8,10 +8,11 @@ using Npgsql;
 using System.Data.Common;
 using System.Collections;
 using Queries.Entities;
+using Queries.Interfaces;
 
 namespace Queries.TableRepositories
 {
-    public class SupplyRepository
+    public class SupplyRepository : ISupplyRepository
     {
         public DBConnection dbc;
 
