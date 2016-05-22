@@ -12,40 +12,49 @@ using System.Data.Common;
 using Queries;
 using Queries.dgvControllers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace User
 {
     public partial class UserForm : Form //форма пользователя
     {
+        IRepositoryFactory factory;
         StationRepository stationQuery;
-        dgvStationController fillTable;
+        dgvStationController fillStaffTable;
+        dgvDealController fillDealTable;
         public NpgsqlConnection conn;
+        string cardnum;
 
-        public UserForm(NpgsqlConnection conn)
+        public UserForm(string cardnum, IRepositoryFactory factory)
         {
             InitializeComponent();
-            this.conn = conn;
-            DBConnection dbc = new DBConnection(conn);
-            dbc.openConnection();
-            stationQuery = new StationRepository(dbc);
-            fillTable = new dgvStationController(dgvVievAZS, dbc);
+            this.cardnum = cardnum;
+            this.factory = factory; 
+            //DBConnection dbc = new DBConnection(conn);
+            //factory.setDBFactoryConnection(dbc);
+            //dbc.openConnection();
+            //factory = new RepositoryFactory(dbc);
+            //stationQuery = factory.GetStationRepository();
+            fillStaffTable = new dgvStationController(dgvVievAZS, factory);
+            fillDealTable = new dgvDealController(dgvUserDeals, factory);
         }
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-            fillTable.showTable();
+            fillStaffTable.showTable();
+            fillDealTable.showUserTable(cardnum);
         }
 
         private void dataView1_Click(object sender, EventArgs e)
         {
-            fillTable.showTable();
+            fillStaffTable.showTable();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string fCountry = tbCountry.Text;
             string fCity = tbCity.Text;
-            fillTable.findInTable(fCountry, fCity);
+            fillStaffTable.findInTable(fCountry, fCity);
         }
     }
 }

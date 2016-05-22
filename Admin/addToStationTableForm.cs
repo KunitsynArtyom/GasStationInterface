@@ -16,13 +16,14 @@ using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 using Queries.Controllers;
+using Queries.Interfaces;
 
 namespace Admin
 {
     public partial class addToStationTableForm : Form
     {
     public Form af;
-    DBConnection dbc;
+    IRepositoryFactory factory;
     StationRepository stationQuery;
     DataGridView dgv;
     string orgname, country, city, street;
@@ -39,20 +40,24 @@ namespace Admin
                 storagecap = Convert.ToInt32(tbStorageCap.Text);
                 Station st = new Station();
                 st.stationSet(orgname, country, city, street, storagecap);
-                StationController sc = new StationController(dgv, dbc);
-                sc.checkAddition(st);
+                StationController sc = new StationController();
+                if (sc.checkAddition(st))
+                {
+                    dgvStationController dgsc = new dgvStationController(dgv, factory);
+                    dgsc.addToTable(st);
+                }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             Close();
         }
 
-        public addToStationTableForm(Form adminForm, DBConnection dbc, DataGridView dgv)
+        public addToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
-            this.dbc = dbc;
+            this.factory = factory;
             this.dgv = dgv;
-            stationQuery = new StationRepository(dbc);
+            //stationQuery = factory.GetStationRepository(); ;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

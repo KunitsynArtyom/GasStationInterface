@@ -9,51 +9,54 @@ using Npgsql;
 using Queries.Entities;
 using Queries.TableRepositories;
 using Queries.dgvControllers;
+using Queries.Interfaces;
 
 namespace Queries.dgvControllers
 {
     public class dgvStaffController
     {
         DataGridView dgv;
-        StaffRepository staffQuery;
         List<Worker> dgvElements;
-        DBConnection dbc;
+        IRepositoryFactory factory;
 
-        public dgvStaffController(DataGridView dgv, DBConnection dbc)
+        public dgvStaffController(DataGridView dgv, IRepositoryFactory factory)
         {
             dgvElements = new List<Worker>();
-            this.dbc = dbc;
             this.dgv = dgv;
-            staffQuery = new StaffRepository(dbc);
+            this.factory = factory;
+            //staffQuery = factory.GetStaffRepository();
         }
 
         public void showTable()
         {
-            dgvElements = staffQuery.GetStaff();
+            dgvElements = factory.GetStaffRepository().GetStaff();
             dgv.Rows.Clear();
             foreach (Worker wk in dgvElements)
             {
-                dgv.Rows.Add(wk.GetSurname(), wk.GetName(), wk.GetGender(), wk.GetFunction(), wk.GetSalary());
+                dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(), wk.GetGender(), wk.GetFunction(), wk.GetSalary());
             }
         }
 
         public void addToTable(Worker wk)
         {
-            staffQuery.AddToStaffTable(wk);
+            factory.GetStaffRepository().AddToStaffTable(wk);
         }
 
-        public void updateTable(int number, Worker wk)
+        public void updateTable(int id, Worker wk)
         {
-            var workerList = staffQuery.GetStaff();
-            Worker wkToUpdate = workerList[number];
-            staffQuery.UpdateStaffTable(wkToUpdate, wk);
+            factory.GetStaffRepository().UpdateStaffTable(id, wk);
+            //var workerList = factory.GetStaffRepository().GetStaff();
+            //Worker wkToUpdate = workerList[number];
+            //factory.GetStaffRepository().UpdateStaffTable(wkToUpdate, wk);
         }
 
-        public void deleteFromTable(int number)
+        public void deleteFromTable(int id)
         {
-            var workerList = staffQuery.GetStaff();
-            Worker wkToDelete = workerList[number];
-            staffQuery.DeleteFromStaffTabele(wkToDelete);
+
+            factory.GetStaffRepository().DeleteFromStaffTable(id);
+            //var workerList = factory.GetStaffRepository().GetStaff();
+            //Worker wkToDelete = workerList[number];
+            //factory.GetStaffRepository().DeleteFromStaffTabele(wkToDelete);
         }
     }
 }

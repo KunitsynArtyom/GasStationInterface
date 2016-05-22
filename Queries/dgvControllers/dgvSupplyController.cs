@@ -15,6 +15,7 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.dgvControllers
 {
@@ -25,27 +26,33 @@ namespace Queries.dgvControllers
         StationRepository stationQuery;
         StaffRepository staffQuery;
         List<Supply> dgvElements;
+        IRepositoryFactory factory;
 
-        public dgvSupplyController(DataGridView dgv, DBConnection dbc)
+        public dgvSupplyController(DataGridView dgv, IRepositoryFactory factory)
         {
             dgvElements = new List<Supply>();
             this.dgv = dgv;
-            supplyQuery = new SupplyRepository(dbc);
-            stationQuery = new StationRepository(dbc);
-            staffQuery = new StaffRepository(dbc);
+            this.factory = factory;
+            //supplyQuery = factory.GetSupplyRepository();
+            //stationQuery = factory.GetStationRepository();
+            //staffQuery = factory.GetStaffRepository();
         }
 
         public void showTable()
         {
-            dgvElements = supplyQuery.ShowSupplyTable();
+            dgvElements = factory.GetSupplyRepository().ShowSupplyTable();
             dgv.Rows.Clear();
             foreach (Supply supply in dgvElements)
             {
                 int station_id = supply.GetStation_id();
-                dgv.Rows.Add(RemoveSpaces(stationQuery.GetStationsAdresByID(station_id)), staffQuery.FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
                     supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
-                MessageBox.Show(station_id.ToString());
             }
+        }
+
+        public void addToSupplyTable(Supply sup)
+        {
+            factory.GetSupplyRepository().AddToSupplyTable(sup);
         }
 
         private string RemoveSpaces(string inputString)

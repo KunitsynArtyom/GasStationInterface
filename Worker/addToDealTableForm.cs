@@ -14,6 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
+using Queries.Interfaces;
 
 namespace Worker
 {
@@ -21,59 +22,57 @@ namespace Worker
     {
         public Form wf;
         DataGridView dgv;
-        DBConnection dbc;
+        IRepositoryFactory factory;
+        int ID, fuelamount, dealprice, hours, minutes;
+        string fueltype, cardnum;
+        DateTime dealdate;
 
-        public addToDealTableForm(Form workerForm, DBConnection dbc, DataGridView dgv)
+        public addToDealTableForm(int ID, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
-            wf = workerForm;
-            this.dbc = dbc;
+            this.factory = factory;
             this.dgv = dgv;
+            this.ID = ID;
         }
 
-        private void addToDealTableForm_Load(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
-                comboBoxDealFiller cbsf;
-                cbStationList.Visible = false;
-                label2.Visible = false;
-                cbsf = new comboBoxDealFiller(cbOrgList, dbc);
-                cbsf.cb_orgFill();
-            }
-            catch (Exception ex) { }
-        }
-
-        private void cbOrgList_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            try
-            {
-                if (cbOrgList.SelectedIndex != -1)
+                if (cbFuelType.SelectedIndex != -1)
                 {
-                    comboBoxDealFiller cbdf;
-                    cbStationList.Visible = true;
-                    label2.Visible = true;
-                    cbdf = new comboBoxDealFiller(cbStationList, dbc);
-                    cbdf.cb_stationFill(cbOrgList.Text);
+                    fueltype = Convert.ToString(cbFuelType.Text);
                 }
+                fuelamount = Convert.ToInt32(tbFuelamount.Text);
+                if (cbCardNum.SelectedIndex != -1)
+                {
+                    cardnum = Convert.ToString(cbCardNum.Text);
+                    cardnum = cardnum.Trim().Replace(" ", string.Empty);
+                }
+                dealprice = Convert.ToInt32(tbDealPrice.Text);
+                hours = Convert.ToInt32(tbHours.Text);
+                minutes = Convert.ToInt32(tbMinutes.Text);
+                dealdate = Convert.ToDateTime(dealDatePick.Text);
+                dealdate = dealdate.AddHours(hours);
+                dealdate = dealdate.AddMinutes(minutes);
+                //dealDatePick.Value = dealDatePick.Value.AddHours(hours);
+                //dealDatePick.Value = dealDatePick.Value.AddMinutes(minutes);
+                Deal deal = new Deal();
+                deal.dealSet(0, factory.GetCarRepository().FindCarIDByCardnum(cardnum), ID, fueltype, fuelamount, dealprice, cardnum, dealdate);
+            dgvDealController dgdc = new dgvDealController(dgv, factory);
+            dgdc.addToTable(deal);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
         }
 
-        private void cbStationList_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void updateDealTableForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                if (cbStationList.SelectedIndex != -1)
-                {
-                    comboBoxDealFiller cbdf;
-                    cbStaffList.Visible = true;
-                    label2.Visible = true;
-                    cbdf = new comboBoxDealFiller(cbStaffList, dbc);
-                    cbdf.cb_stationFill(cbOrgList.Text);
-                }
-            }
-            catch (Exception ex) { }
+            cbFuelType.Items.Add("A92");
+            cbFuelType.Items.Add("A95");
+            cbFuelType.Items.Add("A95+");
+            comboBoxDealFiller cbdf;
+            cbdf = new comboBoxDealFiller(cbCardNum, factory);
+            cbdf.cb_cardnumFill();
         }
     }
 }

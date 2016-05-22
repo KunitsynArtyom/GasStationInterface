@@ -21,12 +21,17 @@ namespace Queries.TableRepositories
             this.dbc = dbc;
         }
 
+        public void Dispose()
+        {
+
+        }
+
         public List<Supply> ShowSupplyTable()
         {
             List<Supply> supplyList = new List<Supply>();
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Supply\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -47,8 +52,33 @@ namespace Queries.TableRepositories
             {
 
             }
+            finally { dbc.closeConnection(); }
 
             return supplyList;
+        }
+
+        public void AddToSupplyTable(Supply sup)
+        {
+            NpgsqlCommand queryCommand;
+            try
+            {
+                dbc.openConnection();
+                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Supply\"(Station_ID, Staff_ID, FuelSupplyType, FuelSupplyAmount, SupplyDate)" +
+                        "VALUES(@Station_id, @Staff_id, @FuelSupplyType, @FuelSupplyAmount, @SupplyDate)", dbc.getConnection());
+                    queryCommand.Parameters.AddWithValue("@Station_id", sup.GetStation_id());
+                    queryCommand.Parameters.AddWithValue("@Staff_id", sup.GetStaff_id());
+                    queryCommand.Parameters.AddWithValue("@FuelSupplyType", sup.GetFuelSupplyType());
+                    queryCommand.Parameters.AddWithValue("@FuelSupplyAmount", sup.GetFuelSupplyAmount());
+                    queryCommand.Parameters.AddWithValue("@SupplyDate", sup.GetSupplyDate());
+
+                queryCommand.ExecuteNonQuery();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+
+            finally { dbc.closeConnection(); }
         }
     }
 }

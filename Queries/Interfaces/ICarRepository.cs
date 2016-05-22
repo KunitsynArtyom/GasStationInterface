@@ -12,13 +12,15 @@ using Queries.Interfaces;
 
 namespace Queries.Interfaces
 {
-    public interface ICarRepository
+    public interface ICarRepository : IDisposable
     {
         List<Car> GetCars();
 
         List<string> GetCardNumList();
 
         void AddToCarTable(Car car);
+
+        int FindCarIDByCardnum(string cardnum);
 
     }
 }

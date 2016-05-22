@@ -33,12 +33,6 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnTableView = new System.Windows.Forms.Button();
             this.dgvVievDeal = new System.Windows.Forms.DataGridView();
-            this.sname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabSupplyTable = new System.Windows.Forms.TabPage();
             this.btnAddSupply = new System.Windows.Forms.Button();
             this.dgvViewSupply = new System.Windows.Forms.DataGridView();
@@ -47,6 +41,11 @@
             this.fuelsupplytype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelsupplyamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelsupplydate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAdmin.SuspendLayout();
             this.tabDealTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).BeginInit();
@@ -100,7 +99,6 @@
             // 
             this.dgvVievDeal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVievDeal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.sname,
             this.fueltype,
             this.fuelamount,
             this.dealprice,
@@ -108,44 +106,8 @@
             this.dealdate});
             this.dgvVievDeal.Location = new System.Drawing.Point(3, 3);
             this.dgvVievDeal.Name = "dgvVievDeal";
-            this.dgvVievDeal.Size = new System.Drawing.Size(568, 366);
+            this.dgvVievDeal.Size = new System.Drawing.Size(565, 366);
             this.dgvVievDeal.TabIndex = 0;
-            // 
-            // sname
-            // 
-            this.sname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.sname.HeaderText = "ФИ сотрудника";
-            this.sname.Name = "sname";
-            this.sname.Width = 120;
-            // 
-            // fueltype
-            // 
-            this.fueltype.HeaderText = "Тип топлива";
-            this.fueltype.Name = "fueltype";
-            this.fueltype.Width = 50;
-            // 
-            // fuelamount
-            // 
-            this.fuelamount.HeaderText = "Количество топлива";
-            this.fuelamount.Name = "fuelamount";
-            this.fuelamount.Width = 50;
-            // 
-            // dealprice
-            // 
-            this.dealprice.HeaderText = "Сумма сделки";
-            this.dealprice.Name = "dealprice";
-            this.dealprice.Width = 50;
-            // 
-            // cardnum
-            // 
-            this.cardnum.HeaderText = "Покупатель";
-            this.cardnum.Name = "cardnum";
-            // 
-            // dealdate
-            // 
-            this.dealdate.HeaderText = "Дата сделки";
-            this.dealdate.Name = "dealdate";
-            this.dealdate.Width = 150;
             // 
             // tabSupplyTable
             // 
@@ -167,6 +129,7 @@
             this.btnAddSupply.TabIndex = 1;
             this.btnAddSupply.Text = "Добавить";
             this.btnAddSupply.UseVisualStyleBackColor = true;
+            this.btnAddSupply.Click += new System.EventHandler(this.btnAddSupply_Click);
             // 
             // dgvViewSupply
             // 
@@ -209,6 +172,35 @@
             this.fuelsupplydate.HeaderText = "Дата подвоза";
             this.fuelsupplydate.Name = "fuelsupplydate";
             // 
+            // fueltype
+            // 
+            this.fueltype.HeaderText = "Тип топлива";
+            this.fueltype.Name = "fueltype";
+            this.fueltype.Width = 50;
+            // 
+            // fuelamount
+            // 
+            this.fuelamount.HeaderText = "Количество топлива";
+            this.fuelamount.Name = "fuelamount";
+            this.fuelamount.Width = 50;
+            // 
+            // dealprice
+            // 
+            this.dealprice.HeaderText = "Сумма сделки";
+            this.dealprice.Name = "dealprice";
+            this.dealprice.Width = 50;
+            // 
+            // cardnum
+            // 
+            this.cardnum.HeaderText = "Покупатель";
+            this.cardnum.Name = "cardnum";
+            // 
+            // dealdate
+            // 
+            this.dealdate.HeaderText = "Дата сделки";
+            this.dealdate.Name = "dealdate";
+            this.dealdate.Width = 150;
+            // 
             // WorkerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,12 +226,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnTableView;
         private System.Windows.Forms.DataGridView dgvVievDeal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
         private System.Windows.Forms.TabPage tabSupplyTable;
         private System.Windows.Forms.Button btnAddSupply;
         private System.Windows.Forms.DataGridView dgvViewSupply;
@@ -248,6 +234,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fuelsupplyamount;
         private System.Windows.Forms.DataGridViewTextBoxColumn fuelsupplytype;
         private System.Windows.Forms.DataGridViewTextBoxColumn supplystaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
     }
 }
 

@@ -93,6 +93,10 @@
       <Project>{246b396a-e0bb-4a22-b204-04af89828533}</Project>
       <Name>Admin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Queries\Queries.csproj">
+      <Project>{a8ed16ba-4f85-4eca-8fd4-4672f2e42f34}</Project>
+      <Name>Queries</Name>
+    </ProjectReference>
     <ProjectReference Include="..\User\User.csproj">
       <Project>{1dbadbb7-f1f1-4b4a-9009-7dbea2a445f2}</Project>
       <Name>User</Name>

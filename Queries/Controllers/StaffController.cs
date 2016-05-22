@@ -15,84 +15,120 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.Controllers
 {
     public class StaffController
     {
-        DBConnection dbc;
-        StaffRepository staffQuery;
-        DataGridView dgv;
-        dgvStaffController dgsc;
+        List<string> ErrorList = new List<string>();
 
-        public StaffController(DataGridView dgv,DBConnection dbc)
+        public StaffController()
         {
-            staffQuery = new StaffRepository(dbc);
-            this.dgv = dgv;
-            dgsc = new dgvStaffController(dgv, dbc);
+
         }
 
-        public void checkAddition(Worker wk)
+        public bool checkAddition(Worker wk)
         {
             bool checkFlag = true;
             if (wk.GetStation_id() <= 0)
-            { checkFlag = false; }
-            if (wk.GetSurname() == String.Empty)
-            { checkFlag = false; }
-            if (wk.GetName() == String.Empty)
-            { checkFlag = false; }
-            if (wk.GetGender() == String.Empty)
-            { checkFlag = false; }
-            if (wk.GetFunction() == String.Empty)
-            { checkFlag = false; }
-            //if (wk.GetManager() < 0)
-            //{ checkFlag = false; MessageBox.Show(wk.GetManager().ToString()); }
-            if (wk.GetSalary() < 500)
-            { checkFlag = false; }
-            if (checkFlag == true)
             {
-                dgsc.addToTable(wk);
+                checkFlag = false;
             }
-            else
-                MessageBox.Show("Данные были введены неправильно!");
+            if (wk.GetSurname() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Фамилия не введена!");
+            }
+            if (wk.GetName() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Имя не введено!");
+            }
+            if (wk.GetGender() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Пол не выбран!");
+            }
+            if (wk.GetFunction() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Назначение не выбрано!");
+            }
+            if (wk.GetSalary() < 500)
+            {
+                checkFlag = false;
+                ErrorList.Add("Зарплата не может быть меньше 500 у.е!");
+            }
+            if (checkFlag == false)
+            {
+                foreach (string str in ErrorList)
+                {
+                    MessageBox.Show(str);
+                }
+            }
+
+            return checkFlag;
         }
 
-        public void checkUpdate(int number, Worker wk)
+        public bool checkUpdate(int id, Worker wk)
         {
             bool checkFlag = true;
             if (wk.GetSurname() == String.Empty)
-            { checkFlag = false; }
-            if (wk.GetName() == String.Empty)
-            { checkFlag = false; }
-            if (wk.GetGender() == String.Empty)
-            { checkFlag = false; }
-            if (wk.GetFunction() == String.Empty)
-            { checkFlag = false; }
-            if (wk.GetSalary() < 500)
-            { checkFlag = false; }
-            if (number == -1)
-            { checkFlag = false; }
-            if (number == -1)
-            { }
-            if (checkFlag == true)
             {
-                dgsc.updateTable(number, wk);
+                checkFlag = false;
+                ErrorList.Add("Фамилия не введена!");
             }
-            else
-                MessageBox.Show("Данные были введены неправильно!");
+            if (wk.GetName() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Имя не введено!");
+            }
+            if (wk.GetGender() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Пол не введен!");
+            }
+            if (wk.GetFunction() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Назначение не введено!");
+            }
+            if (wk.GetSalary() < 500)
+            {
+                checkFlag = false;
+                ErrorList.Add("Зарплата не может быть меньше 500 у.е!");
+            }
+            if (id < 0)
+            { checkFlag = false; }
+            if (checkFlag == false)
+            {
+                foreach (string str in ErrorList)
+                {
+                    MessageBox.Show(str);
+                }
+            }
+
+            return checkFlag;
         }
 
-        public void checkDelete(int number)
+        public bool checkDelete(int id)
         {
             bool checkFlag = true;
-            if (number == -1)
-            { checkFlag = false; }
-            if (checkFlag == true)
+            if (id < 0)
             {
-                dgsc.deleteFromTable(number);
+                checkFlag = false;
+                ErrorList.Add("Сотрудник не обнаружен!");
             }
-            else
-                MessageBox.Show("Данные были введены неправильно!");
+            if (checkFlag == false)
+            {
+                foreach (string str in ErrorList)
+                {
+                    MessageBox.Show(str);
+                }
+            }
+
+            return checkFlag;
         }
     }
 }

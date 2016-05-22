@@ -8,62 +8,84 @@ using System.Collections;
 using Npgsql;
 using Queries.Entities;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.dgvControllers
 {
     public class dgvDealController
     {
         DataGridView dgv;
-        DealRepository dealQuery;
-        CarRepository carQuery;
-        StaffRepository staffQuery;
         List<Deal> dgvElements;
+        IRepositoryFactory factory;
 
 
-        public dgvDealController(DataGridView dgv, DBConnection dbc)
+        public dgvDealController(DataGridView dgv, IRepositoryFactory factory)
         {
             dgvElements = new List<Deal>();
-            dealQuery = new DealRepository(dbc);
-            carQuery = new CarRepository(dbc);
-            staffQuery = new StaffRepository(dbc);
+            this.factory = factory;
             this.dgv = dgv;
         }
 
-        public int showDeals(int number)
+        public int showDeals(int id)
         {
             var foundDealList = new List<Deal>();
-            var dealList = dealQuery.ShowBuyerDealTable();
-            var carDeal = carQuery.GetCars();
-            Car foundCar = carDeal[number];
-            //Deal foundDeal = (Deal)dealList[number];
-             foundDealList = dealQuery.GetDeals(foundCar);
-            if (foundDealList.Count != 0)
+            var dealList = factory.GetDealRepository().ShowBuyerDealTable(id);
+            //var carDeal = factory.GetCarRepository().GetCars();
+            //Car foundCar = carDeal[number];
+            // foundDealList = factory.GetDealRepository().GetDeals(foundCar);
+            if (dealList.Count != 0)
             {
-                foreach (Deal deal in foundDealList)
+                foreach (Deal deal in dealList)
                 {
                     dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
                 }
             }
             else MessageBox.Show("Сделок с данным покупателем не найдено!");
 
-            return foundDealList.Count;
+            return dealList.Count;
         }
 
         public void showTable()
         {
-            dgvElements = dealQuery.ShowDealTable();
+            dgvElements = factory.GetDealRepository().ShowDealTable();
             dgv.Rows.Clear();
             foreach (Deal deal in dgvElements)
             {
-                dgv.Rows.Add(staffQuery.FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+                dgv.Rows.Add(deal.GetDeal_id(), factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
             }
         }
 
-        public void updateTable(int number, Deal deal)
+        public void showWorkerTable(int ID)
         {
-            var dealList = dealQuery.ShowDealTable();
-            Deal dealToUpdate = dealList[number];
-            dealQuery.UpdateDealTabele(dealToUpdate, deal);
+            dgvElements = factory.GetDealRepository().ShowWorkerDealTable(ID);
+            dgv.Rows.Clear();
+            foreach (Deal deal in dgvElements)
+            {
+                dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+            }
+        }
+
+        public void showUserTable(string cardnum)
+        {
+            dgvElements = factory.GetDealRepository().ShowUserDealTable(cardnum);
+            dgv.Rows.Clear();
+            foreach (Deal deal in dgvElements)
+            {
+                dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
+            }
+        }
+
+        public void updateTable(int id, Deal deal)
+        {
+            factory.GetDealRepository().UpdateDealTable(id, deal);
+            //var dealList = factory.GetDealRepository().ShowDealTable();
+            //Deal dealToUpdate = dealList[number];
+            //factory.GetDealRepository().UpdateDealTabele(dealToUpdate, deal);
+        }
+
+        public void addToTable(Deal deal)
+        {
+            factory.GetDealRepository().AddToDealTable(deal);
         }
     }
 }

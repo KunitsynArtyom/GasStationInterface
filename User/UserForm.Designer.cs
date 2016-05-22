@@ -41,16 +41,23 @@
             this.country = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.street = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabDealUserTable = new System.Windows.Forms.TabPage();
+            this.dgvUserDeals = new System.Windows.Forms.DataGridView();
+            this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabAZSTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).BeginInit();
+            this.tabDealUserTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUserDeals)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabAZSTable);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabDealUserTable);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -159,15 +166,53 @@
             this.street.HeaderText = "Улица";
             this.street.Name = "street";
             // 
-            // tabPage2
+            // tabDealUserTable
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(644, 331);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabDealUserTable.Controls.Add(this.dgvUserDeals);
+            this.tabDealUserTable.Location = new System.Drawing.Point(4, 22);
+            this.tabDealUserTable.Name = "tabDealUserTable";
+            this.tabDealUserTable.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDealUserTable.Size = new System.Drawing.Size(644, 331);
+            this.tabDealUserTable.TabIndex = 1;
+            this.tabDealUserTable.Text = "Список сделок";
+            this.tabDealUserTable.UseVisualStyleBackColor = true;
+            // 
+            // dgvUserDeals
+            // 
+            this.dgvUserDeals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUserDeals.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.fueltype,
+            this.fuelamount,
+            this.dealprice,
+            this.dealdate});
+            this.dgvUserDeals.Location = new System.Drawing.Point(6, 6);
+            this.dgvUserDeals.Name = "dgvUserDeals";
+            this.dgvUserDeals.Size = new System.Drawing.Size(632, 319);
+            this.dgvUserDeals.TabIndex = 0;
+            // 
+            // fueltype
+            // 
+            this.fueltype.HeaderText = "Тип топлива";
+            this.fueltype.Name = "fueltype";
+            this.fueltype.Width = 150;
+            // 
+            // fuelamount
+            // 
+            this.fuelamount.HeaderText = "Количество топлива";
+            this.fuelamount.Name = "fuelamount";
+            this.fuelamount.Width = 150;
+            // 
+            // dealprice
+            // 
+            this.dealprice.HeaderText = "Сумма сделки";
+            this.dealprice.Name = "dealprice";
+            this.dealprice.Width = 150;
+            // 
+            // dealdate
+            // 
+            this.dealdate.HeaderText = "Дата сделки";
+            this.dealdate.Name = "dealdate";
+            this.dealdate.Width = 150;
             // 
             // UserForm
             // 
@@ -182,6 +227,8 @@
             this.tabAZSTable.ResumeLayout(false);
             this.tabAZSTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).EndInit();
+            this.tabDealUserTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUserDeals)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -190,7 +237,7 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabAZSTable;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabDealUserTable;
         private System.Windows.Forms.DataGridView dgvVievAZS;
         private System.Windows.Forms.DataGridViewTextBoxColumn orgname;
         private System.Windows.Forms.DataGridViewTextBoxColumn country;
@@ -202,6 +249,11 @@
         private System.Windows.Forms.TextBox tbCountry;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgvUserDeals;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
     }
 }
 

@@ -15,6 +15,7 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.comboBoxFillers
 {
@@ -22,18 +23,18 @@ namespace Queries.comboBoxFillers
     {
         ComboBox cb;
         List<string> comboBoxElements;
-        DBConnection dbc;
+        IRepositoryFactory factory;
         CarRepository carQuery;
-        public comboBoxCardNumFiller(ComboBox cb, DBConnection dbc)
+        public comboBoxCardNumFiller(ComboBox cb, IRepositoryFactory factory)
         {
             this.cb = cb;
-            this.dbc = dbc;
-            carQuery = new CarRepository(dbc);
+            this.factory = factory;
+            //carQuery = factory.GetCarRepository();
         }
 
         public void cb_CardNumFill()
         {
-            comboBoxElements = carQuery.GetCardNumList();
+            comboBoxElements = factory.GetCarRepository().GetCardNumList();
             foreach (string st in comboBoxElements)
             {
                 cb.Items.Add(st);

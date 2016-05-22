@@ -15,24 +15,21 @@ namespace Queries.dgvControllers
     public class dgvStationController
     {
         DataGridView dgv;
-        IRepositoryFactory factory;
         StationRepository stationQuery;
         List<Station> dgvElements;
-        DBConnection dbc;
+        IRepositoryFactory factory;
 
-        public dgvStationController(DataGridView dgv, DBConnection dbc)
+        public dgvStationController(DataGridView dgv, IRepositoryFactory factory)
         {
-            factory = new RepositoryFactory(dbc);
-            stationQuery = factory.GetStationRepository();
-            this.dbc = dbc;
-            //stationQuery = new StationRepository(dbc);
+            //stationQuery = factory.GetStationRepository();
+            this.factory = factory;
             this.dgv = dgv;
         }
 
         public void showTable()
         {
             dgvElements = new List<Station>();
-            dgvElements = stationQuery.getStations();
+            dgvElements = factory.GetStationRepository().getStations();
             dgv.Rows.Clear();
             foreach (Station ps in dgvElements)
             {
@@ -43,7 +40,7 @@ namespace Queries.dgvControllers
         public void showAdminTable()
         {
             dgvElements = new List<Station>();
-            dgvElements = stationQuery.getStations();
+            dgvElements = factory.GetStationRepository().getStations();
             dgv.Rows.Clear();
             foreach (Station ps in dgvElements)
             {
@@ -54,7 +51,7 @@ namespace Queries.dgvControllers
         public void findInTable(string country, string city)
         {
             dgvElements = new List<Station>();
-            dgvElements = stationQuery.findStations(country, city);
+            dgvElements = factory.GetStationRepository().findStations(country, city);
             dgv.Rows.Clear();
             foreach (Station ps in dgvElements)
             {
@@ -64,7 +61,7 @@ namespace Queries.dgvControllers
 
         public void addToTable(Station st)
         {
-            stationQuery.AddToStationTable(st);
+            factory.GetStationRepository().AddToStationTable(st);
         }
     }
 }

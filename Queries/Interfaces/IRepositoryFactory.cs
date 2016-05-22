@@ -14,18 +14,20 @@ using Queries.TableRepositories;
 
 namespace Queries.Interfaces
 {
-    public interface IRepositoryFactory
+    public interface IRepositoryFactory 
     {
-        StationRepository GetStationRepository();
 
-        StaffRepository GetStaffRepository();
+        IStationRepository GetStationRepository();
 
-        CarRepository GetCarRepository();
+        IStaffRepository GetStaffRepository();
 
-        DealRepository GetDealRepository();
+        ICarRepository GetCarRepository();
 
-        AccountRepository GetAccountRepository();
+        IDealRepository GetDealRepository();
 
-        
+        IAccountRepository GetAccountRepository();
+
+        ISupplyRepository GetSupplyRepository();
+   
     }
 }

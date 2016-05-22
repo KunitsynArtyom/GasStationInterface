@@ -12,17 +12,19 @@ using Queries.Interfaces;
 
 namespace Queries.Interfaces
 {
-    public interface IStaffRepository
+    public interface IStaffRepository : IDisposable
     {
         List<Worker> GetStaff();
 
-        void UpdateStaffTable(Worker wkToUpdate, Worker wk);
+        void UpdateStaffTable(int id, Worker wk);
 
-        void DeleteFromStaffTabele(Worker wkToDelete);
+        void DeleteFromStaffTable(int id);
 
         void AddToStaffTable(Worker wk);
 
         string FindStaffByID(int staff_id);
+
+        int FindStationIDByStaffID(int staff_id);
 
     }
 }

@@ -170,6 +170,7 @@
             // 
             // cbStationList
             // 
+            this.cbStationList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStationList.FormattingEnabled = true;
             this.cbStationList.Location = new System.Drawing.Point(154, 50);
             this.cbStationList.Name = "cbStationList";
@@ -187,6 +188,7 @@
             // 
             // cbOrgList
             // 
+            this.cbOrgList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbOrgList.FormattingEnabled = true;
             this.cbOrgList.Location = new System.Drawing.Point(154, 23);
             this.cbOrgList.Name = "cbOrgList";
@@ -212,6 +214,7 @@
             // 
             // cb_gender
             // 
+            this.cb_gender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_gender.FormattingEnabled = true;
             this.cb_gender.Location = new System.Drawing.Point(154, 128);
             this.cb_gender.Name = "cb_gender";

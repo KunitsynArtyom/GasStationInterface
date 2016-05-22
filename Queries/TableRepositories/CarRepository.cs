@@ -21,12 +21,17 @@ namespace Queries.TableRepositories
             this.dbc = dbc;
         }
 
+        public void Dispose()
+        {
+
+        }
+
         public List<Car> GetCars()
         {
             List<Car> dgvElements = new List<Car>();
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Car\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -44,9 +49,36 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
 
             return dgvElements;
+        }
+
+        public int FindCarIDByCardnum(string cardnum)
+        {
+            int car_id = 0;
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT car_id FROM \"AZS\".\"Car\" WHERE cardnum = @Cardnum", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@CardNum", cardnum);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        car_id = Convert.ToInt32(dbDataRecord["car_id"]);
+                    }
+                }
+                AZSTableReader.Close();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+
+            return car_id;
         }
 
         public List<string> GetCardNumList()
@@ -55,7 +87,7 @@ namespace Queries.TableRepositories
 
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT DISTINCT cardnum FROM \"AZS\".\"Car\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -71,7 +103,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
 
             return comboBoxElements;
         }
@@ -81,7 +113,7 @@ namespace Queries.TableRepositories
             NpgsqlCommand queryCommand;
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
 
                 queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Car\"(carmark, cardnum)" +
                 "VALUES(@carmark, @cardnum)", dbc.getConnection());
@@ -94,7 +126,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
         }
     }
 }

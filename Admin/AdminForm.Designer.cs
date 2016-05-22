@@ -38,14 +38,13 @@
             this.btnCarAdd = new System.Windows.Forms.Button();
             this.btnFindDealsByCar_id = new System.Windows.Forms.Button();
             this.dgvViewCars = new System.Windows.Forms.DataGridView();
-            this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabStaffTable = new System.Windows.Forms.TabPage();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnTableView = new System.Windows.Forms.Button();
             this.dgvViewStaff = new System.Windows.Forms.DataGridView();
+            this.staff_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,12 +62,16 @@
             this.tabDealTable = new System.Windows.Forms.TabPage();
             this.btnDealUpdate = new System.Windows.Forms.Button();
             this.dgvViewDeal = new System.Windows.Forms.DataGridView();
+            this.deal_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.car_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAccountingTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewAccounting)).BeginInit();
             this.tabCarTable.SuspendLayout();
@@ -166,24 +169,13 @@
             // 
             this.dgvViewCars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvViewCars.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.car_id,
             this.carmark,
             this.cardnum});
             this.dgvViewCars.Location = new System.Drawing.Point(6, 3);
             this.dgvViewCars.Name = "dgvViewCars";
             this.dgvViewCars.Size = new System.Drawing.Size(493, 452);
             this.dgvViewCars.TabIndex = 1;
-            // 
-            // carmark
-            // 
-            this.carmark.HeaderText = "Марка автомобиля";
-            this.carmark.Name = "carmark";
-            this.carmark.Width = 200;
-            // 
-            // cardnum
-            // 
-            this.cardnum.HeaderText = "Номер карты";
-            this.cardnum.Name = "cardnum";
-            this.cardnum.Width = 250;
             // 
             // tabStaffTable
             // 
@@ -202,7 +194,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(586, 282);
+            this.btnDelete.Location = new System.Drawing.Point(583, 282);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 3;
@@ -212,7 +204,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(586, 172);
+            this.btnAdd.Location = new System.Drawing.Point(583, 179);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 3;
@@ -222,7 +214,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(586, 229);
+            this.btnUpdate.Location = new System.Drawing.Point(583, 228);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 2;
@@ -232,11 +224,11 @@
             // 
             // btnTableView
             // 
-            this.btnTableView.Location = new System.Drawing.Point(565, 115);
+            this.btnTableView.Location = new System.Drawing.Point(564, 124);
             this.btnTableView.Name = "btnTableView";
             this.btnTableView.Size = new System.Drawing.Size(116, 23);
             this.btnTableView.TabIndex = 1;
-            this.btnTableView.Text = "Обноваить таблицу";
+            this.btnTableView.Text = "Обновить таблицу";
             this.btnTableView.UseVisualStyleBackColor = true;
             this.btnTableView.Click += new System.EventHandler(this.btnTableView_Click);
             // 
@@ -244,6 +236,7 @@
             // 
             this.dgvViewStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvViewStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.staff_id,
             this.surname,
             this.name,
             this.gender,
@@ -251,8 +244,14 @@
             this.salary});
             this.dgvViewStaff.Location = new System.Drawing.Point(6, 3);
             this.dgvViewStaff.Name = "dgvViewStaff";
-            this.dgvViewStaff.Size = new System.Drawing.Size(525, 440);
+            this.dgvViewStaff.Size = new System.Drawing.Size(524, 440);
             this.dgvViewStaff.TabIndex = 0;
+            // 
+            // staff_id
+            // 
+            this.staff_id.HeaderText = "ID";
+            this.staff_id.Name = "staff_id";
+            this.staff_id.Width = 40;
             // 
             // surname
             // 
@@ -274,12 +273,12 @@
             // 
             this.function.HeaderText = "Профессия";
             this.function.Name = "function";
-            this.function.Width = 120;
             // 
             // salary
             // 
             this.salary.HeaderText = "Зарплата";
             this.salary.Name = "salary";
+            this.salary.Width = 80;
             // 
             // tabAdmin
             // 
@@ -369,9 +368,9 @@
             // 
             // btnDealUpdate
             // 
-            this.btnDealUpdate.Location = new System.Drawing.Point(607, 201);
+            this.btnDealUpdate.Location = new System.Drawing.Point(607, 199);
             this.btnDealUpdate.Name = "btnDealUpdate";
-            this.btnDealUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnDealUpdate.Size = new System.Drawing.Size(90, 23);
             this.btnDealUpdate.TabIndex = 2;
             this.btnDealUpdate.Text = "Изменить";
             this.btnDealUpdate.UseVisualStyleBackColor = true;
@@ -381,6 +380,7 @@
             // 
             this.dgvViewDeal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvViewDeal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.deal_id,
             this.sname,
             this.fueltype,
             this.fuelamount,
@@ -389,8 +389,14 @@
             this.dealdate});
             this.dgvViewDeal.Location = new System.Drawing.Point(6, 0);
             this.dgvViewDeal.Name = "dgvViewDeal";
-            this.dgvViewDeal.Size = new System.Drawing.Size(580, 455);
+            this.dgvViewDeal.Size = new System.Drawing.Size(595, 455);
             this.dgvViewDeal.TabIndex = 1;
+            // 
+            // deal_id
+            // 
+            this.deal_id.HeaderText = "ID";
+            this.deal_id.Name = "deal_id";
+            this.deal_id.Width = 40;
             // 
             // sname
             // 
@@ -421,12 +427,31 @@
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Покупатель";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 80;
             // 
             // dealdate
             // 
             this.dealdate.HeaderText = "Дата сделки";
             this.dealdate.Name = "dealdate";
             this.dealdate.Width = 150;
+            // 
+            // car_id
+            // 
+            this.car_id.HeaderText = "ID";
+            this.car_id.Name = "car_id";
+            this.car_id.Width = 50;
+            // 
+            // carmark
+            // 
+            this.carmark.HeaderText = "Марка автомобиля";
+            this.carmark.Name = "carmark";
+            this.carmark.Width = 200;
+            // 
+            // cardnum
+            // 
+            this.cardnum.HeaderText = "Номер карты";
+            this.cardnum.Name = "cardnum";
+            this.cardnum.Width = 200;
             // 
             // AdminForm
             // 
@@ -471,23 +496,10 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dgvViewDeal;
         private System.Windows.Forms.Button btnDealUpdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn carmark;
         private System.Windows.Forms.DataGridViewTextBoxColumn accountdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccountamount;
         private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccounttype;
         private System.Windows.Forms.DataGridViewTextBoxColumn stationadres;
-        private System.Windows.Forms.DataGridViewTextBoxColumn salary;
-        private System.Windows.Forms.DataGridViewTextBoxColumn function;
-        private System.Windows.Forms.DataGridViewTextBoxColumn gender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn surname;
         private System.Windows.Forms.TabPage tabStationTable;
         private System.Windows.Forms.DataGridView dgvVievAZS;
         private System.Windows.Forms.DataGridViewTextBoxColumn orgname;
@@ -496,6 +508,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn street;
         private System.Windows.Forms.DataGridViewTextBoxColumn storagecap;
         private System.Windows.Forms.Button btnStationAdd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn staff_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn salary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn function;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn surname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn deal_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn car_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn carmark;
     }
 }
 

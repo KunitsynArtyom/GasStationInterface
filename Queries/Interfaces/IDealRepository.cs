@@ -12,15 +12,21 @@ using Queries.Interfaces;
 
 namespace Queries.Interfaces
 {
-    public interface IDealRepository
+    public interface IDealRepository : IDisposable
     {
         List<Deal> ShowDealTable();
 
+        List<Deal> ShowUserDealTable(string cardnum);
+
+        List<Deal> ShowWorkerDealTable(int id);
+
         List<Deal> GetDeals(Car car);
 
-        void UpdateDealTabele(Deal dealToUpdate, Deal deal);
+        void UpdateDealTable(int id, Deal deal);
 
-        List<Deal> ShowBuyerDealTable();
+        List<Deal> ShowBuyerDealTable(int id);
+
+        void AddToDealTable(Deal deal);
 
     }
 }

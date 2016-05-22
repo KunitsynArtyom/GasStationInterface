@@ -15,30 +15,31 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.comboBoxFillers
 {
     public class comboBoxDealFiller
     {
         ComboBox cb;
-        NpgsqlConnection conn;
         List<string> comboBoxElements;
         DealRepository dealQuery;
         StationRepository stationQuery;
         CarRepository carQuery;
+        IRepositoryFactory factory;
 
 
-        public comboBoxDealFiller(ComboBox cb, DBConnection dbc)
+        public comboBoxDealFiller(ComboBox cb, IRepositoryFactory factory)
         {
             this.cb = cb;
-            dealQuery = new DealRepository(dbc);
-            stationQuery = new StationRepository(dbc);
-            carQuery = new CarRepository(dbc);
+            this.factory = factory;
+            //stationQuery = factory.GetStationRepository();
+            //carQuery = factory.GetCarRepository();
         }
 
         public void cb_orgFill()
         {
-            comboBoxElements = stationQuery.GetOrganisations();
+            comboBoxElements = factory.GetStationRepository().GetOrganisations();
             foreach (string st in comboBoxElements)
             {
                 cb.Items.Add(st);
@@ -47,7 +48,7 @@ namespace Queries.comboBoxFillers
 
         public void cb_stationFill(string Orgname)
         {
-            comboBoxElements = stationQuery.GetStationsAdres(Orgname);
+            comboBoxElements = factory.GetStationRepository().GetStationsAdres(Orgname);
             foreach (string st in comboBoxElements)
             {
                 string cbString = RemoveSpaces(st);
@@ -57,7 +58,7 @@ namespace Queries.comboBoxFillers
 
         public void cb_cardnumFill()
         {
-            List<Car> comboBoxCarElements = carQuery.GetCars();
+            List<Car> comboBoxCarElements = factory.GetCarRepository().GetCars();
             foreach (Car car in comboBoxCarElements)
             {               
                 cb.Items.Add(car.GetCardNum());

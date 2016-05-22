@@ -22,12 +22,17 @@ namespace Queries.TableRepositories
             this.dbc = dbc;
         }
 
+        public void Dispose()
+        {
+
+        }
+
         public List<Deal> ShowDealTable()
         {
             List<Deal> dealList = new List<Deal>();
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -48,7 +53,71 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
+
+            return dealList;
+        }
+
+        public List<Deal> ShowUserDealTable(string cardnum)
+        {
+            List<Deal> dealList = new List<Deal>();
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\" WHERE cardnum = @Cardnum", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Cardnum", cardnum);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        Deal deal = new Deal();
+
+                        deal.dealSet(Convert.ToInt32(dbDataRecord["deal_id"]), Convert.ToInt32(dbDataRecord["car_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
+                            dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"]), Convert.ToInt32(dbDataRecord["dealprice"]),
+                            dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()));
+                        dealList.Add(deal);
+                    }
+                }
+                AZSTableReader.Close();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+
+            return dealList;
+        }
+
+        public List<Deal> ShowWorkerDealTable(int id)
+        {
+            List<Deal> dealList = new List<Deal>();
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\" WHERE staff_id = @Staff_id", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Staff_id", id);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        Deal deal = new Deal();
+
+                        deal.dealSet(Convert.ToInt32(dbDataRecord["deal_id"]), Convert.ToInt32(dbDataRecord["car_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
+                            dbDataRecord["fueltype"].ToString(), Convert.ToInt32(dbDataRecord["fuelamount"]), Convert.ToInt32(dbDataRecord["dealprice"]),
+                            dbDataRecord["cardnum"].ToString(), Convert.ToDateTime(dbDataRecord["dealdate"].ToString()));
+                        dealList.Add(deal);
+                    }
+                }
+                AZSTableReader.Close();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
 
             return dealList;
         }
@@ -60,7 +129,7 @@ namespace Queries.TableRepositories
             try
             {
                 NpgsqlDataReader AZSTableReader = null;
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = @Car_id", dbc.getConnection());
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = '" + car.GetCar_id() + "' ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Car_id", car.GetCar_id());
@@ -82,19 +151,16 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
 
             return dgvElements;
         }
 
-        public void UpdateDealTabele(Deal dealToUpdate, Deal deal)
+        public void UpdateDealTable(int id, Deal deal)
         {
             try
             {
-                //dbc.openConnection();
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Deal\" SET fueltype = '" + deal.GetFuelType() + "', fuelamount = '" + deal.GetFuelAmount() + 
-                //"', dealprice = '" + deal.GetDealPrice() + "', cardnum = '" + deal.GetCardNum() + "', dealdate = '" + deal.GetDealDate() + "'" +
-                //" WHERE deal_id = " + Convert.ToInt32(dealToUpdate.GetDeal_id()) + " ", dbc.getConnection());
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Deal\" SET fueltype = @Fueltype, fuelamount = @Fuelamount, dealprice = @DealPrice," +
                     "cardnum = @Cardnum, dealdate = @DealDate WHERE deal_id = @Deal_id ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Fueltype", deal.GetFuelType());
@@ -102,7 +168,7 @@ namespace Queries.TableRepositories
                 queryCommand.Parameters.AddWithValue("@DealPrice", deal.GetDealPrice());
                 queryCommand.Parameters.AddWithValue("@Cardnum", deal.GetCardNum());
                 queryCommand.Parameters.AddWithValue("@DealDate", deal.GetDealDate());
-                queryCommand.Parameters.AddWithValue("@Deal_id", dealToUpdate.GetDeal_id());
+                queryCommand.Parameters.AddWithValue("@Deal_id", id);
                 queryCommand.ExecuteNonQuery();
 
             }
@@ -110,16 +176,46 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
         }
 
-        public List<Deal> ShowBuyerDealTable()
+        public void AddToDealTable(Deal deal)
+        {
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Deal\"(Car_ID , Staff_ID , FuelType , FuelAmount , DealPrice , CardNum , DealDate)" +
+                        "VALUES(@Car_id, @Staff_id, @FuelType, @FuelAmount, @DealPrice, @CardNum, @DealDate)", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Car_id", deal.GetCar_id());
+                queryCommand.Parameters.AddWithValue("@Staff_id", deal.GetStaff_id());
+                queryCommand.Parameters.AddWithValue("@FuelType", deal.GetFuelType());
+                queryCommand.Parameters.AddWithValue("@FuelAmount", deal.GetFuelAmount());
+                queryCommand.Parameters.AddWithValue("@DealPrice", deal.GetDealPrice());
+                queryCommand.Parameters.AddWithValue("@CardNum", deal.GetCardNum());
+                queryCommand.Parameters.AddWithValue("@DealDate", Convert.ToDateTime(deal.GetDealDate()));
+            MessageBox.Show(deal.GetDealDate().ToString());
+            MessageBox.Show(deal.GetCar_id().ToString());
+            MessageBox.Show(deal.GetFuelType().ToString());
+            MessageBox.Show(deal.GetDealPrice().ToString());
+            MessageBox.Show(deal.GetCardNum().ToString());
+            queryCommand.ExecuteNonQuery();
+
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+        }
+
+        public List<Deal> ShowBuyerDealTable(int id)
         {
             List<Deal> dgvElements = new List<Deal>();
             try
             {
-                //dbc.openConnection();
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\"", dbc.getConnection());
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Deal\" WHERE car_id = @Car_id", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Car_id", id);
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
@@ -139,7 +235,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
 
             return dgvElements;
         }

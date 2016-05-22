@@ -15,6 +15,7 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.Controllers;
+using Queries.Interfaces;
 
 namespace Admin
 {
@@ -23,12 +24,13 @@ namespace Admin
         public Form af;
         DataGridView dgv;
         DBConnection dbc;
+        IRepositoryFactory factory;
 
-        public addToCarTableForm(Form adminForm, DBConnection dbc, DataGridView dgv)
+        public addToCarTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
-            this.dbc = dbc;
+            this.factory = factory;
             this.dgv = dgv;
         }
 
@@ -41,8 +43,12 @@ namespace Admin
                 cardNum = tbCardNum.Text.ToString();
                 Car car = new Car();
                 car.buyerSet(carMark, cardNum);
-                CarController cc = new CarController(dgv, dbc);
-                cc.checkAddition(car);
+                CarController cc = new CarController();
+                if (cc.checkAddition(car))
+                {
+                    dgvCarController dgvc = new dgvCarController(dgv, factory);
+                    dgvc.addToTable(car);
+                }
                 //dgvCarController dgvc = new dgvCarController(dgv, dbc);
                 //dgvc.addToTable(car);
             }

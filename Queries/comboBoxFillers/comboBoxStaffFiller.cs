@@ -14,6 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.comboBoxFillers
 {
@@ -23,20 +24,20 @@ namespace Queries.comboBoxFillers
         List<string> comboBoxElements;
         StaffRepository staffQuery;
         StationRepository stationQuery;
-        DBConnection dbc;
+        IRepositoryFactory factory;
 
-        public comboBoxStaffFiller(ComboBox cb, DBConnection dbc)
+        public comboBoxStaffFiller(ComboBox cb, IRepositoryFactory factory)
         {
             this.cb = cb;
-            this.dbc = dbc;
-            staffQuery = new StaffRepository(dbc);
-            stationQuery = new StationRepository(dbc);
+            this.factory = factory;
+            //staffQuery = factory.GetStaffRepository();
+            //stationQuery = factory.GetStationRepository();
 
         }
 
         public void cb_orgFill()
         {
-            comboBoxElements = stationQuery.GetOrganisations();
+            comboBoxElements = factory.GetStationRepository().GetOrganisations();
             foreach (string st in comboBoxElements)
             {
                 cb.Items.Add(st);
@@ -45,7 +46,7 @@ namespace Queries.comboBoxFillers
 
         public void cb_stationFill(string Orgname)
         {
-            comboBoxElements = stationQuery.GetStationsAdres(Orgname);
+            comboBoxElements = factory.GetStationRepository().GetStationsAdres(Orgname);
             foreach (string st in comboBoxElements)
             {
                 string cbString = RemoveSpaces(st);

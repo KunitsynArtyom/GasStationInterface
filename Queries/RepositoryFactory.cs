@@ -21,44 +21,44 @@ namespace Queries
 {  
     public class RepositoryFactory : IRepositoryFactory
     {
-        private readonly DBConnection dbc;
+        DBConnection dbc;
 
         public RepositoryFactory(DBConnection dbc)
         {
-            if (dbc == null)
-            {
-                throw new ArgumentNullException("Connection out!");
-            }
+            //if (dbc == null)
+            //{
+            //    throw new ArgumentNullException("Connection out!");
+            //}
 
             this.dbc = dbc;
         }
 
-        public StationRepository GetStationRepository()
+        public IStationRepository GetStationRepository()
         {
             return new StationRepository(dbc);
         }
 
-        public StaffRepository GetStaffRepository()
+        public IStaffRepository GetStaffRepository()
         {
             return new StaffRepository(dbc);
         }
 
-        public CarRepository GetCarRepository()
+        public ICarRepository GetCarRepository()
         {
             return new CarRepository(dbc);
         }
 
-        public DealRepository GetDealRepository()
+        public IDealRepository GetDealRepository()
         {
             return new DealRepository(dbc);
         }
 
-        public AccountRepository GetAccountRepository()
+        public IAccountRepository GetAccountRepository()
         {
             return new AccountRepository(dbc);
         }
 
-        public SupplyRepository GetSupplyRepository()
+        public ISupplyRepository GetSupplyRepository()
         {
             return new SupplyRepository(dbc);
         }

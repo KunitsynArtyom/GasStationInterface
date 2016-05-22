@@ -31,6 +31,10 @@
             this.btnUserLog = new System.Windows.Forms.Button();
             this.btnAdminLog = new System.Windows.Forms.Button();
             this.btnManagerLog = new System.Windows.Forms.Button();
+            this.tbLogin = new System.Windows.Forms.TextBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUserLog
@@ -63,17 +67,56 @@
             this.btnManagerLog.UseVisualStyleBackColor = true;
             this.btnManagerLog.Click += new System.EventHandler(this.btnManagerLog_Click);
             // 
+            // tbLogin
+            // 
+            this.tbLogin.Location = new System.Drawing.Point(327, 28);
+            this.tbLogin.Name = "tbLogin";
+            this.tbLogin.Size = new System.Drawing.Size(152, 20);
+            this.tbLogin.TabIndex = 3;
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Location = new System.Drawing.Point(327, 57);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
+            this.tbPassword.Size = new System.Drawing.Size(152, 20);
+            this.tbPassword.TabIndex = 4;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Location = new System.Drawing.Point(404, 96);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.TabIndex = 5;
+            this.btnLogin.Text = "Логин";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.Location = new System.Drawing.Point(404, 125);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(75, 23);
+            this.btnRegister.TabIndex = 6;
+            this.btnRegister.Text = "Регистрация";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            // 
             // EnterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 128);
+            this.ClientSize = new System.Drawing.Size(503, 169);
+            this.Controls.Add(this.btnRegister);
+            this.Controls.Add(this.btnLogin);
+            this.Controls.Add(this.tbPassword);
+            this.Controls.Add(this.tbLogin);
             this.Controls.Add(this.btnManagerLog);
             this.Controls.Add(this.btnAdminLog);
             this.Controls.Add(this.btnUserLog);
             this.Name = "EnterForm";
             this.Text = "Окно логина";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -82,6 +125,10 @@
         private System.Windows.Forms.Button btnUserLog;
         private System.Windows.Forms.Button btnAdminLog;
         private System.Windows.Forms.Button btnManagerLog;
+        private System.Windows.Forms.TextBox tbLogin;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnRegister;
     }
 }
 

@@ -10,42 +10,53 @@ using System.Windows.Forms;
 using Npgsql;
 using System.Data.Common;
 using Queries;
+using Queries.Interfaces;
 using Queries.dgvControllers;
 
 namespace Worker
 {
     public partial class WorkerForm : Form
     {
+        int ID;
+        IRepositoryFactory factory;
         public Form additionalForm;
         dgvDealController fillDealTable;
-        DBConnection dbc;
-        NpgsqlConnection conn;
         dgvSupplyController fillSupplyTable;
 
-        public WorkerForm(NpgsqlConnection conn)
+        public WorkerForm(int ID, IRepositoryFactory factory)
         {
             InitializeComponent();
-            DBConnection dbc = new DBConnection(conn);
-            dbc.openConnection();
-            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
-            fillSupplyTable = new dgvSupplyController(dgvViewSupply, dbc);
+            this.ID = ID;
+            this.factory = factory;
             additionalForm = this;
         }
 
         private void WorkerForm_Load(object sender, EventArgs e)
         {
-            fillDealTable.showTable();
+            fillDealTable = new dgvDealController(dgvVievDeal, factory);
+            fillDealTable.showWorkerTable(ID);
+            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
             fillSupplyTable.showTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToDealTableForm addForm = new addToDealTableForm(additionalForm, dbc, dgvVievDeal);
+            addToDealTableForm addForm = new addToDealTableForm(ID, factory, dgvVievDeal);
             addForm.ShowDialog();
             Hide();
             Show();
-            fillDealTable = new dgvDealController(dgvVievDeal, dbc);
+            fillDealTable = new dgvDealController(dgvVievDeal, factory);
             fillDealTable.showTable();
+        }
+
+        private void btnAddSupply_Click(object sender, EventArgs e)
+        {
+            addToSupplyTableForm addForm = new addToSupplyTableForm(ID, factory, dgvViewSupply);
+            addForm.ShowDialog();
+            Hide();
+            Show();
+            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            fillSupplyTable.showTable();
         }
     }
 }

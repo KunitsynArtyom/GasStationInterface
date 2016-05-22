@@ -16,7 +16,7 @@ namespace Worker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WorkerForm(null));
+            Application.Run(new WorkerForm(0, null));
         }
     }
 }

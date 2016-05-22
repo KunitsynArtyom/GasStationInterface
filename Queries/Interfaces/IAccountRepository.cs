@@ -12,7 +12,7 @@ using Queries.Interfaces;
 
 namespace Queries.Interfaces
 {
-    public interface IAccountRepository
+    public interface IAccountRepository : IDisposable
     {
         List<Account> GetAccounting();
 

@@ -32,7 +32,7 @@ namespace Queries.TableRepositories
             try
             {
 
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -51,14 +51,14 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
             return stationList;
         }
 
         public List<Station> findStations(string fCountry, string fCity)
         {
             List<Station> stationList = new List<Station>();
-            //dbc.openConnection();
+            dbc.openConnection();
             try
             {
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
@@ -89,7 +89,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
             return stationList;
         }
 
@@ -104,7 +104,7 @@ namespace Queries.TableRepositories
             }
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
 
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
                 //       "@fCountry AND city LIKE @fCity AND street LIKE @fStreet ", dbc.getConnection());
@@ -115,10 +115,6 @@ namespace Queries.TableRepositories
 
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
                     "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
-
-                MessageBox.Show(splittedLocation[0]);
-            MessageBox.Show(splittedLocation[1]);
-            MessageBox.Show(splittedLocation[2]);
 
             NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)
@@ -135,7 +131,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
             MessageBox.Show(station_id.ToString());
             return station_id;
         }
@@ -145,7 +141,7 @@ namespace Queries.TableRepositories
             List<string> comboBoxElements = new List<string>();
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT country, city, street FROM \"AZS\".\"GasStation\" WHERE orgname LIKE @Orgname ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Orgname", "%" + Orgname + "%");
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
@@ -163,7 +159,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
 
             return comboBoxElements;
         }
@@ -174,7 +170,7 @@ namespace Queries.TableRepositories
             var comboBoxElements = new List<string>();
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT country, city, street FROM \"AZS\".\"GasStation\" WHERE station_id = @Station_id ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Station_id", station_id);
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
@@ -183,8 +179,6 @@ namespace Queries.TableRepositories
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
                         location = dbDataRecord["country"].ToString() + "," + dbDataRecord["city"].ToString() + "," + dbDataRecord["street"].ToString();
-                        //MessageBox.Show(location);
-                        //comboBoxElements.Add(dbDataRecord["country"].ToString() + "," + dbDataRecord["city"].ToString() + "," + dbDataRecord["street"].ToString());
                     }
 
                 }
@@ -194,6 +188,7 @@ namespace Queries.TableRepositories
             {
 
             }
+            finally { dbc.closeConnection(); }
 
             return location;
         }
@@ -204,7 +199,7 @@ namespace Queries.TableRepositories
 
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT DISTINCT orgname FROM \"AZS\".\"GasStation\"", dbc.getConnection());
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -220,7 +215,7 @@ namespace Queries.TableRepositories
             {
 
             }
-            //finally { dbc.closeConnection(); }
+            finally { dbc.closeConnection(); }
 
             return comboBoxElements;
         }
@@ -230,7 +225,7 @@ namespace Queries.TableRepositories
             NpgsqlCommand queryCommand;
             try
             {
-                //dbc.openConnection();
+                dbc.openConnection();
 
                     queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"GasStation\"(OrgName, Country, City, Street, StorageCap)" +
                         "VALUES(@OrgName, @Country, @City, @Street, @StorageCap)", dbc.getConnection());
@@ -245,6 +240,8 @@ namespace Queries.TableRepositories
             {
 
             }
+            finally { dbc.closeConnection(); }
+
         }
     }
 }

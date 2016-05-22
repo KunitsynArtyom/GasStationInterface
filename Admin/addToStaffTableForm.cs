@@ -16,15 +16,14 @@ using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 using Queries.Controllers;
+using Queries.Interfaces;
 
 namespace Admin
 {
     public partial class addToStaffTableForm : Form
     {
         public Form af;
-        DBConnection dbc;
-        StationRepository stationQuery;
-        StaffRepository staffQuery;
+        IRepositoryFactory factory;
         DataGridView dgv;
         int station_id, manager, salary;
         string surname, name, gender, function;
@@ -41,7 +40,7 @@ namespace Admin
                 comboBoxStaffFiller cbsf;
                 cbStationList.Visible = false;
                 label2.Visible = false;
-                cbsf = new comboBoxStaffFiller(cbOrgList, dbc);
+                cbsf = new comboBoxStaffFiller(cbOrgList, factory);
                 cbsf.cb_orgFill();
             }
             catch (Exception ex) { }
@@ -53,10 +52,11 @@ namespace Admin
             {
                 if (cbOrgList.SelectedIndex != -1)
                 {
+                    cbStationList.Items.Clear();
                     comboBoxStaffFiller cbsf;
                     cbStationList.Visible = true;
                     label2.Visible = true;
-                    cbsf = new comboBoxStaffFiller(cbStationList, dbc);
+                    cbsf = new comboBoxStaffFiller(cbStationList, factory);
                     cbsf.cb_stationFill(cbOrgList.Text);
                 }
             }
@@ -68,16 +68,13 @@ namespace Admin
             //staff_id = Convert.ToInt32(tb_staff_id.Text);
             try
             {
-                station_id = stationQuery.FindStationIDByLocation(cbStationList.Text);
+                station_id = factory.GetStationRepository().FindStationIDByLocation(cbStationList.Text);
                 surname = tb_surname.Text;
                 name = tb_name.Text;
-                try
+                if (cb_gender.SelectedIndex != -1)
                 {
-                    if (cb_gender.SelectedIndex != -1)
-                    {
-                        gender = Convert.ToString(cb_gender.Text);
-                    }
-                } catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
+                   gender = Convert.ToString(cb_gender.Text);
+                }
                 birthdate = Convert.ToDateTime(birthDatePick.Text);
                 function = tb_function.Text;
                 try
@@ -89,8 +86,12 @@ namespace Admin
                 Worker wk = new Worker();
                 //wk.workerSet(staff_id, station_id, surname, name, gender, birthdate, function, manager, salary);
                 wk.workerSet(station_id, surname, name, gender, birthdate, function, manager, salary);
-                StaffController sc = new StaffController(dgv, dbc);
-                sc.checkAddition(wk);
+                StaffController sc = new StaffController();
+                if (sc.checkAddition(wk))
+                {
+                    dgvStaffController dgvs = new dgvStaffController(dgv, factory);
+                    dgvs.addToTable(wk);
+                }
                 //dgvStaffController dgvs = new dgvStaffController(dgv, dbc);
                 //dgvs.addToTable(wk);
             }
@@ -98,14 +99,14 @@ namespace Admin
             Close();
         }
       
-        public addToStaffTableForm(Form adminForm, DBConnection dbc, DataGridView dgv)
+        public addToStaffTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
-            this.dbc = dbc;
+            this.factory = factory;
             this.dgv = dgv;
-            stationQuery = new StationRepository(dbc);
-            staffQuery = new StaffRepository(dbc);
+            //stationQuery = factory.GetStationRepository();
+            //staffQuery = factory.GetStaffRepository();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

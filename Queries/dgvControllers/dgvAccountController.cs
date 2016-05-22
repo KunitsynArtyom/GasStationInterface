@@ -15,6 +15,7 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.dgvControllers
 {
@@ -23,17 +24,19 @@ namespace Queries.dgvControllers
         DataGridView dgv;
         AccountRepository accountQuery;
         List<Account> dgvElements;
+        IRepositoryFactory factory;
 
-        public dgvAccountController(DataGridView dgv, DBConnection dbc)
+        public dgvAccountController(DataGridView dgv, IRepositoryFactory factory)
         {
             dgvElements = new List<Account>();
             this.dgv = dgv;
-            accountQuery = new AccountRepository(dbc);
+            this.factory = factory;
+            //accountQuery = factory.GetAccountRepository();
         }
 
         public void showTable()
         {
-            dgvElements = accountQuery.GetAccounting();
+            dgvElements = factory.GetAccountRepository().GetAccounting();
             dgv.Rows.Clear();
             foreach (Account account in dgvElements)
             {

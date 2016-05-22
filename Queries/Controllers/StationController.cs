@@ -15,42 +15,56 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.Interfaces;
 
 namespace Queries.Controllers
 {
     public class StationController
     {
-        DBConnection dbc;
-        StationRepository stationQuery;
-        DataGridView dgv;
-        dgvStationController dgsc;
+        List<string> ErrorList = new List<string>();
 
-        public StationController(DataGridView dgv, DBConnection dbc)
+        public StationController()
         {
-            stationQuery = new StationRepository(dbc);
-            this.dgv = dgv;
-            dgsc = new dgvStationController(dgv, dbc);
+
         }
 
-        public void checkAddition(Station st)
+        public bool checkAddition(Station st)
         {
             bool checkFlag = true;
             if (st.GetOrgName() == String.Empty)
-            { checkFlag = false; }
-            if (st.GetCountry() == String.Empty)
-            { checkFlag = false; }
-            if (st.GetCity() == String.Empty)
-            { checkFlag = false; }
-            if (st.GetStreet() == String.Empty)
-            { checkFlag = false; }
-            if (st.GetStorageCap() < 300)
-            { checkFlag = false; }
-            if (checkFlag == true)
             {
-                dgsc.addToTable(st);
+                checkFlag = false;
+                ErrorList.Add("Название организации отсутсвует!");
             }
-            else
-                MessageBox.Show("Данные были введены неправильно!");
+            if (st.GetCountry() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Поле для ввода страны пусто!");
+            }
+            if (st.GetCity() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Поле для ввода города пусто!");
+            }
+            if (st.GetStreet() == String.Empty)
+            {
+                checkFlag = false;
+                ErrorList.Add("Поле для ввода улицы пусто!");
+            }
+            if (st.GetStorageCap() < 300)
+            {
+                checkFlag = false;
+                ErrorList.Add("Хранилище топлива может быть минимум 300 литров!");
+            }
+            if (checkFlag == false)
+            {
+                foreach (string str in ErrorList)
+                {
+                    MessageBox.Show(str);
+                }
+            }
+
+            return checkFlag;
         }
     }
 }

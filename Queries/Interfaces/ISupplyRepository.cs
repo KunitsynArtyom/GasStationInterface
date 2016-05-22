@@ -12,9 +12,11 @@ using Queries.Interfaces;
 
 namespace Queries.Interfaces
 {
-    public interface ISupplyRepository
+    public interface ISupplyRepository : IDisposable
     {
         List<Supply> ShowSupplyTable();
+
+        void AddToSupplyTable(Supply sup);
 
     }
 }
