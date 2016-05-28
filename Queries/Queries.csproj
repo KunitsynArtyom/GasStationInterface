@@ -54,14 +54,14 @@
     <Compile Include="comboBoxFillers\comboBoxStaffFiller.cs" />
     <Compile Include="Connection\DBConnection.cs" />
     <Compile Include="Controllers\CarController.cs" />
-    <Compile Include="Controllers\NewAdminController.cs" />
+    <Compile Include="Controllers\DBUserController.cs" />
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Controllers\SupplyController.cs" />
     <Compile Include="Entities\Login.cs" />
-    <Compile Include="Entities\NewAdmin.cs" />
+    <Compile Include="Entities\DBUser.cs" />
     <Compile Include="Interfaces\IAccountRepository.cs" />
     <Compile Include="Interfaces\ICarRepository.cs" />
     <Compile Include="Interfaces\IDealRepository.cs" />

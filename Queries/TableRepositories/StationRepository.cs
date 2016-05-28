@@ -106,15 +106,21 @@ namespace Queries.TableRepositories
             {
                 dbc.openConnection();
 
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
-                //    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
-                //queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
-
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country = @Country" +
-                "AND city = @City AND street = @Street", dbc.getConnection());
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
+                    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
-                queryCommand.Parameters.AddWithValue("@City", splittedLocation[1]);
-                queryCommand.Parameters.AddWithValue("@Street", splittedLocation[2]);
+
+
+                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country =" + splittedLocation[0] +
+                //"AND city =" + splittedLocation[1] + " AND street =" +splittedLocation[2] + "", dbc.getConnection());
+
+
+
+                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country = @Country" +
+                //"AND city = @City AND street = @Street", dbc.getConnection());
+                //queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
+                //queryCommand.Parameters.AddWithValue("@City", splittedLocation[1]);
+                //queryCommand.Parameters.AddWithValue("@Street", splittedLocation[2]);
 
                 NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)

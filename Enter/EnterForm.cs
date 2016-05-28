@@ -65,7 +65,7 @@ namespace Enter
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            RepositoryFactory repFactory = null;
+            //RepositoryFactory repFactory = null;
             DBConnection dbc = null;
             string Login = String.Empty, Password = String.Empty, role = String.Empty;
             Login login = null;
@@ -78,8 +78,8 @@ namespace Enter
             }
             catch (Exception ex) { MessageBox.Show("Данные для входа введены некорректно!"); }
 
-            //try
-            //{
+            try
+            {
                 NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS");
                 dbc = new DBConnection(conn);
                 //dbc.openConnection();
@@ -88,12 +88,11 @@ namespace Enter
                 LoginController lc = new LoginController(login, dbc);
                 role = lc.tryLogin();
                 if (role != String.Empty)
-                {
                     MessageBox.Show("Добро пожаловать, " + role);
-                }
-                else MessageBox.Show("Данные были введены неверно!");
-            //}
-            //catch (Exception ex) { MessageBox.Show("Данные были введены неверно!"); }
+                else
+                    MessageBox.Show("Пользователь не найден!");
+            }
+            catch (Exception ex) { MessageBox.Show("Данные были введены неверно!"); }
 
             //RepositoryFactory repFactory = new RepositoryFactory(dbc);
             //IRepositoryFactory factory = (IRepositoryFactory)repFactory;

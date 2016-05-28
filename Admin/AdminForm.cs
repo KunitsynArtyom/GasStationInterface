@@ -157,5 +157,17 @@ namespace Admin
             Hide();
             Show();
         }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            AddWorkerToLoginTableForm addLoginForm = new AddWorkerToLoginTableForm(dgvViewStaff.CurrentRow, factory);
+            addLoginForm.ShowDialog();
+        }
+
+        private void btnActivateCarCard_Click(object sender, EventArgs e)
+        {
+            AddUserToLoginTableForm addLoginForm = new AddUserToLoginTableForm(dgvViewCars.CurrentRow, factory);
+            addLoginForm.ShowDialog();
+        }
     }
 }

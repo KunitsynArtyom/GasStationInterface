@@ -150,7 +150,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(246, 268);
+            this.btnAdd.Location = new System.Drawing.Point(235, 269);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 18;
@@ -160,7 +160,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(154, 268);
+            this.btnCancel.Location = new System.Drawing.Point(154, 269);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
@@ -221,11 +221,11 @@
             this.cb_gender.Size = new System.Drawing.Size(167, 21);
             this.cb_gender.TabIndex = 25;
             // 
-            // addToStaffTableForm
+            // AddToStaffTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 303);
+            this.ClientSize = new System.Drawing.Size(340, 304);
             this.Controls.Add(this.cb_gender);
             this.Controls.Add(this.birthDatePick);
             this.Controls.Add(this.label2);
@@ -246,7 +246,7 @@
             this.Controls.Add(this.tb_function);
             this.Controls.Add(this.tb_name);
             this.Controls.Add(this.tb_surname);
-            this.Name = "addToStaffTableForm";
+            this.Name = "AddToStaffTableForm";
             this.Text = "Добавление работника";
             this.Load += new System.EventHandler(this.addToStaffTableForm_Load);
             this.ResumeLayout(false);

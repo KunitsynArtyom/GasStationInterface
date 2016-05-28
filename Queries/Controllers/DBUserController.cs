@@ -19,29 +19,29 @@ using Queries.Interfaces;
 
 namespace Queries.Controllers
 {
-    public class NewAdminController
+    public class DBUserController
     {
         List<string> ErrorList = new List<string>();
 
-        public NewAdminController()
+        public DBUserController()
         {
 
         }
 
-        public bool checkAddition(NewAdmin admin)
+        public bool checkAddition(DBUser user)
         {
             bool checkFlag = true;
-            if (admin.GetAdminLogin() == String.Empty || admin.GetAdminLogin().Length < 4)
+            if (user.GetDBUserLogin() == String.Empty || user.GetDBUserLogin().Length < 4 && !user.GetDBUserRole().Equals("worker"))
             {
                 checkFlag = false;
                 ErrorList.Add("Логин должн быть не меньше 4 символов!");
             }
-            if (admin.GetAdminPass() == String.Empty || admin.GetAdminPass().Length < 6)
+            if (user.GetDBUserPass() == String.Empty || user.GetDBUserPass().Length < 6)
             {
                 checkFlag = false;
                 ErrorList.Add("Пароль должн быть не меньше 6 символов!");
             }
-            if (admin.GetAdminRole() == String.Empty || !admin.GetAdminRole().Equals("admin"))
+            if (user.GetDBUserRole() == String.Empty)
             {
                 checkFlag = false;
                 ErrorList.Add("Роль указана неверно!");

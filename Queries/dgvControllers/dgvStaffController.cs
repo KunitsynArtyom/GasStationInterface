@@ -39,7 +39,11 @@ namespace Queries.dgvControllers
 
         public void addToTable(Worker wk)
         {
-            factory.GetStaffRepository().AddToStaffTable(wk);
+            try
+            {
+                factory.GetStaffRepository().AddToStaffTable(wk);
+            }
+            catch (Exception) { MessageBox.Show("Что-то пошло не так!"); }
         }
 
         public void updateTable(int id, Worker wk)

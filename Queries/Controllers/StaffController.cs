@@ -60,7 +60,7 @@ namespace Queries.Controllers
                 checkFlag = false;
                 ErrorList.Add("Зарплата не может быть меньше 500 у.е!");
             }
-            if (checkFlag == false)
+            if (checkFlag == false && ErrorList.Count != 0)
             {
                 foreach (string str in ErrorList)
                 {

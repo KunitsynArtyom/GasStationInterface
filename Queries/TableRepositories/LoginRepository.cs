@@ -46,14 +46,14 @@ namespace Queries.TableRepositories
             }
             catch (NpgsqlException ne)
             {
-
+                throw ne;
             }
             finally { dbc.closeConnection(); }
 
             return role;
         }
 
-        public void AddNewAdmin(NewAdmin admin)
+        public void AddNewDBUser(DBUser dbUser)
         {
             try
             {
@@ -61,14 +61,14 @@ namespace Queries.TableRepositories
 
                 NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"Login\".\"LoginTable\"(Login, Password, Role)" +
                     "VALUES(@Login, @Pass, @Role)", dbc.getConnection());
-                queryCommand.Parameters.AddWithValue("@Login", admin.GetAdminLogin());
-                queryCommand.Parameters.AddWithValue("@Pass", admin.GetAdminPass());
-                queryCommand.Parameters.AddWithValue("@Role", admin.GetAdminRole());
+                queryCommand.Parameters.AddWithValue("@Login", dbUser.GetDBUserLogin());
+                queryCommand.Parameters.AddWithValue("@Pass", dbUser.GetDBUserPass());
+                queryCommand.Parameters.AddWithValue("@Role", dbUser.GetDBUserRole());
                 queryCommand.ExecuteNonQuery();
             }
             catch (NpgsqlException ne)
             {
-
+                throw ne;
             }
             finally { dbc.closeConnection(); }
 

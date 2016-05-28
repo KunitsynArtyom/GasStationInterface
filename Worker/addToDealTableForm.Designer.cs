@@ -192,8 +192,9 @@
             this.checkNow.TabIndex = 54;
             this.checkNow.Text = "Сейчас";
             this.checkNow.UseVisualStyleBackColor = true;
+            this.checkNow.CheckedChanged += new System.EventHandler(this.checkNow_CheckedChanged);
             // 
-            // addToDealTableForm
+            // AddToDealTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -215,7 +216,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbDealPrice);
             this.Controls.Add(this.tbFuelamount);
-            this.Name = "addToDealTableForm";
+            this.Name = "AddToDealTableForm";
             this.Text = "Добавление сделки";
             this.Load += new System.EventHandler(this.updateDealTableForm_Load);
             this.ResumeLayout(false);

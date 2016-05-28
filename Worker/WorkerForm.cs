@@ -62,5 +62,19 @@ namespace Worker
             fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
             fillSupplyTable.showTable(ID);
         }
+
+        private void RefreshTables_Click_1(object sender, EventArgs e)
+        {
+            fillDealTable = new dgvDealController(dgvVievDeal, factory);
+            fillDealTable.showWorkerTable(ID);
+            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            fillSupplyTable.showTable(ID);
+        }
+
+        private void btnSupplyUpdate_Click(object sender, EventArgs e)
+        {
+            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            fillSupplyTable.showTable(ID);
+        }
     }
 }

@@ -23,7 +23,6 @@ namespace Queries.Controllers
         Login login;
         DBConnection dbc;
         IRepositoryFactory factory;
-        RepositoryFactory repLoginFactory;
 
         public LoginController(Login login, DBConnection dbc)
         {
@@ -37,10 +36,23 @@ namespace Queries.Controllers
             factory = repLoginFactory;
         }
 
+        public LoginController(IRepositoryFactory factory)
+        {
+            this.factory = factory;
+        }
+
         public string tryLogin()
         {
-            //LoginRepository lp = new LoginRepository(dbc);
             return factory.GetLoginRepository().LoginToTable(login);
-        }    
+        }
+
+        public void addToLoginTable(DBUser dbUser)
+        {
+            try
+            {
+                factory.GetLoginRepository().AddNewDBUser(dbUser);
+            }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!"); }
+        }
     }
 }

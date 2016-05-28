@@ -11,7 +11,7 @@ namespace Queries.Interfaces
     {
         string LoginToTable(Login login);
 
-        void AddNewAdmin(NewAdmin admin);
+        void AddNewDBUser(DBUser dbUser);
 
     }
 }

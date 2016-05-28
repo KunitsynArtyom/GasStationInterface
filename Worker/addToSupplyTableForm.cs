@@ -70,19 +70,19 @@ namespace Worker
                     fueltype = Convert.ToString(cbFuelType.Text);
                 }
                 fuelamount = Convert.ToInt32(tbFuelAmount.Text);
-                            if (checkNow.Checked)
+                if (checkNow.Checked)
                 {
                     supplydate = DateTime.Now;
                 }
-            if (!checkNow.Checked)
-            {
-                try
+                if (!checkNow.Checked)
                 {
-                    hours = Convert.ToInt32(tbHours.Text);
-                    minutes = Convert.ToInt32(tbMinutes.Text);
+                    //try
+                    //{
+                        hours = Convert.ToInt32(tbHours.Text);
+                        minutes = Convert.ToInt32(tbMinutes.Text);
+                    //}
+                    //catch (Exception ex) { }
                 }
-                catch (Exception ex) { }
-            }
                 
                 supplydate = Convert.ToDateTime(supplyDateTimePick.Text);
             if (checkNow.Checked)
@@ -91,12 +91,12 @@ namespace Worker
             }
             else
             {
-                try
-                {
+                //try
+                //{
                     supplydate = supplydate.AddHours(hours);
                     supplydate = supplydate.AddMinutes(minutes);
-                }
-                catch (Exception ex) { }
+                //}
+                //catch (Exception ex) { }
             }
             //if (checkNow.Checked)
             //    {
@@ -108,11 +108,10 @@ namespace Worker
                 if (sc.checkAddition(sup))
                 {
                     dgvSupplyController dgsc = new dgvSupplyController(dgv, factory);
-                    dgsc.addToSupplyTable(sup);
-                }
+                    dgsc.addToSupplyTable(sup);                }
             }
             catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
-            Close();
+            //Close();
         }
     }
 }

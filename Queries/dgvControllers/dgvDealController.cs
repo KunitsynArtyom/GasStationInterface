@@ -88,10 +88,10 @@ namespace Queries.dgvControllers
 
         public void addToTable(Deal deal)
         {
-            try
-            {
+            //try
+            //{
                 factory.GetDealRepository().AddToDealTable(deal);
-            } catch(NpgsqlException ne) { MessageBox.Show("Данные введены некорректно"); }
+            //} catch(NpgsqlException ne) { MessageBox.Show("Данные введены некорректно"); }
         }
     }
 }

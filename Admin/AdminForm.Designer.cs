@@ -43,6 +43,7 @@
             this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabStaffTable = new System.Windows.Forms.TabPage();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -77,6 +78,7 @@
             this.допФункцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddNewAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnActivateCarCard = new System.Windows.Forms.Button();
             this.tabAccountingTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewAccounting)).BeginInit();
             this.tabCarTable.SuspendLayout();
@@ -146,6 +148,7 @@
             // 
             // tabCarTable
             // 
+            this.tabCarTable.Controls.Add(this.btnActivateCarCard);
             this.tabCarTable.Controls.Add(this.btnCarAdd);
             this.tabCarTable.Controls.Add(this.btnFindDealsByCar_id);
             this.tabCarTable.Controls.Add(this.dgvViewCars);
@@ -159,7 +162,7 @@
             // 
             // btnCarAdd
             // 
-            this.btnCarAdd.Location = new System.Drawing.Point(547, 255);
+            this.btnCarAdd.Location = new System.Drawing.Point(547, 219);
             this.btnCarAdd.Name = "btnCarAdd";
             this.btnCarAdd.Size = new System.Drawing.Size(122, 34);
             this.btnCarAdd.TabIndex = 3;
@@ -171,7 +174,7 @@
             // 
             this.btnFindDealsByCar_id.Location = new System.Drawing.Point(547, 136);
             this.btnFindDealsByCar_id.Name = "btnFindDealsByCar_id";
-            this.btnFindDealsByCar_id.Size = new System.Drawing.Size(127, 34);
+            this.btnFindDealsByCar_id.Size = new System.Drawing.Size(122, 34);
             this.btnFindDealsByCar_id.TabIndex = 2;
             this.btnFindDealsByCar_id.Text = "Поиск сделок";
             this.btnFindDealsByCar_id.UseVisualStyleBackColor = true;
@@ -209,6 +212,7 @@
             // 
             // tabStaffTable
             // 
+            this.tabStaffTable.Controls.Add(this.btnRegister);
             this.tabStaffTable.Controls.Add(this.btnDelete);
             this.tabStaffTable.Controls.Add(this.btnAdd);
             this.tabStaffTable.Controls.Add(this.btnUpdate);
@@ -221,6 +225,16 @@
             this.tabStaffTable.TabIndex = 0;
             this.tabStaffTable.Text = "Список сотрудников";
             this.tabStaffTable.UseVisualStyleBackColor = true;
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.Location = new System.Drawing.Point(583, 335);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(75, 35);
+            this.btnRegister.TabIndex = 4;
+            this.btnRegister.Text = "Добавить в систему учета";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // btnDelete
             // 
@@ -354,7 +368,7 @@
             this.city,
             this.street,
             this.storagecap});
-            this.dgvVievAZS.Location = new System.Drawing.Point(0, 0);
+            this.dgvVievAZS.Location = new System.Drawing.Point(3, 3);
             this.dgvVievAZS.Name = "dgvVievAZS";
             this.dgvVievAZS.Size = new System.Drawing.Size(545, 445);
             this.dgvVievAZS.TabIndex = 1;
@@ -498,6 +512,16 @@
             this.RefreshTables.Text = "Обновить таблицы";
             this.RefreshTables.Click += new System.EventHandler(this.RefreshTables_Click);
             // 
+            // btnActivateCarCard
+            // 
+            this.btnActivateCarCard.Location = new System.Drawing.Point(547, 306);
+            this.btnActivateCarCard.Name = "btnActivateCarCard";
+            this.btnActivateCarCard.Size = new System.Drawing.Size(122, 34);
+            this.btnActivateCarCard.TabIndex = 4;
+            this.btnActivateCarCard.Text = "Активировать карту";
+            this.btnActivateCarCard.UseVisualStyleBackColor = true;
+            this.btnActivateCarCard.Click += new System.EventHandler(this.btnActivateCarCard_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -579,6 +603,8 @@
         private System.Windows.Forms.ToolStripMenuItem допФункцииToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AddNewAdmin;
         private System.Windows.Forms.ToolStripMenuItem RefreshTables;
+        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Button btnActivateCarCard;
     }
 }
 

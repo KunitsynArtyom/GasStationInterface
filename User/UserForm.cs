@@ -19,7 +19,6 @@ namespace User
     public partial class UserForm : Form //форма пользователя
     {
         IRepositoryFactory factory;
-        StationRepository stationQuery;
         dgvStationController fillStaffTable;
         dgvDealController fillDealTable;
         public NpgsqlConnection conn;
@@ -30,11 +29,6 @@ namespace User
             InitializeComponent();
             this.cardnum = cardnum;
             this.factory = factory; 
-            //DBConnection dbc = new DBConnection(conn);
-            //factory.setDBFactoryConnection(dbc);
-            //dbc.openConnection();
-            //factory = new RepositoryFactory(dbc);
-            //stationQuery = factory.GetStationRepository();
             fillStaffTable = new dgvStationController(dgvVievAZS, factory);
             fillDealTable = new dgvDealController(dgvUserDeals, factory);
         }

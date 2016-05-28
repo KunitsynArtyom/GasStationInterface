@@ -61,7 +61,7 @@ namespace Admin
                 }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
-            Close();
+            //Close();
         }
 
         public AddToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)

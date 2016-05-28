@@ -37,10 +37,10 @@ namespace Admin
             cb_gender.Items.Add("female");
             try
             {
-                comboBoxStaffFiller cbsf;
+                //comboBoxStaffFiller cbsf;
                 cbStationList.Visible = false;
                 label2.Visible = false;
-                cbsf = new comboBoxStaffFiller(cbOrgList, factory);
+                comboBoxStaffFiller cbsf = new comboBoxStaffFiller(cbOrgList, factory);
                 cbsf.cb_orgFill();
             }
             catch (Exception ex) { }
@@ -53,10 +53,10 @@ namespace Admin
                 if (cbOrgList.SelectedIndex != -1)
                 {
                     cbStationList.Items.Clear();
-                    comboBoxStaffFiller cbsf;
+                    //comboBoxStaffFiller cbsf;
                     cbStationList.Visible = true;
                     label2.Visible = true;
-                    cbsf = new comboBoxStaffFiller(cbStationList, factory);
+                    comboBoxStaffFiller cbsf = new comboBoxStaffFiller(cbStationList, factory);
                     cbsf.cb_stationFill(cbOrgList.Text);
                 }
             }
@@ -134,7 +134,7 @@ namespace Admin
                 }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
-            Close();
+            //Close();
         }
       
         public AddToStaffTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
@@ -147,7 +147,7 @@ namespace Admin
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Hide();
+            //Hide();
             Close();
             af.Show();
         }

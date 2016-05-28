@@ -66,13 +66,12 @@ namespace Queries.TableRepositories
 
         public void AddToStaffTable(Worker wk)
         {
-            NpgsqlCommand queryCommand;
             try
             {
                 dbc.openConnection();
                 if (wk.GetManager() != 0)
                 {
-                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Manager, Salary)" +
+                    NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Manager, Salary)" +
                         "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Manager, @Salary)", dbc.getConnection());
                     queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
                     queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
@@ -86,7 +85,7 @@ namespace Queries.TableRepositories
                 }
                 else
                 {
-                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Salary)" +
+                    NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Salary)" +
                         "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Salary)", dbc.getConnection());
                     queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
                     queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
@@ -153,7 +152,7 @@ namespace Queries.TableRepositories
 
         public string FindStaffByID(int staff_id)
         {
-            string SName = "", name, surname;
+            string SName = String.Empty, name, surname;
             try
             {
                 NpgsqlDataReader AZSTableReader = null;

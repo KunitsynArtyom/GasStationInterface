@@ -49,17 +49,15 @@ namespace Admin
                     dgvCarController dgvc = new dgvCarController(dgv, factory);
                     dgvc.addToTable(car);
                 }
-                //dgvCarController dgvc = new dgvCarController(dgv, dbc);
-                //dgvc.addToTable(car);
             }
             catch (FormatException) { MessageBox.Show("Данные введены некорректно!"); }
-            Close();
-            af.Show();
+            //Close();
+            //af.Show();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Hide();
+            //Hide();
             Close();
             af.Show();
         }

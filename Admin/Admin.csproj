@@ -66,6 +66,18 @@
     <Compile Include="AddToCarTableForm.Designer.cs">
       <DependentUpon>AddToCarTableForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddUserToLoginTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddUserToLoginTableForm.Designer.cs">
+      <DependentUpon>AddUserToLoginTableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddWorkerToLoginTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddWorkerToLoginTableForm.Designer.cs">
+      <DependentUpon>AddWorkerToLoginTableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddToStaffTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddToCarTableForm.resx">
       <DependentUpon>AddToCarTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddUserToLoginTableForm.resx">
+      <DependentUpon>AddUserToLoginTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddWorkerToLoginTableForm.resx">
+      <DependentUpon>AddWorkerToLoginTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddToStaffTableForm.resx">
       <DependentUpon>AddToStaffTableForm.cs</DependentUpon>

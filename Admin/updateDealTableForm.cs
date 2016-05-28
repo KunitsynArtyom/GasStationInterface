@@ -40,7 +40,7 @@ namespace Admin
                 fuelamount = Convert.ToInt32(tb_fuelamount.Text);
                 if (cbCardNum.SelectedIndex != -1)
                 {
-                   cardnum = Convert.ToString(cbCardNum.Text).Trim().Replace(" ", string.Empty); ///
+                   cardnum = Convert.ToString(cbCardNum.Text).Trim().Replace(" ", string.Empty);
                 }
                 dealprice = Convert.ToInt32(tb_dealprice.Text);
                 hours = Convert.ToInt32(tbHours.Text);

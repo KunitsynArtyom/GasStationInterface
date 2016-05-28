@@ -15,6 +15,7 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.Interfaces;
+using Queries.Controllers;
 
 namespace Worker
 {
@@ -42,6 +43,24 @@ namespace Worker
             this.ID = ID;
         }
 
+        private void checkNow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkNow.Checked)
+            {
+                tbHours.Visible = false;
+                tbMinutes.Visible = false;
+                label1.Visible = false;
+                label2.Visible = false;
+            }
+            if (!checkNow.Checked)
+            {
+                tbHours.Visible = true;
+                tbMinutes.Visible = true;
+                label1.Visible = true;
+                label2.Visible = true;
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -57,32 +76,46 @@ namespace Worker
                     cardnum = cardnum.Trim().Replace(" ", string.Empty);
                 }
                 dealprice = Convert.ToInt32(tbDealPrice.Text);
-            try
-            {
-                hours = Convert.ToInt32(tbHours.Text);
-                minutes = Convert.ToInt32(tbMinutes.Text);
-            }
-            catch (Exception ex) { }
-            dealdate = Convert.ToDateTime(dealDatePick.Text);
-                try
-                {
-                    dealdate = dealdate.AddHours(hours);
-                    dealdate = dealdate.AddMinutes(minutes);
-                }
-                catch (Exception ex) {  }
                 if (checkNow.Checked)
                 {
                     dealdate = DateTime.Now;
                 }
-                //dealDatePick.Value = dealDatePick.Value.AddHours(hours);
-                //dealDatePick.Value = dealDatePick.Value.AddMinutes(minutes);
+                if (!checkNow.Checked)
+                {
+                    //try
+                    //{
+                    hours = Convert.ToInt32(tbHours.Text);
+                    minutes = Convert.ToInt32(tbMinutes.Text);
+                    //}
+                    //catch (Exception ex) { }
+                }
+                dealdate = Convert.ToDateTime(dealDatePick.Text);
+                if (checkNow.Checked)
+                {
+                    dealdate = DateTime.Now;
+                }
+                else
+                {
+                    //try
+                    //{ 
+                    dealdate = dealdate.AddHours(hours);
+                    dealdate = dealdate.AddMinutes(minutes);
+                    //}
+                    //catch (Exception ex) { }
+                }
+
                 Deal deal = new Deal();
                 deal.dealSet(0, factory.GetCarRepository().FindCarIDByCardnum(cardnum), ID, fueltype, fuelamount, dealprice, cardnum, dealdate);
-            dgvDealController dgdc = new dgvDealController(dgv, factory);
-            dgdc.addToTable(deal);
+                DealController dc = new DealController();
+                if (dc.checkAddition(deal))
+                {
+                    dgvDealController dgdc = new dgvDealController(dgv, factory);
+                    dgdc.addToTable(deal);
+                    MessageBox.Show("Сделка добавлена!");
+                }
             }
             catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
-            Close();
+            //Close();
         }
 
         private void updateDealTableForm_Load(object sender, EventArgs e)

@@ -30,12 +30,15 @@ namespace Admin
             {
                 login = tbLogin.Text;
                 pass = tbPass.Text;
-                NewAdmin nAdmin = new NewAdmin();
-                nAdmin.setNewAdmin(login, pass, "admin");
-                NewAdminController adminController = new NewAdminController();
+                DBUser nAdmin = new DBUser();
+                nAdmin.setNewUser(login, pass, "admin");
+                DBUserController adminController = new DBUserController();
                 if (adminController.checkAddition(nAdmin))
                 {
-                    factory.GetLoginRepository().AddNewAdmin(nAdmin);
+                    LoginController lc = new LoginController(factory);
+                    lc.addToLoginTable(nAdmin);
+                    MessageBox.Show("Операция успешно завершена!");
+                    //factory.GetLoginRepository().AddNewDBUser(nAdmin);
                 }
             }
             catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
