@@ -102,25 +102,25 @@ namespace Enter
             switch (role)
             {
                 case "worker":
-                    RepositoryFactory repWorkerFactory = new RepositoryFactory(dbc);
-                    IRepositoryFactory workerFactory = (IRepositoryFactory)repWorkerFactory;
-                    WorkerForm workerForm = new WorkerForm(Convert.ToInt32(Login), workerFactory);
+                    IRepositoryFactory repWorkerFactory = new RepositoryFactory(dbc);
+                    //IRepositoryFactory workerFactory = (IRepositoryFactory)repWorkerFactory;
+                    WorkerForm workerForm = new WorkerForm(Convert.ToInt32(Login), repWorkerFactory);
                     Hide();
                     workerForm.ShowDialog();
                     Show();
                     break;
                 case "admin":
-                    RepositoryFactory repAdminFactory = new RepositoryFactory(dbc);
-                    IRepositoryFactory adminFactory = (IRepositoryFactory)repAdminFactory;
-                    AdminForm adminForm = new AdminForm(adminFactory);
+                    IRepositoryFactory repAdminFactory = new RepositoryFactory(dbc);
+                    //IRepositoryFactory adminFactory = (IRepositoryFactory)repAdminFactory;
+                    AdminForm adminForm = new AdminForm(repAdminFactory);
                     Hide();
                     adminForm.ShowDialog();
                     Show();
                     break;
                 case "user":
-                    RepositoryFactory repUserFactory = new RepositoryFactory(dbc);
-                    IRepositoryFactory userFactory = (IRepositoryFactory)repUserFactory;
-                    UserForm userForm = new UserForm(Login, userFactory);
+                    IRepositoryFactory repUserFactory = new RepositoryFactory(dbc);
+                    //IRepositoryFactory userFactory = (IRepositoryFactory)repUserFactory;
+                    UserForm userForm = new UserForm(Login, repUserFactory);
                     Hide();
                     userForm.ShowDialog();
                     Show();
