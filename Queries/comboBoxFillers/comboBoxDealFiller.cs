@@ -51,8 +51,8 @@ namespace Queries.comboBoxFillers
             comboBoxElements = factory.GetStationRepository().GetStationsAdres(Orgname);
             foreach (string st in comboBoxElements)
             {
-                string cbString = RemoveSpaces(st);
-                cb.Items.Add(cbString);
+                //string cbString = RemoveSpaces(st);
+                cb.Items.Add(st.Trim().Replace(" ", string.Empty));
             }
         }
 
@@ -61,7 +61,7 @@ namespace Queries.comboBoxFillers
             List<Car> comboBoxCarElements = factory.GetCarRepository().GetCars();
             foreach (Car car in comboBoxCarElements)
             {               
-                cb.Items.Add(car.GetCardNum());
+                cb.Items.Add(car.GetCardNum().Trim().Replace(" ", string.Empty));
             }
         }
 

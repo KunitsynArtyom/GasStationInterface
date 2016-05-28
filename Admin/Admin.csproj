@@ -54,23 +54,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="addToCarTableForm.cs">
+    <Compile Include="AddNewAdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addToCarTableForm.Designer.cs">
-      <DependentUpon>addToCarTableForm.cs</DependentUpon>
+    <Compile Include="AddNewAdminForm.Designer.cs">
+      <DependentUpon>AddNewAdminForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="addToStaffTableForm.cs">
+    <Compile Include="AddToCarTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addToStaffTableForm.Designer.cs">
-      <DependentUpon>addToStaffTableForm.cs</DependentUpon>
+    <Compile Include="AddToCarTableForm.Designer.cs">
+      <DependentUpon>AddToCarTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="addToStationTableForm.cs">
+    <Compile Include="AddToStaffTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addToStationTableForm.Designer.cs">
-      <DependentUpon>addToStationTableForm.cs</DependentUpon>
+    <Compile Include="AddToStaffTableForm.Designer.cs">
+      <DependentUpon>AddToStaffTableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddToStationTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddToStationTableForm.Designer.cs">
+      <DependentUpon>AddToStationTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AdminForm.cs">
       <SubType>Form</SubType>
@@ -86,26 +92,29 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="updateDealTableForm.cs">
+    <Compile Include="UpdateDealTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="updateDealTableForm.Designer.cs">
-      <DependentUpon>updateDealTableForm.cs</DependentUpon>
+    <Compile Include="UpdateDealTableForm.Designer.cs">
+      <DependentUpon>UpdateDealTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="updateStaffTableForm.cs">
+    <Compile Include="UpdateStaffTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="updateStaffTableForm.Designer.cs">
-      <DependentUpon>updateStaffTableForm.cs</DependentUpon>
+    <Compile Include="UpdateStaffTableForm.Designer.cs">
+      <DependentUpon>UpdateStaffTableForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="addToCarTableForm.resx">
-      <DependentUpon>addToCarTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddNewAdminForm.resx">
+      <DependentUpon>AddNewAdminForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="addToStaffTableForm.resx">
-      <DependentUpon>addToStaffTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddToCarTableForm.resx">
+      <DependentUpon>AddToCarTableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="addToStationTableForm.resx">
-      <DependentUpon>addToStationTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddToStaffTableForm.resx">
+      <DependentUpon>AddToStaffTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddToStationTableForm.resx">
+      <DependentUpon>AddToStationTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
@@ -122,11 +131,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="updateDealTableForm.resx">
-      <DependentUpon>updateDealTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="UpdateDealTableForm.resx">
+      <DependentUpon>UpdateDealTableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="updateStaffTableForm.resx">
-      <DependentUpon>updateStaffTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="UpdateStaffTableForm.resx">
+      <DependentUpon>UpdateStaffTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -62,5 +62,10 @@ namespace Queries
         {
             return new SupplyRepository(dbc);
         }
+
+        public ILoginRepository GetLoginRepository()
+        {
+            return new LoginRepository(dbc);
+        }
     }
 }

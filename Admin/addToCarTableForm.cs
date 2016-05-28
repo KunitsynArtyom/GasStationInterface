@@ -19,14 +19,14 @@ using Queries.Interfaces;
 
 namespace Admin
 {
-    public partial class addToCarTableForm : Form
+    public partial class AddToCarTableForm : Form
     {
         public Form af;
         DataGridView dgv;
         DBConnection dbc;
         IRepositoryFactory factory;
 
-        public addToCarTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
+        public AddToCarTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
@@ -35,7 +35,7 @@ namespace Admin
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
-        {        
+        {
             try
             {
                 string carMark, cardNum;

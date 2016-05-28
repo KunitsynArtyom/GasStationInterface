@@ -8,9 +8,9 @@ namespace Queries.Entities
 {
     public class Car
     {
-        protected int b_car_id { set; get; }
-        protected string b_carmark { set; get; }
-        protected string b_cardnum { set; get; }
+        protected int b_car_id { private set; get; }
+        protected string b_carmark { private set; get; }
+        protected string b_cardnum { private set; get; }
 
         public void buyerSet(int car_id, string carmark, string cardnum)
         {

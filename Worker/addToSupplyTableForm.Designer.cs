@@ -1,6 +1,6 @@
 ﻿namespace Worker
 {
-    partial class addToSupplyTableForm
+    partial class AddToSupplyTableForm
     {
         /// <summary>
         /// Required designer variable.
@@ -36,18 +36,23 @@
             this.cbFuelType = new System.Windows.Forms.ComboBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.checkNow = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbMinutes = new System.Windows.Forms.TextBox();
+            this.tbHours = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tbFuelAmount
             // 
-            this.tbFuelAmount.Location = new System.Drawing.Point(167, 38);
+            this.tbFuelAmount.Location = new System.Drawing.Point(148, 38);
             this.tbFuelAmount.Name = "tbFuelAmount";
             this.tbFuelAmount.Size = new System.Drawing.Size(146, 20);
             this.tbFuelAmount.TabIndex = 1;
             // 
             // supplyDateTimePick
             // 
-            this.supplyDateTimePick.Location = new System.Drawing.Point(167, 63);
+            this.supplyDateTimePick.Location = new System.Drawing.Point(148, 63);
             this.supplyDateTimePick.Name = "supplyDateTimePick";
             this.supplyDateTimePick.Size = new System.Drawing.Size(146, 20);
             this.supplyDateTimePick.TabIndex = 2;
@@ -81,15 +86,16 @@
             // 
             // cbFuelType
             // 
+            this.cbFuelType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFuelType.FormattingEnabled = true;
-            this.cbFuelType.Location = new System.Drawing.Point(167, 11);
+            this.cbFuelType.Location = new System.Drawing.Point(148, 11);
             this.cbFuelType.Name = "cbFuelType";
             this.cbFuelType.Size = new System.Drawing.Size(146, 21);
             this.cbFuelType.TabIndex = 6;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(238, 98);
+            this.btnAdd.Location = new System.Drawing.Point(218, 156);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 7;
@@ -99,18 +105,67 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(157, 98);
+            this.btnCancel.Location = new System.Drawing.Point(125, 156);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // checkNow
+            // 
+            this.checkNow.AutoSize = true;
+            this.checkNow.Location = new System.Drawing.Point(15, 99);
+            this.checkNow.Name = "checkNow";
+            this.checkNow.Size = new System.Drawing.Size(62, 17);
+            this.checkNow.TabIndex = 59;
+            this.checkNow.Text = "Сейчас";
+            this.checkNow.UseVisualStyleBackColor = true;
+            this.checkNow.CheckedChanged += new System.EventHandler(this.checkNow_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(215, 125);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.TabIndex = 58;
+            this.label4.Text = "Минута:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(215, 99);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.TabIndex = 57;
+            this.label5.Text = "Час:";
+            // 
+            // tbMinutes
+            // 
+            this.tbMinutes.Location = new System.Drawing.Point(270, 118);
+            this.tbMinutes.Name = "tbMinutes";
+            this.tbMinutes.Size = new System.Drawing.Size(23, 20);
+            this.tbMinutes.TabIndex = 56;
+            // 
+            // tbHours
+            // 
+            this.tbHours.Location = new System.Drawing.Point(270, 92);
+            this.tbHours.Name = "tbHours";
+            this.tbHours.Size = new System.Drawing.Size(23, 20);
+            this.tbHours.TabIndex = 55;
             // 
             // addToSupplyTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 133);
+            this.ClientSize = new System.Drawing.Size(305, 191);
+            this.Controls.Add(this.checkNow);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbMinutes);
+            this.Controls.Add(this.tbHours);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.cbFuelType);
@@ -136,5 +191,10 @@
         private System.Windows.Forms.ComboBox cbFuelType;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox checkNow;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbMinutes;
+        private System.Windows.Forms.TextBox tbHours;
     }
 }

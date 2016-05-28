@@ -18,5 +18,7 @@ namespace Queries.Interfaces
 
         void AddToSupplyTable(Supply sup);
 
+        List<Supply> ShowSupplyTableByID(int ID);
+
     }
 }

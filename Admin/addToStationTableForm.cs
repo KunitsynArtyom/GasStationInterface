@@ -20,7 +20,7 @@ using Queries.Interfaces;
 
 namespace Admin
 {
-    public partial class addToStationTableForm : Form
+    public partial class AddToStationTableForm : Form
     {
     public Form af;
     IRepositoryFactory factory;
@@ -31,8 +31,21 @@ namespace Admin
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            List<string> ErrorList = new List<string>();
             try
             {
+                if (tbStorageCap.Text == String.Empty)
+                {
+                    ErrorList.Add("Недопустимые объемы резервуаров!");
+                }
+                if (ErrorList.Count != 0)
+                {
+                    foreach (string str in ErrorList)
+                    {
+                        MessageBox.Show(str);
+                    }
+                }
+
                 orgname = tbOrgName.Text.ToString();
                 country = tbCountry.Text.ToString();
                 city = tbCity.Text.ToString();
@@ -51,7 +64,7 @@ namespace Admin
             Close();
         }
 
-        public addToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
+        public AddToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;

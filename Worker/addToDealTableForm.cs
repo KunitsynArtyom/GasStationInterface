@@ -18,16 +18,23 @@ using Queries.Interfaces;
 
 namespace Worker
 {
-    public partial class addToDealTableForm : Form
+    public partial class AddToDealTableForm : Form
     {
         public Form wf;
         DataGridView dgv;
         IRepositoryFactory factory;
         int ID, fuelamount, dealprice, hours, minutes;
         string fueltype, cardnum;
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Hide();
+            Close();
+        }
+
         DateTime dealdate;
 
-        public addToDealTableForm(int ID, IRepositoryFactory factory, DataGridView dgv)
+        public AddToDealTableForm(int ID, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             this.factory = factory;
@@ -50,11 +57,23 @@ namespace Worker
                     cardnum = cardnum.Trim().Replace(" ", string.Empty);
                 }
                 dealprice = Convert.ToInt32(tbDealPrice.Text);
+            try
+            {
                 hours = Convert.ToInt32(tbHours.Text);
                 minutes = Convert.ToInt32(tbMinutes.Text);
-                dealdate = Convert.ToDateTime(dealDatePick.Text);
-                dealdate = dealdate.AddHours(hours);
-                dealdate = dealdate.AddMinutes(minutes);
+            }
+            catch (Exception ex) { }
+            dealdate = Convert.ToDateTime(dealDatePick.Text);
+                try
+                {
+                    dealdate = dealdate.AddHours(hours);
+                    dealdate = dealdate.AddMinutes(minutes);
+                }
+                catch (Exception ex) {  }
+                if (checkNow.Checked)
+                {
+                    dealdate = DateTime.Now;
+                }
                 //dealDatePick.Value = dealDatePick.Value.AddHours(hours);
                 //dealDatePick.Value = dealDatePick.Value.AddMinutes(minutes);
                 Deal deal = new Deal();
@@ -63,6 +82,7 @@ namespace Worker
             dgdc.addToTable(deal);
             }
             catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
+            Close();
         }
 
         private void updateDealTableForm_Load(object sender, EventArgs e)

@@ -39,7 +39,7 @@ namespace Queries.TableRepositories
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
                         Account account = new Account();
-                        account.accountSet(Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["station_adres"].ToString(),
+                        account.accountSet(Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["station_adres"].ToString(), dbDataRecord["accountrole"].ToString(),
                             dbDataRecord["fuelaccounttype"].ToString(), Convert.ToInt32(dbDataRecord["fuelaccountamount"]),
                             Convert.ToDateTime(dbDataRecord["accountdate"].ToString()));
                         dgvElements.Add(account);

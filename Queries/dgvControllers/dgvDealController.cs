@@ -77,7 +77,10 @@ namespace Queries.dgvControllers
 
         public void updateTable(int id, Deal deal)
         {
-            factory.GetDealRepository().UpdateDealTable(id, deal);
+            try
+            {
+                factory.GetDealRepository().UpdateDealTable(id, deal);
+            } catch (NpgsqlException ne) { MessageBox.Show("Данные введены некорректно"); }
             //var dealList = factory.GetDealRepository().ShowDealTable();
             //Deal dealToUpdate = dealList[number];
             //factory.GetDealRepository().UpdateDealTabele(dealToUpdate, deal);
@@ -85,7 +88,10 @@ namespace Queries.dgvControllers
 
         public void addToTable(Deal deal)
         {
-            factory.GetDealRepository().AddToDealTable(deal);
+            try
+            {
+                factory.GetDealRepository().AddToDealTable(deal);
+            } catch(NpgsqlException ne) { MessageBox.Show("Данные введены некорректно"); }
         }
     }
 }

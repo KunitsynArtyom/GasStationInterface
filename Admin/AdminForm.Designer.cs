@@ -31,6 +31,7 @@
             this.tabAccountingTable = new System.Windows.Forms.TabPage();
             this.dgvViewAccounting = new System.Windows.Forms.DataGridView();
             this.stationadres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountrole = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelaccounttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelaccountamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accountdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,6 +39,9 @@
             this.btnCarAdd = new System.Windows.Forms.Button();
             this.btnFindDealsByCar_id = new System.Windows.Forms.Button();
             this.dgvViewCars = new System.Windows.Forms.DataGridView();
+            this.car_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabStaffTable = new System.Windows.Forms.TabPage();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -69,9 +73,10 @@
             this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.car_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.carmark = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.msAdmin = new System.Windows.Forms.MenuStrip();
+            this.допФункцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddNewAdmin = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
             this.tabAccountingTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewAccounting)).BeginInit();
             this.tabCarTable.SuspendLayout();
@@ -83,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).BeginInit();
             this.tabDealTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).BeginInit();
+            this.msAdmin.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabAccountingTable
@@ -90,7 +96,7 @@
             this.tabAccountingTable.Controls.Add(this.dgvViewAccounting);
             this.tabAccountingTable.Location = new System.Drawing.Point(4, 22);
             this.tabAccountingTable.Name = "tabAccountingTable";
-            this.tabAccountingTable.Size = new System.Drawing.Size(703, 458);
+            this.tabAccountingTable.Size = new System.Drawing.Size(703, 441);
             this.tabAccountingTable.TabIndex = 2;
             this.tabAccountingTable.Text = "Таблица учёта";
             this.tabAccountingTable.UseVisualStyleBackColor = true;
@@ -100,6 +106,7 @@
             this.dgvViewAccounting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvViewAccounting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.stationadres,
+            this.accountrole,
             this.fuelaccounttype,
             this.fuelaccountamount,
             this.accountdate});
@@ -114,17 +121,22 @@
             this.stationadres.Name = "stationadres";
             this.stationadres.Width = 150;
             // 
+            // accountrole
+            // 
+            this.accountrole.HeaderText = "Тип операции";
+            this.accountrole.Name = "accountrole";
+            this.accountrole.Width = 150;
+            // 
             // fuelaccounttype
             // 
             this.fuelaccounttype.HeaderText = "Тип топлива";
             this.fuelaccounttype.Name = "fuelaccounttype";
-            this.fuelaccounttype.Width = 150;
+            this.fuelaccounttype.Width = 60;
             // 
             // fuelaccountamount
             // 
             this.fuelaccountamount.HeaderText = "Количество топлива";
             this.fuelaccountamount.Name = "fuelaccountamount";
-            this.fuelaccountamount.Width = 150;
             // 
             // accountdate
             // 
@@ -140,7 +152,7 @@
             this.tabCarTable.Location = new System.Drawing.Point(4, 22);
             this.tabCarTable.Name = "tabCarTable";
             this.tabCarTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCarTable.Size = new System.Drawing.Size(703, 458);
+            this.tabCarTable.Size = new System.Drawing.Size(703, 441);
             this.tabCarTable.TabIndex = 1;
             this.tabCarTable.Text = "Список покупателей";
             this.tabCarTable.UseVisualStyleBackColor = true;
@@ -177,6 +189,24 @@
             this.dgvViewCars.Size = new System.Drawing.Size(493, 452);
             this.dgvViewCars.TabIndex = 1;
             // 
+            // car_id
+            // 
+            this.car_id.HeaderText = "ID";
+            this.car_id.Name = "car_id";
+            this.car_id.Width = 50;
+            // 
+            // carmark
+            // 
+            this.carmark.HeaderText = "Марка автомобиля";
+            this.carmark.Name = "carmark";
+            this.carmark.Width = 200;
+            // 
+            // cardnum
+            // 
+            this.cardnum.HeaderText = "Номер карты";
+            this.cardnum.Name = "cardnum";
+            this.cardnum.Width = 200;
+            // 
             // tabStaffTable
             // 
             this.tabStaffTable.Controls.Add(this.btnDelete);
@@ -187,7 +217,7 @@
             this.tabStaffTable.Location = new System.Drawing.Point(4, 22);
             this.tabStaffTable.Name = "tabStaffTable";
             this.tabStaffTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabStaffTable.Size = new System.Drawing.Size(703, 458);
+            this.tabStaffTable.Size = new System.Drawing.Size(703, 441);
             this.tabStaffTable.TabIndex = 0;
             this.tabStaffTable.Text = "Список сотрудников";
             this.tabStaffTable.UseVisualStyleBackColor = true;
@@ -287,10 +317,10 @@
             this.tabAdmin.Controls.Add(this.tabCarTable);
             this.tabAdmin.Controls.Add(this.tabDealTable);
             this.tabAdmin.Controls.Add(this.tabAccountingTable);
-            this.tabAdmin.Location = new System.Drawing.Point(12, 12);
+            this.tabAdmin.Location = new System.Drawing.Point(12, 29);
             this.tabAdmin.Name = "tabAdmin";
             this.tabAdmin.SelectedIndex = 0;
-            this.tabAdmin.Size = new System.Drawing.Size(711, 484);
+            this.tabAdmin.Size = new System.Drawing.Size(711, 467);
             this.tabAdmin.TabIndex = 0;
             // 
             // tabStationTable
@@ -300,7 +330,7 @@
             this.tabStationTable.Location = new System.Drawing.Point(4, 22);
             this.tabStationTable.Name = "tabStationTable";
             this.tabStationTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabStationTable.Size = new System.Drawing.Size(703, 458);
+            this.tabStationTable.Size = new System.Drawing.Size(703, 441);
             this.tabStationTable.TabIndex = 4;
             this.tabStationTable.Text = "Список станций";
             this.tabStationTable.UseVisualStyleBackColor = true;
@@ -326,7 +356,7 @@
             this.storagecap});
             this.dgvVievAZS.Location = new System.Drawing.Point(0, 0);
             this.dgvVievAZS.Name = "dgvVievAZS";
-            this.dgvVievAZS.Size = new System.Drawing.Size(545, 458);
+            this.dgvVievAZS.Size = new System.Drawing.Size(545, 445);
             this.dgvVievAZS.TabIndex = 1;
             // 
             // orgname
@@ -361,7 +391,7 @@
             this.tabDealTable.Location = new System.Drawing.Point(4, 22);
             this.tabDealTable.Name = "tabDealTable";
             this.tabDealTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDealTable.Size = new System.Drawing.Size(703, 458);
+            this.tabDealTable.Size = new System.Drawing.Size(703, 441);
             this.tabDealTable.TabIndex = 3;
             this.tabDealTable.Text = "Список сделок";
             this.tabDealTable.UseVisualStyleBackColor = true;
@@ -435,30 +465,47 @@
             this.dealdate.Name = "dealdate";
             this.dealdate.Width = 150;
             // 
-            // car_id
+            // msAdmin
             // 
-            this.car_id.HeaderText = "ID";
-            this.car_id.Name = "car_id";
-            this.car_id.Width = 50;
+            this.msAdmin.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.допФункцииToolStripMenuItem});
+            this.msAdmin.Location = new System.Drawing.Point(0, 0);
+            this.msAdmin.Name = "msAdmin";
+            this.msAdmin.Size = new System.Drawing.Size(735, 24);
+            this.msAdmin.TabIndex = 1;
+            this.msAdmin.Text = "Доп. функции";
             // 
-            // carmark
+            // допФункцииToolStripMenuItem
             // 
-            this.carmark.HeaderText = "Марка автомобиля";
-            this.carmark.Name = "carmark";
-            this.carmark.Width = 200;
+            this.допФункцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddNewAdmin,
+            this.RefreshTables});
+            this.допФункцииToolStripMenuItem.Name = "допФункцииToolStripMenuItem";
+            this.допФункцииToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.допФункцииToolStripMenuItem.Text = "Доп. функции";
             // 
-            // cardnum
+            // AddNewAdmin
             // 
-            this.cardnum.HeaderText = "Номер карты";
-            this.cardnum.Name = "cardnum";
-            this.cardnum.Width = 200;
+            this.AddNewAdmin.Name = "AddNewAdmin";
+            this.AddNewAdmin.Size = new System.Drawing.Size(220, 22);
+            this.AddNewAdmin.Text = "Добавить администратора";
+            this.AddNewAdmin.Click += new System.EventHandler(this.AddNewAdmin_Click);
+            // 
+            // RefreshTables
+            // 
+            this.RefreshTables.Name = "RefreshTables";
+            this.RefreshTables.Size = new System.Drawing.Size(220, 22);
+            this.RefreshTables.Text = "Обновить таблицы";
+            this.RefreshTables.Click += new System.EventHandler(this.RefreshTables_Click);
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 501);
+            this.ClientSize = new System.Drawing.Size(735, 511);
             this.Controls.Add(this.tabAdmin);
+            this.Controls.Add(this.msAdmin);
+            this.MainMenuStrip = this.msAdmin;
             this.Name = "AdminForm";
             this.Text = "Раздел администратора";
             this.Load += new System.EventHandler(this.AdminForm_Load);
@@ -473,7 +520,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).EndInit();
             this.tabDealTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).EndInit();
+            this.msAdmin.ResumeLayout(false);
+            this.msAdmin.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -496,10 +546,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dgvViewDeal;
         private System.Windows.Forms.Button btnDealUpdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccountamount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccounttype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stationadres;
         private System.Windows.Forms.TabPage tabStationTable;
         private System.Windows.Forms.DataGridView dgvVievAZS;
         private System.Windows.Forms.DataGridViewTextBoxColumn orgname;
@@ -524,6 +570,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn car_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
         private System.Windows.Forms.DataGridViewTextBoxColumn carmark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountrole;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountdate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccountamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccounttype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationadres;
+        private System.Windows.Forms.MenuStrip msAdmin;
+        private System.Windows.Forms.ToolStripMenuItem допФункцииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AddNewAdmin;
+        private System.Windows.Forms.ToolStripMenuItem RefreshTables;
     }
 }
 

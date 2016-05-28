@@ -10,14 +10,16 @@ namespace Queries.Entities
     {
         public string a_station_adres;
         public int a_station_id { private set; get; }
+        public string a_accountrole { private set; get; }
         public string a_fuelaccounttype { private set; get; }
         public int a_fuelaccountamount { private set; get; }
         public DateTime a_accountdate { private set; get; }
 
-        public void accountSet(int station_id, string station_adres, string fuelaccounttype, int fuelaccountamount, DateTime accountdate)
+        public void accountSet(int station_id, string station_adres, string accountrole, string fuelaccounttype, int fuelaccountamount, DateTime accountdate)
         {
             a_station_id = station_id;
             a_station_adres = station_adres;
+            a_accountrole = accountrole;
             a_fuelaccounttype = fuelaccounttype;
             a_fuelaccountamount = fuelaccountamount;
             a_accountdate = accountdate;
@@ -25,6 +27,7 @@ namespace Queries.Entities
 
         public int GetStation_id() => a_station_id;
         public string GetStationAdres() => a_station_adres;
+        public string GetAccountRole() => a_accountrole;
         public string GetFuelAccountType() => a_fuelaccounttype;
         public int GetFuelAccountAmount() => a_fuelaccountamount;
         public DateTime GetAccountDate() => a_accountdate;

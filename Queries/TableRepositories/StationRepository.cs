@@ -107,16 +107,16 @@ namespace Queries.TableRepositories
                 dbc.openConnection();
 
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
-                //       "@fCountry AND city LIKE @fCity AND street LIKE @fStreet ", dbc.getConnection());
+                //    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
+                //queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
 
-                //queryCommand.Parameters.AddWithValue("@fCountry", "%" + splittedLocation[0] + "%");
-                //queryCommand.Parameters.AddWithValue("@fCity", "%" + splittedLocation[1] + "%");
-                //queryCommand.Parameters.AddWithValue("@fStreet", "%" + splittedLocation[2] + "%");
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country = @Country" +
+                "AND city = @City AND street = @Street", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
+                queryCommand.Parameters.AddWithValue("@City", splittedLocation[1]);
+                queryCommand.Parameters.AddWithValue("@Street", splittedLocation[2]);
 
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
-                    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
-
-            NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
+                NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in Station_ID_TableSearcher)
@@ -222,12 +222,11 @@ namespace Queries.TableRepositories
 
         public void AddToStationTable(Station st)
         {
-            NpgsqlCommand queryCommand;
             try
             {
                 dbc.openConnection();
 
-                    queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"GasStation\"(OrgName, Country, City, Street, StorageCap)" +
+                NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"GasStation\"(OrgName, Country, City, Street, StorageCap)" +
                         "VALUES(@OrgName, @Country, @City, @Street, @StorageCap)", dbc.getConnection());
                     queryCommand.Parameters.AddWithValue("@OrgName", st.GetOrgName());
                     queryCommand.Parameters.AddWithValue("@Country", st.GetCountry());

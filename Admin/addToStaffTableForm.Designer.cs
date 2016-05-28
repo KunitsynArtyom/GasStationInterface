@@ -1,6 +1,6 @@
 ﻿namespace Admin
 {
-    partial class addToStaffTableForm
+    partial class AddToStaffTableForm
     {
         /// <summary>
         /// Required designer variable.

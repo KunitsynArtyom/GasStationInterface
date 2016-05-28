@@ -1,6 +1,6 @@
 ﻿namespace Admin
 {
-    partial class AddToCarTableForm
+    partial class AddNewAdminForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,79 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbCarMark = new System.Windows.Forms.TextBox();
-            this.tbCardNum = new System.Windows.Forms.TextBox();
+            this.tbPass = new System.Windows.Forms.TextBox();
+            this.tbLogin = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // tbCarMark
+            // tbPass
             // 
-            this.tbCarMark.Location = new System.Drawing.Point(165, 31);
-            this.tbCarMark.Name = "tbCarMark";
-            this.tbCarMark.Size = new System.Drawing.Size(232, 20);
-            this.tbCarMark.TabIndex = 0;
+            this.tbPass.Location = new System.Drawing.Point(100, 38);
+            this.tbPass.Name = "tbPass";
+            this.tbPass.Size = new System.Drawing.Size(126, 20);
+            this.tbPass.TabIndex = 0;
             // 
-            // tbCardNum
+            // tbLogin
             // 
-            this.tbCardNum.Location = new System.Drawing.Point(165, 69);
-            this.tbCardNum.Name = "tbCardNum";
-            this.tbCardNum.Size = new System.Drawing.Size(232, 20);
-            this.tbCardNum.TabIndex = 1;
+            this.tbLogin.Location = new System.Drawing.Point(100, 12);
+            this.tbLogin.Name = "tbLogin";
+            this.tbLogin.Size = new System.Drawing.Size(126, 20);
+            this.tbLogin.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 34);
+            this.label1.Location = new System.Drawing.Point(12, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Марка автомобиля:";
+            this.label1.Text = "Логин:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 76);
+            this.label2.Location = new System.Drawing.Point(12, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Номер карты: ";
+            this.label2.Text = "Пароль:";
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(322, 112);
+            this.btnAdd.Location = new System.Drawing.Point(151, 78);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 7;
+            this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "Добавить";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(225, 112);
+            this.btnCancel.Location = new System.Drawing.Point(70, 78);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 8;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // addToCarTableForm
+            // AddNewAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 150);
+            this.ClientSize = new System.Drawing.Size(238, 108);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbCardNum);
-            this.Controls.Add(this.tbCarMark);
-            this.Name = "addToCarTableForm";
-            this.Text = "Добавление покупателя";
+            this.Controls.Add(this.tbLogin);
+            this.Controls.Add(this.tbPass);
+            this.Name = "AddNewAdminForm";
+            this.Text = "Добавление нового администратора";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,8 +108,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox tbCarMark;
-        private System.Windows.Forms.TextBox tbCardNum;
+        private System.Windows.Forms.TextBox tbPass;
+        private System.Windows.Forms.TextBox tbLogin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAdd;

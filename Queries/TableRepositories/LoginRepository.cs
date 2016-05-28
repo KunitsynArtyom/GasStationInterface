@@ -9,11 +9,10 @@ using System.Data.Common;
 using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
-using Queries.Entities;
 
 namespace Queries.TableRepositories
 {
-    public class LoginRepository
+    public class LoginRepository : ILoginRepository
     {
         DBConnection dbc;
 
@@ -30,11 +29,6 @@ namespace Queries.TableRepositories
                 dbc.openConnection();
             //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\"  WHERE login LIKE" + "'%" + login.GetLogin() + "%'" +  "AND password LIKE" + "'%" + login.GetPassword() + "%'" + "", dbc.getConnection());
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\" WHERE login = @Login AND password = @Password", dbc.getConnection());
-            //queryCommand.Parameters.AddWithValue("@Login", "'%" + login.GetLogin() + "%'");
-            //queryCommand.Parameters.AddWithValue("@Password", "'%" + login.GetPassword() + "%'");
-            //queryCommand.Parameters.AddWithValue("@Login", "'" + login.GetLogin() + "'");
-            //queryCommand.Parameters.AddWithValue("@Password", "'" + login.GetPassword() + "'");
-
             queryCommand.Parameters.AddWithValue("@Login", login.GetLogin());
             queryCommand.Parameters.AddWithValue("@Password", login.GetPassword());
 
@@ -57,6 +51,27 @@ namespace Queries.TableRepositories
             finally { dbc.closeConnection(); }
 
             return role;
+        }
+
+        public void AddNewAdmin(NewAdmin admin)
+        {
+            try
+            {
+                dbc.openConnection();
+
+                NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"Login\".\"LoginTable\"(Login, Password, Role)" +
+                    "VALUES(@Login, @Pass, @Role)", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Login", admin.GetAdminLogin());
+                queryCommand.Parameters.AddWithValue("@Pass", admin.GetAdminPass());
+                queryCommand.Parameters.AddWithValue("@Role", admin.GetAdminRole());
+                queryCommand.ExecuteNonQuery();
+            }
+            catch (NpgsqlException ne)
+            {
+
+            }
+            finally { dbc.closeConnection(); }
+
         }
     }
 }

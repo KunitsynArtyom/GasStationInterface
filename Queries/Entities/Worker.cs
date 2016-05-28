@@ -8,15 +8,15 @@ namespace Queries.Entities
 {
     public class Worker
     {
-        protected int w_staff_id { set; get; }
-        protected int w_station_id { set; get; }
-        protected string w_surname { set; get; }
-        protected string w_name { set; get; }
-        protected string w_gender { set; get; }
-        protected DateTime w_birthdate { set; get; }
-        protected string w_function { set; get; }
-        protected int w_manager { set; get; }
-        protected int w_salary { set; get; }
+        public int w_staff_id { private set; get; }
+        public int w_station_id { private set; get; }
+        public string w_surname { private set; get; }
+        public string w_name { private set; get; }
+        public string w_gender { private set; get; }
+        public DateTime w_birthdate { private set; get; }
+        public string w_function { private set; get; }
+        public int w_manager { private set; get; }
+        public int w_salary { private set; get; }
 
         public void workerSet(int staff_id, int station_id, string surname, string name, string gender, DateTime birthdate, string function, int manager, int salary)
         {

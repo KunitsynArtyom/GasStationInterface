@@ -31,20 +31,7 @@ namespace Admin
         {
             InitializeComponent();
             this.factory = factory;        
-            additionalForm = this;
-
-            //dbc = new DBConnection(conn);
-            //dbc.openConnection();
-            //factory.setDBFactoryConnection(dbc);
-
-            //fc = new RepositoryFactory(dbc);
-            //factory = (IRepositoryFactory)fc;
-
-            //factory.setDBFactoryConnection();
-
-            //dbc.openConnection();
-            //factory = new RepositoryFactory(dbc);       
-            //staffQuery = factory.GetStaffRepository();                      
+            additionalForm = this;                 
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -69,7 +56,7 @@ namespace Admin
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            updateStaffTableForm updateForm = new updateStaffTableForm(dgvViewStaff.CurrentRow, factory, dgvViewStaff);
+            UpdateStaffTableForm updateForm = new UpdateStaffTableForm(dgvViewStaff.CurrentRow, factory, dgvViewStaff);
             updateForm.ShowDialog();
             Hide();
             Show();
@@ -79,7 +66,7 @@ namespace Admin
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToStaffTableForm addForm = new addToStaffTableForm(additionalForm, factory, dgvViewStaff);
+            AddToStaffTableForm addForm = new AddToStaffTableForm(additionalForm, factory, dgvViewStaff);
             addForm.ShowDialog();
             Hide();
             Show();
@@ -120,7 +107,7 @@ namespace Admin
 
         private void btnCarAdd_Click(object sender, EventArgs e)
         {
-            addToCarTableForm addForm = new addToCarTableForm(additionalForm, factory, dgvViewCars);
+            AddToCarTableForm addForm = new AddToCarTableForm(additionalForm, factory, dgvViewCars);
             addForm.ShowDialog();
             fillCarTable = new dgvCarController(dgvViewCars, factory);
             fillCarTable.showTable();
@@ -131,7 +118,7 @@ namespace Admin
 
         private void btnDealUpdate_Click(object sender, EventArgs e)
         {
-            updateDealTableForm updateDealForm = new updateDealTableForm(dgvViewDeal.CurrentRow, factory, dgvViewDeal);
+            UpdateDealTableForm updateDealForm = new UpdateDealTableForm(dgvViewDeal.CurrentRow, factory, dgvViewDeal);
             updateDealForm.ShowDialog();
             Hide();
             Show();
@@ -141,12 +128,34 @@ namespace Admin
 
         private void btnStationAdd_Click(object sender, EventArgs e)
         {
-            addToStationTableForm addForm = new addToStationTableForm(additionalForm, factory, dgvViewCars);
+            AddToStationTableForm addForm = new AddToStationTableForm(additionalForm, factory, dgvViewCars);
             addForm.ShowDialog();
             Hide();
             Show();
             fillStationTable = new dgvStationController(dgvVievAZS, factory);
             fillStationTable.showAdminTable();
+        }
+
+        private void RefreshTables_Click(object sender, EventArgs e)
+        {
+            fillStationTable = new dgvStationController(dgvVievAZS, factory);
+            fillStationTable.showAdminTable();
+            fillStaffTable = new dgvStaffController(dgvViewStaff, factory);
+            fillStaffTable.showTable();
+            fillCarTable = new dgvCarController(dgvViewCars, factory);
+            fillCarTable.showTable();
+            fillAccountingTable = new dgvAccountController(dgvViewAccounting, factory);
+            fillAccountingTable.showTable();
+            fillDealTable = new dgvDealController(dgvViewDeal, factory);
+            fillDealTable.showTable();
+        }
+
+        private void AddNewAdmin_Click(object sender, EventArgs e)
+        {
+            AddNewAdminForm addAdminForm = new AddNewAdminForm(factory);
+            addAdminForm.ShowDialog();
+            Hide();
+            Show();
         }
     }
 }

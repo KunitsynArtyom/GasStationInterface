@@ -54,17 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="addToDealTableForm.cs">
+    <Compile Include="AddToDealTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addToDealTableForm.Designer.cs">
-      <DependentUpon>addToDealTableForm.cs</DependentUpon>
+    <Compile Include="AddToDealTableForm.Designer.cs">
+      <DependentUpon>AddToDealTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="addToSupplyTableForm.cs">
+    <Compile Include="AddToSupplyTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="addToSupplyTableForm.Designer.cs">
-      <DependentUpon>addToSupplyTableForm.cs</DependentUpon>
+    <Compile Include="AddToSupplyTableForm.Designer.cs">
+      <DependentUpon>AddToSupplyTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WorkerForm.cs">
       <SubType>Form</SubType>
@@ -74,11 +74,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="addToDealTableForm.resx">
-      <DependentUpon>addToDealTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddToDealTableForm.resx">
+      <DependentUpon>AddToDealTableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="addToSupplyTableForm.resx">
-      <DependentUpon>addToSupplyTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddToSupplyTableForm.resx">
+      <DependentUpon>AddToSupplyTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorkerForm.resx">
       <DependentUpon>WorkerForm.cs</DependentUpon>

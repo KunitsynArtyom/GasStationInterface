@@ -22,6 +22,8 @@ namespace Queries.Controllers
     {
         Login login;
         DBConnection dbc;
+        IRepositoryFactory factory;
+        RepositoryFactory repLoginFactory;
 
         public LoginController(Login login, DBConnection dbc)
         {
@@ -31,13 +33,14 @@ namespace Queries.Controllers
             }
             this.login = login;
             this.dbc = dbc;
+            RepositoryFactory repLoginFactory = new RepositoryFactory(dbc);
+            factory = repLoginFactory;
         }
 
         public string tryLogin()
         {
-            LoginRepository lp = new LoginRepository(dbc);
-            return lp.LoginToTable(login);
-            //return role;
-        }
+            //LoginRepository lp = new LoginRepository(dbc);
+            return factory.GetLoginRepository().LoginToTable(login);
+        }    
     }
 }

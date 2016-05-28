@@ -67,9 +67,8 @@ namespace Enter
         {
             RepositoryFactory repFactory = null;
             DBConnection dbc = null;
-            string Login = "", Password = "";
+            string Login = String.Empty, Password = String.Empty, role = String.Empty;
             Login login = null;
-            string role = "";
             try
             {
                 Login = tbLogin.Text.ToString();
@@ -79,11 +78,13 @@ namespace Enter
             }
             catch (Exception ex) { MessageBox.Show("Данные для входа введены некорректно!"); }
 
-            try
-            {
+            //try
+            //{
                 NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS");
                 dbc = new DBConnection(conn);
                 //dbc.openConnection();
+                RepositoryFactory repLoginFactory = new RepositoryFactory(dbc);
+
                 LoginController lc = new LoginController(login, dbc);
                 role = lc.tryLogin();
                 if (role != String.Empty)
@@ -91,8 +92,8 @@ namespace Enter
                     MessageBox.Show("Добро пожаловать, " + role);
                 }
                 else MessageBox.Show("Данные были введены неверно!");
-            }
-            catch (Exception ex) { MessageBox.Show("Данные были введены неверно!"); }
+            //}
+            //catch (Exception ex) { MessageBox.Show("Данные были введены неверно!"); }
 
             //RepositoryFactory repFactory = new RepositoryFactory(dbc);
             //IRepositoryFactory factory = (IRepositoryFactory)repFactory;

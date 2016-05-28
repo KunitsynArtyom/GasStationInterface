@@ -1,6 +1,6 @@
 ﻿namespace Worker
 {
-    partial class addToDealTableForm
+    partial class AddToDealTableForm
     {
         /// <summary>
         /// Required designer variable.
@@ -44,6 +44,7 @@
             this.tbMinutes = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.checkNow = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbCardNum
@@ -52,28 +53,29 @@
             this.cbCardNum.FormattingEnabled = true;
             this.cbCardNum.Location = new System.Drawing.Point(150, 91);
             this.cbCardNum.Name = "cbCardNum";
-            this.cbCardNum.Size = new System.Drawing.Size(167, 21);
+            this.cbCardNum.Size = new System.Drawing.Size(123, 21);
             this.cbCardNum.TabIndex = 45;
             // 
             // dealDatePick
             // 
             this.dealDatePick.Location = new System.Drawing.Point(150, 118);
             this.dealDatePick.Name = "dealDatePick";
-            this.dealDatePick.Size = new System.Drawing.Size(167, 20);
+            this.dealDatePick.Size = new System.Drawing.Size(123, 20);
             this.dealDatePick.TabIndex = 44;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(150, 205);
+            this.btnCancel.Location = new System.Drawing.Point(111, 205);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 39;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(242, 205);
+            this.btnAdd.Location = new System.Drawing.Point(198, 205);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 38;
@@ -121,14 +123,14 @@
             // 
             this.tbDealPrice.Location = new System.Drawing.Point(150, 65);
             this.tbDealPrice.Name = "tbDealPrice";
-            this.tbDealPrice.Size = new System.Drawing.Size(167, 20);
+            this.tbDealPrice.Size = new System.Drawing.Size(123, 20);
             this.tbDealPrice.TabIndex = 27;
             // 
             // tbFuelamount
             // 
             this.tbFuelamount.Location = new System.Drawing.Point(150, 39);
             this.tbFuelamount.Name = "tbFuelamount";
-            this.tbFuelamount.Size = new System.Drawing.Size(167, 20);
+            this.tbFuelamount.Size = new System.Drawing.Size(123, 20);
             this.tbFuelamount.TabIndex = 26;
             // 
             // cbFuelType
@@ -137,7 +139,7 @@
             this.cbFuelType.FormattingEnabled = true;
             this.cbFuelType.Location = new System.Drawing.Point(150, 12);
             this.cbFuelType.Name = "cbFuelType";
-            this.cbFuelType.Size = new System.Drawing.Size(167, 21);
+            this.cbFuelType.Size = new System.Drawing.Size(123, 21);
             this.cbFuelType.TabIndex = 48;
             // 
             // label11
@@ -151,14 +153,14 @@
             // 
             // tbHours
             // 
-            this.tbHours.Location = new System.Drawing.Point(294, 144);
+            this.tbHours.Location = new System.Drawing.Point(250, 144);
             this.tbHours.Name = "tbHours";
             this.tbHours.Size = new System.Drawing.Size(23, 20);
             this.tbHours.TabIndex = 50;
             // 
             // tbMinutes
             // 
-            this.tbMinutes.Location = new System.Drawing.Point(294, 170);
+            this.tbMinutes.Location = new System.Drawing.Point(250, 170);
             this.tbMinutes.Name = "tbMinutes";
             this.tbMinutes.Size = new System.Drawing.Size(23, 20);
             this.tbMinutes.TabIndex = 51;
@@ -166,7 +168,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(226, 151);
+            this.label1.Location = new System.Drawing.Point(182, 151);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 52;
@@ -175,17 +177,28 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(226, 173);
+            this.label2.Location = new System.Drawing.Point(182, 173);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 53;
             this.label2.Text = "Минута:";
             // 
+            // checkNow
+            // 
+            this.checkNow.AutoSize = true;
+            this.checkNow.Location = new System.Drawing.Point(24, 151);
+            this.checkNow.Name = "checkNow";
+            this.checkNow.Size = new System.Drawing.Size(62, 17);
+            this.checkNow.TabIndex = 54;
+            this.checkNow.Text = "Сейчас";
+            this.checkNow.UseVisualStyleBackColor = true;
+            // 
             // addToDealTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 238);
+            this.ClientSize = new System.Drawing.Size(291, 238);
+            this.Controls.Add(this.checkNow);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbMinutes);
@@ -228,5 +241,6 @@
         private System.Windows.Forms.TextBox tbMinutes;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkNow;
     }
 }

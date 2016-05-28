@@ -1,6 +1,6 @@
 ﻿namespace Admin
 {
-    partial class updateDealTableForm
+    partial class UpdateDealTableForm
     {
         /// <summary>
         /// Required designer variable.
@@ -40,6 +40,10 @@
             this.cbFuelType = new System.Windows.Forms.ComboBox();
             this.tb_dealprice = new System.Windows.Forms.TextBox();
             this.cbCardNum = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbMinutes = new System.Windows.Forms.TextBox();
+            this.tbHours = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // dealDatePick
@@ -53,7 +57,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(78, 168);
+            this.btnCancel.Location = new System.Drawing.Point(88, 221);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 40;
@@ -62,7 +66,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(178, 168);
+            this.btnAdd.Location = new System.Drawing.Point(178, 221);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 39;
@@ -124,6 +128,7 @@
             // 
             // cbFuelType
             // 
+            this.cbFuelType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFuelType.FormattingEnabled = true;
             this.cbFuelType.Location = new System.Drawing.Point(147, 23);
             this.cbFuelType.Name = "cbFuelType";
@@ -139,17 +144,54 @@
             // 
             // cbCardNum
             // 
+            this.cbCardNum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCardNum.FormattingEnabled = true;
             this.cbCardNum.Location = new System.Drawing.Point(118, 100);
             this.cbCardNum.Name = "cbCardNum";
             this.cbCardNum.Size = new System.Drawing.Size(135, 21);
             this.cbCardNum.TabIndex = 45;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(162, 184);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 13);
+            this.label2.TabIndex = 57;
+            this.label2.Text = "Минута:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(162, 162);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 56;
+            this.label1.Text = "Час:";
+            // 
+            // tbMinutes
+            // 
+            this.tbMinutes.Location = new System.Drawing.Point(230, 181);
+            this.tbMinutes.Name = "tbMinutes";
+            this.tbMinutes.Size = new System.Drawing.Size(23, 20);
+            this.tbMinutes.TabIndex = 55;
+            // 
+            // tbHours
+            // 
+            this.tbHours.Location = new System.Drawing.Point(230, 155);
+            this.tbHours.Name = "tbHours";
+            this.tbHours.Size = new System.Drawing.Size(23, 20);
+            this.tbHours.TabIndex = 54;
+            // 
             // updateDealTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 206);
+            this.ClientSize = new System.Drawing.Size(266, 256);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbMinutes);
+            this.Controls.Add(this.tbHours);
             this.Controls.Add(this.cbCardNum);
             this.Controls.Add(this.tb_dealprice);
             this.Controls.Add(this.cbFuelType);
@@ -184,5 +226,9 @@
         private System.Windows.Forms.ComboBox cbFuelType;
         private System.Windows.Forms.TextBox tb_dealprice;
         private System.Windows.Forms.ComboBox cbCardNum;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbMinutes;
+        private System.Windows.Forms.TextBox tbHours;
     }
 }

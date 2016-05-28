@@ -40,7 +40,7 @@ namespace Queries.dgvControllers
             dgv.Rows.Clear();
             foreach (Account account in dgvElements)
             {
-                dgv.Rows.Add(account.GetStationAdres(), account.GetFuelAccountType(), 
+                dgv.Rows.Add(account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(), 
                     account.GetFuelAccountAmount(), account.GetAccountDate());
             }
         }

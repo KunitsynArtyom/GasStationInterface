@@ -22,9 +22,6 @@ namespace Queries.dgvControllers
     public class dgvSupplyController
     {
         DataGridView dgv;
-        SupplyRepository supplyQuery;
-        StationRepository stationQuery;
-        StaffRepository staffQuery;
         List<Supply> dgvElements;
         IRepositoryFactory factory;
 
@@ -50,9 +47,26 @@ namespace Queries.dgvControllers
             }
         }
 
+        public void showTable(int ID)
+        {
+            int id = factory.GetStaffRepository().FindStationIDByStaffID(ID);
+            dgvElements = factory.GetSupplyRepository().ShowSupplyTableByID(id);
+            dgv.Rows.Clear();
+            foreach (Supply supply in dgvElements)
+            {
+                int station_id = supply.GetStation_id();
+                dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                    supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
+            }
+        }
+
         public void addToSupplyTable(Supply sup)
         {
-            factory.GetSupplyRepository().AddToSupplyTable(sup);
+            //try
+            //{
+                factory.GetSupplyRepository().AddToSupplyTable(sup);
+            //}
+            //catch (NpgsqlException ne) { MessageBox.Show("Подвозы топлива не могут быть совершенны одновременно!"); }
         }
 
         private string RemoveSpaces(string inputString)

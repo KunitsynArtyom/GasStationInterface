@@ -69,16 +69,19 @@ WHERE station_id = d_station_id
 
 SELECT fuelaccountamount INTO a_fuelamount
 FROM "AZS"."Accounting"
-WHERE station_id = d_station_id 
-AND fuelaccounttype = d_fueltype
-;
-
+WHERE  fuelaccounttype=d_fueltype 
+AND accountdate IN
+		  (SELECT MAX(accountdate)
+		   FROM "AZS"."Accounting"
+		   WHERE station_id = d_station_id AND fuelaccounttype=d_fueltype
+		  );
+		  
 IF(a_fuelamount >= d_fuelamount) THEN
 
 a_fuelamount = a_fuelamount - d_fuelamount;
 
-INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, FuelAccountType, FuelAccountAmount, AccountDate)
-VALUES (d_station_id, station_adres, d_fueltype, a_fuelamount, d_dealdate)
+INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, AccountRole, FuelAccountType, FuelAccountAmount, AccountDate)
+VALUES (d_station_id, station_adres, 'Продажа', d_fueltype, a_fuelamount, d_dealdate)
 ;
 
 RETURN NEW;
@@ -94,7 +97,6 @@ FOR EACH ROW EXECUTE PROCEDURE trigger_2();
 
 trigger3 отвечает за изменения в таблице сделок(Deal);
 при изменении записи происходит поиск последнего учета и зависимо от того, с каким топливом ошиблись и на сколько пишет лог исправления. 
-trigger3 не закончен, осталось добавить еще несколько проверок.
 ------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION trigger_3() RETURNS TRIGGER
@@ -167,3 +169,80 @@ $$ LANGUAGE plpgSQL;
 CREATE TRIGGER trigger3
 AFTER UPDATE ON "AZS"."Deal"
 FOR EACH ROW EXECUTE PROCEDURE trigger_3();
+
+trigger4 отвечает за ведение логов в таблицу учета(Accounting); 
+аналогичену trigger2, но работает с таблицей подвозов("Supply")
+------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION trigger_4() RETURNS TRIGGER
+AS $$
+DECLARE
+
+s_staff_id int;
+s_station_id int;
+s_fuelsupplytype char(30);
+s_fuelsupplyamount int;
+s_supplydate timestamp without time zone;
+a_fuelamount int;
+station_adres char(100);
+needamount int;
+maxfuelamount int;
+	
+BEGIN
+
+s_station_id = NEW.station_id;
+s_staff_id = NEW.staff_id;
+s_fuelsupplytype = NEW.fuelsupplytype;
+s_fuelsupplyamount = NEW.fuelsupplyamount;
+s_supplydate = NEW.supplydate;
+
+
+SELECT country || ',' || city || ',' || street INTO station_adres
+FROM "AZS"."GasStation"
+WHERE station_id = s_station_id
+;
+
+--SELECT fuelaccountamount INTO a_fuelamount
+--FROM "AZS"."Accounting"
+--WHERE station_id = s_station_id 
+--AND fuelaccounttype = s_fuelsupplytype
+--;
+
+SELECT storagecap/3 INTO maxfuelamount
+FROM "AZS"."GasStation"
+WHERE station_id = s_station_id
+;
+
+SELECT fuelaccountamount INTO a_fuelamount
+FROM "AZS"."Accounting"
+WHERE  fuelaccounttype=s_fuelsupplytype
+AND accountdate IN
+		  (SELECT MAX(accountdate)
+		   FROM "AZS"."Accounting"
+		   WHERE station_id = s_station_id AND fuelaccounttype=s_fuelsupplytype
+		  );
+		  
+IF(s_fuelsupplyamount + a_fuelamount >= maxfuelamount) THEN
+
+INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, AccountRole, FuelAccountType, FuelAccountAmount, AccountDate)
+VALUES (s_station_id, station_adres, 'Подвоз', s_fuelsupplytype, maxfuelamount, s_supplydate)
+;
+
+RETURN NEW;
+
+ELSE
+
+INSERT INTO "AZS"."Accounting" (Station_id, Station_Adres, AccountRole, FuelAccountType, FuelAccountAmount, AccountDate)
+VALUES (s_station_id, station_adres, 'Подвоз', s_fuelsupplytype, s_fuelsupplyamount + a_fuelamount, s_supplydate)
+;
+
+RETURN NEW;
+
+END IF;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgSQL;
+
+CREATE TRIGGER trigger4
+BEFORE INSERT ON "AZS"."Supply"
+FOR EACH ROW EXECUTE PROCEDURE trigger_4();

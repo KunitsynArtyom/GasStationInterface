@@ -72,13 +72,46 @@ namespace Queries.TableRepositories
                     queryCommand.Parameters.AddWithValue("@SupplyDate", sup.GetSupplyDate());
 
                 queryCommand.ExecuteNonQuery();
+                dbc.closeConnection(); 
+            }
+            catch (NpgsqlException ne)
+            {
+                throw ne;
+            }
+
+            finally { dbc.closeConnection(); }
+        }
+
+        public List<Supply> ShowSupplyTableByID(int ID)
+        {
+            List<Supply> supplyList = new List<Supply>();
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Supply\" WHERE station_id = @Station_id", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Station_id", ID);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        Supply supply = new Supply();
+
+                        supply.supplySet(Convert.ToInt32(dbDataRecord["station_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
+                            dbDataRecord["fuelsupplytype"].ToString(), Convert.ToInt32(dbDataRecord["fuelsupplyamount"]),
+                            Convert.ToDateTime(dbDataRecord["supplydate"].ToString()));
+                        supplyList.Add(supply);
+                    }
+                }
+                AZSTableReader.Close();
             }
             catch (NpgsqlException ne)
             {
 
             }
-
             finally { dbc.closeConnection(); }
+
+            return supplyList;
         }
     }
 }

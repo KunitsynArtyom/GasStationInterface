@@ -174,7 +174,7 @@ namespace Queries.TableRepositories
             }
             catch (NpgsqlException ne)
             {
-
+                throw ne;
             }
             finally { dbc.closeConnection(); }
         }
@@ -193,17 +193,11 @@ namespace Queries.TableRepositories
                 queryCommand.Parameters.AddWithValue("@DealPrice", deal.GetDealPrice());
                 queryCommand.Parameters.AddWithValue("@CardNum", deal.GetCardNum());
                 queryCommand.Parameters.AddWithValue("@DealDate", Convert.ToDateTime(deal.GetDealDate()));
-            MessageBox.Show(deal.GetDealDate().ToString());
-            MessageBox.Show(deal.GetCar_id().ToString());
-            MessageBox.Show(deal.GetFuelType().ToString());
-            MessageBox.Show(deal.GetDealPrice().ToString());
-            MessageBox.Show(deal.GetCardNum().ToString());
             queryCommand.ExecuteNonQuery();
-
             }
             catch (NpgsqlException ne)
             {
-
+                throw ne;
             }
             finally { dbc.closeConnection(); }
         }

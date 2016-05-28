@@ -19,13 +19,13 @@ using Queries.Interfaces;
 
 namespace Admin
 {
-    public partial class updateDealTableForm : Form
+    public partial class UpdateDealTableForm : Form
     {
         public Form af;
         IRepositoryFactory factory;
         DataGridViewRow updateRow;
         DataGridView dgv;
-        int fuelamount, dealprice;
+        int fuelamount, dealprice, hours, minutes;
         string fueltype, cardnum;
         DateTime dealdate;
 
@@ -40,11 +40,15 @@ namespace Admin
                 fuelamount = Convert.ToInt32(tb_fuelamount.Text);
                 if (cbCardNum.SelectedIndex != -1)
                 {
-                   cardnum = Convert.ToString(cbCardNum.Text);
+                   cardnum = Convert.ToString(cbCardNum.Text).Trim().Replace(" ", string.Empty); ///
                 }
                 dealprice = Convert.ToInt32(tb_dealprice.Text);
+                hours = Convert.ToInt32(tbHours.Text);
+                minutes = Convert.ToInt32(tbMinutes.Text);
                 dealdate = Convert.ToDateTime(dealDatePick.Text);
-            Deal deal = new Deal();
+                dealdate = dealdate.AddHours(hours);
+                dealdate = dealdate.AddMinutes(minutes);
+                Deal deal = new Deal();
             deal.dealSet(fueltype, fuelamount, dealprice, cardnum, dealdate);
             var cell = dgv[0, dgv.CurrentRow.Index];
             int id = Convert.ToInt32(cell.Value);
@@ -59,7 +63,7 @@ namespace Admin
           Close();
         }
 
-        public updateDealTableForm(DataGridViewRow updateRow, IRepositoryFactory factory, DataGridView dgv)
+        public UpdateDealTableForm(DataGridViewRow updateRow, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             this.updateRow = updateRow;

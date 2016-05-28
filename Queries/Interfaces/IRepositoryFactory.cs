@@ -28,6 +28,8 @@ namespace Queries.Interfaces
         IAccountRepository GetAccountRepository();
 
         ISupplyRepository GetSupplyRepository();
+
+        ILoginRepository GetLoginRepository();
    
     }
 }

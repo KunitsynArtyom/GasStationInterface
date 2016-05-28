@@ -20,7 +20,7 @@ using Queries.Interfaces;
 
 namespace Admin
 {
-    public partial class addToStaffTableForm : Form
+    public partial class AddToStaffTableForm : Form
     {
         public Form af;
         IRepositoryFactory factory;
@@ -65,9 +65,49 @@ namespace Admin
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //staff_id = Convert.ToInt32(tb_staff_id.Text);
+            List<string> ErrorList = new List<string>();
             try
             {
+                if (cbStationList.Text == String.Empty)
+                {
+                    ErrorList.Add("Станция не выбрана!");
+                }
+                if (tb_surname.Text == String.Empty)
+                {
+                    ErrorList.Add("Фамилия не задана!");
+                }
+                if (tb_name.Text == String.Empty)
+                {
+                    ErrorList.Add("Имя не задано!");
+                }
+                if (cb_gender.Text == String.Empty)
+                {
+                    ErrorList.Add("Пол не задан!");
+                }
+                if (birthDatePick.Text == String.Empty)
+                {
+                    ErrorList.Add("Дата рождения не выбрана!");
+                }
+                if (tb_function.Text == String.Empty)
+                {
+                    ErrorList.Add("Назначение не выбрано!");
+                }
+                if (birthDatePick.Text == String.Empty)
+                {
+                    ErrorList.Add("Дата рождения не задана!");
+                }
+                if (tb_salary.Text == String.Empty)
+                {
+                    ErrorList.Add("Зарплата не установлена!");
+                }
+                if (ErrorList.Count != 0)
+                {
+                    foreach (string str in ErrorList)
+                    {
+                        MessageBox.Show(str);
+                    }
+                }
+
                 station_id = factory.GetStationRepository().FindStationIDByLocation(cbStationList.Text);
                 surname = tb_surname.Text;
                 name = tb_name.Text;
@@ -92,21 +132,17 @@ namespace Admin
                     dgvStaffController dgvs = new dgvStaffController(dgv, factory);
                     dgvs.addToTable(wk);
                 }
-                //dgvStaffController dgvs = new dgvStaffController(dgv, dbc);
-                //dgvs.addToTable(wk);
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             Close();
         }
       
-        public addToStaffTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
+        public AddToStaffTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             af = adminForm;
             this.factory = factory;
             this.dgv = dgv;
-            //stationQuery = factory.GetStationRepository();
-            //staffQuery = factory.GetStaffRepository();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

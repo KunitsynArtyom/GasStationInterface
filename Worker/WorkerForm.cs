@@ -36,27 +36,31 @@ namespace Worker
             fillDealTable = new dgvDealController(dgvVievDeal, factory);
             fillDealTable.showWorkerTable(ID);
             fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
-            fillSupplyTable.showTable();
+            fillSupplyTable.showTable(ID);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addToDealTableForm addForm = new addToDealTableForm(ID, factory, dgvVievDeal);
+            AddToDealTableForm addForm = new AddToDealTableForm(ID, factory, dgvVievDeal);
             addForm.ShowDialog();
             Hide();
             Show();
             fillDealTable = new dgvDealController(dgvVievDeal, factory);
-            fillDealTable.showTable();
+            fillDealTable.showWorkerTable(ID);
+            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            fillSupplyTable.showTable(ID);
         }
 
         private void btnAddSupply_Click(object sender, EventArgs e)
         {
-            addToSupplyTableForm addForm = new addToSupplyTableForm(ID, factory, dgvViewSupply);
+            AddToSupplyTableForm addForm = new AddToSupplyTableForm(ID, factory, dgvViewSupply);
             addForm.ShowDialog();
             Hide();
             Show();
+            fillDealTable = new dgvDealController(dgvVievDeal, factory);
+            fillDealTable.showWorkerTable(ID);
             fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
-            fillSupplyTable.showTable();
+            fillSupplyTable.showTable(ID);
         }
     }
 }
