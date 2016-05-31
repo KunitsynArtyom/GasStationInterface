@@ -124,7 +124,7 @@ namespace Queries.TableRepositories
             }
             catch (NpgsqlException ne)
             {
-
+                MessageBox.Show(ne.InnerException.ToString());
             }
             finally { dbc.closeConnection(); }
         }

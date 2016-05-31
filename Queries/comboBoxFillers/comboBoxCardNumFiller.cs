@@ -19,13 +19,13 @@ using Queries.Interfaces;
 
 namespace Queries.comboBoxFillers
 {
-    public class comboBoxCardNumFiller
+    public class ComboBoxCardNumFiller
     {
         ComboBox cb;
         List<string> comboBoxElements;
         IRepositoryFactory factory;
         CarRepository carQuery;
-        public comboBoxCardNumFiller(ComboBox cb, IRepositoryFactory factory)
+        public ComboBoxCardNumFiller(ComboBox cb, IRepositoryFactory factory)
         {
             this.cb = cb;
             this.factory = factory;

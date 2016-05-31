@@ -1,134 +1,109 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Npgsql;
-using System.Data.Common;
 using System.Collections;
-using Queries;
+using Npgsql;
 using Queries.Entities;
-using Queries.dgvControllers;
-using Queries.comboBoxFillers;
 using Queries.TableRepositories;
+using Queries.dgvControllers;
 using Queries.Interfaces;
+using Queries.Validators;
 
-namespace Queries.Controllers
+namespace Queries.dgvControllers
 {
     public class StaffController
     {
-        List<string> ErrorList = new List<string>();
+        DataGridView dgv;
+        List<Worker> dgvElements;
+        IRepositoryFactory factory;
+        StaffValidator staffValidator;
+        List<string> errorList;
+        string error;
 
-        public StaffController()
+        public StaffController(DataGridView dgv, IRepositoryFactory factory)
         {
-
+            dgvElements = new List<Worker>();
+            this.dgv = dgv;
+            this.factory = factory;
+            staffValidator = new StaffValidator();
         }
 
-        public bool checkAddition(Worker wk)
+        public void showTable()
         {
-            bool checkFlag = true;
-            if (wk.GetStation_id() <= 0)
+            dgvElements = factory.GetStaffRepository().GetStaff();
+            dgv.Rows.Clear();
+            foreach (Worker wk in dgvElements)
             {
-                checkFlag = false;
+                dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(), wk.GetGender(), wk.GetFunction(), wk.GetSalary());
             }
-            if (wk.GetSurname() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Фамилия не введена!");
-            }
-            if (wk.GetName() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Имя не введено!");
-            }
-            if (wk.GetGender() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Пол не выбран!");
-            }
-            if (wk.GetFunction() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Назначение не выбрано!");
-            }
-            if (wk.GetSalary() < 500)
-            {
-                checkFlag = false;
-                ErrorList.Add("Зарплата не может быть меньше 500 у.е!");
-            }
-            if (checkFlag == false && ErrorList.Count != 0)
-            {
-                foreach (string str in ErrorList)
-                {
-                    MessageBox.Show(str);
-                }
-            }
-
-            return checkFlag;
         }
 
-        public bool checkUpdate(int id, Worker wk)
+        public void addToTable(Worker wk)
         {
-            bool checkFlag = true;
-            if (wk.GetSurname() == String.Empty)
+            try
             {
-                checkFlag = false;
-                ErrorList.Add("Фамилия не введена!");
-            }
-            if (wk.GetName() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Имя не введено!");
-            }
-            if (wk.GetGender() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Пол не введен!");
-            }
-            if (wk.GetFunction() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Назначение не введено!");
-            }
-            if (wk.GetSalary() < 500)
-            {
-                checkFlag = false;
-                ErrorList.Add("Зарплата не может быть меньше 500 у.е!");
-            }
-            if (id < 0)
-            { checkFlag = false; }
-            if (checkFlag == false)
-            {
-                foreach (string str in ErrorList)
+                if (staffValidator.checkAddition(wk, out errorList))
                 {
-                    MessageBox.Show(str);
+                    factory.GetStaffRepository().AddToStaffTable(wk);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
                 }
             }
-
-            return checkFlag;
+            catch (Exception) { MessageBox.Show("Операция не может быть выполнена!"); }
         }
 
-        public bool checkDelete(int id)
+        public void updateTable(int id, Worker wk)
         {
-            bool checkFlag = true;
-            if (id < 0)
+            try
             {
-                checkFlag = false;
-                ErrorList.Add("Сотрудник не обнаружен!");
-            }
-            if (checkFlag == false)
-            {
-                foreach (string str in ErrorList)
+                if (staffValidator.checkUpdate(id, wk, out errorList))
                 {
-                    MessageBox.Show(str);
+                    factory.GetStaffRepository().UpdateStaffTable(id, wk);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
                 }
             }
+            catch (Exception) { MessageBox.Show("Операция не может быть выполнена!"); }
+        }
 
-            return checkFlag;
+        public void deleteFromTable(int id)
+        {
+            try
+            {
+                if (staffValidator.checkDelete(id, out errorList))
+                {
+                    factory.GetStaffRepository().DeleteFromStaffTable(id);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
+                }
+            } catch (Exception) { MessageBox.Show("Операция не может быть выполнена!"); }
         }
     }
 }

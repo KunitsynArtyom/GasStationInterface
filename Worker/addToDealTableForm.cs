@@ -15,7 +15,7 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.Interfaces;
-using Queries.Controllers;
+using Queries.Validators;
 
 namespace Worker
 {
@@ -29,7 +29,6 @@ namespace Worker
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Hide();
             Close();
         }
 
@@ -82,12 +81,8 @@ namespace Worker
                 }
                 if (!checkNow.Checked)
                 {
-                    //try
-                    //{
                     hours = Convert.ToInt32(tbHours.Text);
                     minutes = Convert.ToInt32(tbMinutes.Text);
-                    //}
-                    //catch (Exception ex) { }
                 }
                 dealdate = Convert.ToDateTime(dealDatePick.Text);
                 if (checkNow.Checked)
@@ -96,23 +91,19 @@ namespace Worker
                 }
                 else
                 {
-                    //try
-                    //{ 
                     dealdate = dealdate.AddHours(hours);
                     dealdate = dealdate.AddMinutes(minutes);
-                    //}
-                    //catch (Exception ex) { }
                 }
 
                 Deal deal = new Deal();
                 deal.dealSet(0, factory.GetCarRepository().FindCarIDByCardnum(cardnum), ID, fueltype, fuelamount, dealprice, cardnum, dealdate);
-                DealController dc = new DealController();
-                if (dc.checkAddition(deal))
-                {
-                    dgvDealController dgdc = new dgvDealController(dgv, factory);
-                    dgdc.addToTable(deal);
-                    MessageBox.Show("Сделка добавлена!");
-                }
+                //DealValidator dc = new DealValidator();
+                //if (dc.checkAddition(deal))
+                //{
+                    DealController dealController = new DealController(dgv, factory);
+                    dealController.addToTable(deal);
+                    //MessageBox.Show("Сделка добавлена!");
+                //}
             }
             catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
             //Close();
@@ -123,9 +114,8 @@ namespace Worker
             cbFuelType.Items.Add("A92");
             cbFuelType.Items.Add("A95");
             cbFuelType.Items.Add("A95+");
-            comboBoxDealFiller cbdf;
-            cbdf = new comboBoxDealFiller(cbCardNum, factory);
-            cbdf.cb_cardnumFill();
+            ComboBoxDealFiller  comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
+            comboBoxDealFiller.cbCardnumFill();
         }
     }
 }

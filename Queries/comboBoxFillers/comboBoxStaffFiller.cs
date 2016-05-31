@@ -18,24 +18,19 @@ using Queries.Interfaces;
 
 namespace Queries.comboBoxFillers
 {
-    public class comboBoxStaffFiller
+    public class ComboBoxStaffFiller
     {
         ComboBox cb;
         List<string> comboBoxElements;
-        StaffRepository staffQuery;
-        StationRepository stationQuery;
         IRepositoryFactory factory;
 
-        public comboBoxStaffFiller(ComboBox cb, IRepositoryFactory factory)
+        public ComboBoxStaffFiller(ComboBox cb, IRepositoryFactory factory)
         {
             this.cb = cb;
             this.factory = factory;
-            //staffQuery = factory.GetStaffRepository();
-            //stationQuery = factory.GetStationRepository();
-
         }
 
-        public void cb_orgFill()
+        public void cbOrgFill()
         {
             comboBoxElements = factory.GetStationRepository().GetOrganisations();
             foreach (string st in comboBoxElements)
@@ -44,7 +39,7 @@ namespace Queries.comboBoxFillers
             }
         }
 
-        public void cb_stationFill(string Orgname)
+        public void cbStationFill(string Orgname)
         {
             comboBoxElements = factory.GetStationRepository().GetStationsAdres(Orgname);
             foreach (string st in comboBoxElements)
@@ -56,7 +51,7 @@ namespace Queries.comboBoxFillers
 
         private string RemoveSpaces(string inputString)
         {
-            inputString = inputString.Replace("  ", string.Empty);
+            //inputString = inputString.Replace("  ", string.Empty);
             inputString = inputString.Trim().Replace(" ", string.Empty);
 
             return inputString;

@@ -92,6 +92,7 @@
             this.Controls.Add(this.tbPass);
             this.Name = "AddUserToLoginTableForm";
             this.Text = "Активация карты покупателя";
+            this.Load += new System.EventHandler(this.AddToLoginTableForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

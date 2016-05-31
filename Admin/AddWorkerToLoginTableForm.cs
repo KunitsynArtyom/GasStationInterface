@@ -12,7 +12,7 @@ using System.Data.Common;
 using Queries;
 using Queries.dgvControllers;
 using Queries.TableRepositories;
-using Queries.Controllers;
+using Queries.Validators;
 using Queries.Interfaces;
 using Queries.Entities;
 
@@ -51,16 +51,16 @@ namespace Admin
             {
                 passWord = tbPass.Text.ToString();
                 DBUser nWorker = new DBUser();
-                nWorker.setNewUser(row.Cells["staff_id"].Value.ToString(), passWord, "worker");
-                DBUserController userControl = new DBUserController();
-                if (userControl.checkAddition(nWorker))
-                {
-                    LoginController lc = new LoginController(factory);
-                    lc.addToLoginTable(nWorker);
-                    MessageBox.Show("Операция успешно завершена!");
-                }
+                nWorker.setNewUser(row.Cells["staff_id"].Value.ToString(), passWord.ToString(), "worker");
+                //DBUserValidator userControl = new DBUserValidator();
+                //if (userControl.checkAddition(nWorker))
+                //{
+                    LoginController loginController = new LoginController(factory);
+                loginController.addToLoginTable(nWorker);
+                    //MessageBox.Show("Операция успешно завершена!");
+                //}
             }
-            catch (Exception ex) { MessageBox.Show("Невозможно совершить операцию!"); }
+            catch (Exception ex) { MessageBox.Show("Невозможно выполнить операцию!"); }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,29 +17,31 @@ using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 using Queries.Interfaces;
 
-namespace Queries.Controllers
+namespace Queries.Validators
 {
     public class LoginController
     {
         Login login;
-        DBConnection dbc;
         IRepositoryFactory factory;
+        DBUserValidator dbUserValidator;
+        List<string> errorList;
+        string error;
 
-        public LoginController(Login login, DBConnection dbc)
+        public LoginController(Login login, IRepositoryFactory factory)
         {
             if (login == null)
             {
                 throw new ArgumentNullException();
             }
             this.login = login;
-            this.dbc = dbc;
-            RepositoryFactory repLoginFactory = new RepositoryFactory(dbc);
-            factory = repLoginFactory;
+            this.factory = factory;
+            dbUserValidator = new DBUserValidator();
         }
 
         public LoginController(IRepositoryFactory factory)
         {
             this.factory = factory;
+            dbUserValidator = new DBUserValidator();
         }
 
         public string tryLogin()
@@ -50,9 +53,22 @@ namespace Queries.Controllers
         {
             try
             {
-                factory.GetLoginRepository().AddNewDBUser(dbUser);
+                if (dbUserValidator.checkAddition(dbUser, out errorList))
+                {
+                    factory.GetLoginRepository().AddNewDBUser(dbUser);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
+                }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            catch (Exception ex) { MessageBox.Show("Невозможно выполнить операцию!"); }
         }
     }
 }

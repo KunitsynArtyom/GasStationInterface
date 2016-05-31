@@ -12,7 +12,7 @@ using System.Data.Common;
 using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
-using Queries.Controllers;
+using Queries.Validators;
 using Queries.Interfaces;
 
 namespace Admin
@@ -37,11 +37,11 @@ namespace Admin
 
         private void updateStaffTableForm_Load(object sender, EventArgs e)
         {
-            tb_surname.Text = updateRow.Cells["surname"].Value.ToString();
-            tb_name.Text = updateRow.Cells["name"].Value.ToString();
-            tb_function.Text = updateRow.Cells["function"].Value.ToString();
-            cb_gender.Items.Add("male");
-            cb_gender.Items.Add("female");
+            tb_surname.Text = updateRow.Cells["surname"].Value.ToString().Trim().Replace(" ", string.Empty);
+            tb_name.Text = updateRow.Cells["name"].Value.ToString().Trim().Replace(" ", string.Empty);
+            tb_function.Text = updateRow.Cells["function"].Value.ToString().Trim().Replace(" ", string.Empty);
+            cbGender.Items.Add("male");
+            cbGender.Items.Add("female");
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -52,12 +52,12 @@ namespace Admin
                 name = tb_name.Text;
                 try
                 {
-                    if (cb_gender.SelectedIndex != -1)
+                    if (cbGender.SelectedIndex != -1)
                     {
-                        gender = Convert.ToString(cb_gender.Text);
+                        gender = Convert.ToString(cbGender.Text);
                     }
                 }
-                catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
+                catch (Exception) { }
                 birthdate = Convert.ToDateTime(birthDatePick.Text);
                 function = tb_function.Text;
                 try
@@ -70,14 +70,12 @@ namespace Admin
                 wk.workerSet(surname, name, gender, birthdate, function, manager, salary);
                 var cell = dgv[0, dgv.CurrentRow.Index];
                 int id = Convert.ToInt32(cell.Value);
-                StaffController sc = new StaffController();
-                if (sc.checkUpdate(id, wk))
-                {
-                    dgvStaffController dgvs = new dgvStaffController(dgv, factory);
-                    dgvs.updateTable(id, wk);
-                }
-                //dgvStaffController dgvs = new dgvStaffController(dgv, dbc);
-                //dgvs.updateTable(updateRow.Index, wk);
+                StaffValidator sc = new StaffValidator();
+                //if (sc.checkUpdate(id, wk))
+                //{
+                    StaffController staffController = new StaffController(dgv, factory);
+                staffController.updateTable(id, wk);
+                //}
             }
             catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
             Close();

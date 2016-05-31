@@ -125,7 +125,7 @@
             // 
             // dataTableView
             // 
-            this.dataTableView.Location = new System.Drawing.Point(485, 48);
+            this.dataTableView.Location = new System.Drawing.Point(485, 63);
             this.dataTableView.Name = "dataTableView";
             this.dataTableView.Size = new System.Drawing.Size(123, 23);
             this.dataTableView.TabIndex = 1;

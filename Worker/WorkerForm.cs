@@ -20,8 +20,8 @@ namespace Worker
         int ID;
         IRepositoryFactory factory;
         public Form additionalForm;
-        dgvDealController fillDealTable;
-        dgvSupplyController fillSupplyTable;
+        DealController fillDealTable;
+        SupplyController fillSupplyTable;
 
         public WorkerForm(int ID, IRepositoryFactory factory)
         {
@@ -33,9 +33,9 @@ namespace Worker
 
         private void WorkerForm_Load(object sender, EventArgs e)
         {
-            fillDealTable = new dgvDealController(dgvVievDeal, factory);
+            fillDealTable = new DealController(dgvVievDeal, factory);
             fillDealTable.showWorkerTable(ID);
-            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            fillSupplyTable = new SupplyController(dgvViewSupply, factory);
             fillSupplyTable.showTable(ID);
         }
 
@@ -43,11 +43,11 @@ namespace Worker
         {
             AddToDealTableForm addForm = new AddToDealTableForm(ID, factory, dgvVievDeal);
             addForm.ShowDialog();
-            Hide();
-            Show();
-            fillDealTable = new dgvDealController(dgvVievDeal, factory);
+            //Hide();
+            //Show();
+            //fillDealTable = new DealController(dgvVievDeal, factory);
             fillDealTable.showWorkerTable(ID);
-            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            //fillSupplyTable = new SupplyController(dgvViewSupply, factory);
             fillSupplyTable.showTable(ID);
         }
 
@@ -55,25 +55,25 @@ namespace Worker
         {
             AddToSupplyTableForm addForm = new AddToSupplyTableForm(ID, factory, dgvViewSupply);
             addForm.ShowDialog();
-            Hide();
-            Show();
-            fillDealTable = new dgvDealController(dgvVievDeal, factory);
+            //Hide();
+            //Show();
+            //fillDealTable = new DealController(dgvVievDeal, factory);
             fillDealTable.showWorkerTable(ID);
-            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            //fillSupplyTable = new SupplyController(dgvViewSupply, factory);
             fillSupplyTable.showTable(ID);
         }
 
         private void RefreshTables_Click_1(object sender, EventArgs e)
         {
-            fillDealTable = new dgvDealController(dgvVievDeal, factory);
+            //fillDealTable = new DealController(dgvVievDeal, factory);
             fillDealTable.showWorkerTable(ID);
-            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            //fillSupplyTable = new SupplyController(dgvViewSupply, factory);
             fillSupplyTable.showTable(ID);
         }
 
         private void btnSupplyUpdate_Click(object sender, EventArgs e)
         {
-            fillSupplyTable = new dgvSupplyController(dgvViewSupply, factory);
+            //fillSupplyTable = new SupplyController(dgvViewSupply, factory);
             fillSupplyTable.showTable(ID);
         }
     }

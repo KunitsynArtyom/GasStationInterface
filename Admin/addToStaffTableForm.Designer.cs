@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tb_surname = new System.Windows.Forms.TextBox();
-            this.tb_name = new System.Windows.Forms.TextBox();
-            this.tb_function = new System.Windows.Forms.TextBox();
-            this.tb_manager = new System.Windows.Forms.TextBox();
-            this.tb_salary = new System.Windows.Forms.TextBox();
+            this.tbSurname = new System.Windows.Forms.TextBox();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.tbFunction = new System.Windows.Forms.TextBox();
+            this.tbManager = new System.Windows.Forms.TextBox();
+            this.tbSalary = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,43 +47,43 @@
             this.cbOrgList = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.birthDatePick = new System.Windows.Forms.DateTimePicker();
-            this.cb_gender = new System.Windows.Forms.ComboBox();
+            this.cbGender = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // tb_surname
+            // tbSurname
             // 
-            this.tb_surname.Location = new System.Drawing.Point(154, 77);
-            this.tb_surname.Name = "tb_surname";
-            this.tb_surname.Size = new System.Drawing.Size(167, 20);
-            this.tb_surname.TabIndex = 2;
+            this.tbSurname.Location = new System.Drawing.Point(154, 77);
+            this.tbSurname.Name = "tbSurname";
+            this.tbSurname.Size = new System.Drawing.Size(167, 20);
+            this.tbSurname.TabIndex = 2;
             // 
-            // tb_name
+            // tbName
             // 
-            this.tb_name.Location = new System.Drawing.Point(154, 103);
-            this.tb_name.Name = "tb_name";
-            this.tb_name.Size = new System.Drawing.Size(167, 20);
-            this.tb_name.TabIndex = 3;
+            this.tbName.Location = new System.Drawing.Point(154, 103);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(167, 20);
+            this.tbName.TabIndex = 3;
             // 
-            // tb_function
+            // tbFunction
             // 
-            this.tb_function.Location = new System.Drawing.Point(154, 181);
-            this.tb_function.Name = "tb_function";
-            this.tb_function.Size = new System.Drawing.Size(167, 20);
-            this.tb_function.TabIndex = 6;
+            this.tbFunction.Location = new System.Drawing.Point(154, 181);
+            this.tbFunction.Name = "tbFunction";
+            this.tbFunction.Size = new System.Drawing.Size(167, 20);
+            this.tbFunction.TabIndex = 6;
             // 
-            // tb_manager
+            // tbManager
             // 
-            this.tb_manager.Location = new System.Drawing.Point(154, 207);
-            this.tb_manager.Name = "tb_manager";
-            this.tb_manager.Size = new System.Drawing.Size(167, 20);
-            this.tb_manager.TabIndex = 7;
+            this.tbManager.Location = new System.Drawing.Point(154, 207);
+            this.tbManager.Name = "tbManager";
+            this.tbManager.Size = new System.Drawing.Size(167, 20);
+            this.tbManager.TabIndex = 7;
             // 
-            // tb_salary
+            // tbSalary
             // 
-            this.tb_salary.Location = new System.Drawing.Point(154, 233);
-            this.tb_salary.Name = "tb_salary";
-            this.tb_salary.Size = new System.Drawing.Size(167, 20);
-            this.tb_salary.TabIndex = 8;
+            this.tbSalary.Location = new System.Drawing.Point(154, 233);
+            this.tbSalary.Name = "tbSalary";
+            this.tbSalary.Size = new System.Drawing.Size(167, 20);
+            this.tbSalary.TabIndex = 8;
             // 
             // label3
             // 
@@ -212,21 +212,21 @@
             this.birthDatePick.Size = new System.Drawing.Size(167, 20);
             this.birthDatePick.TabIndex = 24;
             // 
-            // cb_gender
+            // cbGender
             // 
-            this.cb_gender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_gender.FormattingEnabled = true;
-            this.cb_gender.Location = new System.Drawing.Point(154, 128);
-            this.cb_gender.Name = "cb_gender";
-            this.cb_gender.Size = new System.Drawing.Size(167, 21);
-            this.cb_gender.TabIndex = 25;
+            this.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGender.FormattingEnabled = true;
+            this.cbGender.Location = new System.Drawing.Point(154, 128);
+            this.cbGender.Name = "cbGender";
+            this.cbGender.Size = new System.Drawing.Size(167, 21);
+            this.cbGender.TabIndex = 25;
             // 
             // AddToStaffTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(340, 304);
-            this.Controls.Add(this.cb_gender);
+            this.Controls.Add(this.cbGender);
             this.Controls.Add(this.birthDatePick);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbOrgList);
@@ -241,11 +241,11 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.tb_salary);
-            this.Controls.Add(this.tb_manager);
-            this.Controls.Add(this.tb_function);
-            this.Controls.Add(this.tb_name);
-            this.Controls.Add(this.tb_surname);
+            this.Controls.Add(this.tbSalary);
+            this.Controls.Add(this.tbManager);
+            this.Controls.Add(this.tbFunction);
+            this.Controls.Add(this.tbName);
+            this.Controls.Add(this.tbSurname);
             this.Name = "AddToStaffTableForm";
             this.Text = "Добавление работника";
             this.Load += new System.EventHandler(this.addToStaffTableForm_Load);
@@ -255,11 +255,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox tb_surname;
-        private System.Windows.Forms.TextBox tb_name;
-        private System.Windows.Forms.TextBox tb_function;
-        private System.Windows.Forms.TextBox tb_manager;
-        private System.Windows.Forms.TextBox tb_salary;
+        private System.Windows.Forms.TextBox tbSurname;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.TextBox tbFunction;
+        private System.Windows.Forms.TextBox tbManager;
+        private System.Windows.Forms.TextBox tbSalary;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -274,6 +274,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker birthDatePick;
-        private System.Windows.Forms.ComboBox cb_gender;
+        private System.Windows.Forms.ComboBox cbGender;
     }
 }

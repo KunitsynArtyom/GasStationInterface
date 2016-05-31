@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 
+
 namespace Queries
 {
     public class DBConnection //класс, устанавливающий соединение с базой данных
@@ -13,7 +14,6 @@ namespace Queries
         public NpgsqlConnection conn;
         public DBConnection(NpgsqlConnection conn)
         {
-            //conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS");
             this.conn = conn;
         }
 
@@ -28,7 +28,7 @@ namespace Queries
             {
                 conn.Open();
             }
-            catch (NpgsqlException ne) { }
+            catch (PostgresException ne) { MessageBox.Show(ne.ToString()); }
         }
 
         public NpgsqlConnection getConnection()

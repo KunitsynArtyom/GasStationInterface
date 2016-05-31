@@ -9,30 +9,32 @@ using Npgsql;
 using Queries.Entities;
 using Queries.TableRepositories;
 using Queries.Interfaces;
+using Queries.Validators;
 
 namespace Queries.dgvControllers
 {
-    public class dgvDealController
+    public class DealController
     {
         DataGridView dgv;
         List<Deal> dgvElements;
         IRepositoryFactory factory;
+        DealValidator dealValidator;
+        List<string> errorList;
+        string error;
 
 
-        public dgvDealController(DataGridView dgv, IRepositoryFactory factory)
+        public DealController(DataGridView dgv, IRepositoryFactory factory)
         {
             dgvElements = new List<Deal>();
             this.factory = factory;
             this.dgv = dgv;
+            dealValidator = new DealValidator();
         }
 
         public int showDeals(int id)
         {
             var foundDealList = new List<Deal>();
             var dealList = factory.GetDealRepository().ShowBuyerDealTable(id);
-            //var carDeal = factory.GetCarRepository().GetCars();
-            //Car foundCar = carDeal[number];
-            // foundDealList = factory.GetDealRepository().GetDeals(foundCar);
             if (dealList.Count != 0)
             {
                 foreach (Deal deal in dealList)
@@ -40,7 +42,7 @@ namespace Queries.dgvControllers
                     dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
                 }
             }
-            else MessageBox.Show("Сделок с данным покупателем не найдено!");
+            else MessageBox.Show("Сделок с данным пользователем не найдено!");
 
             return dealList.Count;
         }
@@ -79,19 +81,42 @@ namespace Queries.dgvControllers
         {
             try
             {
-                factory.GetDealRepository().UpdateDealTable(id, deal);
-            } catch (NpgsqlException ne) { MessageBox.Show("Данные введены некорректно"); }
-            //var dealList = factory.GetDealRepository().ShowDealTable();
-            //Deal dealToUpdate = dealList[number];
-            //factory.GetDealRepository().UpdateDealTabele(dealToUpdate, deal);
+                if (dealValidator.checkUpdate(id, deal, out errorList))
+                {
+                    factory.GetDealRepository().UpdateDealTable(id, deal);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
+                }
+            } catch (NpgsqlException ne) { MessageBox.Show("Невозможно выполнить операцию!"); }
         }
 
         public void addToTable(Deal deal)
         {
-            //try
-            //{
-                factory.GetDealRepository().AddToDealTable(deal);
-            //} catch(NpgsqlException ne) { MessageBox.Show("Данные введены некорректно"); }
+            try
+            {      
+                if (dealValidator.checkAddition(deal, out errorList))
+                {
+                    factory.GetDealRepository().AddToDealTable(deal);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
+                }
+            } catch(NpgsqlException ne) { MessageBox.Show("Невозможно выполнить операцию!"); }
         }
     }
 }

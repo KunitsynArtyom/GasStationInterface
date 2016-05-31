@@ -1,70 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Npgsql;
-using System.Data.Common;
 using System.Collections;
-using Queries;
+using Npgsql;
 using Queries.Entities;
-using Queries.dgvControllers;
-using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 using Queries.Interfaces;
+using Queries.Validators;
 
-namespace Queries.Controllers
+namespace Queries.dgvControllers
 {
     public class StationController
     {
-        List<string> ErrorList = new List<string>();
+        DataGridView dgv;
+        StationValidator stationValidator;
+        List<Station> dgvElements;
+        IRepositoryFactory factory;
+        List<string> errorList;
+        string error;
 
-        public StationController()
+        public StationController(DataGridView dgv, IRepositoryFactory factory)
         {
-
+            this.factory = factory;
+            this.dgv = dgv;
+            stationValidator = new StationValidator();
         }
 
-        public bool checkAddition(Station st)
+        public void showTable()
         {
-            bool checkFlag = true;
-            if (st.GetOrgName() == String.Empty)
+            dgvElements = new List<Station>();
+            dgvElements = factory.GetStationRepository().getStations();
+            dgv.Rows.Clear();
+            foreach (Station ps in dgvElements)
             {
-                checkFlag = false;
-                ErrorList.Add("Название организации отсутсвует!");
+                dgv.Rows.Add(ps.GetOrgName(),ps.GetCountry(), ps.GetCity(), ps.GetStreet());
             }
-            if (st.GetCountry() == String.Empty)
+        }
+
+        public void showAdminTable()
+        {
+            dgvElements = new List<Station>();
+            dgvElements = factory.GetStationRepository().getStations();
+            dgv.Rows.Clear();
+            foreach (Station ps in dgvElements)
             {
-                checkFlag = false;
-                ErrorList.Add("Поле для ввода страны пусто!");
+                dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet(), ps.GetStorageCap());
             }
-            if (st.GetCity() == String.Empty)
+        }
+
+        public void findInTable(string country, string city)
+        {
+            dgvElements = new List<Station>();
+            dgvElements = factory.GetStationRepository().findStations(country, city);
+            dgv.Rows.Clear();
+            foreach (Station ps in dgvElements)
             {
-                checkFlag = false;
-                ErrorList.Add("Поле для ввода города пусто!");
+                dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet());
             }
-            if (st.GetStreet() == String.Empty)
+        }
+
+        public void addToTable(Station st)
+        {
+            try
             {
-                checkFlag = false;
-                ErrorList.Add("Поле для ввода улицы пусто!");
-            }
-            if (st.GetStorageCap() < 300)
-            {
-                checkFlag = false;
-                ErrorList.Add("Хранилище топлива может быть минимум 300 литров!");
-            }
-            if (checkFlag == false)
-            {
-                foreach (string str in ErrorList)
+                if (stationValidator.checkAddition(st, out errorList))
                 {
-                    MessageBox.Show(str);
+                    factory.GetStationRepository().AddToStationTable(st);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
                 }
             }
-
-            return checkFlag;
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!"); }
         }
     }
 }

@@ -19,25 +19,20 @@ using Queries.Interfaces;
 
 namespace Queries.comboBoxFillers
 {
-    public class comboBoxDealFiller
+    public class ComboBoxDealFiller
     {
         ComboBox cb;
         List<string> comboBoxElements;
-        DealRepository dealQuery;
-        StationRepository stationQuery;
-        CarRepository carQuery;
         IRepositoryFactory factory;
 
 
-        public comboBoxDealFiller(ComboBox cb, IRepositoryFactory factory)
+        public ComboBoxDealFiller(ComboBox cb, IRepositoryFactory factory)
         {
             this.cb = cb;
             this.factory = factory;
-            //stationQuery = factory.GetStationRepository();
-            //carQuery = factory.GetCarRepository();
         }
 
-        public void cb_orgFill()
+        public void cbOrgFill()
         {
             comboBoxElements = factory.GetStationRepository().GetOrganisations();
             foreach (string st in comboBoxElements)
@@ -46,7 +41,7 @@ namespace Queries.comboBoxFillers
             }
         }
 
-        public void cb_stationFill(string Orgname)
+        public void cbStationFill(string Orgname)
         {
             comboBoxElements = factory.GetStationRepository().GetStationsAdres(Orgname);
             foreach (string st in comboBoxElements)
@@ -56,7 +51,7 @@ namespace Queries.comboBoxFillers
             }
         }
 
-        public void cb_cardnumFill()
+        public void cbCardnumFill()
         {
             List<Car> comboBoxCarElements = factory.GetCarRepository().GetCars();
             foreach (Car car in comboBoxCarElements)
@@ -67,7 +62,7 @@ namespace Queries.comboBoxFillers
 
         private string RemoveSpaces(string inputString)
         {
-            inputString = inputString.Replace("  ", string.Empty);
+            //inputString = inputString.Replace("  ", string.Empty);
             inputString = inputString.Trim().Replace(" ", string.Empty);
 
             return inputString;

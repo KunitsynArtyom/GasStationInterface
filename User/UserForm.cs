@@ -19,8 +19,8 @@ namespace User
     public partial class UserForm : Form //форма пользователя
     {
         IRepositoryFactory factory;
-        dgvStationController fillStaffTable;
-        dgvDealController fillDealTable;
+        StationController fillStaffTable;
+        DealController fillDealTable;
         public NpgsqlConnection conn;
         string cardnum;
 
@@ -29,13 +29,15 @@ namespace User
             InitializeComponent();
             this.cardnum = cardnum;
             this.factory = factory; 
-            fillStaffTable = new dgvStationController(dgvVievAZS, factory);
-            fillDealTable = new dgvDealController(dgvUserDeals, factory);
+            //fillStaffTable = new StationController(dgvVievAZS, factory);
+            //fillDealTable = new DealController(dgvUserDeals, factory);
         }
 
         private void UserForm_Load(object sender, EventArgs e)
         {
+            fillStaffTable = new StationController(dgvVievAZS, factory);
             fillStaffTable.showTable();
+            fillDealTable = new DealController(dgvUserDeals, factory);
             fillDealTable.showUserTable(cardnum);
         }
 

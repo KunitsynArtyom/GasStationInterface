@@ -43,7 +43,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.birthDatePick = new System.Windows.Forms.DateTimePicker();
-            this.cb_gender = new System.Windows.Forms.ComboBox();
+            this.cbGender = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // tb_surname
@@ -171,20 +171,21 @@
             this.birthDatePick.Size = new System.Drawing.Size(167, 20);
             this.birthDatePick.TabIndex = 25;
             // 
-            // cb_gender
+            // cbGender
             // 
-            this.cb_gender.FormattingEnabled = true;
-            this.cb_gender.Location = new System.Drawing.Point(154, 63);
-            this.cb_gender.Name = "cb_gender";
-            this.cb_gender.Size = new System.Drawing.Size(167, 21);
-            this.cb_gender.TabIndex = 26;
+            this.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGender.FormattingEnabled = true;
+            this.cbGender.Location = new System.Drawing.Point(154, 63);
+            this.cbGender.Name = "cbGender";
+            this.cbGender.Size = new System.Drawing.Size(167, 21);
+            this.cbGender.TabIndex = 26;
             // 
-            // updateStaffTableForm
+            // UpdateStaffTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 244);
-            this.Controls.Add(this.cb_gender);
+            this.Controls.Add(this.cbGender);
             this.Controls.Add(this.birthDatePick);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
@@ -200,7 +201,7 @@
             this.Controls.Add(this.tb_function);
             this.Controls.Add(this.tb_name);
             this.Controls.Add(this.tb_surname);
-            this.Name = "updateStaffTableForm";
+            this.Name = "UpdateStaffTableForm";
             this.Text = "Изменение данных о сотруднике";
             this.Load += new System.EventHandler(this.updateStaffTableForm_Load);
             this.ResumeLayout(false);
@@ -224,6 +225,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DateTimePicker birthDatePick;
-        private System.Windows.Forms.ComboBox cb_gender;
+        private System.Windows.Forms.ComboBox cbGender;
     }
 }

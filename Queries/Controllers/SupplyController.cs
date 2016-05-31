@@ -16,41 +16,80 @@ using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
 using Queries.Interfaces;
+using Queries.Validators;
 
-namespace Queries.Controllers
+namespace Queries.dgvControllers
 {
     public class SupplyController
     {
-        List<string> ErrorList = new List<string>();
+        DataGridView dgv;
+        List<Supply> dgvElements;
+        IRepositoryFactory factory;
+        SupplyValidator supplyValidator;
+        List<string> errorList;
+        string error;
 
-        public SupplyController()
+        public SupplyController(DataGridView dgv, IRepositoryFactory factory)
         {
-
+            dgvElements = new List<Supply>();
+            this.dgv = dgv;
+            this.factory = factory;
+            supplyValidator = new SupplyValidator();
         }
 
-        public bool checkAddition(Supply sup)
+        public void showTable()
         {
-            bool checkFlag = true;
-            if (sup.GetStation_id() < 0)
+            dgvElements = factory.GetSupplyRepository().ShowSupplyTable();
+            dgv.Rows.Clear();
+            foreach (Supply supply in dgvElements)
             {
-                checkFlag = false;
+                int station_id = supply.GetStation_id();
+                dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                    supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
             }
-            if (sup.GetStaff_id() < 0)
-            {
-                checkFlag = false;
-            }
-            if (sup.GetFuelSupplyType() == String.Empty)
-            {
-                checkFlag = false;
-                ErrorList.Add("Тип топлива не выбран!");
-            }
-            if (sup.GetFuelSupplyAmount() < 0)
-            {
-                checkFlag = false;
-                ErrorList.Add("Количество топлива введено неправильно!");
-            }
+        }
 
-            return checkFlag;
+        public void showTable(int ID)
+        {
+            int id = factory.GetStaffRepository().FindStationIDByStaffID(ID);
+            dgvElements = factory.GetSupplyRepository().ShowSupplyTableByID(id);
+            dgv.Rows.Clear();
+            foreach (Supply supply in dgvElements)
+            {
+                int station_id = supply.GetStation_id();
+                dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                    supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
+            }
+        }
+
+        public void addToSupplyTable(Supply sup)
+        {
+            try
+            {
+                if (supplyValidator.checkAddition(sup, out errorList))
+                {
+                    factory.GetSupplyRepository().AddToSupplyTable(sup);
+                }
+                else
+                {
+                    int k = 0;
+                    foreach (string str in errorList)
+                    {
+                        k++;
+                        error += "Ошибка №" + k + ": " + str + " \n";
+                    }
+                    MessageBox.Show(error);
+                }
+            }
+            catch (NpgsqlException ne) { MessageBox.Show("Невозможно совершить операцию!"); }
+        }
+
+        private string RemoveSpaces(string inputString)
+        {
+            //inputString = inputString.Replace("  ", string.Empty);
+            inputString = inputString.Trim().Replace(" ", string.Empty);
+
+            return inputString;
         }
     }
 }

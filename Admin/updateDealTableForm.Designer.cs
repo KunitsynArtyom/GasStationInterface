@@ -36,9 +36,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.tb_fuelamount = new System.Windows.Forms.TextBox();
+            this.tbFuelamount = new System.Windows.Forms.TextBox();
             this.cbFuelType = new System.Windows.Forms.ComboBox();
-            this.tb_dealprice = new System.Windows.Forms.TextBox();
+            this.tbDealprice = new System.Windows.Forms.TextBox();
             this.cbCardNum = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -119,12 +119,12 @@
             this.label3.TabIndex = 32;
             this.label3.Text = "Тип топлива: ";
             // 
-            // tb_fuelamount
+            // tbFuelamount
             // 
-            this.tb_fuelamount.Location = new System.Drawing.Point(147, 48);
-            this.tb_fuelamount.Name = "tb_fuelamount";
-            this.tb_fuelamount.Size = new System.Drawing.Size(106, 20);
-            this.tb_fuelamount.TabIndex = 28;
+            this.tbFuelamount.Location = new System.Drawing.Point(147, 48);
+            this.tbFuelamount.Name = "tbFuelamount";
+            this.tbFuelamount.Size = new System.Drawing.Size(106, 20);
+            this.tbFuelamount.TabIndex = 28;
             // 
             // cbFuelType
             // 
@@ -135,12 +135,12 @@
             this.cbFuelType.Size = new System.Drawing.Size(106, 21);
             this.cbFuelType.TabIndex = 43;
             // 
-            // tb_dealprice
+            // tbDealprice
             // 
-            this.tb_dealprice.Location = new System.Drawing.Point(147, 74);
-            this.tb_dealprice.Name = "tb_dealprice";
-            this.tb_dealprice.Size = new System.Drawing.Size(106, 20);
-            this.tb_dealprice.TabIndex = 44;
+            this.tbDealprice.Location = new System.Drawing.Point(147, 74);
+            this.tbDealprice.Name = "tbDealprice";
+            this.tbDealprice.Size = new System.Drawing.Size(106, 20);
+            this.tbDealprice.TabIndex = 44;
             // 
             // cbCardNum
             // 
@@ -183,7 +183,7 @@
             this.tbHours.Size = new System.Drawing.Size(23, 20);
             this.tbHours.TabIndex = 54;
             // 
-            // updateDealTableForm
+            // UpdateDealTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -193,7 +193,7 @@
             this.Controls.Add(this.tbMinutes);
             this.Controls.Add(this.tbHours);
             this.Controls.Add(this.cbCardNum);
-            this.Controls.Add(this.tb_dealprice);
+            this.Controls.Add(this.tbDealprice);
             this.Controls.Add(this.cbFuelType);
             this.Controls.Add(this.dealDatePick);
             this.Controls.Add(this.btnCancel);
@@ -203,8 +203,8 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.tb_fuelamount);
-            this.Name = "updateDealTableForm";
+            this.Controls.Add(this.tbFuelamount);
+            this.Name = "UpdateDealTableForm";
             this.Text = "Обновление данных о сделке";
             this.Load += new System.EventHandler(this.updateDealTableForm_Load);
             this.ResumeLayout(false);
@@ -222,9 +222,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tb_fuelamount;
+        private System.Windows.Forms.TextBox tbFuelamount;
         private System.Windows.Forms.ComboBox cbFuelType;
-        private System.Windows.Forms.TextBox tb_dealprice;
+        private System.Windows.Forms.TextBox tbDealprice;
         private System.Windows.Forms.ComboBox cbCardNum;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

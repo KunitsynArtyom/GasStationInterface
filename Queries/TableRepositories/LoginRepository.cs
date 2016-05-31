@@ -9,6 +9,7 @@ using System.Data.Common;
 using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
+using Queries.Security;
 
 namespace Queries.TableRepositories
 {
@@ -29,7 +30,9 @@ namespace Queries.TableRepositories
                 dbc.openConnection();
             //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\"  WHERE login LIKE" + "'%" + login.GetLogin() + "%'" +  "AND password LIKE" + "'%" + login.GetPassword() + "%'" + "", dbc.getConnection());
             NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\" WHERE login = @Login AND password = @Password", dbc.getConnection());
-            queryCommand.Parameters.AddWithValue("@Login", login.GetLogin());
+                MessageBox.Show(login.GetPassword());
+                MessageBox.Show(login.GetLogin().ToString());
+                queryCommand.Parameters.AddWithValue("@Login", login.GetLogin());
             queryCommand.Parameters.AddWithValue("@Password", login.GetPassword());
 
 
@@ -59,10 +62,12 @@ namespace Queries.TableRepositories
             {
                 dbc.openConnection();
 
+                
+                
                 NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"Login\".\"LoginTable\"(Login, Password, Role)" +
                     "VALUES(@Login, @Pass, @Role)", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Login", dbUser.GetDBUserLogin());
-                queryCommand.Parameters.AddWithValue("@Pass", dbUser.GetDBUserPass());
+                queryCommand.Parameters.AddWithValue("@Pass", SecurityCrypt.MD5((dbUser.GetDBUserPass())));
                 queryCommand.Parameters.AddWithValue("@Role", dbUser.GetDBUserRole());
                 queryCommand.ExecuteNonQuery();
             }

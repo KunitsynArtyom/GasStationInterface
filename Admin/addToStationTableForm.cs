@@ -15,7 +15,7 @@ using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
 using Queries.TableRepositories;
-using Queries.Controllers;
+using Queries.Validators;
 using Queries.Interfaces;
 
 namespace Admin
@@ -24,7 +24,6 @@ namespace Admin
     {
     public Form af;
     IRepositoryFactory factory;
-    StationRepository stationQuery;
     DataGridView dgv;
     string orgname, country, city, street;
     int storagecap;
@@ -34,18 +33,6 @@ namespace Admin
             List<string> ErrorList = new List<string>();
             try
             {
-                if (tbStorageCap.Text == String.Empty)
-                {
-                    ErrorList.Add("Недопустимые объемы резервуаров!");
-                }
-                if (ErrorList.Count != 0)
-                {
-                    foreach (string str in ErrorList)
-                    {
-                        MessageBox.Show(str);
-                    }
-                }
-
                 orgname = tbOrgName.Text.ToString();
                 country = tbCountry.Text.ToString();
                 city = tbCity.Text.ToString();
@@ -53,12 +40,12 @@ namespace Admin
                 storagecap = Convert.ToInt32(tbStorageCap.Text);
                 Station st = new Station();
                 st.stationSet(orgname, country, city, street, storagecap);
-                StationController sc = new StationController();
-                if (sc.checkAddition(st))
-                {
-                    dgvStationController dgsc = new dgvStationController(dgv, factory);
-                    dgsc.addToTable(st);
-                }
+                //StationValidator sc = new StationValidator();
+                //if (sc.checkAddition(st))
+                //{
+                StationController stationController = new StationController(dgv, factory);
+                stationController.addToTable(st);
+                //}
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
             //Close();
@@ -70,12 +57,10 @@ namespace Admin
             af = adminForm;
             this.factory = factory;
             this.dgv = dgv;
-            //stationQuery = factory.GetStationRepository(); ;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Hide();
             Close();
             af.Show();
         }

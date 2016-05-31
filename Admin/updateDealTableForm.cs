@@ -14,7 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.Controllers;
+using Queries.Validators;
 using Queries.Interfaces;
 
 namespace Admin
@@ -37,30 +37,29 @@ namespace Admin
                 {
                    fueltype = Convert.ToString(cbFuelType.Text);
                 }
-                fuelamount = Convert.ToInt32(tb_fuelamount.Text);
+                fuelamount = Convert.ToInt32(tbFuelamount.Text);
                 if (cbCardNum.SelectedIndex != -1)
                 {
                    cardnum = Convert.ToString(cbCardNum.Text).Trim().Replace(" ", string.Empty);
                 }
-                dealprice = Convert.ToInt32(tb_dealprice.Text);
+                dealprice = Convert.ToInt32(tbDealprice.Text);
                 hours = Convert.ToInt32(tbHours.Text);
                 minutes = Convert.ToInt32(tbMinutes.Text);
                 dealdate = Convert.ToDateTime(dealDatePick.Text);
                 dealdate = dealdate.AddHours(hours);
                 dealdate = dealdate.AddMinutes(minutes);
                 Deal deal = new Deal();
-            deal.dealSet(fueltype, fuelamount, dealprice, cardnum, dealdate);
-            var cell = dgv[0, dgv.CurrentRow.Index];
-            int id = Convert.ToInt32(cell.Value);
-            DealController dc = new DealController();
-            if (dc.checkUpdate(id, deal))
-            {
-                dgvDealController dgds = new dgvDealController(dgv, factory);
-                dgds.updateTable(id, deal);
-            }
-          }
-          catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
-          Close();
+                deal.dealSet(fueltype, fuelamount, dealprice, cardnum, dealdate);
+                var cell = dgv[0, dgv.CurrentRow.Index];
+                int id = Convert.ToInt32(cell.Value);
+                //DealValidator dc = new DealValidator();
+                //if (dc.checkUpdate(id, deal))
+                //{
+                    DealController dgds = new DealController(dgv, factory);
+                    dgds.updateTable(id, deal);
+                //}
+            } catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
+                //Close();
         }
 
         public UpdateDealTableForm(DataGridViewRow updateRow, IRepositoryFactory factory, DataGridView dgv)
@@ -73,14 +72,13 @@ namespace Admin
 
         private void updateDealTableForm_Load(object sender, EventArgs e)
         {
-            tb_fuelamount.Text = updateRow.Cells["fuelamount"].Value.ToString();
-            tb_dealprice.Text = updateRow.Cells["dealprice"].Value.ToString();
+            tbFuelamount.Text = updateRow.Cells["fuelamount"].Value.ToString();
+            tbDealprice.Text = updateRow.Cells["dealprice"].Value.ToString();
             cbFuelType.Items.Add("A92");
             cbFuelType.Items.Add("A95");
             cbFuelType.Items.Add("A95+");
-            comboBoxDealFiller cbdf;
-            cbdf = new comboBoxDealFiller(cbCardNum, factory);
-            cbdf.cb_cardnumFill();
+            ComboBoxDealFiller comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
+            comboBoxDealFiller.cbCardnumFill();
         }
     }
 }

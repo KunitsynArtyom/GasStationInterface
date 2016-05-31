@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Queries.Interfaces;
 using Queries.Entities;
-using Queries.Controllers;
+using Queries.Validators;
 using Queries.dgvControllers;
 
 namespace Worker
@@ -24,7 +24,6 @@ namespace Worker
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Hide();
             Close();
         }
 
@@ -76,42 +75,31 @@ namespace Worker
                 }
                 if (!checkNow.Checked)
                 {
-                    //try
-                    //{
                         hours = Convert.ToInt32(tbHours.Text);
                         minutes = Convert.ToInt32(tbMinutes.Text);
-                    //}
-                    //catch (Exception ex) { }
                 }
                 
                 supplydate = Convert.ToDateTime(supplyDateTimePick.Text);
-            if (checkNow.Checked)
-            {
-                supplydate = DateTime.Now;
-            }
-            else
-            {
-                //try
-                //{
+                if (checkNow.Checked)
+                {
+                    supplydate = DateTime.Now;
+                }
+                else
+                {
                     supplydate = supplydate.AddHours(hours);
                     supplydate = supplydate.AddMinutes(minutes);
-                //}
-                //catch (Exception ex) { }
-            }
-            //if (checkNow.Checked)
-            //    {
-            //        supplydate = DateTime.Now;
-            //    }
+                }
                 Supply sup = new Supply();
                 sup.supplySet(factory.GetStaffRepository().FindStationIDByStaffID(id), id, fueltype, fuelamount, supplydate);
-                SupplyController sc = new SupplyController();
-                if (sc.checkAddition(sup))
-                {
-                    dgvSupplyController dgsc = new dgvSupplyController(dgv, factory);
-                    dgsc.addToSupplyTable(sup);                }
+                //SupplyValidator sc = new SupplyValidator();
+                //if (sc.checkAddition(sup))
+                //{
+                SupplyController supplyController = new SupplyController(dgv, factory);
+                supplyController.addToSupplyTable(sup);
+                //}
             }
             catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
-            //Close();
+            Close();
         }
     }
 }

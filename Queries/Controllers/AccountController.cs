@@ -19,14 +19,14 @@ using Queries.Interfaces;
 
 namespace Queries.dgvControllers
 {
-    public class dgvAccountController
+    public class AccountController
     {
         DataGridView dgv;
         AccountRepository accountQuery;
         List<Account> dgvElements;
         IRepositoryFactory factory;
 
-        public dgvAccountController(DataGridView dgv, IRepositoryFactory factory)
+        public AccountController(DataGridView dgv, IRepositoryFactory factory)
         {
             dgvElements = new List<Account>();
             this.dgv = dgv;

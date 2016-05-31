@@ -8,9 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Queries.Entities;
-using Queries.Controllers;
+using Queries.Validators;
 using Queries.Interfaces;
 using Queries.TableRepositories;
+using Queries.Security;
 
 namespace Admin
 {
@@ -28,20 +29,18 @@ namespace Admin
             string login = String.Empty, pass = String.Empty;
             try
             {
-                login = tbLogin.Text;
-                pass = tbPass.Text;
+                login = tbLogin.Text.ToString();
+                pass = tbPass.Text.ToString();
                 DBUser nAdmin = new DBUser();
                 nAdmin.setNewUser(login, pass, "admin");
-                DBUserController adminController = new DBUserController();
-                if (adminController.checkAddition(nAdmin))
-                {
+                //DBUserValidator adminValidator = new DBUserValidator();
+                //if (adminValidator.checkAddition(nAdmin))
+                //{
                     LoginController lc = new LoginController(factory);
                     lc.addToLoginTable(nAdmin);
-                    MessageBox.Show("Операция успешно завершена!");
-                    //factory.GetLoginRepository().AddNewDBUser(nAdmin);
-                }
+                //}
             }
-            catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
+            catch (Exception ex) { MessageBox.Show("Невозможно совершить операцию!"); }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
