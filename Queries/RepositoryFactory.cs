@@ -14,14 +14,14 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 
 namespace Queries
 {  
     public class RepositoryFactory : IRepositoryFactory
     {
-        DBConnection dbc;
+        private DBConnection dbc;
 
         public RepositoryFactory(DBConnection dbc)
         {

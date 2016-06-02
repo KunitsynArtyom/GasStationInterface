@@ -10,11 +10,11 @@ using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
 
-namespace Queries.TableRepositories
+namespace Queries.Repositories
 {
     public class CarRepository : ICarRepository
     {
-        public DBConnection dbc;
+        private DBConnection dbc;
 
         public CarRepository(DBConnection dbc)
         {
@@ -45,9 +45,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -72,9 +72,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -99,9 +99,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -122,11 +122,12 @@ namespace Queries.TableRepositories
 
                 queryCommand.ExecuteNonQuery();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-                MessageBox.Show(ne.InnerException.ToString());
+                throw pe;
             }
             finally { dbc.closeConnection(); }
+
         }
     }
 }

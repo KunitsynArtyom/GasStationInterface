@@ -21,14 +21,12 @@ namespace Admin
 {
     public partial class AddToCarTableForm : Form
     {
-        public Form af;
-        DataGridView dgv;
-        IRepositoryFactory factory;
+        private DataGridView dgv;
+        private IRepositoryFactory factory;
 
         public AddToCarTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
-            af = adminForm;
             this.factory = factory;
             this.dgv = dgv;
         }
@@ -42,23 +40,19 @@ namespace Admin
                 cardNum = tbCardNum.Text.ToString();
                 Car car = new Car();
                 car.buyerSet(carMark, cardNum);
-                //CarValidator cc = new CarValidator();
-                //if (cc.checkAddition(car))
-                //{
                 CarController carController = new CarController(dgv, factory);
-                carController.addToTable(car);
-                //}
+                if (carController.AddToTable(car))
+                {
+                    MessageBox.Show("Операция выполнена успешно!");
+                    Close();
+                }
             }
-            catch (FormatException) { MessageBox.Show("Данные введены некорректно!"); }
-            //Close();
-            //af.Show();
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //Hide();
             Close();
-            af.Show();
         }
     }
 }

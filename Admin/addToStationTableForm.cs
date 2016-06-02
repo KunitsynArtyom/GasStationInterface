@@ -14,7 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Validators;
 using Queries.Interfaces;
 
@@ -23,32 +23,38 @@ namespace Admin
     public partial class AddToStationTableForm : Form
     {
     public Form af;
-    IRepositoryFactory factory;
-    DataGridView dgv;
-    string orgname, country, city, street;
-    int storagecap;
+        private IRepositoryFactory factory;
+        private DataGridView dgv;
+        private string orgname, country, city, street;
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            List<string> ErrorList = new List<string>();
             try
             {
                 orgname = tbOrgName.Text.ToString();
                 country = tbCountry.Text.ToString();
                 city = tbCity.Text.ToString();
                 street = tbStreet.Text.ToString();
-                storagecap = Convert.ToInt32(tbStorageCap.Text);
-                Station st = new Station();
-                st.stationSet(orgname, country, city, street, storagecap);
-                //StationValidator sc = new StationValidator();
-                //if (sc.checkAddition(st))
-                //{
-                StationController stationController = new StationController(dgv, factory);
-                stationController.addToTable(st);
-                //}
+                int storagecap;
+                bool checkStorageCap = Int32.TryParse(tbStorageCap.Text, out storagecap);
+                if (!checkStorageCap)
+                {
+                    //MessageBox.Show("Объемы цистерн заданы неверно!");
+                    storagecap = -1;
+                }
+                else
+                {
+                    Station st = new Station();
+                    st.stationSet(orgname, country, city, street, storagecap);
+                    StationController stationController = new StationController(dgv, factory);
+                    if (stationController.AddToTable(st))
+                    {
+                        MessageBox.Show("Операция выполнена успешно!");
+                        Close();
+                    }
+                }
             }
-            catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
-            //Close();
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public AddToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)

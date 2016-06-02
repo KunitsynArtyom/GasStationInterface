@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Collections;
 using Npgsql;
 using Queries.Entities;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 using Queries.Validators;
 
@@ -15,12 +15,12 @@ namespace Queries.dgvControllers
 {
     public class DealController
     {
-        DataGridView dgv;
-        List<Deal> dgvElements;
-        IRepositoryFactory factory;
-        DealValidator dealValidator;
-        List<string> errorList;
-        string error;
+        private DataGridView dgv;
+        private List<Deal> dgvElements;
+        private IRepositoryFactory factory;
+        private DealValidator dealValidator;
+        private List<string> errorList;
+        private string error;
 
 
         public DealController(DataGridView dgv, IRepositoryFactory factory)
@@ -31,7 +31,7 @@ namespace Queries.dgvControllers
             dealValidator = new DealValidator();
         }
 
-        public int showDeals(int id)
+        public int ShowDeals(int id)
         {
             var foundDealList = new List<Deal>();
             var dealList = factory.GetDealRepository().ShowBuyerDealTable(id);
@@ -47,41 +47,56 @@ namespace Queries.dgvControllers
             return dealList.Count;
         }
 
-        public void showTable()
-        {
-            dgvElements = factory.GetDealRepository().ShowDealTable();
-            dgv.Rows.Clear();
-            foreach (Deal deal in dgvElements)
-            {
-                dgv.Rows.Add(deal.GetDeal_id(), factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
-            }
-        }
-
-        public void showWorkerTable(int ID)
-        {
-            dgvElements = factory.GetDealRepository().ShowWorkerDealTable(ID);
-            dgv.Rows.Clear();
-            foreach (Deal deal in dgvElements)
-            {
-                dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
-            }
-        }
-
-        public void showUserTable(string cardnum)
-        {
-            dgvElements = factory.GetDealRepository().ShowUserDealTable(cardnum);
-            dgv.Rows.Clear();
-            foreach (Deal deal in dgvElements)
-            {
-                dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
-            }
-        }
-
-        public void updateTable(int id, Deal deal)
+        public void ShowTable()
         {
             try
             {
-                if (dealValidator.checkUpdate(id, deal, out errorList))
+                dgvElements = factory.GetDealRepository().ShowDealTable();
+                dgv.Rows.Clear();
+                foreach (Deal deal in dgvElements)
+                {
+                    dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationsAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                        factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(),
+                        deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public void ShowWorkerTable(int ID)
+        {
+            try
+            {
+                dgvElements = factory.GetDealRepository().ShowWorkerDealTable(ID);
+                dgv.Rows.Clear();
+                foreach (Deal deal in dgvElements)
+                {
+                    dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public void ShowUserTable(string cardnum)
+        {
+            try
+            {
+                dgvElements = factory.GetDealRepository().ShowUserDealTable(cardnum);
+                dgv.Rows.Clear();
+                foreach (Deal deal in dgvElements)
+                {
+                    dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public bool UpdateTable(int id, Deal deal)
+        {
+            bool checkFlag = false;
+            try
+            {
+                if (checkFlag = dealValidator.checkUpdate(id, deal, out errorList))
                 {
                     factory.GetDealRepository().UpdateDealTable(id, deal);
                 }
@@ -95,14 +110,17 @@ namespace Queries.dgvControllers
                     }
                     MessageBox.Show(error);
                 }
-            } catch (NpgsqlException ne) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
 
-        public void addToTable(Deal deal)
+        public bool AddToTable(Deal deal)
         {
+            bool checkFlag = false;
             try
             {      
-                if (dealValidator.checkAddition(deal, out errorList))
+                if (checkFlag = dealValidator.checkAddition(deal, out errorList))
                 {
                     factory.GetDealRepository().AddToDealTable(deal);
                 }
@@ -116,7 +134,9 @@ namespace Queries.dgvControllers
                     }
                     MessageBox.Show(error);
                 }
-            } catch(NpgsqlException ne) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
     }
 }

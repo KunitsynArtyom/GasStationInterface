@@ -21,11 +21,10 @@ namespace Worker
 {
     public partial class AddToDealTableForm : Form
     {
-        public Form wf;
-        DataGridView dgv;
-        IRepositoryFactory factory;
-        int ID, fuelamount, dealprice, hours, minutes;
-        string fueltype, cardnum;
+        private DataGridView dgv;
+        private IRepositoryFactory factory;
+        private int ID;
+        private string fueltype, cardnum;
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -68,45 +67,65 @@ namespace Worker
                 {
                     fueltype = Convert.ToString(cbFuelType.Text);
                 }
-                fuelamount = Convert.ToInt32(tbFuelamount.Text);
+                else fueltype = String.Empty;
+                int fuelamount;
+                bool checkFuelAmount = Int32.TryParse(tbFuelamount.Text, out fuelamount);
+                if (!checkFuelAmount)
+                {
+                    fuelamount = -1;
+                }
+                //fuelamount = Convert.ToInt32(tbFuelamount.Text);
+                //bool checkStorageCap = Int32.TryParse(tbStorageCap.Text, out storagecap);
                 if (cbCardNum.SelectedIndex != -1)
                 {
                     cardnum = Convert.ToString(cbCardNum.Text);
                     cardnum = cardnum.Trim().Replace(" ", string.Empty);
                 }
-                dealprice = Convert.ToInt32(tbDealPrice.Text);
-                if (checkNow.Checked)
+                else cardnum = String.Empty;
+                int dealprice;
+                bool checkDealPrice = Int32.TryParse(tbDealPrice.Text, out dealprice);
+                if(!checkDealPrice)
                 {
-                    dealdate = DateTime.Now;
+                    dealprice = -1;
                 }
-                if (!checkNow.Checked)
-                {
-                    hours = Convert.ToInt32(tbHours.Text);
-                    minutes = Convert.ToInt32(tbMinutes.Text);
-                }
+                //dealprice = Convert.ToInt32(tbDealPrice.Text);
                 dealdate = Convert.ToDateTime(dealDatePick.Text);
+
                 if (checkNow.Checked)
                 {
                     dealdate = DateTime.Now;
+                }
+                if (!checkNow.Checked && (tbHours.Text != String.Empty || tbMinutes.Text != String.Empty))
+                {
+                    int hours, minutes;
+                    bool checkHours = Int32.TryParse(tbHours.Text, out hours);
+                    bool checkMinutes = Int32.TryParse(tbMinutes.Text, out minutes);
+                    if (checkHours != false && checkMinutes != false)
+                    {
+                        dealdate = dealdate.AddHours(hours);
+                        dealdate = dealdate.AddMinutes(minutes);
+                    }
+                    else
+                    {
+                        dealdate = DateTime.Now;
+                        MessageBox.Show("Неверный формат времени! Выставлено текущее время!");
+                    }
                 }
                 else
                 {
-                    dealdate = dealdate.AddHours(hours);
-                    dealdate = dealdate.AddMinutes(minutes);
+                    dealdate = DateTime.Now;
                 }
 
                 Deal deal = new Deal();
                 deal.dealSet(0, factory.GetCarRepository().FindCarIDByCardnum(cardnum), ID, fueltype, fuelamount, dealprice, cardnum, dealdate);
-                //DealValidator dc = new DealValidator();
-                //if (dc.checkAddition(deal))
-                //{
-                    DealController dealController = new DealController(dgv, factory);
-                    dealController.addToTable(deal);
-                    //MessageBox.Show("Сделка добавлена!");
-                //}
+                DealController dealController = new DealController(dgv, factory);
+                if (dealController.AddToTable(deal))
+                {
+                    MessageBox.Show("Операция выполнена успешно!");
+                    Close();
+                }
             }
-            catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
-            //Close();
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void updateDealTableForm_Load(object sender, EventArgs e)
@@ -114,8 +133,8 @@ namespace Worker
             cbFuelType.Items.Add("A92");
             cbFuelType.Items.Add("A95");
             cbFuelType.Items.Add("A95+");
-            ComboBoxDealFiller  comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
-            comboBoxDealFiller.cbCardnumFill();
+            ComboBoxDealFiller comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
+            comboBoxDealFiller.СbCardnumFill();
         }
     }
 }

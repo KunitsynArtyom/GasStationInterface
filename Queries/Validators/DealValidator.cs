@@ -14,7 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 
 namespace Queries.Validators

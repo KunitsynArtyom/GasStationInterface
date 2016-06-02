@@ -14,35 +14,37 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 
 namespace Queries.dgvControllers
 {
     public class AccountController
     {
-        DataGridView dgv;
-        AccountRepository accountQuery;
-        List<Account> dgvElements;
-        IRepositoryFactory factory;
+        private DataGridView dgv;
+        private List<Account> dgvElements;
+        private IRepositoryFactory factory;
 
         public AccountController(DataGridView dgv, IRepositoryFactory factory)
         {
             dgvElements = new List<Account>();
             this.dgv = dgv;
             this.factory = factory;
-            //accountQuery = factory.GetAccountRepository();
         }
 
-        public void showTable()
+        public void ShowTable()
         {
-            dgvElements = factory.GetAccountRepository().GetAccounting();
-            dgv.Rows.Clear();
-            foreach (Account account in dgvElements)
+            try
             {
-                dgv.Rows.Add(account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(), 
-                    account.GetFuelAccountAmount(), account.GetAccountDate());
+                dgvElements = factory.GetAccountRepository().GetAccounting();
+                dgv.Rows.Clear();
+                foreach (Account account in dgvElements)
+                {
+                    dgv.Rows.Add(account.GetStation_id(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
+                        account.GetFuelAccountAmount(), account.GetAccountDate());
+                }
             }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
     }
 }

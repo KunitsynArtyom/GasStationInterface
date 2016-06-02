@@ -9,7 +9,7 @@ using System.Data.Common;
 using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
-using Queries.TableRepositories;
+using Queries.Repositories;
 
 
 namespace Queries.Interfaces

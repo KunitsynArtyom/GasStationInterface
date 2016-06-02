@@ -14,7 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 using Queries.Validators;
 
@@ -22,12 +22,12 @@ namespace Queries.dgvControllers
 {
     public class SupplyController
     {
-        DataGridView dgv;
-        List<Supply> dgvElements;
-        IRepositoryFactory factory;
-        SupplyValidator supplyValidator;
-        List<string> errorList;
-        string error;
+        private DataGridView dgv;
+        private List<Supply> dgvElements;
+        private IRepositoryFactory factory;
+        private SupplyValidator supplyValidator;
+        private List<string> errorList;
+        private string error;
 
         public SupplyController(DataGridView dgv, IRepositoryFactory factory)
         {
@@ -37,36 +37,45 @@ namespace Queries.dgvControllers
             supplyValidator = new SupplyValidator();
         }
 
-        public void showTable()
-        {
-            dgvElements = factory.GetSupplyRepository().ShowSupplyTable();
-            dgv.Rows.Clear();
-            foreach (Supply supply in dgvElements)
-            {
-                int station_id = supply.GetStation_id();
-                dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
-                    supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
-            }
-        }
-
-        public void showTable(int ID)
-        {
-            int id = factory.GetStaffRepository().FindStationIDByStaffID(ID);
-            dgvElements = factory.GetSupplyRepository().ShowSupplyTableByID(id);
-            dgv.Rows.Clear();
-            foreach (Supply supply in dgvElements)
-            {
-                int station_id = supply.GetStation_id();
-                dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
-                    supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
-            }
-        }
-
-        public void addToSupplyTable(Supply sup)
+        public void ShowTable()
         {
             try
             {
-                if (supplyValidator.checkAddition(sup, out errorList))
+                dgvElements = factory.GetSupplyRepository().ShowSupplyTable();
+                dgv.Rows.Clear();
+                foreach (Supply supply in dgvElements)
+                {
+                    int station_id = supply.GetStation_id();
+                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                        supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public void ShowTable(int ID)
+        {
+            try
+            {
+                int id = factory.GetStaffRepository().FindStationIDByStaffID(ID);
+                dgvElements = factory.GetSupplyRepository().ShowSupplyTableByID(id);
+                dgv.Rows.Clear();
+                foreach (Supply supply in dgvElements)
+                {
+                    int station_id = supply.GetStation_id();
+                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                        supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public bool AddToSupplyTable(Supply sup)
+        {
+            bool checkFlag = false;
+            try
+            {
+                if (checkFlag = supplyValidator.checkAddition(sup, out errorList))
                 {
                     factory.GetSupplyRepository().AddToSupplyTable(sup);
                 }
@@ -81,12 +90,12 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (NpgsqlException ne) { MessageBox.Show("Невозможно совершить операцию!"); }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
 
         private string RemoveSpaces(string inputString)
         {
-            //inputString = inputString.Replace("  ", string.Empty);
             inputString = inputString.Trim().Replace(" ", string.Empty);
 
             return inputString;

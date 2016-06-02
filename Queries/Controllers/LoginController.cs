@@ -14,18 +14,18 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 
 namespace Queries.Validators
 {
     public class LoginController
     {
-        Login login;
-        IRepositoryFactory factory;
-        DBUserValidator dbUserValidator;
-        List<string> errorList;
-        string error;
+        private Login login;
+        private IRepositoryFactory factory;
+        private DBUserValidator dbUserValidator;
+        private List<string> errorList;
+        private string error;
 
         public LoginController(Login login, IRepositoryFactory factory)
         {
@@ -44,16 +44,29 @@ namespace Queries.Validators
             dbUserValidator = new DBUserValidator();
         }
 
-        public string tryLogin()
+        public string TryLogin()
         {
             return factory.GetLoginRepository().LoginToTable(login);
         }
 
-        public void addToLoginTable(DBUser dbUser)
+        public string GetDBPassWordByRole(string role)
         {
+            string passWord = String.Empty;
             try
             {
-                if (dbUserValidator.checkAddition(dbUser, out errorList))
+                passWord = factory.GetLoginRepository().GetRolePass(role);
+            }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!"); }
+
+            return passWord;
+        }
+
+        public bool AddToLoginTable(DBUser dbUser)
+        {
+            bool checkFlag = false;
+            try
+            {
+                if (checkFlag = dbUserValidator.checkAddition(dbUser, out errorList))
                 {
                     factory.GetLoginRepository().AddNewDBUser(dbUser);
                 }
@@ -68,7 +81,8 @@ namespace Queries.Validators
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
     }
 }

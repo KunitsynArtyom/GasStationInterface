@@ -49,42 +49,85 @@ namespace Enter
 
         }
 
+
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //RepositoryFactory repFactory = null;
             DBConnection dbc = null;
-            string Login = String.Empty, Password = String.Empty, role = String.Empty;
+            string Login = String.Empty, Password = String.Empty, role = String.Empty, rolePass = String.Empty;
             Login login = null;
             try
             {
                 Login = tbLogin.Text.ToString();
                 Password = tbPassword.Text.ToString();
                 login = new Login();
-                login.setLogin(Login, SecurityCrypt.MD5(Password));
+                login.setLogin(Login.Trim().Replace(" ", string.Empty), SecurityCrypt.MD5(Password).Trim().Replace(" ", string.Empty));
             }
             catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
 
-            try
-            {
-                NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = postgres; Password = qwerty1; Database = AZS");
+            //try
+            //{
+                NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = login_check; Password = 123456; Database = AZS");
                 dbc = new DBConnection(conn);
                 RepositoryFactory repLoginFactory = new RepositoryFactory(dbc);
-
                 LoginController lc = new LoginController(login, repLoginFactory);
-                role = lc.tryLogin();
-                if (role != String.Empty)
+                role = lc.TryLogin();
+
+            MessageBox.Show(Login.ToString());
+            MessageBox.Show(SecurityCrypt.MD5(Password.ToString()));
+            MessageBox.Show(role.ToString());
+
+
+            if (role != String.Empty)
                     MessageBox.Show("Добро пожаловать, " + role);
                 else
                     MessageBox.Show("Пользователь не найден!");
-            }
-            catch (Exception ex) { MessageBox.Show("Ошибка входа!"); }
 
-            role = role.Trim().Replace(" ", string.Empty);
+                role = role.Trim().Replace(" ", string.Empty);
+                rolePass = SecurityCrypt.Decrypt(lc.GetDBPassWordByRole(role), SecurityConst.sha1Key);
+                MessageBox.Show(rolePass);
 
+            enterRole(role, Login, rolePass);
+
+                //switch (role)
+                //{
+                //    case "worker":
+                //        NpgsqlConnection workerConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = worker; Password =" + rolePass +"; Database = AZS");
+                //        DBConnection workerDbc = new DBConnection(workerConn);
+                //        IRepositoryFactory repWorkerFactory = new RepositoryFactory(workerDbc);
+                //        WorkerForm workerForm = new WorkerForm(Convert.ToInt32(Login), repWorkerFactory);
+                //        Hide();
+                //        workerForm.ShowDialog();
+                //        Show();
+                //        break;
+                //    case "admin":
+                //        NpgsqlConnection adminConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = admin; Password =" + rolePass + "; Database = AZS");
+                //        DBConnection adminDbc = new DBConnection(adminConn);
+                //        IRepositoryFactory repAdminFactory = new RepositoryFactory(adminDbc);
+                //        AdminForm adminForm = new AdminForm(repAdminFactory);
+                //        Hide();
+                //        adminForm.ShowDialog();
+                //        Show();
+                //        break;
+                //    case "user":
+                //        NpgsqlConnection userConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = user; Password =" + rolePass + "; Database = AZS");
+                //        DBConnection userDbc = new DBConnection(userConn);
+                //        IRepositoryFactory repUserFactory = new RepositoryFactory(dbc);
+                //        UserForm userForm = new UserForm(Login, repUserFactory);
+                //        Hide();
+                //        userForm.ShowDialog();
+                //        Show();
+                //        break;
+                //}
+        }
+
+        public void enterRole(string role, string Login, string rolePass)
+        {
             switch (role)
             {
                 case "worker":
-                    NpgsqlConnection workerConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = worker; Password = qwerty1; Database = AZS");
+                    NpgsqlConnection workerConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = worker; Password =" + rolePass + "; Database = AZS");
                     DBConnection workerDbc = new DBConnection(workerConn);
                     IRepositoryFactory repWorkerFactory = new RepositoryFactory(workerDbc);
                     WorkerForm workerForm = new WorkerForm(Convert.ToInt32(Login), repWorkerFactory);
@@ -93,7 +136,7 @@ namespace Enter
                     Show();
                     break;
                 case "admin":
-                    NpgsqlConnection adminConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = admin; Password = qwerty1; Database = AZS");
+                    NpgsqlConnection adminConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = admin; Password =" + rolePass + "; Database = AZS");
                     DBConnection adminDbc = new DBConnection(adminConn);
                     IRepositoryFactory repAdminFactory = new RepositoryFactory(adminDbc);
                     AdminForm adminForm = new AdminForm(repAdminFactory);
@@ -102,9 +145,9 @@ namespace Enter
                     Show();
                     break;
                 case "user":
-                    NpgsqlConnection userConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = user; Password = qwerty1; Database = AZS");
+                    NpgsqlConnection userConn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = user; Password =" + rolePass + "; Database = AZS");
                     DBConnection userDbc = new DBConnection(userConn);
-                    IRepositoryFactory repUserFactory = new RepositoryFactory(dbc);
+                    IRepositoryFactory repUserFactory = new RepositoryFactory(userDbc);
                     UserForm userForm = new UserForm(Login, repUserFactory);
                     Hide();
                     userForm.ShowDialog();

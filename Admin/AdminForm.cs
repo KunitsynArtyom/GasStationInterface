@@ -11,7 +11,7 @@ using Npgsql;
 using System.Data.Common;
 using Queries;
 using Queries.dgvControllers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Validators;
 using Queries.Interfaces;
 
@@ -19,13 +19,13 @@ namespace Admin
 {
     public partial class AdminForm : Form
     {
-        IRepositoryFactory factory;
+        private IRepositoryFactory factory;
         private Form additionalForm;
-        StaffController fillStaffTable;
-        CarController fillCarTable;
-        AccountController fillAccountingTable;
-        DealController fillDealTable;
-        StationController fillStationTable;
+        private StaffController fillStaffTable;
+        private CarController fillCarTable;
+        private AccountController fillAccountingTable;
+        private DealController fillDealTable;
+        private StationController fillStationTable;
 
         public AdminForm(IRepositoryFactory factory)
         {
@@ -37,57 +37,47 @@ namespace Admin
         private void AdminForm_Load(object sender, EventArgs e)
         {
             fillStationTable = new StationController(dgvVievAZS, factory);
-            fillStationTable.showAdminTable();
+            fillStationTable.ShowAdminTable();
             fillStaffTable = new StaffController(dgvViewStaff, factory);
-            fillStaffTable.showTable();
+            fillStaffTable.ShowTable();
             fillCarTable = new CarController(dgvViewCars, factory);
-            fillCarTable.showTable();
+            fillCarTable.ShowTable();
             fillAccountingTable = new AccountController(dgvViewAccounting, factory);
-            fillAccountingTable.showTable();
+            fillAccountingTable.ShowTable();
             fillDealTable = new DealController(dgvViewDeal, factory);
-            fillDealTable.showTable();
+            fillDealTable.ShowTable();
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
         {
             fillStaffTable = new StaffController(dgvViewStaff, factory);
-            fillStaffTable.showTable();
+            fillStaffTable.ShowTable();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateStaffTableForm updateForm = new UpdateStaffTableForm(dgvViewStaff.CurrentRow, factory, dgvViewStaff);
             updateForm.ShowDialog();
-            //Hide();
-            //Show();
-            //fillStaffTable = new StaffController(dgvViewStaff, factory);
-            fillStaffTable.showTable();
+            fillStaffTable.ShowTable();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             AddToStaffTableForm addForm = new AddToStaffTableForm(additionalForm, factory, dgvViewStaff);
             addForm.ShowDialog();
-            //Hide();
-            //Show();
-            //fillStaffTable = new StaffController(dgvViewStaff, factory);
-            fillStaffTable.showTable();
+            fillStaffTable.ShowTable();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             var cell = dgvViewStaff[0, dgvViewStaff.CurrentRow.Index];
             int id = Convert.ToInt32(cell.Value);
-
-
-            //StaffValidator sc = new StaffValidator();
-            //if (sc.checkDelete(id))
-            //{
-                StaffController dgsc = new StaffController(dgvViewStaff, factory);
-                dgsc.deleteFromTable(id);
-            //}
-            //fillStaffTable = new StaffController(dgvViewStaff, factory);
-            fillStaffTable.showTable();
+            StaffController staffController = new StaffController(dgvViewStaff, factory);
+            if (staffController.DeleteFromTable(id))
+            {
+                MessageBox.Show("Операция выполнена успешно!");
+            }
+            fillStaffTable.ShowTable();
         }
 
         private void btnFindDeals_Click(object sender, EventArgs e)
@@ -102,50 +92,36 @@ namespace Admin
         {
             AddToCarTableForm addForm = new AddToCarTableForm(additionalForm, factory, dgvViewCars);
             addForm.ShowDialog();
-            //fillCarTable = new CarController(dgvViewCars, factory);
-            fillCarTable.showTable();
+            fillCarTable.ShowTable();
         }
 
         private void btnDealUpdate_Click(object sender, EventArgs e)
         {
             UpdateDealTableForm updateDealForm = new UpdateDealTableForm(dgvViewDeal.CurrentRow, factory, dgvViewDeal);
             updateDealForm.ShowDialog();
-            //Hide();
-            //Show();
-            //fillDealTable = new DealController(dgvViewDeal, factory);
-            fillDealTable.showTable();
+            fillDealTable.ShowTable();
         }
 
         private void btnStationAdd_Click(object sender, EventArgs e)
         {
             AddToStationTableForm addForm = new AddToStationTableForm(additionalForm, factory, dgvViewCars);
             addForm.ShowDialog();
-            //Hide();
-            //Show();
-            //fillStationTable = new StationController(dgvVievAZS, factory);
-            fillStationTable.showAdminTable();
+            fillStationTable.ShowAdminTable();
         }
 
         private void RefreshTables_Click(object sender, EventArgs e)
         {
-            //fillStationTable = new StationController(dgvVievAZS, factory);
-            fillStationTable.showAdminTable();
-            //fillStaffTable = new StaffController(dgvViewStaff, factory);
-            fillStaffTable.showTable();
-            //fillCarTable = new CarController(dgvViewCars, factory);
-            fillCarTable.showTable();
-            //fillAccountingTable = new AccountController(dgvViewAccounting, factory);
-            fillAccountingTable.showTable();
-            //fillDealTable = new DealController(dgvViewDeal, factory);
-            fillDealTable.showTable();
+            fillStationTable.ShowAdminTable();
+            fillStaffTable.ShowTable();
+            fillCarTable.ShowTable();
+            fillAccountingTable.ShowTable();
+            fillDealTable.ShowTable();
         }
 
         private void AddNewAdmin_Click(object sender, EventArgs e)
         {
             AddNewAdminForm addAdminForm = new AddNewAdminForm(factory);
             addAdminForm.ShowDialog();
-            //Hide();
-            //Show();
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -162,18 +138,17 @@ namespace Admin
 
         private void btnTableStationView_Click(object sender, EventArgs e)
         {
-            //fillStationTable = new StationController(dgvVievAZS, factory);
-            fillStationTable.showAdminTable();
+            fillStationTable.ShowAdminTable();
         }
 
         private void btnTableCarView_Click(object sender, EventArgs e)
         {
-            fillCarTable.showTable();
+            fillCarTable.ShowTable();
         }
 
         private void btnTableDealView_Click(object sender, EventArgs e)
         {
-            fillDealTable.showTable();
+            fillDealTable.ShowTable();
         }
     }
 }

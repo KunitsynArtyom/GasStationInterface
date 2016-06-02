@@ -10,11 +10,11 @@ using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
 
-namespace Queries.TableRepositories
+namespace Queries.Repositories
 {
     public class StationRepository : IStationRepository
     {
-        public DBConnection dbc;
+        private DBConnection dbc;
 
         public StationRepository(DBConnection dbc)
         {
@@ -47,9 +47,9 @@ namespace Queries.TableRepositories
                 }
                  AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
             return stationList;
@@ -85,9 +85,9 @@ namespace Queries.TableRepositories
                     AZSTableSearcher.Close();
                 }
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
             return stationList;
@@ -109,18 +109,6 @@ namespace Queries.TableRepositories
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
                     "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
-
-
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country =" + splittedLocation[0] +
-                //"AND city =" + splittedLocation[1] + " AND street =" +splittedLocation[2] + "", dbc.getConnection());
-
-
-
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country = @Country" +
-                //"AND city = @City AND street = @Street", dbc.getConnection());
-                //queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
-                //queryCommand.Parameters.AddWithValue("@City", splittedLocation[1]);
-                //queryCommand.Parameters.AddWithValue("@Street", splittedLocation[2]);
 
                 NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)
@@ -161,9 +149,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -190,9 +178,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -217,9 +205,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -241,9 +229,9 @@ namespace Queries.TableRepositories
                     queryCommand.Parameters.AddWithValue("@StorageCap", st.GetStorageCap());
                     queryCommand.ExecuteNonQuery();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 

@@ -11,11 +11,11 @@ using Queries.Entities;
 using Queries.Interfaces;
 using Queries.Security;
 
-namespace Queries.TableRepositories
+namespace Queries.Repositories
 {
     public class LoginRepository : ILoginRepository
     {
-        DBConnection dbc;
+        private DBConnection dbc;
 
         public LoginRepository(DBConnection dbc)
         {
@@ -24,20 +24,18 @@ namespace Queries.TableRepositories
 
         public string LoginToTable(Login login)
         {
-            string role = "";
+            string role = String.Empty;
             try
             {
                 dbc.openConnection();
-            //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\"  WHERE login LIKE" + "'%" + login.GetLogin() + "%'" +  "AND password LIKE" + "'%" + login.GetPassword() + "%'" + "", dbc.getConnection());
-            NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\" WHERE login = @Login AND password = @Password", dbc.getConnection());
-                MessageBox.Show(login.GetPassword());
-                MessageBox.Show(login.GetLogin().ToString());
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\" WHERE login = @Login AND password = @Password", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Login", login.GetLogin());
-            queryCommand.Parameters.AddWithValue("@Password", login.GetPassword());
+                queryCommand.Parameters.AddWithValue("@Password", login.GetPassword());
 
+                MessageBox.Show(login.GetLogin());
+                MessageBox.Show(login.GetPassword());
 
-            NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
-            MessageBox.Show(AZSTableReader.HasRows.ToString());
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
@@ -47,9 +45,9 @@ namespace Queries.TableRepositories
                 }
 
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-                throw ne;
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -57,12 +55,10 @@ namespace Queries.TableRepositories
         }
 
         public void AddNewDBUser(DBUser dbUser)
-        {
+        {            
             try
             {
-                dbc.openConnection();
-
-                
+                dbc.openConnection();            
                 
                 NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"Login\".\"LoginTable\"(Login, Password, Role)" +
                     "VALUES(@Login, @Pass, @Role)", dbc.getConnection());
@@ -71,11 +67,39 @@ namespace Queries.TableRepositories
                 queryCommand.Parameters.AddWithValue("@Role", dbUser.GetDBUserRole());
                 queryCommand.ExecuteNonQuery();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-                throw ne;
+                throw pe;
             }
             finally { dbc.closeConnection(); }
+        }
+
+        public string GetRolePass(string role)
+        {
+            string passWord = String.Empty;
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT Password FROM \"Login\".\"RoleTable\" WHERE Role = @Role", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Role", role);
+
+                NpgsqlDataReader passWordSearch = queryCommand.ExecuteReader();
+                if (passWordSearch.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in passWordSearch)
+                    {
+                        passWord = dbDataRecord["Password"].ToString();
+                    }
+                    passWordSearch.Close();
+                }
+            }
+            catch (PostgresException pe)
+            {
+                throw pe;
+            }
+            finally { dbc.closeConnection(); }
+
+            return passWord;
 
         }
     }

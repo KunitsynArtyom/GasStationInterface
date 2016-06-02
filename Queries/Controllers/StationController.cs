@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Collections;
 using Npgsql;
 using Queries.Entities;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 using Queries.Validators;
 
@@ -15,12 +15,12 @@ namespace Queries.dgvControllers
 {
     public class StationController
     {
-        DataGridView dgv;
-        StationValidator stationValidator;
-        List<Station> dgvElements;
-        IRepositoryFactory factory;
-        List<string> errorList;
-        string error;
+        private DataGridView dgv;
+        private StationValidator stationValidator;
+        private List<Station> dgvElements;
+        private IRepositoryFactory factory;
+        private List<string> errorList;
+        private string error;
 
         public StationController(DataGridView dgv, IRepositoryFactory factory)
         {
@@ -29,44 +29,57 @@ namespace Queries.dgvControllers
             stationValidator = new StationValidator();
         }
 
-        public void showTable()
-        {
-            dgvElements = new List<Station>();
-            dgvElements = factory.GetStationRepository().getStations();
-            dgv.Rows.Clear();
-            foreach (Station ps in dgvElements)
-            {
-                dgv.Rows.Add(ps.GetOrgName(),ps.GetCountry(), ps.GetCity(), ps.GetStreet());
-            }
-        }
-
-        public void showAdminTable()
-        {
-            dgvElements = new List<Station>();
-            dgvElements = factory.GetStationRepository().getStations();
-            dgv.Rows.Clear();
-            foreach (Station ps in dgvElements)
-            {
-                dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet(), ps.GetStorageCap());
-            }
-        }
-
-        public void findInTable(string country, string city)
-        {
-            dgvElements = new List<Station>();
-            dgvElements = factory.GetStationRepository().findStations(country, city);
-            dgv.Rows.Clear();
-            foreach (Station ps in dgvElements)
-            {
-                dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet());
-            }
-        }
-
-        public void addToTable(Station st)
+        public void ShowTable()
         {
             try
             {
-                if (stationValidator.checkAddition(st, out errorList))
+                dgvElements = new List<Station>();
+                dgvElements = factory.GetStationRepository().getStations();
+                dgv.Rows.Clear();
+                foreach (Station ps in dgvElements)
+                {
+                    dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+}
+
+        public void ShowAdminTable()
+        {
+            try
+            {
+                dgvElements = new List<Station>();
+                dgvElements = factory.GetStationRepository().getStations();
+                dgv.Rows.Clear();
+                foreach (Station ps in dgvElements)
+                {
+                    dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet(), ps.GetStorageCap());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public void FindInTable(string country, string city)
+        {
+            try
+            {
+                dgvElements = new List<Station>();
+                dgvElements = factory.GetStationRepository().findStations(country, city);
+                dgv.Rows.Clear();
+                foreach (Station ps in dgvElements)
+                {
+                    dgv.Rows.Add(ps.GetOrgName(), ps.GetCountry(), ps.GetCity(), ps.GetStreet());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public bool AddToTable(Station st)
+        {
+            bool checkFlag = false;
+            try
+            {
+                if (checkFlag = stationValidator.checkAddition(st, out errorList))
                 {
                     factory.GetStationRepository().AddToStationTable(st);
                 }
@@ -81,7 +94,8 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
     }
 }

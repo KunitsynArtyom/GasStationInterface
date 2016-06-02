@@ -10,14 +10,14 @@ using System.Windows.Forms;
 using Queries.Entities;
 using Queries.Validators;
 using Queries.Interfaces;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Security;
 
 namespace Admin
 {
     public partial class AddNewAdminForm : Form
     {
-        IRepositoryFactory factory;
+        private IRepositoryFactory factory;
 
         public AddNewAdminForm(IRepositoryFactory factory)
         {
@@ -33,12 +33,8 @@ namespace Admin
                 pass = tbPass.Text.ToString();
                 DBUser nAdmin = new DBUser();
                 nAdmin.setNewUser(login, pass, "admin");
-                //DBUserValidator adminValidator = new DBUserValidator();
-                //if (adminValidator.checkAddition(nAdmin))
-                //{
-                    LoginController lc = new LoginController(factory);
-                    lc.addToLoginTable(nAdmin);
-                //}
+                LoginController lc = new LoginController(factory);
+                lc.AddToLoginTable(nAdmin);
             }
             catch (Exception ex) { MessageBox.Show("Невозможно совершить операцию!"); }
         }

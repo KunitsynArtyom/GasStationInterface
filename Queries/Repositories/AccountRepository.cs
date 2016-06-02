@@ -10,11 +10,11 @@ using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
 
-namespace Queries.TableRepositories
+namespace Queries.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
-        public DBConnection dbc;
+        private DBConnection dbc;
 
         public AccountRepository(DBConnection dbc)
         {

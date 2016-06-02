@@ -10,11 +10,11 @@ using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
 
-namespace Queries.TableRepositories
+namespace Queries.Repositories
 {
     public class SupplyRepository : ISupplyRepository
     {
-        public DBConnection dbc;
+        private DBConnection dbc;
 
         public SupplyRepository(DBConnection dbc)
         {
@@ -48,9 +48,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -74,12 +74,12 @@ namespace Queries.TableRepositories
                 queryCommand.ExecuteNonQuery();
                 dbc.closeConnection(); 
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-                throw ne;
+                throw pe;
             }
-
             finally { dbc.closeConnection(); }
+
         }
 
         public List<Supply> ShowSupplyTableByID(int ID)
@@ -105,9 +105,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 

@@ -19,13 +19,12 @@ namespace Admin
 {
     public partial class UpdateStaffTableForm : Form
     {
-        public Form af;
-        IRepositoryFactory factory;
-        int manager, salary;
-        string surname, name, gender, function;
-        DateTime birthdate;
-        DataGridViewRow updateRow;
-        DataGridView dgv;
+        private IRepositoryFactory factory;
+        private int salary;
+        private string surname, name, gender, function;
+        private DateTime birthdate;
+        private DataGridViewRow updateRow;
+        private DataGridView dgv;
 
         public UpdateStaffTableForm(DataGridViewRow updateRow, IRepositoryFactory factory, DataGridView dgv)
         {
@@ -37,48 +36,48 @@ namespace Admin
 
         private void updateStaffTableForm_Load(object sender, EventArgs e)
         {
-            tb_surname.Text = updateRow.Cells["surname"].Value.ToString().Trim().Replace(" ", string.Empty);
-            tb_name.Text = updateRow.Cells["name"].Value.ToString().Trim().Replace(" ", string.Empty);
-            tb_function.Text = updateRow.Cells["function"].Value.ToString().Trim().Replace(" ", string.Empty);
-            cbGender.Items.Add("male");
-            cbGender.Items.Add("female");
+            tbSurname.Text = updateRow.Cells["surname"].Value.ToString().Trim().Replace(" ", string.Empty);
+            tbName.Text = updateRow.Cells["name"].Value.ToString().Trim().Replace(" ", string.Empty);
+            tbFunction.Text = updateRow.Cells["function"].Value.ToString().Trim().Replace(" ", string.Empty);
+            cbGender.Items.Add("муж");
+            cbGender.Items.Add("жен");
+            cbGender.SelectedItem = updateRow.Cells["gender"].Value.ToString().Trim().Replace(" ", string.Empty);
+            tbFunction.Text = updateRow.Cells["function"].Value.ToString().Trim().Replace(" ", string.Empty);
+            tbSalary.Text = updateRow.Cells["salary"].Value.ToString().Trim().Replace(" ", string.Empty);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                surname = tb_surname.Text;
-                name = tb_name.Text;
-                try
+                surname = tbSurname.Text;
+                name = tbName.Text;
+                if (cbGender.SelectedIndex != -1)
                 {
-                    if (cbGender.SelectedIndex != -1)
-                    {
-                        gender = Convert.ToString(cbGender.Text);
-                    }
+                    gender = Convert.ToString(cbGender.Text);
                 }
-                catch (Exception) { }
+                else gender = String.Empty;
                 birthdate = Convert.ToDateTime(birthDatePick.Text);
-                function = tb_function.Text;
-                try
+                function = tbFunction.Text;
+                int salary;
+                bool checkSalary = Int32.TryParse(tbSalary.Text, out salary);
+                if (!checkSalary)
                 {
-                    manager = Convert.ToInt32(tb_manager.Text);
+                    salary = -1;
                 }
-                catch (FormatException) { manager = 0; }
-                salary = Convert.ToInt32(tb_salary.Text);
+                //salary = Convert.ToInt32(tbSalary.Text);
                 Worker wk = new Worker();
-                wk.workerSet(surname, name, gender, birthdate, function, manager, salary);
+                wk.workerSet(surname, name, gender, birthdate, function, salary);
                 var cell = dgv[0, dgv.CurrentRow.Index];
                 int id = Convert.ToInt32(cell.Value);
-                StaffValidator sc = new StaffValidator();
-                //if (sc.checkUpdate(id, wk))
-                //{
-                    StaffController staffController = new StaffController(dgv, factory);
-                staffController.updateTable(id, wk);
-                //}
+                StaffController staffController = new StaffController(dgv, factory);
+                if (staffController.UpdateTable(id, wk))
+                {
+                    MessageBox.Show("Операция выполнена успешно!");
+                    Close();
+                }
             }
-            catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
-            Close();
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

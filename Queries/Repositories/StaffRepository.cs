@@ -10,11 +10,11 @@ using System.Collections;
 using Queries.Entities;
 using Queries.Interfaces;
 
-namespace Queries.TableRepositories
+namespace Queries.Repositories
 {
     public class StaffRepository : IStaffRepository
     {
-        public DBConnection dbc;
+        private DBConnection dbc;
 
         public StaffRepository(DBConnection dbc)
         {
@@ -39,28 +39,22 @@ namespace Queries.TableRepositories
                     foreach (DbDataRecord dbDataRecord in AZSTableReader)
                     {
                         Worker wk = new Worker();
-                        try
-                        {
+
                             wk.workerSet(Convert.ToInt32(dbDataRecord["staff_id"]), Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["surname"].ToString(),
                                 dbDataRecord["name"].ToString(), dbDataRecord["gender"].ToString(), Convert.ToDateTime(dbDataRecord["birthdate"]),
-                                dbDataRecord["function"].ToString(), Convert.ToInt32(dbDataRecord["manager"]), Convert.ToInt32(dbDataRecord["salary"]));
-                        }
-                        catch (InvalidCastException)
-                        {
-                            wk.workerSet(Convert.ToInt32(dbDataRecord["staff_id"]), Convert.ToInt32(dbDataRecord["station_id"]), dbDataRecord["surname"].ToString(),
-                                dbDataRecord["name"].ToString(), dbDataRecord["gender"].ToString(), Convert.ToDateTime(dbDataRecord["birthdate"]),
-                                dbDataRecord["function"].ToString(), 0, Convert.ToInt32(dbDataRecord["salary"]));
-                        }
-                        dgvElements.Add(wk);
+                                dbDataRecord["function"].ToString(), Convert.ToInt32(dbDataRecord["salary"]));
+
+                            dgvElements.Add(wk);
                     }                    
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
+
             return dgvElements;
         }
 
@@ -69,22 +63,7 @@ namespace Queries.TableRepositories
             try
             {
                 dbc.openConnection();
-                if (wk.GetManager() != 0)
-                {
-                    NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Manager, Salary)" +
-                        "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Manager, @Salary)", dbc.getConnection());
-                    queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
-                    queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
-                    queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
-                    queryCommand.Parameters.AddWithValue("@Gender", wk.GetGender());
-                    queryCommand.Parameters.AddWithValue("@Birthdate", wk.GetBirthdate());
-                    queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
-                    queryCommand.Parameters.AddWithValue("@Manager", wk.GetManager());
-                    queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
-                    queryCommand.ExecuteNonQuery();
-                }
-                else
-                {
+
                     NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Salary)" +
                         "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Salary)", dbc.getConnection());
                     queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
@@ -95,14 +74,13 @@ namespace Queries.TableRepositories
                     queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
                     queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
                     queryCommand.ExecuteNonQuery();
-                }
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
-            }
-
+                throw pe;
+            }       
             finally { dbc.closeConnection(); }
+
         }
 
         public void UpdateStaffTable(int id, Worker wk)
@@ -125,14 +103,15 @@ namespace Queries.TableRepositories
 
                 queryCommand.ExecuteNonQuery();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
+
         }
 
-        public void DeleteFromStaffTable(/*Worker wkToDelete*/ int id)
+        public void DeleteFromStaffTable(int id)
         {
             try
             {
@@ -143,11 +122,12 @@ namespace Queries.TableRepositories
                 queryCommand.ExecuteNonQuery();
 
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
+
         }
 
         public string FindStaffByID(int staff_id)
@@ -171,9 +151,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -199,9 +179,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 

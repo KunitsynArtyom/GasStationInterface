@@ -11,11 +11,11 @@ using Queries.Entities;
 using Queries.Interfaces;
 
 
-namespace Queries.TableRepositories
+namespace Queries.Repositories
 {
     public class DealRepository : IDealRepository
     {
-        public DBConnection dbc;
+        private DBConnection dbc;
 
         public DealRepository(DBConnection dbc)
         {
@@ -49,9 +49,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -81,9 +81,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -113,9 +113,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -147,9 +147,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 
@@ -172,9 +172,9 @@ namespace Queries.TableRepositories
                 queryCommand.ExecuteNonQuery();
 
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-                throw ne;
+                throw pe;
             }
             finally { dbc.closeConnection(); }
         }
@@ -195,9 +195,9 @@ namespace Queries.TableRepositories
                 queryCommand.Parameters.AddWithValue("@DealDate", Convert.ToDateTime(deal.GetDealDate()));
             queryCommand.ExecuteNonQuery();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-                throw ne;
+                throw pe;
             }
             finally { dbc.closeConnection(); }
         }
@@ -225,9 +225,9 @@ namespace Queries.TableRepositories
                 }
                 AZSTableReader.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
 

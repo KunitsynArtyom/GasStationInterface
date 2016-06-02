@@ -31,14 +31,12 @@
             this.tbSurname = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbFunction = new System.Windows.Forms.TextBox();
-            this.tbManager = new System.Windows.Forms.TextBox();
             this.tbSalary = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -71,16 +69,9 @@
             this.tbFunction.Size = new System.Drawing.Size(167, 20);
             this.tbFunction.TabIndex = 6;
             // 
-            // tbManager
-            // 
-            this.tbManager.Location = new System.Drawing.Point(154, 207);
-            this.tbManager.Name = "tbManager";
-            this.tbManager.Size = new System.Drawing.Size(167, 20);
-            this.tbManager.TabIndex = 7;
-            // 
             // tbSalary
             // 
-            this.tbSalary.Location = new System.Drawing.Point(154, 233);
+            this.tbSalary.Location = new System.Drawing.Point(154, 207);
             this.tbSalary.Name = "tbSalary";
             this.tbSalary.Size = new System.Drawing.Size(167, 20);
             this.tbSalary.TabIndex = 8;
@@ -130,19 +121,10 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "Профессия:";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(22, 214);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Менеджер:";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(22, 240);
+            this.label9.Location = new System.Drawing.Point(22, 214);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(102, 13);
             this.label9.TabIndex = 17;
@@ -150,7 +132,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(235, 269);
+            this.btnAdd.Location = new System.Drawing.Point(235, 243);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 18;
@@ -160,7 +142,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(154, 269);
+            this.btnCancel.Location = new System.Drawing.Point(154, 243);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
@@ -225,7 +207,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 304);
+            this.ClientSize = new System.Drawing.Size(340, 279);
             this.Controls.Add(this.cbGender);
             this.Controls.Add(this.birthDatePick);
             this.Controls.Add(this.label2);
@@ -235,14 +217,12 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbSalary);
-            this.Controls.Add(this.tbManager);
             this.Controls.Add(this.tbFunction);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.tbSurname);
@@ -258,14 +238,12 @@
         private System.Windows.Forms.TextBox tbSurname;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.TextBox tbFunction;
-        private System.Windows.Forms.TextBox tbManager;
         private System.Windows.Forms.TextBox tbSalary;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnCancel;

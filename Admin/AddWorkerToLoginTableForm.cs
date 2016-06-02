@@ -11,7 +11,7 @@ using Npgsql;
 using System.Data.Common;
 using Queries;
 using Queries.dgvControllers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Validators;
 using Queries.Interfaces;
 using Queries.Entities;
@@ -20,8 +20,8 @@ namespace Admin
 {
     public partial class AddWorkerToLoginTableForm : Form
     {
-        DataGridViewRow row;
-        IRepositoryFactory factory;
+        private DataGridViewRow row;
+        private IRepositoryFactory factory;
 
         public AddWorkerToLoginTableForm(DataGridViewRow row, IRepositoryFactory factory)
         {
@@ -52,15 +52,14 @@ namespace Admin
                 passWord = tbPass.Text.ToString();
                 DBUser nWorker = new DBUser();
                 nWorker.setNewUser(row.Cells["staff_id"].Value.ToString(), passWord.ToString(), "worker");
-                //DBUserValidator userControl = new DBUserValidator();
-                //if (userControl.checkAddition(nWorker))
-                //{
-                    LoginController loginController = new LoginController(factory);
-                loginController.addToLoginTable(nWorker);
-                    //MessageBox.Show("Операция успешно завершена!");
-                //}
+                LoginController loginController = new LoginController(factory);
+                if (loginController.AddToLoginTable(nWorker))
+                {
+                    MessageBox.Show("Операция выполнена успешно!");
+                    Close();
+                }
             }
-            catch (Exception ex) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
     }
 }

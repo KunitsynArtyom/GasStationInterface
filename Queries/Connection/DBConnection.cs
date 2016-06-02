@@ -11,7 +11,8 @@ namespace Queries
 {
     public class DBConnection //класс, устанавливающий соединение с базой данных
     {
-        public NpgsqlConnection conn;
+        private NpgsqlConnection conn;
+
         public DBConnection(NpgsqlConnection conn)
         {
             this.conn = conn;
@@ -28,7 +29,7 @@ namespace Queries
             {
                 conn.Open();
             }
-            catch (PostgresException ne) { MessageBox.Show(ne.ToString()); }
+            catch (Exception) {  }
         }
 
         public NpgsqlConnection getConnection()
@@ -42,7 +43,7 @@ namespace Queries
             {
                 conn.Close();
             }
-            catch (NpgsqlException) { }
+            catch (Exception) { }
         }
     }
 }

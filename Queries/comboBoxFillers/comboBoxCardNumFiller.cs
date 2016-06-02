@@ -14,25 +14,24 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 
 namespace Queries.comboBoxFillers
 {
     public class ComboBoxCardNumFiller
     {
-        ComboBox cb;
-        List<string> comboBoxElements;
-        IRepositoryFactory factory;
-        CarRepository carQuery;
+        private ComboBox cb;
+        private List<string> comboBoxElements;
+        private IRepositoryFactory factory;
+
         public ComboBoxCardNumFiller(ComboBox cb, IRepositoryFactory factory)
         {
             this.cb = cb;
             this.factory = factory;
-            //carQuery = factory.GetCarRepository();
         }
 
-        public void cb_CardNumFill()
+        public void CbCardNumFill()
         {
             comboBoxElements = factory.GetCarRepository().GetCardNumList();
             foreach (string st in comboBoxElements)

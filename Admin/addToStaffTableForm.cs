@@ -14,7 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Validators;
 using Queries.Interfaces;
 
@@ -22,27 +22,26 @@ namespace Admin
 {
     public partial class AddToStaffTableForm : Form
     {
-        public Form af;
-        IRepositoryFactory factory;
-        DataGridView dgv;
-        int station_id, manager, salary;
-        string surname, name, gender, function;
-        DateTime birthdate;
+        private IRepositoryFactory factory;
+        private DataGridView dgv;
+        private int station_id, salary;
+        private string surname, name, gender, function;
+        private DateTime birthdate;
 
   
 
         private void addToStaffTableForm_Load(object sender, EventArgs e)
         {
-            cbGender.Items.Add("male");
-            cbGender.Items.Add("female");
+            cbGender.Items.Add("муж");
+            cbGender.Items.Add("жен");
             try
             {
                 cbStationList.Visible = false;
                 label2.Visible = false;
-                ComboBoxStaffFiller cbsf = new ComboBoxStaffFiller(cbOrgList, factory);
-                cbsf.cbOrgFill();
+                ComboBoxStaffFiller comboBoxStaffFiller = new ComboBoxStaffFiller(cbOrgList, factory);
+                comboBoxStaffFiller.СbOrgFill();
             }
-            catch (Exception ex) { MessageBox.Show("Ошибка базы данных!"); }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void cbOrgList_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -52,14 +51,13 @@ namespace Admin
                 if (cbOrgList.SelectedIndex != -1)
                 {
                     cbStationList.Items.Clear();
-                    //comboBoxStaffFiller cbsf;
                     cbStationList.Visible = true;
                     label2.Visible = true;
                     ComboBoxStaffFiller comboBoxStaffFiller = new ComboBoxStaffFiller(cbStationList, factory);
-                    comboBoxStaffFiller.cbStationFill(cbOrgList.Text);
+                    comboBoxStaffFiller.СbStationFill(cbOrgList.Text);
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -71,42 +69,40 @@ namespace Admin
                 name = tbName.Text;
                 if (cbGender.SelectedIndex != -1)
                 {
-                   gender = Convert.ToString(cbGender.Text);
+                    gender = Convert.ToString(cbGender.Text);
                 }
+                else gender = String.Empty;
                 birthdate = Convert.ToDateTime(birthDatePick.Text);
                 function = tbFunction.Text;
-                try
+                //salary = Convert.ToInt32(tbSalary.Text);
+                int salary;
+                bool checkStorageCap = Int32.TryParse(tbSalary.Text, out salary);
+                if (!checkStorageCap)
                 {
-                    manager = Convert.ToInt32(tbManager.Text);
+                    salary = -1;
                 }
-                catch (FormatException) { manager = 0; }
-                salary = Convert.ToInt32(tbSalary.Text);
                 Worker wk = new Worker();
-                wk.workerSet(station_id, surname, name, gender, birthdate, function, manager, salary);
-                //StaffValidator sc = new StaffValidator();
-                //if (sc.checkAddition(wk))
-                //{
+                wk.workerSet(station_id, surname, name, gender, birthdate, function, salary);
                 StaffController staffController = new StaffController(dgv, factory);
-                staffController.addToTable(wk);
-                //}
+                if (staffController.AddToTable(wk))
+                {
+                    MessageBox.Show("Операция выполнена успешно!");
+                    Close();
+                }
             }
-            catch (Exception) { MessageBox.Show("Данные введены некорректно!"); }
-            //Close();
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
       
         public AddToStaffTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
-            af = adminForm;
             this.factory = factory;
             this.dgv = dgv;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //Hide();
             Close();
-            af.Show();
         }
     }
 }

@@ -14,7 +14,7 @@ using Queries;
 using Queries.Entities;
 using Queries.dgvControllers;
 using Queries.comboBoxFillers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 
 namespace Queries.Validators
@@ -43,7 +43,7 @@ namespace Queries.Validators
             if (wk.GetName() == String.Empty)
             {
                 checkFlag = false;
-                errorList.Add("Имя не задана!");
+                errorList.Add("Имя не задано!");
             }
             if (wk.GetGender() == String.Empty)
             {

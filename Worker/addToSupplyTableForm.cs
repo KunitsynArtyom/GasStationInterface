@@ -16,11 +16,11 @@ namespace Worker
 {
     public partial class AddToSupplyTableForm : Form
     {
-        IRepositoryFactory factory;
-        DataGridView dgv;
-        int id, fuelamount, hours, minutes;
-        string fueltype;
-        DateTime supplydate;
+        private IRepositoryFactory factory;
+        private DataGridView dgv;
+        private int id, fuelamount, hours, minutes;
+        private string fueltype;
+        private DateTime supplydate;
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -91,14 +91,14 @@ namespace Worker
                 }
                 Supply sup = new Supply();
                 sup.supplySet(factory.GetStaffRepository().FindStationIDByStaffID(id), id, fueltype, fuelamount, supplydate);
-                //SupplyValidator sc = new SupplyValidator();
-                //if (sc.checkAddition(sup))
-                //{
                 SupplyController supplyController = new SupplyController(dgv, factory);
-                supplyController.addToSupplyTable(sup);
-                //}
+                if (supplyController.AddToSupplyTable(sup))
+                {
+                    MessageBox.Show("Операция выполнена успешно!");
+                    Close();
+                }
             }
-            catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             Close();
         }
     }

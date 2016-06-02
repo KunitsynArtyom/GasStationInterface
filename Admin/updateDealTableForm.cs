@@ -21,45 +21,82 @@ namespace Admin
 {
     public partial class UpdateDealTableForm : Form
     {
-        public Form af;
-        IRepositoryFactory factory;
-        DataGridViewRow updateRow;
-        DataGridView dgv;
-        int fuelamount, dealprice, hours, minutes;
-        string fueltype, cardnum;
-        DateTime dealdate;
+        private IRepositoryFactory factory;
+        private DataGridViewRow updateRow;
+        private DataGridView dgv;
+        private int hours, minutes;
+        private string fuelType, cardNum;
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private DateTime dealDate;
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
+                //List<string> errorList = new List<string>();
                 if (cbFuelType.SelectedIndex != -1)
                 {
-                   fueltype = Convert.ToString(cbFuelType.Text);
+                    fuelType = Convert.ToString(cbFuelType.Text);
                 }
-                fuelamount = Convert.ToInt32(tbFuelamount.Text);
+
+                int fuelAmount;
+
+                bool checkFuelAmount = Int32.TryParse(tbFuelamount.Text, out fuelAmount);
+
+                if (!checkFuelAmount)
+                {
+                    fuelAmount = -1;
+                    //errorList.Add("Ошибка формата ввода количества топлива!");
+                }
+
                 if (cbCardNum.SelectedIndex != -1)
                 {
-                   cardnum = Convert.ToString(cbCardNum.Text).Trim().Replace(" ", string.Empty);
+                    cardNum = Convert.ToString(cbCardNum.Text).Trim().Replace(" ", string.Empty);
                 }
-                dealprice = Convert.ToInt32(tbDealprice.Text);
-                hours = Convert.ToInt32(tbHours.Text);
-                minutes = Convert.ToInt32(tbMinutes.Text);
-                dealdate = Convert.ToDateTime(dealDatePick.Text);
-                dealdate = dealdate.AddHours(hours);
-                dealdate = dealdate.AddMinutes(minutes);
+
+                int dealPrice;
+
+                bool checkDealPrice = Int32.TryParse(tbDealprice.Text, out dealPrice);
+
+                if (!checkDealPrice)
+                {
+                    dealPrice = -1;
+                    //errorList.Add("Ошибка формата ввода цены сделки!");
+                }
+
+                //dealPrice = Convert.ToInt32(tbDealprice.Text);
+
+                if (tbHours.Text != String.Empty && tbMinutes.Text != String.Empty)
+                {
+                    hours = Convert.ToInt32(tbHours.Text);
+                    minutes = Convert.ToInt32(tbMinutes.Text);
+                    dealDate = Convert.ToDateTime(dealDatePick.Text);
+                    dealDate = dealDate.AddHours(hours);
+                    dealDate = dealDate.AddMinutes(minutes);
+                }
+                else
+                {
+                    dealDate = DateTime.Now;
+                    MessageBox.Show("Неверный формат времени! Выставлено текущее время!");
+                }
+
                 Deal deal = new Deal();
-                deal.dealSet(fueltype, fuelamount, dealprice, cardnum, dealdate);
+                deal.dealSet(fuelType, fuelAmount, dealPrice, cardNum, dealDate);
                 var cell = dgv[0, dgv.CurrentRow.Index];
                 int id = Convert.ToInt32(cell.Value);
-                //DealValidator dc = new DealValidator();
-                //if (dc.checkUpdate(id, deal))
-                //{
-                    DealController dgds = new DealController(dgv, factory);
-                    dgds.updateTable(id, deal);
-                //}
-            } catch (Exception ex) { MessageBox.Show("Данные введены некорректно!"); }
-                //Close();
+                DealController dgds = new DealController(dgv, factory);
+                if (dgds.UpdateTable(id, deal))
+                {
+                    MessageBox.Show("Операция выполнена успешно!");
+                    Close();
+                }
+            }
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public UpdateDealTableForm(DataGridViewRow updateRow, IRepositoryFactory factory, DataGridView dgv)
@@ -74,11 +111,17 @@ namespace Admin
         {
             tbFuelamount.Text = updateRow.Cells["fuelamount"].Value.ToString();
             tbDealprice.Text = updateRow.Cells["dealprice"].Value.ToString();
+            dealDate = Convert.ToDateTime(updateRow.Cells["dealdate"].Value);
             cbFuelType.Items.Add("A92");
             cbFuelType.Items.Add("A95");
             cbFuelType.Items.Add("A95+");
+
+            cbFuelType.SelectedItem = updateRow.Cells["fueltype"].Value.ToString().Trim().Replace(" ", string.Empty);
+
             ComboBoxDealFiller comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
-            comboBoxDealFiller.cbCardnumFill();
+            comboBoxDealFiller.СbCardnumFill();
+
+            cbCardNum.SelectedItem = updateRow.Cells["buyercard"].Value.ToString().Trim().Replace(" ", string.Empty);
         }
     }
 }

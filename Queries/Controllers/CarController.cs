@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Collections;
 using Npgsql;
 using Queries.Entities;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 using Queries.Validators;
 
@@ -15,12 +15,12 @@ namespace Queries.dgvControllers
 {
     public class CarController
     {
-        DataGridView dgv;
-        List<Car> dgvElements;
-        IRepositoryFactory factory;
-        CarValidator carValidator;
-        List<string> errorList;
-        string error;
+        private DataGridView dgv;
+        private List<Car> dgvElements;
+        private IRepositoryFactory factory;
+        private CarValidator carValidator;
+        private List<string> errorList;
+        private string error;
 
         public CarController(DataGridView dgv, IRepositoryFactory factory)
         {
@@ -29,21 +29,26 @@ namespace Queries.dgvControllers
             carValidator = new CarValidator();
         }
 
-        public void showTable()
-        {
-            dgvElements = factory.GetCarRepository().GetCars();
-            dgv.Rows.Clear();
-            foreach (Car car in dgvElements)
-            {
-                dgv.Rows.Add(car.GetCar_id(), car.GetCarMark(), car.GetCardNum());
-            }
-        }
-
-        public void addToTable(Car car)
+        public void ShowTable()
         {
             try
             {
-                if (carValidator.checkAddition(car, out errorList))
+                dgvElements = factory.GetCarRepository().GetCars();
+                dgv.Rows.Clear();
+                foreach (Car car in dgvElements)
+                {
+                    dgv.Rows.Add(car.GetCar_id(), car.GetCarMark(), car.GetCardNum());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public bool AddToTable(Car car)
+        {
+            bool checkFlag = false;
+            try
+            {
+                if (checkFlag = carValidator.checkAddition(car, out errorList))
                 {
                     factory.GetCarRepository().AddToCarTable(car);
                 }
@@ -58,7 +63,8 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (NpgsqlException ne) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Collections;
 using Npgsql;
 using Queries.Entities;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.dgvControllers;
 using Queries.Interfaces;
 using Queries.Validators;
@@ -16,12 +16,12 @@ namespace Queries.dgvControllers
 {
     public class StaffController
     {
-        DataGridView dgv;
-        List<Worker> dgvElements;
-        IRepositoryFactory factory;
-        StaffValidator staffValidator;
-        List<string> errorList;
-        string error;
+        private DataGridView dgv;
+        private List<Worker> dgvElements;
+        private IRepositoryFactory factory;
+        private StaffValidator staffValidator;
+        private List<string> errorList;
+        private string error;
 
         public StaffController(DataGridView dgv, IRepositoryFactory factory)
         {
@@ -31,21 +31,28 @@ namespace Queries.dgvControllers
             staffValidator = new StaffValidator();
         }
 
-        public void showTable()
-        {
-            dgvElements = factory.GetStaffRepository().GetStaff();
-            dgv.Rows.Clear();
-            foreach (Worker wk in dgvElements)
-            {
-                dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(), wk.GetGender(), wk.GetFunction(), wk.GetSalary());
-            }
-        }
-
-        public void addToTable(Worker wk)
+        public void ShowTable()
         {
             try
             {
-                if (staffValidator.checkAddition(wk, out errorList))
+                dgvElements = factory.GetStaffRepository().GetStaff();
+                dgv.Rows.Clear();
+                foreach (Worker wk in dgvElements)
+                {
+                    dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(),
+                        factory.GetStationRepository().GetStationsAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                        wk.GetGender(), wk.GetFunction(), wk.GetSalary());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        public bool AddToTable(Worker wk)
+        {
+            bool checkFlag = false;
+            try
+            {
+                if (checkFlag = staffValidator.checkAddition(wk, out errorList))
                 {
                     factory.GetStaffRepository().AddToStaffTable(wk);
                 }
@@ -60,14 +67,16 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Операция не может быть выполнена!"); }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
 
-        public void updateTable(int id, Worker wk)
+        public bool UpdateTable(int id, Worker wk)
         {
+            bool checkFlag = false;
             try
             {
-                if (staffValidator.checkUpdate(id, wk, out errorList))
+                if (checkFlag = staffValidator.checkUpdate(id, wk, out errorList))
                 {
                     factory.GetStaffRepository().UpdateStaffTable(id, wk);
                 }
@@ -82,14 +91,16 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Операция не может быть выполнена!"); }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
 
-        public void deleteFromTable(int id)
+        public bool DeleteFromTable(int id)
         {
+            bool checkFlag = false;
             try
             {
-                if (staffValidator.checkDelete(id, out errorList))
+                if (checkFlag = staffValidator.checkDelete(id, out errorList))
                 {
                     factory.GetStaffRepository().DeleteFromStaffTable(id);
                 }
@@ -103,7 +114,9 @@ namespace Queries.dgvControllers
                     }
                     MessageBox.Show(error);
                 }
-            } catch (Exception) { MessageBox.Show("Операция не может быть выполнена!"); }
+            }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            return checkFlag;
         }
     }
 }

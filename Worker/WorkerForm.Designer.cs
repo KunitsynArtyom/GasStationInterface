@@ -30,7 +30,7 @@
         {
             this.tabAdmin = new System.Windows.Forms.TabControl();
             this.tabDealTable = new System.Windows.Forms.TabPage();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnAddDeal = new System.Windows.Forms.Button();
             this.btnTableView = new System.Windows.Forms.Button();
             this.dgvVievDeal = new System.Windows.Forms.DataGridView();
             this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,12 +50,17 @@
             this.msWorker = new System.Windows.Forms.MenuStrip();
             this.smUser = new System.Windows.Forms.ToolStripMenuItem();
             this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbSessionName = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabAdmin.SuspendLayout();
             this.tabDealTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).BeginInit();
             this.tabSupplyTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).BeginInit();
             this.msWorker.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabAdmin
@@ -65,39 +70,38 @@
             this.tabAdmin.Location = new System.Drawing.Point(12, 27);
             this.tabAdmin.Name = "tabAdmin";
             this.tabAdmin.SelectedIndex = 0;
-            this.tabAdmin.Size = new System.Drawing.Size(742, 396);
+            this.tabAdmin.Size = new System.Drawing.Size(724, 396);
             this.tabAdmin.TabIndex = 1;
             // 
             // tabDealTable
             // 
-            this.tabDealTable.Controls.Add(this.btnAdd);
-            this.tabDealTable.Controls.Add(this.btnTableView);
+            this.tabDealTable.Controls.Add(this.groupBox1);
             this.tabDealTable.Controls.Add(this.dgvVievDeal);
             this.tabDealTable.Location = new System.Drawing.Point(4, 22);
             this.tabDealTable.Name = "tabDealTable";
             this.tabDealTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDealTable.Size = new System.Drawing.Size(734, 370);
+            this.tabDealTable.Size = new System.Drawing.Size(716, 370);
             this.tabDealTable.TabIndex = 0;
             this.tabDealTable.Text = "Список сделок";
             this.tabDealTable.UseVisualStyleBackColor = true;
             // 
-            // btnAdd
+            // btnAddDeal
             // 
-            this.btnAdd.Location = new System.Drawing.Point(612, 224);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 3;
-            this.btnAdd.Text = "Добавить";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAddDeal.Location = new System.Drawing.Point(6, 85);
+            this.btnAddDeal.Name = "btnAddDeal";
+            this.btnAddDeal.Size = new System.Drawing.Size(145, 60);
+            this.btnAddDeal.TabIndex = 3;
+            this.btnAddDeal.Text = "Оформить сделку";
+            this.btnAddDeal.UseVisualStyleBackColor = true;
+            this.btnAddDeal.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnTableView
             // 
-            this.btnTableView.Location = new System.Drawing.Point(590, 139);
+            this.btnTableView.Location = new System.Drawing.Point(6, 19);
             this.btnTableView.Name = "btnTableView";
-            this.btnTableView.Size = new System.Drawing.Size(126, 23);
+            this.btnTableView.Size = new System.Drawing.Size(145, 60);
             this.btnTableView.TabIndex = 1;
-            this.btnTableView.Text = "Обновить таблицу";
+            this.btnTableView.Text = "Обновить таблицу сделок";
             this.btnTableView.UseVisualStyleBackColor = true;
             // 
             // dgvVievDeal
@@ -109,9 +113,9 @@
             this.dealprice,
             this.cardnum,
             this.dealdate});
-            this.dgvVievDeal.Location = new System.Drawing.Point(3, 3);
+            this.dgvVievDeal.Location = new System.Drawing.Point(3, 4);
             this.dgvVievDeal.Name = "dgvVievDeal";
-            this.dgvVievDeal.Size = new System.Drawing.Size(565, 366);
+            this.dgvVievDeal.Size = new System.Drawing.Size(544, 366);
             this.dgvVievDeal.TabIndex = 0;
             // 
             // fueltype
@@ -143,34 +147,33 @@
             // 
             // tabSupplyTable
             // 
-            this.tabSupplyTable.Controls.Add(this.btnSupplyUpdate);
-            this.tabSupplyTable.Controls.Add(this.btnAddSupply);
+            this.tabSupplyTable.Controls.Add(this.groupBox2);
             this.tabSupplyTable.Controls.Add(this.dgvViewSupply);
             this.tabSupplyTable.Location = new System.Drawing.Point(4, 22);
             this.tabSupplyTable.Name = "tabSupplyTable";
             this.tabSupplyTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSupplyTable.Size = new System.Drawing.Size(734, 370);
+            this.tabSupplyTable.Size = new System.Drawing.Size(716, 370);
             this.tabSupplyTable.TabIndex = 1;
             this.tabSupplyTable.Text = "Таблица подвоза";
             this.tabSupplyTable.UseVisualStyleBackColor = true;
             // 
             // btnSupplyUpdate
             // 
-            this.btnSupplyUpdate.Location = new System.Drawing.Point(602, 134);
+            this.btnSupplyUpdate.Location = new System.Drawing.Point(3, 19);
             this.btnSupplyUpdate.Name = "btnSupplyUpdate";
-            this.btnSupplyUpdate.Size = new System.Drawing.Size(126, 36);
+            this.btnSupplyUpdate.Size = new System.Drawing.Size(130, 40);
             this.btnSupplyUpdate.TabIndex = 2;
-            this.btnSupplyUpdate.Text = "Обновить таблицу";
+            this.btnSupplyUpdate.Text = "Обновить таблицу подвоза";
             this.btnSupplyUpdate.UseVisualStyleBackColor = true;
             this.btnSupplyUpdate.Click += new System.EventHandler(this.btnSupplyUpdate_Click);
             // 
             // btnAddSupply
             // 
-            this.btnAddSupply.Location = new System.Drawing.Point(602, 204);
+            this.btnAddSupply.Location = new System.Drawing.Point(3, 65);
             this.btnAddSupply.Name = "btnAddSupply";
-            this.btnAddSupply.Size = new System.Drawing.Size(126, 38);
+            this.btnAddSupply.Size = new System.Drawing.Size(130, 40);
             this.btnAddSupply.TabIndex = 1;
-            this.btnAddSupply.Text = "Добавить";
+            this.btnAddSupply.Text = "Оформить подвоз";
             this.btnAddSupply.UseVisualStyleBackColor = true;
             this.btnAddSupply.Click += new System.EventHandler(this.btnAddSupply_Click);
             // 
@@ -185,7 +188,7 @@
             this.fuelsupplydate});
             this.dgvViewSupply.Location = new System.Drawing.Point(3, 3);
             this.dgvViewSupply.Name = "dgvViewSupply";
-            this.dgvViewSupply.Size = new System.Drawing.Size(586, 366);
+            this.dgvViewSupply.Size = new System.Drawing.Size(562, 366);
             this.dgvViewSupply.TabIndex = 0;
             // 
             // stationadres
@@ -221,7 +224,7 @@
             this.smUser});
             this.msWorker.Location = new System.Drawing.Point(0, 0);
             this.msWorker.Name = "msWorker";
-            this.msWorker.Size = new System.Drawing.Size(766, 24);
+            this.msWorker.Size = new System.Drawing.Size(748, 24);
             this.msWorker.TabIndex = 2;
             this.msWorker.Text = "menuStrip1";
             // 
@@ -240,11 +243,43 @@
             this.RefreshTables.Text = "Обновить таблицы";
             this.RefreshTables.Click += new System.EventHandler(this.RefreshTables_Click_1);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnTableView);
+            this.groupBox1.Controls.Add(this.btnAddDeal);
+            this.groupBox1.Location = new System.Drawing.Point(553, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(157, 153);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Функционал";
+            // 
+            // lbSessionName
+            // 
+            this.lbSessionName.AutoSize = true;
+            this.lbSessionName.Location = new System.Drawing.Point(572, 9);
+            this.lbSessionName.Name = "lbSessionName";
+            this.lbSessionName.Size = new System.Drawing.Size(16, 13);
+            this.lbSessionName.TabIndex = 5;
+            this.lbSessionName.Text = "---";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnSupplyUpdate);
+            this.groupBox2.Controls.Add(this.btnAddSupply);
+            this.groupBox2.Location = new System.Drawing.Point(571, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(139, 111);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Функционал";
+            // 
             // WorkerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 436);
+            this.ClientSize = new System.Drawing.Size(748, 436);
+            this.Controls.Add(this.lbSessionName);
             this.Controls.Add(this.tabAdmin);
             this.Controls.Add(this.msWorker);
             this.MainMenuStrip = this.msWorker;
@@ -258,6 +293,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).EndInit();
             this.msWorker.ResumeLayout(false);
             this.msWorker.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,7 +304,7 @@
 
         private System.Windows.Forms.TabControl tabAdmin;
         private System.Windows.Forms.TabPage tabDealTable;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnAddDeal;
         private System.Windows.Forms.Button btnTableView;
         private System.Windows.Forms.DataGridView dgvVievDeal;
         private System.Windows.Forms.TabPage tabSupplyTable;
@@ -287,6 +324,9 @@
         private System.Windows.Forms.ToolStripMenuItem smUser;
         private System.Windows.Forms.ToolStripMenuItem RefreshTables;
         private System.Windows.Forms.Button btnSupplyUpdate;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lbSessionName;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

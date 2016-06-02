@@ -13,5 +13,7 @@ namespace Queries.Interfaces
 
         void AddNewDBUser(DBUser dbUser);
 
+        string GetRolePass(string role);
+
     }
 }

@@ -15,10 +15,9 @@ namespace Queries.Entities
         public string w_gender { private set; get; }
         public DateTime w_birthdate { private set; get; }
         public string w_function { private set; get; }
-        public int w_manager { private set; get; }
         public int w_salary { private set; get; }
 
-        public void workerSet(int staff_id, int station_id, string surname, string name, string gender, DateTime birthdate, string function, int manager, int salary)
+        public void workerSet(int staff_id, int station_id, string surname, string name, string gender, DateTime birthdate, string function, int salary)
         {
             w_staff_id = staff_id;
             w_station_id = station_id;
@@ -27,11 +26,10 @@ namespace Queries.Entities
             w_gender = gender;
             w_birthdate = birthdate;
             w_function = function;
-            w_manager = manager;
             w_salary = salary;
         }
 
-        public void workerSet(int station_id, string surname, string name, string gender, DateTime birthdate, string function, int manager, int salary)
+        public void workerSet(int station_id, string surname, string name, string gender, DateTime birthdate, string function, int salary)
         {
             w_station_id = station_id;
             w_surname = surname;
@@ -39,18 +37,16 @@ namespace Queries.Entities
             w_gender = gender;
             w_birthdate = birthdate;
             w_function = function;
-            w_manager = manager;
             w_salary = salary;
         }
 
-        public void workerSet(string surname, string name, string gender, DateTime birthdate, string function, int manager, int salary)
+        public void workerSet(string surname, string name, string gender, DateTime birthdate, string function, int salary)
         {
             w_surname = surname;
             w_name = name;
             w_gender = gender;
             w_birthdate = birthdate;
             w_function = function;
-            w_manager = manager;
             w_salary = salary;
         }
 
@@ -61,7 +57,6 @@ namespace Queries.Entities
         public string GetGender() => w_gender;
         public DateTime GetBirthdate() => w_birthdate;
         public string GetFunction() => w_function;
-        public int GetManager() => w_manager;
         public int GetSalary() => w_salary;
     }
 }

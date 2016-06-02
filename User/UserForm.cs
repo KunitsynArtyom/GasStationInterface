@@ -11,46 +11,50 @@ using Npgsql;
 using System.Data.Common;
 using Queries;
 using Queries.dgvControllers;
-using Queries.TableRepositories;
+using Queries.Repositories;
 using Queries.Interfaces;
 
 namespace User
 {
     public partial class UserForm : Form //форма пользователя
     {
-        IRepositoryFactory factory;
-        StationController fillStaffTable;
-        DealController fillDealTable;
-        public NpgsqlConnection conn;
-        string cardnum;
+        private IRepositoryFactory factory;
+        private StationController fillStationTable;
+        private DealController fillDealTable;
+        private string cardnum;
 
         public UserForm(string cardnum, IRepositoryFactory factory)
         {
             InitializeComponent();
             this.cardnum = cardnum;
             this.factory = factory; 
-            //fillStaffTable = new StationController(dgvVievAZS, factory);
-            //fillDealTable = new DealController(dgvUserDeals, factory);
         }
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-            fillStaffTable = new StationController(dgvVievAZS, factory);
-            fillStaffTable.showTable();
+            lbSessionName1.Text = "Вы зашли как:" + cardnum;
+            lbSessionName2.Text = "Вы зашли как:" + cardnum;
+            fillStationTable = new StationController(dgvVievAZS, factory);
+            fillStationTable.ShowTable();
             fillDealTable = new DealController(dgvUserDeals, factory);
-            fillDealTable.showUserTable(cardnum);
+            fillDealTable.ShowUserTable(cardnum);
         }
 
         private void dataView1_Click(object sender, EventArgs e)
         {
-            fillStaffTable.showTable();
+            fillStationTable.ShowTable();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string fCountry = tbCountry.Text;
             string fCity = tbCity.Text;
-            fillStaffTable.findInTable(fCountry, fCity);
+            fillStationTable.FindInTable(fCountry, fCity);
+        }
+
+        private void btnShowUserDeal_Click(object sender, EventArgs e)
+        {
+            fillDealTable.ShowUserTable(cardnum);
         }
     }
 }
