@@ -54,7 +54,8 @@ namespace Queries.Validators
             if (st.GetStorageCap() < 300)
             {
                 checkFlag = false;
-                errorList.Add("Хранилище топлива должно хранить минимум 300 литров!");
+                errorList.Add("Объем хранилища введен неверно!");
+                //errorList.Add("Хранилище топлива должно хранить минимум 300 литров!");
             }
 
             return checkFlag;

@@ -34,7 +34,7 @@ namespace Queries.dgvControllers
             try
             {
                 dgvElements = new List<Station>();
-                dgvElements = factory.GetStationRepository().getStations();
+                dgvElements = factory.GetStationRepository().GetStations();
                 dgv.Rows.Clear();
                 foreach (Station ps in dgvElements)
                 {
@@ -49,7 +49,7 @@ namespace Queries.dgvControllers
             try
             {
                 dgvElements = new List<Station>();
-                dgvElements = factory.GetStationRepository().getStations();
+                dgvElements = factory.GetStationRepository().GetStations();
                 dgv.Rows.Clear();
                 foreach (Station ps in dgvElements)
                 {
@@ -64,7 +64,7 @@ namespace Queries.dgvControllers
             try
             {
                 dgvElements = new List<Station>();
-                dgvElements = factory.GetStationRepository().findStations(country, city);
+                dgvElements = factory.GetStationRepository().FindStations(country, city);
                 dgv.Rows.Clear();
                 foreach (Station ps in dgvElements)
                 {
@@ -76,6 +76,7 @@ namespace Queries.dgvControllers
 
         public bool AddToTable(Station st)
         {
+            errorList = new List<string>();
             bool checkFlag = false;
             try
             {

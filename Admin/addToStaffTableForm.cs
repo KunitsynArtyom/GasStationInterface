@@ -24,7 +24,7 @@ namespace Admin
     {
         private IRepositoryFactory factory;
         private DataGridView dgv;
-        private int station_id, salary;
+        private int station_id;
         private string surname, name, gender, function;
         private DateTime birthdate;
 

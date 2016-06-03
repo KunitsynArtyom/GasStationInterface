@@ -52,6 +52,7 @@
     <Compile Include="ComboBoxFillers\ComboBoxCardNumFiller.cs" />
     <Compile Include="ComboBoxFillers\ComboBoxDealFiller.cs" />
     <Compile Include="ComboBoxFillers\ComboBoxStaffFiller.cs" />
+    <Compile Include="ComboBoxFillers\ComboBoxAccountingFiller.cs" />
     <Compile Include="Connection\DBConnection.cs" />
     <Compile Include="Validators\CarValidator.cs" />
     <Compile Include="Validators\DBUserValidator.cs" />

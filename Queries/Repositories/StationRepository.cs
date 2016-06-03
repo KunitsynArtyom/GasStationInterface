@@ -26,7 +26,7 @@ namespace Queries.Repositories
 
         }
 
-        public List<Station> getStations()
+        public List<Station> GetStations()
         {
             List<Station> stationList = new List<Station>();
             try
@@ -55,7 +55,7 @@ namespace Queries.Repositories
             return stationList;
         }
 
-        public List<Station> findStations(string fCountry, string fCity)
+        public List<Station> FindStations(string fCountry, string fCity)
         {
             List<Station> stationList = new List<Station>();
             dbc.openConnection();
@@ -102,14 +102,32 @@ namespace Queries.Repositories
             {
                 splittedLocation.Add(s);
             }
+
+            for (int i = 0; i < splittedLocation[2].Length; i++)
+            {
+                if (i != 0)
+                {
+                    if ((splittedLocation[2][i] >= '0' && splittedLocation[2][i] <= '9') && (splittedLocation[2][i - 1] >= 'а' && splittedLocation[2][i - 1] <= 'я'))
+                    {
+                        splittedLocation[2] = splittedLocation[2].Insert(i, " ");
+                    }
+                    if ((splittedLocation[2][i] >= 'А' && splittedLocation[2][i] <= 'Я') && (splittedLocation[2][i - 1] >= 'а' && splittedLocation[2][i - 1] <= 'я'))
+                    {
+                        splittedLocation[2] = splittedLocation[2].Insert(i, " ");
+                    }
+                    if ((splittedLocation[2][i] >= 'A' && splittedLocation[2][i] <= 'Z') && (splittedLocation[2][i - 1] >= 'a' && splittedLocation[2][i - 1] <= 'z'))
+                    {
+                        splittedLocation[2] = splittedLocation[2].Insert(i, " ");
+                    }
+                }
+            }
+
             try
             {
                 dbc.openConnection();
-
+                MessageBox.Show(splittedLocation[2].ToString());
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
-                    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'", dbc.getConnection());
-                queryCommand.Parameters.AddWithValue("@Country", splittedLocation[0]);
-
+                    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'" + "AND street LIKE" + "'%" + splittedLocation[2] + "%'" + "", dbc.getConnection());
                 NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)
                 {
@@ -121,12 +139,11 @@ namespace Queries.Repositories
                 }
                 Station_ID_TableSearcher.Close();
             }
-            catch (NpgsqlException ne)
+            catch (PostgresException pe)
             {
-
+                throw pe;
             }
             finally { dbc.closeConnection(); }
-            MessageBox.Show(station_id.ToString());
             return station_id;
         }
 
@@ -158,9 +175,9 @@ namespace Queries.Repositories
             return comboBoxElements;
         }
 
-        public string GetStationsAdresByID(int station_id)
+        public string GetStationAdresByID(int station_id)
         {
-            string location = "";
+            string location = String.Empty;
             var comboBoxElements = new List<string>();
             try
             {
@@ -184,7 +201,7 @@ namespace Queries.Repositories
             }
             finally { dbc.closeConnection(); }
 
-            return location;
+            return location.Trim().Replace(" ", string.Empty);
         }
 
         public List<string> GetOrganisations()

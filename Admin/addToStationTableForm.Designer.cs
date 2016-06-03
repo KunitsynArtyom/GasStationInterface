@@ -140,8 +140,9 @@
             this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "Отменить";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click_1);
             // 
-            // addToStationTableForm
+            // AddToStationTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -158,7 +159,7 @@
             this.Controls.Add(this.tbCity);
             this.Controls.Add(this.tbCountry);
             this.Controls.Add(this.tbOrgName);
-            this.Name = "addToStationTableForm";
+            this.Name = "AddToStationTableForm";
             this.Text = "Добавлении станции";
             this.ResumeLayout(false);
             this.PerformLayout();

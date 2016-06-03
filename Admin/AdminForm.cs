@@ -14,6 +14,7 @@ using Queries.dgvControllers;
 using Queries.Repositories;
 using Queries.Validators;
 using Queries.Interfaces;
+using Queries.comboBoxFillers;
 
 namespace Admin
 {
@@ -26,6 +27,8 @@ namespace Admin
         private AccountController fillAccountingTable;
         private DealController fillDealTable;
         private StationController fillStationTable;
+        private ComboBoxDealFiller fillComboBoxDeal;
+        private ComboBoxAccountingFiller fillComboBoxAccounting;
 
         public AdminForm(IRepositoryFactory factory)
         {
@@ -37,7 +40,7 @@ namespace Admin
         private void AdminForm_Load(object sender, EventArgs e)
         {
             fillStationTable = new StationController(dgvVievAZS, factory);
-            fillStationTable.ShowAdminTable();
+            fillStationTable.ShowAdminTable();           
             fillStaffTable = new StaffController(dgvViewStaff, factory);
             fillStaffTable.ShowTable();
             fillCarTable = new CarController(dgvViewCars, factory);
@@ -46,6 +49,10 @@ namespace Admin
             fillAccountingTable.ShowTable();
             fillDealTable = new DealController(dgvViewDeal, factory);
             fillDealTable.ShowTable();
+            fillComboBoxDeal = new ComboBoxDealFiller(cbDealFilterByStation, factory);
+            fillComboBoxDeal.СbStationListFill();
+            fillComboBoxAccounting = new ComboBoxAccountingFiller(cbAccountingFilterByStation, factory);
+            fillComboBoxAccounting.СbStationListFill();
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
@@ -70,14 +77,19 @@ namespace Admin
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            var cell = dgvViewStaff[0, dgvViewStaff.CurrentRow.Index];
-            int id = Convert.ToInt32(cell.Value);
-            StaffController staffController = new StaffController(dgvViewStaff, factory);
-            if (staffController.DeleteFromTable(id))
+            try
             {
-                MessageBox.Show("Операция выполнена успешно!");
+                var cell = dgvViewStaff[0, dgvViewStaff.CurrentRow.Index];
+                int id = Convert.ToInt32(cell.Value);
+                StaffController staffController = new StaffController(dgvViewStaff, factory);
+                if (staffController.DeleteFromTable(id))
+                {
+                    factory.GetLoginRepository().DeleteStaffFromLoginTable(id.ToString());
+                    MessageBox.Show("Операция выполнена успешно!");
+                }
+                fillStaffTable.ShowTable();
             }
-            fillStaffTable.ShowTable();
+            catch (Exception) { MessageBox.Show("Операция не может быть выполнена!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnFindDeals_Click(object sender, EventArgs e)
@@ -99,7 +111,7 @@ namespace Admin
         {
             UpdateDealTableForm updateDealForm = new UpdateDealTableForm(dgvViewDeal.CurrentRow, factory, dgvViewDeal);
             updateDealForm.ShowDialog();
-            fillDealTable.ShowTable();
+            //fillDealTable.ShowTable();
         }
 
         private void btnStationAdd_Click(object sender, EventArgs e)
@@ -149,6 +161,27 @@ namespace Admin
         private void btnTableDealView_Click(object sender, EventArgs e)
         {
             fillDealTable.ShowTable();
+        }
+
+        private void cbFilterByStation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbDealFilterByStation.SelectedIndex != -1)
+            {
+                fillDealTable.FindDealsByStationID(factory.GetStationRepository().FindStationIDByLocation(cbDealFilterByStation.Text));
+            }
+        }
+
+        private void cbAccountingFilterByStation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbAccountingFilterByStation.SelectedIndex != -1)
+            {
+                fillAccountingTable.FilterBYStationID(factory.GetStationRepository().FindStationIDByLocation(cbAccountingFilterByStation.Text));
+            }
+        }
+
+        private void btnTableAccountingView_Click(object sender, EventArgs e)
+        {
+            fillAccountingTable.ShowTable();
         }
     }
 }

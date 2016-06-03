@@ -27,6 +27,11 @@ namespace Admin
         private DataGridView dgv;
         private string orgname, country, city, street;
 
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -42,8 +47,8 @@ namespace Admin
                     //MessageBox.Show("Объемы цистерн заданы неверно!");
                     storagecap = -1;
                 }
-                else
-                {
+                //else
+                //{
                     Station st = new Station();
                     st.stationSet(orgname, country, city, street, storagecap);
                     StationController stationController = new StationController(dgv, factory);
@@ -52,7 +57,7 @@ namespace Admin
                         MessageBox.Show("Операция выполнена успешно!");
                         Close();
                     }
-                }
+                //}
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }

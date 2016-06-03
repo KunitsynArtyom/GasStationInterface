@@ -15,5 +15,9 @@ namespace Queries.Interfaces
 
         string GetRolePass(string role);
 
+        bool CheckLoginExistence(string cardnum);
+
+        void DeleteStaffFromLoginTable(string id);
+
     }
 }

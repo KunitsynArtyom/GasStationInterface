@@ -46,5 +46,20 @@ namespace Queries.dgvControllers
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
+
+        public void FilterBYStationID(int id)
+        {
+            try
+            {
+                dgvElements = factory.GetAccountRepository().GetAccountingBYStationID(id);
+                dgv.Rows.Clear();
+                foreach (Account account in dgvElements)
+                {
+                    dgv.Rows.Add(account.GetStation_id(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
+                        account.GetFuelAccountAmount(), account.GetAccountDate());
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
     }
 }

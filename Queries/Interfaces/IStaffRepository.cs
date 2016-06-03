@@ -26,5 +26,7 @@ namespace Queries.Interfaces
 
         int FindStationIDByStaffID(int staff_id);
 
+        List<int> FindStaffIDByStationID(int station_id);
+
     }
 }

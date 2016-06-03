@@ -31,6 +31,24 @@ namespace Queries.comboBoxFillers
             this.factory = factory;
         }
 
+        //public void СbStationListFill()
+        //{
+        //    List<Station> comboBoxStationElements = factory.GetStationRepository().GetStations();
+        //    foreach (Station station in comboBoxStationElements)
+        //    {
+        //        cb.Items.Add(station.GetStation_id().ToString().Trim().Replace(" ", string.Empty));
+        //    }
+        //}
+
+        public void СbStationListFill()
+        {
+            List<Station> comboBoxStationElements = factory.GetStationRepository().GetStations();
+            foreach (Station station in comboBoxStationElements)
+            {
+                cb.Items.Add(factory.GetStationRepository().GetStationAdresByID(station.GetStation_id()));
+            }
+        }
+
         public void СbOrgFill()
         {
             comboBoxElements = factory.GetStationRepository().GetOrganisations();

@@ -20,7 +20,6 @@ namespace Admin
     public partial class UpdateStaffTableForm : Form
     {
         private IRepositoryFactory factory;
-        private int salary;
         private string surname, name, gender, function;
         private DateTime birthdate;
         private DataGridViewRow updateRow;

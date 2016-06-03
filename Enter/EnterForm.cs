@@ -25,11 +25,7 @@ namespace Enter
         public EnterForm()
         {
             InitializeComponent();
-        }
-
-        private void btnUserLog_Click(object sender, EventArgs e)
-        {
-
+            tbPassword.UseSystemPasswordChar = true;
         }
 
         private void btnAdminLog_Click(object sender, EventArgs e)
@@ -44,13 +40,6 @@ namespace Enter
             Show();
         }
 
-        private void btnManagerLog_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //RepositoryFactory repFactory = null;
@@ -64,22 +53,22 @@ namespace Enter
                 login = new Login();
                 login.setLogin(Login.Trim().Replace(" ", string.Empty), SecurityCrypt.MD5(Password).Trim().Replace(" ", string.Empty));
             }
-            catch (Exception ex) { MessageBox.Show("Данные введены неверно!"); }
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
-            //try
-            //{
+            try
+            {
                 NpgsqlConnection conn = new NpgsqlConnection("Server = 127.0.0.1; Port = 5432; User Id = login_check; Password = 123456; Database = AZS");
                 dbc = new DBConnection(conn);
                 RepositoryFactory repLoginFactory = new RepositoryFactory(dbc);
                 LoginController lc = new LoginController(login, repLoginFactory);
                 role = lc.TryLogin();
 
-            MessageBox.Show(Login.ToString());
-            MessageBox.Show(SecurityCrypt.MD5(Password.ToString()));
-            MessageBox.Show(role.ToString());
+                MessageBox.Show(Login.ToString());
+                MessageBox.Show(SecurityCrypt.MD5(Password.ToString()));
+                MessageBox.Show(role.ToString());
 
 
-            if (role != String.Empty)
+                if (role != String.Empty)
                     MessageBox.Show("Добро пожаловать, " + role);
                 else
                     MessageBox.Show("Пользователь не найден!");
@@ -88,7 +77,7 @@ namespace Enter
                 rolePass = SecurityCrypt.Decrypt(lc.GetDBPassWordByRole(role), SecurityConst.sha1Key);
                 MessageBox.Show(rolePass);
 
-            enterRole(role, Login, rolePass);
+                EnterRole(role, Login, rolePass);
 
                 //switch (role)
                 //{
@@ -120,9 +109,11 @@ namespace Enter
                 //        Show();
                 //        break;
                 //}
+            }
+            catch (Exception) { MessageBox.Show("Ошибка входа!"); }
         }
 
-        public void enterRole(string role, string Login, string rolePass)
+        private void EnterRole(string role, string Login, string rolePass)
         {
             switch (role)
             {

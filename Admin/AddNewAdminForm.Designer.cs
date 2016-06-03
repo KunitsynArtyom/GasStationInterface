@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.checkPass = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // tbPass
@@ -70,7 +71,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(151, 78);
+            this.btnAdd.Location = new System.Drawing.Point(151, 93);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 4;
@@ -80,7 +81,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(70, 78);
+            this.btnCancel.Location = new System.Drawing.Point(70, 93);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
@@ -88,11 +89,23 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // checkPass
+            // 
+            this.checkPass.AutoSize = true;
+            this.checkPass.Location = new System.Drawing.Point(100, 70);
+            this.checkPass.Name = "checkPass";
+            this.checkPass.Size = new System.Drawing.Size(114, 17);
+            this.checkPass.TabIndex = 6;
+            this.checkPass.Text = "Показать пароль";
+            this.checkPass.UseVisualStyleBackColor = true;
+            this.checkPass.CheckedChanged += new System.EventHandler(this.checkPass_CheckedChanged);
+            // 
             // AddNewAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 108);
+            this.ClientSize = new System.Drawing.Size(238, 124);
+            this.Controls.Add(this.checkPass);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label2);
@@ -114,5 +127,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox checkPass;
     }
 }

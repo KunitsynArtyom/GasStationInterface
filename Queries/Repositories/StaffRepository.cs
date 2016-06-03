@@ -88,9 +88,6 @@ namespace Queries.Repositories
             try
             {
                 dbc.openConnection();
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = '" + wk.GetSurname() + "', name = '" + wk.GetName() +
-                //"', gender = '" + wk.GetGender() + "', function = '" + wk.GetFunction() + "'" +
-                //" WHERE staff_id = " + Convert.ToInt32(wkToUpdate.GetStaff_id()) + " ", dbc.getConnection());
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = @Surname, name = @Name, gender = @Gender, function = @Function, " +
                 "salary = @Salary WHERE staff_id = @Staff_id ", dbc.getConnection());
 
@@ -186,6 +183,34 @@ namespace Queries.Repositories
             finally { dbc.closeConnection(); }
 
             return station_id;
+        }
+
+        public List<int> FindStaffIDByStationID(int station_id)
+        {
+            List<int> staff_id = new List<int>();
+            try
+            {             
+                NpgsqlDataReader AZSTableReader = null;
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT staff_id FROM \"AZS\".\"Staff\" WHERE station_id = @Station_id ", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Station_id", station_id);
+                AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        staff_id.Add(Convert.ToInt32(dbDataRecord["staff_id"]));
+                    }
+                }
+                AZSTableReader.Close();
+            }
+            catch (PostgresException pe)
+            {
+                throw pe;
+            }
+            finally { dbc.closeConnection(); }
+
+            return staff_id;
         }
     }
 }

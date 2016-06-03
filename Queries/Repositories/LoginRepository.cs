@@ -31,10 +31,6 @@ namespace Queries.Repositories
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\" WHERE login = @Login AND password = @Password", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@Login", login.GetLogin());
                 queryCommand.Parameters.AddWithValue("@Password", login.GetPassword());
-
-                MessageBox.Show(login.GetLogin());
-                MessageBox.Show(login.GetPassword());
-
                 NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
                 {
@@ -74,6 +70,31 @@ namespace Queries.Repositories
             finally { dbc.closeConnection(); }
         }
 
+        public bool CheckLoginExistence(string login)
+        {
+            bool checkFlag = false;
+            try
+            {
+                dbc.openConnection();
+
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"Login\".\"LoginTable\" WHERE login = @Login", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Login", login);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    checkFlag = true;
+                }
+                else checkFlag = false;
+            }
+            catch (PostgresException pe)
+            {
+                throw pe;
+            }
+            finally { dbc.closeConnection(); }
+
+            return checkFlag;
+        }      
+
         public string GetRolePass(string role)
         {
             string passWord = String.Empty;
@@ -100,6 +121,22 @@ namespace Queries.Repositories
             finally { dbc.closeConnection(); }
 
             return passWord;
+
+        }
+
+        public void DeleteStaffFromLoginTable(string id)
+        {
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"Login\".\"LoginTable\"  WHERE login = @Login", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Login", id);
+                queryCommand.ExecuteNonQuery();
+
+            }
+            catch (PostgresException)
+            { }
+            finally { dbc.closeConnection(); }
 
         }
     }

@@ -33,11 +33,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.tbPass = new System.Windows.Forms.TextBox();
+            this.checkPass = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(106, 85);
+            this.btnCancel.Location = new System.Drawing.Point(116, 93);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 9;
@@ -47,7 +48,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(187, 85);
+            this.btnAdd.Location = new System.Drawing.Point(197, 93);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 8;
@@ -80,11 +81,23 @@
             this.tbPass.Size = new System.Drawing.Size(117, 20);
             this.tbPass.TabIndex = 5;
             // 
+            // checkPass
+            // 
+            this.checkPass.AutoSize = true;
+            this.checkPass.Location = new System.Drawing.Point(145, 70);
+            this.checkPass.Name = "checkPass";
+            this.checkPass.Size = new System.Drawing.Size(114, 17);
+            this.checkPass.TabIndex = 10;
+            this.checkPass.Text = "Показать пароль";
+            this.checkPass.UseVisualStyleBackColor = true;
+            this.checkPass.CheckedChanged += new System.EventHandler(this.checkPass_CheckedChanged);
+            // 
             // AddUserToLoginTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 128);
+            this.Controls.Add(this.checkPass);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label2);
@@ -105,5 +118,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.TextBox tbPass;
+        private System.Windows.Forms.CheckBox checkPass;
     }
 }

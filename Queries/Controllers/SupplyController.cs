@@ -46,7 +46,7 @@ namespace Queries.dgvControllers
                 foreach (Supply supply in dgvElements)
                 {
                     int station_id = supply.GetStation_id();
-                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
                         supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
                 }
             }
@@ -63,7 +63,7 @@ namespace Queries.dgvControllers
                 foreach (Supply supply in dgvElements)
                 {
                     int station_id = supply.GetStation_id();
-                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationsAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
                         supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
                 }
             }

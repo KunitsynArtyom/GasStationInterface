@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.tabAccountingTable = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cbAccountingFilterByStation = new System.Windows.Forms.ComboBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnTableAccountingView = new System.Windows.Forms.Button();
             this.dgvViewAccounting = new System.Windows.Forms.DataGridView();
             this.stationaccountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stationadres = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,15 +77,12 @@
             this.street = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.storagecap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabDealTable = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cbDealFilterByStation = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnTableDealView = new System.Windows.Forms.Button();
             this.btnDealUpdate = new System.Windows.Forms.Button();
             this.dgvViewDeal = new System.Windows.Forms.DataGridView();
-            this.msAdmin = new System.Windows.Forms.MenuStrip();
-            this.допФункцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddNewAdmin = new System.Windows.Forms.ToolStripMenuItem();
-            this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbSessionName = new System.Windows.Forms.Label();
             this.deal_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stationDealName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,7 +91,14 @@
             this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buyercard = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.msAdmin = new System.Windows.Forms.MenuStrip();
+            this.допФункцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddNewAdmin = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbSessionName = new System.Windows.Forms.Label();
             this.tabAccountingTable.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewAccounting)).BeginInit();
             this.tabCarTable.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -103,6 +111,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).BeginInit();
             this.tabDealTable.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).BeginInit();
             this.msAdmin.SuspendLayout();
@@ -110,6 +119,8 @@
             // 
             // tabAccountingTable
             // 
+            this.tabAccountingTable.Controls.Add(this.groupBox7);
+            this.tabAccountingTable.Controls.Add(this.groupBox6);
             this.tabAccountingTable.Controls.Add(this.dgvViewAccounting);
             this.tabAccountingTable.Location = new System.Drawing.Point(4, 22);
             this.tabAccountingTable.Name = "tabAccountingTable";
@@ -117,6 +128,46 @@
             this.tabAccountingTable.TabIndex = 2;
             this.tabAccountingTable.Text = "Таблица учёта";
             this.tabAccountingTable.UseVisualStyleBackColor = true;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.cbAccountingFilterByStation);
+            this.groupBox7.Location = new System.Drawing.Point(656, 419);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(160, 43);
+            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Фильтр по станции";
+            // 
+            // cbAccountingFilterByStation
+            // 
+            this.cbAccountingFilterByStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAccountingFilterByStation.FormattingEnabled = true;
+            this.cbAccountingFilterByStation.Location = new System.Drawing.Point(6, 16);
+            this.cbAccountingFilterByStation.Name = "cbAccountingFilterByStation";
+            this.cbAccountingFilterByStation.Size = new System.Drawing.Size(148, 21);
+            this.cbAccountingFilterByStation.TabIndex = 0;
+            this.cbAccountingFilterByStation.SelectedIndexChanged += new System.EventHandler(this.cbAccountingFilterByStation_SelectedIndexChanged);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.btnTableAccountingView);
+            this.groupBox6.Location = new System.Drawing.Point(656, 3);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(160, 70);
+            this.groupBox6.TabIndex = 3;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Функционал";
+            // 
+            // btnTableAccountingView
+            // 
+            this.btnTableAccountingView.Location = new System.Drawing.Point(6, 19);
+            this.btnTableAccountingView.Name = "btnTableAccountingView";
+            this.btnTableAccountingView.Size = new System.Drawing.Size(148, 38);
+            this.btnTableAccountingView.TabIndex = 4;
+            this.btnTableAccountingView.Text = "Обновить таблицу учёта";
+            this.btnTableAccountingView.UseVisualStyleBackColor = true;
+            this.btnTableAccountingView.Click += new System.EventHandler(this.btnTableAccountingView_Click);
             // 
             // dgvViewAccounting
             // 
@@ -350,9 +401,9 @@
             this.gender,
             this.function,
             this.salary});
-            this.dgvViewStaff.Location = new System.Drawing.Point(6, 3);
+            this.dgvViewStaff.Location = new System.Drawing.Point(0, 3);
             this.dgvViewStaff.Name = "dgvViewStaff";
-            this.dgvViewStaff.Size = new System.Drawing.Size(524, 459);
+            this.dgvViewStaff.Size = new System.Drawing.Size(530, 459);
             this.dgvViewStaff.TabIndex = 0;
             // 
             // staff_id
@@ -490,6 +541,7 @@
             // 
             // tabDealTable
             // 
+            this.tabDealTable.Controls.Add(this.groupBox5);
             this.tabDealTable.Controls.Add(this.groupBox4);
             this.tabDealTable.Controls.Add(this.dgvViewDeal);
             this.tabDealTable.Location = new System.Drawing.Point(4, 22);
@@ -499,6 +551,26 @@
             this.tabDealTable.TabIndex = 3;
             this.tabDealTable.Text = "Список сделок";
             this.tabDealTable.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.cbDealFilterByStation);
+            this.groupBox5.Location = new System.Drawing.Point(607, 405);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(200, 51);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Фильтр по адресу станции";
+            // 
+            // cbDealFilterByStation
+            // 
+            this.cbDealFilterByStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDealFilterByStation.FormattingEnabled = true;
+            this.cbDealFilterByStation.Location = new System.Drawing.Point(6, 19);
+            this.cbDealFilterByStation.Name = "cbDealFilterByStation";
+            this.cbDealFilterByStation.Size = new System.Drawing.Size(188, 21);
+            this.cbDealFilterByStation.TabIndex = 0;
+            this.cbDealFilterByStation.SelectedIndexChanged += new System.EventHandler(this.cbFilterByStation_SelectedIndexChanged);
             // 
             // groupBox4
             // 
@@ -548,48 +620,6 @@
             this.dgvViewDeal.Size = new System.Drawing.Size(595, 462);
             this.dgvViewDeal.TabIndex = 1;
             // 
-            // msAdmin
-            // 
-            this.msAdmin.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.допФункцииToolStripMenuItem});
-            this.msAdmin.Location = new System.Drawing.Point(0, 0);
-            this.msAdmin.Name = "msAdmin";
-            this.msAdmin.Size = new System.Drawing.Size(851, 24);
-            this.msAdmin.TabIndex = 1;
-            this.msAdmin.Text = "Доп. функции";
-            // 
-            // допФункцииToolStripMenuItem
-            // 
-            this.допФункцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddNewAdmin,
-            this.RefreshTables});
-            this.допФункцииToolStripMenuItem.Name = "допФункцииToolStripMenuItem";
-            this.допФункцииToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
-            this.допФункцииToolStripMenuItem.Text = "Доп. функции";
-            // 
-            // AddNewAdmin
-            // 
-            this.AddNewAdmin.Name = "AddNewAdmin";
-            this.AddNewAdmin.Size = new System.Drawing.Size(220, 22);
-            this.AddNewAdmin.Text = "Добавить администратора";
-            this.AddNewAdmin.Click += new System.EventHandler(this.AddNewAdmin_Click);
-            // 
-            // RefreshTables
-            // 
-            this.RefreshTables.Name = "RefreshTables";
-            this.RefreshTables.Size = new System.Drawing.Size(220, 22);
-            this.RefreshTables.Text = "Обновить таблицы";
-            this.RefreshTables.Click += new System.EventHandler(this.RefreshTables_Click);
-            // 
-            // lbSessionName
-            // 
-            this.lbSessionName.AutoSize = true;
-            this.lbSessionName.Location = new System.Drawing.Point(748, 11);
-            this.lbSessionName.Name = "lbSessionName";
-            this.lbSessionName.Size = new System.Drawing.Size(78, 13);
-            this.lbSessionName.TabIndex = 3;
-            this.lbSessionName.Text = "Сессия: admin";
-            // 
             // deal_id
             // 
             this.deal_id.HeaderText = "ID";
@@ -638,6 +668,48 @@
             this.dealdate.Name = "dealdate";
             this.dealdate.Width = 150;
             // 
+            // msAdmin
+            // 
+            this.msAdmin.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.допФункцииToolStripMenuItem});
+            this.msAdmin.Location = new System.Drawing.Point(0, 0);
+            this.msAdmin.Name = "msAdmin";
+            this.msAdmin.Size = new System.Drawing.Size(851, 24);
+            this.msAdmin.TabIndex = 1;
+            this.msAdmin.Text = "Доп. функции";
+            // 
+            // допФункцииToolStripMenuItem
+            // 
+            this.допФункцииToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddNewAdmin,
+            this.RefreshTables});
+            this.допФункцииToolStripMenuItem.Name = "допФункцииToolStripMenuItem";
+            this.допФункцииToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.допФункцииToolStripMenuItem.Text = "Доп. функции";
+            // 
+            // AddNewAdmin
+            // 
+            this.AddNewAdmin.Name = "AddNewAdmin";
+            this.AddNewAdmin.Size = new System.Drawing.Size(220, 22);
+            this.AddNewAdmin.Text = "Добавить администратора";
+            this.AddNewAdmin.Click += new System.EventHandler(this.AddNewAdmin_Click);
+            // 
+            // RefreshTables
+            // 
+            this.RefreshTables.Name = "RefreshTables";
+            this.RefreshTables.Size = new System.Drawing.Size(220, 22);
+            this.RefreshTables.Text = "Обновить таблицы";
+            this.RefreshTables.Click += new System.EventHandler(this.RefreshTables_Click);
+            // 
+            // lbSessionName
+            // 
+            this.lbSessionName.AutoSize = true;
+            this.lbSessionName.Location = new System.Drawing.Point(748, 11);
+            this.lbSessionName.Name = "lbSessionName";
+            this.lbSessionName.Size = new System.Drawing.Size(78, 13);
+            this.lbSessionName.TabIndex = 3;
+            this.lbSessionName.Text = "Сессия: admin";
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -651,6 +723,8 @@
             this.Text = "Раздел администратора";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.tabAccountingTable.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewAccounting)).EndInit();
             this.tabCarTable.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -663,6 +737,7 @@
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievAZS)).EndInit();
             this.tabDealTable.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).EndInit();
             this.msAdmin.ResumeLayout(false);
@@ -688,7 +763,6 @@
         private System.Windows.Forms.DataGridView dgvViewAccounting;
         private System.Windows.Forms.TabPage tabAccountingTable;
         private System.Windows.Forms.TabPage tabDealTable;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dgvViewDeal;
         private System.Windows.Forms.Button btnDealUpdate;
         private System.Windows.Forms.TabPage tabStationTable;
@@ -729,14 +803,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn surname;
         private System.Windows.Forms.DataGridViewTextBoxColumn staff_id;
         private System.Windows.Forms.Label lbSessionName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stationDealName;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.ComboBox cbDealFilterByStation;
         private System.Windows.Forms.DataGridViewTextBoxColumn dealdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn buyercard;
         private System.Windows.Forms.DataGridViewTextBoxColumn dealprice;
         private System.Windows.Forms.DataGridViewTextBoxColumn fuelamount;
         private System.Windows.Forms.DataGridViewTextBoxColumn fueltype;
         private System.Windows.Forms.DataGridViewTextBoxColumn sname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationDealName;
         private System.Windows.Forms.DataGridViewTextBoxColumn deal_id;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnTableAccountingView;
+        private System.Windows.Forms.ComboBox cbAccountingFilterByStation;
     }
 }
 

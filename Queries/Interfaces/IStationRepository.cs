@@ -17,15 +17,15 @@ namespace Queries.Interfaces
     {
         int FindStationIDByLocation(string location);
 
-        List<Station> findStations(string fCountry, string fCity);
+        List<Station> FindStations(string fCountry, string fCity);
 
         List<string> GetOrganisations();
 
-        List<Station> getStations();
+        List<Station> GetStations();
 
         List<string> GetStationsAdres(string Orgname);
 
-        string GetStationsAdresByID(int station_id);
+        string GetStationAdresByID(int station_id);
 
         void AddToStationTable(Station st);
 

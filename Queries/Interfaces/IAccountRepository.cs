@@ -16,5 +16,7 @@ namespace Queries.Interfaces
     {
         List<Account> GetAccounting();
 
+        List<Account> GetAccountingBYStationID(int id);
+
     }
 }

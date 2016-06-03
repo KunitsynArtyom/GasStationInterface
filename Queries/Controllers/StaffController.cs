@@ -40,7 +40,7 @@ namespace Queries.dgvControllers
                 foreach (Worker wk in dgvElements)
                 {
                     dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(),
-                        factory.GetStationRepository().GetStationsAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                        factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaff_id())).Trim().Replace(" ", string.Empty),
                         wk.GetGender(), wk.GetFunction(), wk.GetSalary());
                 }
             }

@@ -22,7 +22,9 @@ namespace Admin
         public AddNewAdminForm(IRepositoryFactory factory)
         {
             InitializeComponent();
-            this.factory = factory;        }
+            this.factory = factory;
+            tbPass.UseSystemPasswordChar = true;
+        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -34,14 +36,34 @@ namespace Admin
                 DBUser nAdmin = new DBUser();
                 nAdmin.setNewUser(login, pass, "admin");
                 LoginController lc = new LoginController(factory);
-                lc.AddToLoginTable(nAdmin);
+                if (!factory.GetLoginRepository().CheckLoginExistence(login.ToString().Trim().Replace(" ", string.Empty)))
+                {
+                    if (lc.AddToLoginTable(nAdmin))
+                    {
+                        MessageBox.Show("Операция выполнена успешно!");
+                        Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Администратор с таким именем уже существует!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex) { MessageBox.Show("Невозможно совершить операцию!"); }
+            catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void checkPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkPass.Checked)
+            {
+                tbPass.UseSystemPasswordChar = false;
+            }
+            else tbPass.UseSystemPasswordChar = true;
         }
     }
 }

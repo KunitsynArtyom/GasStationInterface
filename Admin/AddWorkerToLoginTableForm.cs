@@ -32,11 +32,20 @@ namespace Admin
 
         private void AddToLoginTableForm_Load(object sender, EventArgs e)
         {
-            try
+            if (!factory.GetLoginRepository().CheckLoginExistence(row.Cells["staff_id"].Value.ToString().Trim().Replace(" ", string.Empty)))
             {
-                lbName.Text = factory.GetStaffRepository().FindStaffByID(Convert.ToInt32(row.Cells["staff_id"].Value));
+                try
+                {
+                    tbPass.UseSystemPasswordChar = true;
+                    lbName.Text = factory.GetStaffRepository().FindStaffByID(Convert.ToInt32(row.Cells["staff_id"].Value));
+                }
+                catch (Exception) { }
             }
-            catch (Exception) {  }
+            else
+            {
+                MessageBox.Show("Этому работнику уже был выдан пароль!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -60,6 +69,15 @@ namespace Admin
                 }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        private void checkPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkPass.Checked)
+            {
+                tbPass.UseSystemPasswordChar = false;
+            }
+            else tbPass.UseSystemPasswordChar = true;
         }
     }
 }

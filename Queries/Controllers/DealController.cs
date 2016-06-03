@@ -55,7 +55,7 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Deal deal in dgvElements)
                 {
-                    dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationsAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                    dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
                         factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(),
                         deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
                 }
@@ -91,6 +91,31 @@ namespace Queries.dgvControllers
             catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
+        public void FindDealsByStationID(int station_id)
+        {
+            try
+            {
+                List<int> IDs = new List<int>();
+                IDs = factory.GetStaffRepository().FindStaffIDByStationID(station_id);
+                dgv.Rows.Clear();
+                if (IDs.Count != 0)
+                {
+                    List<Deal> stationDealList = new List<Deal>(); 
+                    foreach (int id in IDs)
+                    {
+                        stationDealList = factory.GetDealRepository().ShowWorkerDealTable(id);
+                        foreach (Deal deal in stationDealList)
+                        {
+                            dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                                factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(),
+                                deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+                        }
+                    }
+                }
+            }
+            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
         public bool UpdateTable(int id, Deal deal)
         {
             bool checkFlag = false;
@@ -111,7 +136,11 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception)
+            {
+                checkFlag = false;
+                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return checkFlag;
         }
 
@@ -135,7 +164,11 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception)
+            {
+                checkFlag = false;
+                MessageBox.Show("Недостаточно топлива!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return checkFlag;
         }
     }
