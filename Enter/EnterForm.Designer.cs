@@ -92,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(286, 158);
+            this.ClientSize = new System.Drawing.Size(286, 139);
             this.Controls.Add(this.lbPass);
             this.Controls.Add(this.lbLogin);
             this.Controls.Add(this.btnLogin);

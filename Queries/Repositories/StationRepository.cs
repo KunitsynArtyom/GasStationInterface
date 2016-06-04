@@ -102,40 +102,25 @@ namespace Queries.Repositories
             {
                 splittedLocation.Add(s);
             }
-
-            for (int i = 0; i < splittedLocation[2].Length; i++)
-            {
-                if (i != 0)
-                {
-                    if ((splittedLocation[2][i] >= '0' && splittedLocation[2][i] <= '9') && (splittedLocation[2][i - 1] >= 'а' && splittedLocation[2][i - 1] <= 'я'))
-                    {
-                        splittedLocation[2] = splittedLocation[2].Insert(i, " ");
-                    }
-                    if ((splittedLocation[2][i] >= 'А' && splittedLocation[2][i] <= 'Я') && (splittedLocation[2][i - 1] >= 'а' && splittedLocation[2][i - 1] <= 'я'))
-                    {
-                        splittedLocation[2] = splittedLocation[2].Insert(i, " ");
-                    }
-                    if ((splittedLocation[2][i] >= 'A' && splittedLocation[2][i] <= 'Z') && (splittedLocation[2][i - 1] >= 'a' && splittedLocation[2][i - 1] <= 'z'))
-                    {
-                        splittedLocation[2] = splittedLocation[2].Insert(i, " ");
-                    }
-                }
-            }
+            splittedLocation[2] = CheckRigthStreet(splittedLocation[2]);
 
             try
             {
                 dbc.openConnection();
                 MessageBox.Show(splittedLocation[2].ToString());
-                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
-                    "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'" + "AND street LIKE" + "'%" + splittedLocation[2] + "%'" + "", dbc.getConnection());
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country =" +
+                  "'" + splittedLocation[0] + "' AND city =" + "'" + splittedLocation[1] + "'" + "AND street =" + "'" + splittedLocation[2] + "'" + "", dbc.getConnection());
+                
+                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
+                //  "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'" + "AND street LIKE" + "'%" + splittedLocation[2] + "%'" + "", dbc.getConnection());
+                
                 NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in Station_ID_TableSearcher)
                     {                   
                         station_id = Convert.ToInt32(dbDataRecord["station_id"]);
-                    }
-                    
+                    }            
                 }
                 Station_ID_TableSearcher.Close();
             }
@@ -252,6 +237,26 @@ namespace Queries.Repositories
             }
             finally { dbc.closeConnection(); }
 
+        }
+
+        private string CheckRigthStreet(string street)
+        {
+            for (int i = 1; i < street.Length; i++)
+            {
+                if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                {
+                    street = street.Insert(i, " ");
+                }
+                if ((street[i] >= 'А' && street[i] <= 'Я') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                {
+                    street = street.Insert(i, " ");
+                }
+                if ((street[i] >= 'A' && street[i] <= 'Z') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
+                {
+                    street = street.Insert(i, " ");
+                }
+            }
+            return street;
         }
     }
 }

@@ -30,8 +30,9 @@
         {
             this.tabAdmin = new System.Windows.Forms.TabControl();
             this.tabDealTable = new System.Windows.Forms.TabPage();
-            this.btnAddDeal = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnTableView = new System.Windows.Forms.Button();
+            this.btnAddDeal = new System.Windows.Forms.Button();
             this.dgvVievDeal = new System.Windows.Forms.DataGridView();
             this.fueltype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,6 +40,7 @@
             this.cardnum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabSupplyTable = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnSupplyUpdate = new System.Windows.Forms.Button();
             this.btnAddSupply = new System.Windows.Forms.Button();
             this.dgvViewSupply = new System.Windows.Forms.DataGridView();
@@ -50,17 +52,15 @@
             this.msWorker = new System.Windows.Forms.MenuStrip();
             this.smUser = new System.Windows.Forms.ToolStripMenuItem();
             this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbSessionName = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tabAdmin.SuspendLayout();
             this.tabDealTable.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).BeginInit();
             this.tabSupplyTable.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).BeginInit();
             this.msWorker.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabAdmin
@@ -85,15 +85,16 @@
             this.tabDealTable.Text = "Список сделок";
             this.tabDealTable.UseVisualStyleBackColor = true;
             // 
-            // btnAddDeal
+            // groupBox1
             // 
-            this.btnAddDeal.Location = new System.Drawing.Point(6, 85);
-            this.btnAddDeal.Name = "btnAddDeal";
-            this.btnAddDeal.Size = new System.Drawing.Size(145, 60);
-            this.btnAddDeal.TabIndex = 3;
-            this.btnAddDeal.Text = "Оформить сделку";
-            this.btnAddDeal.UseVisualStyleBackColor = true;
-            this.btnAddDeal.Click += new System.EventHandler(this.btnAdd_Click);
+            this.groupBox1.Controls.Add(this.btnTableView);
+            this.groupBox1.Controls.Add(this.btnAddDeal);
+            this.groupBox1.Location = new System.Drawing.Point(553, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(157, 153);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Функционал";
             // 
             // btnTableView
             // 
@@ -103,6 +104,16 @@
             this.btnTableView.TabIndex = 1;
             this.btnTableView.Text = "Обновить таблицу сделок";
             this.btnTableView.UseVisualStyleBackColor = true;
+            // 
+            // btnAddDeal
+            // 
+            this.btnAddDeal.Location = new System.Drawing.Point(6, 85);
+            this.btnAddDeal.Name = "btnAddDeal";
+            this.btnAddDeal.Size = new System.Drawing.Size(145, 60);
+            this.btnAddDeal.TabIndex = 3;
+            this.btnAddDeal.Text = "Оформить сделку";
+            this.btnAddDeal.UseVisualStyleBackColor = true;
+            this.btnAddDeal.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // dgvVievDeal
             // 
@@ -154,8 +165,19 @@
             this.tabSupplyTable.Padding = new System.Windows.Forms.Padding(3);
             this.tabSupplyTable.Size = new System.Drawing.Size(716, 370);
             this.tabSupplyTable.TabIndex = 1;
-            this.tabSupplyTable.Text = "Таблица подвоза";
+            this.tabSupplyTable.Text = "Таблица поставок";
             this.tabSupplyTable.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnSupplyUpdate);
+            this.groupBox2.Controls.Add(this.btnAddSupply);
+            this.groupBox2.Location = new System.Drawing.Point(571, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(139, 111);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Функционал";
             // 
             // btnSupplyUpdate
             // 
@@ -173,7 +195,7 @@
             this.btnAddSupply.Name = "btnAddSupply";
             this.btnAddSupply.Size = new System.Drawing.Size(130, 40);
             this.btnAddSupply.TabIndex = 1;
-            this.btnAddSupply.Text = "Оформить подвоз";
+            this.btnAddSupply.Text = "Оформить поставку";
             this.btnAddSupply.UseVisualStyleBackColor = true;
             this.btnAddSupply.Click += new System.EventHandler(this.btnAddSupply_Click);
             // 
@@ -243,17 +265,6 @@
             this.RefreshTables.Text = "Обновить таблицы";
             this.RefreshTables.Click += new System.EventHandler(this.RefreshTables_Click_1);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnTableView);
-            this.groupBox1.Controls.Add(this.btnAddDeal);
-            this.groupBox1.Location = new System.Drawing.Point(553, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(157, 153);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Функционал";
-            // 
             // lbSessionName
             // 
             this.lbSessionName.AutoSize = true;
@@ -262,17 +273,6 @@
             this.lbSessionName.Size = new System.Drawing.Size(16, 13);
             this.lbSessionName.TabIndex = 5;
             this.lbSessionName.Text = "---";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.btnSupplyUpdate);
-            this.groupBox2.Controls.Add(this.btnAddSupply);
-            this.groupBox2.Location = new System.Drawing.Point(571, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(139, 111);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Функционал";
             // 
             // WorkerForm
             // 
@@ -288,13 +288,13 @@
             this.Load += new System.EventHandler(this.WorkerForm_Load);
             this.tabAdmin.ResumeLayout(false);
             this.tabDealTable.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVievDeal)).EndInit();
             this.tabSupplyTable.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).EndInit();
             this.msWorker.ResumeLayout(false);
             this.msWorker.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using Npgsql;
 using System.Data.Common;
 using System.Collections;
@@ -22,33 +23,31 @@ namespace Admin
 {
     public partial class AddToStationTableForm : Form
     {
-    public Form af;
         private IRepositoryFactory factory;
         private DataGridView dgv;
         private string orgname, country, city, street;
 
-        private void btnCancel_Click_1(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            string pattern = "^[А-ЯA-Z]{1}[а-яa-z]+ ?([А-ЯA-Z]{1}[а-яa-z]+ )?[0-9]+$";
+            Regex rgx = new Regex(pattern);
             try
             {
                 orgname = tbOrgName.Text.ToString();
                 country = tbCountry.Text.ToString();
                 city = tbCity.Text.ToString();
                 street = tbStreet.Text.ToString();
-                int storagecap;
-                bool checkStorageCap = Int32.TryParse(tbStorageCap.Text, out storagecap);
-                if (!checkStorageCap)
+                Match matches = rgx.Match(street);
+                if (matches.Success)
                 {
-                    //MessageBox.Show("Объемы цистерн заданы неверно!");
-                    storagecap = -1;
-                }
-                //else
-                //{
+                    street = CheckRigthStreet(street);
+                    int storagecap;
+                    bool checkStorageCap = Int32.TryParse(tbStorageCap.Text, out storagecap);
+                    if (!checkStorageCap)
+                    {
+                        storagecap = -1;
+                    }
                     Station st = new Station();
                     st.stationSet(orgname, country, city, street, storagecap);
                     StationController stationController = new StationController(dgv, factory);
@@ -57,7 +56,11 @@ namespace Admin
                         MessageBox.Show("Операция выполнена успешно!");
                         Close();
                     }
-                //}
+                }
+                else
+                {
+                    MessageBox.Show("Название улицы введено неверно! Упущен паттерн ввода!");
+                }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
@@ -65,7 +68,6 @@ namespace Admin
         public AddToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
-            af = adminForm;
             this.factory = factory;
             this.dgv = dgv;
         }
@@ -73,7 +75,26 @@ namespace Admin
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
-            af.Show();
+        }
+
+        private string CheckRigthStreet(string street)
+        {
+            for (int i = 1; i < street.Length; i++)
+            {
+                if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                {
+                    street = street.Insert(i, " ");
+                }
+                if ((street[i] >= 'А' && street[i] <= 'Я') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                {
+                    street = street.Insert(i, " ");
+                }
+                if ((street[i] >= 'A' && street[i] <= 'Z') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
+                {
+                    street = street.Insert(i, " ");
+                }
+            }
+            return street;
         }
     }
 }

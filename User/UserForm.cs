@@ -32,6 +32,7 @@ namespace User
 
         private void UserForm_Load(object sender, EventArgs e)
         {
+            MessageBox.Show("Добро пожаловать!");
             lbSessionName1.Text = "Вы зашли как:" + cardnum;
             lbSessionName2.Text = "Вы зашли как:" + cardnum;
             fillStationTable = new StationController(dgvVievAZS, factory);

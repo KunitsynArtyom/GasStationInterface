@@ -34,12 +34,6 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnTableAccountingView = new System.Windows.Forms.Button();
             this.dgvViewAccounting = new System.Windows.Forms.DataGridView();
-            this.stationaccountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stationadres = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountrole = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fuelaccounttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fuelaccountamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabCarTable = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnTableCarView = new System.Windows.Forms.Button();
@@ -71,6 +65,7 @@
             this.btnTableStationView = new System.Windows.Forms.Button();
             this.btnStationAdd = new System.Windows.Forms.Button();
             this.dgvVievAZS = new System.Windows.Forms.DataGridView();
+            this.station_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.orgname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.country = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -96,6 +91,12 @@
             this.AddNewAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
             this.lbSessionName = new System.Windows.Forms.Label();
+            this.stationaccountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stationadres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountrole = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelaccounttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelaccountamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAccountingTable.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -183,41 +184,6 @@
             this.dgvViewAccounting.Name = "dgvViewAccounting";
             this.dgvViewAccounting.Size = new System.Drawing.Size(647, 459);
             this.dgvViewAccounting.TabIndex = 2;
-            // 
-            // stationaccountID
-            // 
-            this.stationaccountID.HeaderText = "ID";
-            this.stationaccountID.Name = "stationaccountID";
-            this.stationaccountID.Width = 40;
-            // 
-            // stationadres
-            // 
-            this.stationadres.HeaderText = "Адрес станции";
-            this.stationadres.Name = "stationadres";
-            this.stationadres.Width = 150;
-            // 
-            // accountrole
-            // 
-            this.accountrole.HeaderText = "Тип операции";
-            this.accountrole.Name = "accountrole";
-            this.accountrole.Width = 150;
-            // 
-            // fuelaccounttype
-            // 
-            this.fuelaccounttype.HeaderText = "Тип топлива";
-            this.fuelaccounttype.Name = "fuelaccounttype";
-            this.fuelaccounttype.Width = 60;
-            // 
-            // fuelaccountamount
-            // 
-            this.fuelaccountamount.HeaderText = "Количество топлива";
-            this.fuelaccountamount.Name = "fuelaccountamount";
-            // 
-            // accountdate
-            // 
-            this.accountdate.HeaderText = "Дата проверки";
-            this.accountdate.Name = "accountdate";
-            this.accountdate.Width = 200;
             // 
             // tabCarTable
             // 
@@ -504,6 +470,7 @@
             // 
             this.dgvVievAZS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVievAZS.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.station_id,
             this.orgname,
             this.country,
             this.city,
@@ -513,6 +480,11 @@
             this.dgvVievAZS.Name = "dgvVievAZS";
             this.dgvVievAZS.Size = new System.Drawing.Size(545, 456);
             this.dgvVievAZS.TabIndex = 1;
+            // 
+            // station_id
+            // 
+            this.station_id.HeaderText = "ID";
+            this.station_id.Name = "station_id";
             // 
             // orgname
             // 
@@ -710,6 +682,41 @@
             this.lbSessionName.TabIndex = 3;
             this.lbSessionName.Text = "Сессия: admin";
             // 
+            // stationaccountID
+            // 
+            this.stationaccountID.HeaderText = "ID станции";
+            this.stationaccountID.Name = "stationaccountID";
+            this.stationaccountID.Width = 40;
+            // 
+            // stationadres
+            // 
+            this.stationadres.HeaderText = "Адрес станции";
+            this.stationadres.Name = "stationadres";
+            this.stationadres.Width = 150;
+            // 
+            // accountrole
+            // 
+            this.accountrole.HeaderText = "Тип операции";
+            this.accountrole.Name = "accountrole";
+            this.accountrole.Width = 150;
+            // 
+            // fuelaccounttype
+            // 
+            this.fuelaccounttype.HeaderText = "Тип топлива";
+            this.fuelaccounttype.Name = "fuelaccounttype";
+            this.fuelaccounttype.Width = 60;
+            // 
+            // fuelaccountamount
+            // 
+            this.fuelaccountamount.HeaderText = "Количество топлива";
+            this.fuelaccountamount.Name = "fuelaccountamount";
+            // 
+            // accountdate
+            // 
+            this.accountdate.HeaderText = "Дата проверки";
+            this.accountdate.Name = "accountdate";
+            this.accountdate.Width = 200;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -767,11 +774,6 @@
         private System.Windows.Forms.Button btnDealUpdate;
         private System.Windows.Forms.TabPage tabStationTable;
         private System.Windows.Forms.DataGridView dgvVievAZS;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orgname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn country;
-        private System.Windows.Forms.DataGridViewTextBoxColumn city;
-        private System.Windows.Forms.DataGridViewTextBoxColumn street;
-        private System.Windows.Forms.DataGridViewTextBoxColumn storagecap;
         private System.Windows.Forms.Button btnStationAdd;
         private System.Windows.Forms.DataGridViewTextBoxColumn car_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn cardnum;
@@ -787,14 +789,8 @@
         private System.Windows.Forms.Button btnTableDealView;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stationaccountID;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccountamount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccounttype;
-        private System.Windows.Forms.DataGridViewTextBoxColumn accountrole;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stationadres;
         private System.Windows.Forms.DataGridViewTextBoxColumn staffStationID;
         private System.Windows.Forms.DataGridViewTextBoxColumn salary;
         private System.Windows.Forms.DataGridViewTextBoxColumn function;
@@ -817,6 +813,18 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Button btnTableAccountingView;
         private System.Windows.Forms.ComboBox cbAccountingFilterByStation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn station_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn storagecap;
+        private System.Windows.Forms.DataGridViewTextBoxColumn street;
+        private System.Windows.Forms.DataGridViewTextBoxColumn city;
+        private System.Windows.Forms.DataGridViewTextBoxColumn country;
+        private System.Windows.Forms.DataGridViewTextBoxColumn orgname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountdate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccountamount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccounttype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accountrole;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationadres;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationaccountID;
     }
 }
 

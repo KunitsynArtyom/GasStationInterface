@@ -39,6 +39,7 @@ namespace Admin
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            MessageBox.Show("Добро пожаловать, администратор!");
             fillStationTable = new StationController(dgvVievAZS, factory);
             fillStationTable.ShowAdminTable();           
             fillStaffTable = new StaffController(dgvViewStaff, factory);
@@ -165,18 +166,28 @@ namespace Admin
 
         private void cbFilterByStation_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //cbDealFilterByStation.Items.Clear();
+            //fillComboBoxDeal.СbStationListFill();
             if (cbDealFilterByStation.SelectedIndex != -1)
             {
                 fillDealTable.FindDealsByStationID(factory.GetStationRepository().FindStationIDByLocation(cbDealFilterByStation.Text));
+                cbDealFilterByStation.Items.Clear();
+                fillComboBoxDeal.СbStationListFill();
             }
+            //cbDealFilterByStation.Items.Clear();
         }
 
         private void cbAccountingFilterByStation_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //cbAccountingFilterByStation.Items.Clear();
+            //fillComboBoxAccounting.СbStationListFill();
             if (cbAccountingFilterByStation.SelectedIndex != -1)
             {
                 fillAccountingTable.FilterBYStationID(factory.GetStationRepository().FindStationIDByLocation(cbAccountingFilterByStation.Text));
+                cbAccountingFilterByStation.Items.Clear();
+                fillComboBoxAccounting.СbStationListFill();
             }
+            //cbAccountingFilterByStation.Items.Clear();
         }
 
         private void btnTableAccountingView_Click(object sender, EventArgs e)

@@ -53,12 +53,12 @@ namespace Queries.Validators
             if (wk.GetFunction() == String.Empty)
             {
                 checkFlag = false;
-                errorList.Add("Назначение не задано!");
+                errorList.Add("Должность не задана!");
             }
             if (wk.GetSalary() < 500)
             {
                 checkFlag = false;
-                errorList.Add("Зарплата не может быть меньше 500 у.е!");
+                errorList.Add("Зарплата не может быть дробным числом или быть меньше 500 у.е!");
             }
 
             return checkFlag;
@@ -86,7 +86,7 @@ namespace Queries.Validators
             if (wk.GetFunction() == String.Empty)
             {
                 checkFlag = false;
-                errorList.Add("Назначение не задано!");
+                errorList.Add("Должность не задана!");
             }
             if (wk.GetSalary() < 500)
             {
