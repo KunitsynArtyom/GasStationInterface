@@ -107,13 +107,12 @@ namespace Queries.Repositories
             try
             {
                 dbc.openConnection();
-                MessageBox.Show(splittedLocation[2].ToString());
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country =" +
                   "'" + splittedLocation[0] + "' AND city =" + "'" + splittedLocation[1] + "'" + "AND street =" + "'" + splittedLocation[2] + "'" + "", dbc.getConnection());
-                
+
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
                 //  "'%" + splittedLocation[0] + "%' AND city LIKE" + "'%" + splittedLocation[1] + "%'" + "AND street LIKE" + "'%" + splittedLocation[2] + "%'" + "", dbc.getConnection());
-                
+
                 NpgsqlDataReader Station_ID_TableSearcher = queryCommand.ExecuteReader();
                 if (Station_ID_TableSearcher.HasRows)
                 {
@@ -243,15 +242,19 @@ namespace Queries.Repositories
         {
             for (int i = 1; i < street.Length; i++)
             {
-                if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
-                {
-                    street = street.Insert(i, " ");
-                }
                 if ((street[i] >= 'А' && street[i] <= 'Я') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
                 {
                     street = street.Insert(i, " ");
                 }
                 if ((street[i] >= 'A' && street[i] <= 'Z') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
+                {
+                    street = street.Insert(i, " ");
+                }
+                if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                {
+                    street = street.Insert(i, " ");
+                }
+                if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
                 {
                     street = street.Insert(i, " ");
                 }

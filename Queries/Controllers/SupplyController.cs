@@ -90,7 +90,11 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception)
+            {
+                checkFlag = false;
+                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return checkFlag;
         }
 

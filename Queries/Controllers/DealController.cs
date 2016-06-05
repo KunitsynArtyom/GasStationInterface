@@ -51,13 +51,15 @@ namespace Queries.dgvControllers
         {
             try
             {
+                
                 dgvElements = factory.GetDealRepository().ShowDealTable();
                 dgv.Rows.Clear();
                 foreach (Deal deal in dgvElements)
                 {
+                    string cardnum = factory.GetCarRepository().FindCardNumByCarID(deal.GetCar_id()); 
                     dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
                         factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(),
-                        deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+                        deal.GetDealPrice(), cardnum, deal.GetDealDate());
                 }
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -71,7 +73,7 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Deal deal in dgvElements)
                 {
-                    dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+                    dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), factory.GetCarRepository().FindCardNumByCarID(deal.GetCar_id()), deal.GetDealDate());
                 }
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -81,7 +83,7 @@ namespace Queries.dgvControllers
         {
             try
             {
-                dgvElements = factory.GetDealRepository().ShowUserDealTable(cardnum);
+                dgvElements = factory.GetDealRepository().ShowUserDealTable(factory.GetCarRepository().FindCarIDByCardnum(cardnum));
                 dgv.Rows.Clear();
                 foreach (Deal deal in dgvElements)
                 {
@@ -108,7 +110,7 @@ namespace Queries.dgvControllers
                         {
                             dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
                                 factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(),
-                                deal.GetDealPrice(), deal.GetCardNum(), deal.GetDealDate());
+                                deal.GetDealPrice(), factory.GetCarRepository().FindCardNumByCarID(deal.GetCar_id()), deal.GetDealDate());
                         }
                     }
                 }
@@ -148,7 +150,7 @@ namespace Queries.dgvControllers
         {
             bool checkFlag = false;
             try
-            {      
+            {
                 if (checkFlag = dealValidator.checkAddition(deal, out errorList))
                 {
                     factory.GetDealRepository().AddToDealTable(deal);

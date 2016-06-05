@@ -27,14 +27,14 @@ namespace Admin
         private AccountController fillAccountingTable;
         private DealController fillDealTable;
         private StationController fillStationTable;
+        private SupplyController fillSupplyTable;
         private ComboBoxDealFiller fillComboBoxDeal;
         private ComboBoxAccountingFiller fillComboBoxAccounting;
 
         public AdminForm(IRepositoryFactory factory)
         {
             InitializeComponent();
-            this.factory = factory;        
-            additionalForm = this;                 
+            this.factory = factory;                       
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -50,6 +50,8 @@ namespace Admin
             fillAccountingTable.ShowTable();
             fillDealTable = new DealController(dgvViewDeal, factory);
             fillDealTable.ShowTable();
+            fillSupplyTable = new SupplyController(dgvViewSupply, factory);
+            fillSupplyTable.ShowTable();
             fillComboBoxDeal = new ComboBoxDealFiller(cbDealFilterByStation, factory);
             fillComboBoxDeal.СbStationListFill();
             fillComboBoxAccounting = new ComboBoxAccountingFiller(cbAccountingFilterByStation, factory);
@@ -71,7 +73,7 @@ namespace Admin
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            AddToStaffTableForm addForm = new AddToStaffTableForm(additionalForm, factory, dgvViewStaff);
+            AddToStaffTableForm addForm = new AddToStaffTableForm(factory, dgvViewStaff);
             addForm.ShowDialog();
             fillStaffTable.ShowTable();
         }
@@ -193,6 +195,11 @@ namespace Admin
         private void btnTableAccountingView_Click(object sender, EventArgs e)
         {
             fillAccountingTable.ShowTable();
+        }
+
+        private void btnTableSupplyView_Click(object sender, EventArgs e)
+        {
+            fillSupplyTable.ShowTable();
         }
     }
 }

@@ -45,6 +45,7 @@
             this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.street = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabDealUserTable = new System.Windows.Forms.TabPage();
+            this.lbSessionName2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnShowUserDeal = new System.Windows.Forms.Button();
             this.dgvUserDeals = new System.Windows.Forms.DataGridView();
@@ -52,7 +53,6 @@
             this.fuelamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealprice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lbSessionName2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabAZSTable.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -174,6 +174,8 @@
             // 
             // dgvVievAZS
             // 
+            this.dgvVievAZS.AllowUserToAddRows = false;
+            this.dgvVievAZS.AllowUserToDeleteRows = false;
             this.dgvVievAZS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVievAZS.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.orgname,
@@ -218,6 +220,15 @@
             this.tabDealUserTable.Text = "Список сделок";
             this.tabDealUserTable.UseVisualStyleBackColor = true;
             // 
+            // lbSessionName2
+            // 
+            this.lbSessionName2.AutoSize = true;
+            this.lbSessionName2.Location = new System.Drawing.Point(6, 6);
+            this.lbSessionName2.Name = "lbSessionName2";
+            this.lbSessionName2.Size = new System.Drawing.Size(16, 13);
+            this.lbSessionName2.TabIndex = 10;
+            this.lbSessionName2.Text = "---";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnShowUserDeal);
@@ -234,7 +245,7 @@
             this.btnShowUserDeal.Name = "btnShowUserDeal";
             this.btnShowUserDeal.Size = new System.Drawing.Size(112, 54);
             this.btnShowUserDeal.TabIndex = 0;
-            this.btnShowUserDeal.Text = "Обноваить таблицу своих сделок";
+            this.btnShowUserDeal.Text = "Обновить таблицу своих сделок";
             this.btnShowUserDeal.UseVisualStyleBackColor = true;
             this.btnShowUserDeal.Click += new System.EventHandler(this.btnShowUserDeal_Click);
             // 
@@ -274,15 +285,6 @@
             this.dealdate.HeaderText = "Дата сделки";
             this.dealdate.Name = "dealdate";
             this.dealdate.Width = 150;
-            // 
-            // lbSessionName2
-            // 
-            this.lbSessionName2.AutoSize = true;
-            this.lbSessionName2.Location = new System.Drawing.Point(6, 6);
-            this.lbSessionName2.Name = "lbSessionName2";
-            this.lbSessionName2.Size = new System.Drawing.Size(16, 13);
-            this.lbSessionName2.TabIndex = 10;
-            this.lbSessionName2.Text = "---";
             // 
             // UserForm
             // 

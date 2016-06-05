@@ -18,7 +18,7 @@ namespace Queries.Entities
         public DateTime d_dealdate { private set; get; }
 
 
-        public void dealSet(int deal_id, int car_id, int staff_id, string fueltype, int fuelamount, int dealprice, string cardnum, DateTime dealdate)
+        public void dealSet(int deal_id, int car_id, int staff_id, string fueltype, int fuelamount, int dealprice, DateTime dealdate)
         {
             d_deal_id = deal_id;
             d_car_id = car_id;
@@ -26,7 +26,6 @@ namespace Queries.Entities
             d_fueltype = fueltype;
             d_fuelamount = fuelamount;
             d_dealprice = dealprice;
-            d_cardnum = cardnum;
             d_dealdate = dealdate;
         }
 
@@ -38,12 +37,12 @@ namespace Queries.Entities
             d_dealdate = dealdate;
         }
 
-        public void dealSet(string fueltype, int fuelamount, int dealprice, string cardnum, DateTime dealdate)
+        public void dealSet(int car_id, string fueltype, int fuelamount, int dealprice, DateTime dealdate)
         {
+            d_car_id = car_id;
             d_fueltype = fueltype;
             d_fuelamount = fuelamount;
             d_dealprice = dealprice;
-            d_cardnum = cardnum;
             d_dealdate = dealdate;
         }
 

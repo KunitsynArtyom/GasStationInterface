@@ -16,7 +16,7 @@ namespace Queries.Interfaces
     {
         List<Deal> ShowDealTable();
 
-        List<Deal> ShowUserDealTable(string cardnum);
+        List<Deal> ShowUserDealTable(int id);
 
         List<Deal> ShowWorkerDealTable(int id);
 

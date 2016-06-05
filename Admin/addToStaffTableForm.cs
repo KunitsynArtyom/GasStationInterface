@@ -93,7 +93,7 @@ namespace Admin
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
       
-        public AddToStaffTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
+        public AddToStaffTableForm(IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             this.factory = factory;

@@ -81,7 +81,6 @@ namespace Queries.Repositories
             catch (PostgresException pe)
             {
                 throw pe;
-                //MessageBox.Show(pe.ToString());
             }
             finally { dbc.closeConnection(); }
 

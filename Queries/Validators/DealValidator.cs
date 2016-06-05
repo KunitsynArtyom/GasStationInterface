@@ -45,11 +45,6 @@ namespace Queries.Validators
                 checkFlag = false;
                 errorList.Add("Цена сделки задана неверно!");
             }
-            if (deal.GetCardNum() == String.Empty)
-            {
-                checkFlag = false;
-                errorList.Add("Номер карты не выбран!");
-            }
 
             return checkFlag;
         }
@@ -58,6 +53,11 @@ namespace Queries.Validators
         {
             errorList = new List<string>();
             bool checkFlag = true;
+            if (deal.GetCar_id() < 0)
+            {
+                checkFlag = false;
+                errorList.Add("Покупатель не обнаружен!");
+            }
             if (deal.GetFuelType() == String.Empty)
             {
                 checkFlag = false;
@@ -72,11 +72,6 @@ namespace Queries.Validators
             {
                 checkFlag = false;
                 errorList.Add("Цена сделки задана неверно!");
-            }
-            if (deal.GetCardNum() == String.Empty)
-            {
-                checkFlag = false;
-                errorList.Add("Номер карты не выбран!");
             }
 
             return checkFlag;

@@ -19,7 +19,6 @@ namespace Worker
     {
         int ID;
         IRepositoryFactory factory;
-        public Form additionalForm;
         DealController fillDealTable;
         SupplyController fillSupplyTable;
 
@@ -28,7 +27,6 @@ namespace Worker
             InitializeComponent();
             this.ID = ID;
             this.factory = factory;
-            additionalForm = this;
         }
 
         private void WorkerForm_Load(object sender, EventArgs e)

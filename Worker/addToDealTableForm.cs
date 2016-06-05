@@ -117,7 +117,7 @@ namespace Worker
                 }
 
                 Deal deal = new Deal();
-                deal.dealSet(0, factory.GetCarRepository().FindCarIDByCardnum(cardnum), ID, fueltype, fuelamount, dealprice, cardnum, dealdate);
+                deal.dealSet(0, factory.GetCarRepository().FindCarIDByCardnum(cardnum), ID, fueltype, fuelamount, dealprice, dealdate);
                 DealController dealController = new DealController(dgv, factory);
                 if (dealController.AddToTable(deal))
                 {

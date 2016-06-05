@@ -26,13 +26,12 @@ namespace Admin
         private DataGridView dgv;
         private int hours, minutes;
         private string fuelType, cardNum;
+        private DateTime dealDate;
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }
-
-        private DateTime dealDate;
+        }  
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -86,7 +85,7 @@ namespace Admin
                 }
 
                 Deal deal = new Deal();
-                deal.dealSet(fuelType, fuelAmount, dealPrice, cardNum, dealDate);
+                deal.dealSet( factory.GetCarRepository().FindCarIDByCardnum(cardNum), fuelType, fuelAmount, dealPrice, dealDate);
                 var cell = dgv[0, dgv.CurrentRow.Index];
                 int id = Convert.ToInt32(cell.Value);
                 DealController dgds = new DealController(dgv, factory);
@@ -109,19 +108,26 @@ namespace Admin
 
         private void updateDealTableForm_Load(object sender, EventArgs e)
         {
-            tbFuelamount.Text = updateRow.Cells["fuelamount"].Value.ToString();
-            tbDealprice.Text = updateRow.Cells["dealprice"].Value.ToString();
-            dealDate = Convert.ToDateTime(updateRow.Cells["dealdate"].Value);
-            cbFuelType.Items.Add("A92");
-            cbFuelType.Items.Add("A95");
-            cbFuelType.Items.Add("A95+");
+            try
+            {
+                tbFuelamount.Text = updateRow.Cells["fuelamount"].Value.ToString();
+                tbDealprice.Text = updateRow.Cells["dealprice"].Value.ToString();
+                dealDate = Convert.ToDateTime(updateRow.Cells["dealdate"].Value);
+                cbFuelType.Items.Add("A92");
+                cbFuelType.Items.Add("A95");
+                cbFuelType.Items.Add("A95+");
 
-            cbFuelType.SelectedItem = updateRow.Cells["fueltype"].Value.ToString().Trim().Replace(" ", string.Empty);
 
-            ComboBoxDealFiller comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
-            comboBoxDealFiller.СbCardnumFill();
-
-            cbCardNum.SelectedItem = updateRow.Cells["buyercard"].Value.ToString().Trim().Replace(" ", string.Empty);
+                cbFuelType.SelectedItem = updateRow.Cells["fueltype"].Value.ToString().Trim().Replace(" ", string.Empty);
+                
+                ComboBoxDealFiller comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
+                comboBoxDealFiller.СbCardnumFill(); 
+                cbCardNum.SelectedItem = updateRow.Cells["buyercard"].Value.ToString().Trim().Replace(" ", string.Empty);
+                //cbCardNum.SelectedItem = factory.GetCarRepository().FindCarIDByCardnum(updateRow.Cells["buyercard"].Value.ToString());
+                
+         
+            }
+            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
     }
 }

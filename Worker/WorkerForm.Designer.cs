@@ -117,6 +117,8 @@
             // 
             // dgvVievDeal
             // 
+            this.dgvVievDeal.AllowUserToAddRows = false;
+            this.dgvVievDeal.AllowUserToDeleteRows = false;
             this.dgvVievDeal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVievDeal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.fueltype,
@@ -174,16 +176,16 @@
             this.groupBox2.Controls.Add(this.btnAddSupply);
             this.groupBox2.Location = new System.Drawing.Point(571, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(139, 111);
+            this.groupBox2.Size = new System.Drawing.Size(139, 149);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Функционал";
             // 
             // btnSupplyUpdate
             // 
-            this.btnSupplyUpdate.Location = new System.Drawing.Point(3, 19);
+            this.btnSupplyUpdate.Location = new System.Drawing.Point(6, 19);
             this.btnSupplyUpdate.Name = "btnSupplyUpdate";
-            this.btnSupplyUpdate.Size = new System.Drawing.Size(130, 40);
+            this.btnSupplyUpdate.Size = new System.Drawing.Size(130, 60);
             this.btnSupplyUpdate.TabIndex = 2;
             this.btnSupplyUpdate.Text = "Обновить таблицу подвоза";
             this.btnSupplyUpdate.UseVisualStyleBackColor = true;
@@ -191,9 +193,9 @@
             // 
             // btnAddSupply
             // 
-            this.btnAddSupply.Location = new System.Drawing.Point(3, 65);
+            this.btnAddSupply.Location = new System.Drawing.Point(6, 85);
             this.btnAddSupply.Name = "btnAddSupply";
-            this.btnAddSupply.Size = new System.Drawing.Size(130, 40);
+            this.btnAddSupply.Size = new System.Drawing.Size(130, 60);
             this.btnAddSupply.TabIndex = 1;
             this.btnAddSupply.Text = "Оформить поставку";
             this.btnAddSupply.UseVisualStyleBackColor = true;

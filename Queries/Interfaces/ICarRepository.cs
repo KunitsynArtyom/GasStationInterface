@@ -22,5 +22,7 @@ namespace Queries.Interfaces
 
         int FindCarIDByCardnum(string cardnum);
 
+        string FindCardNumByCarID(int id);
+
     }
 }

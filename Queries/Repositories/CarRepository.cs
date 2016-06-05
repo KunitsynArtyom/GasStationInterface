@@ -81,6 +81,34 @@ namespace Queries.Repositories
             return car_id;
         }
 
+        public string FindCardNumByCarID(int id)
+        {
+            string cardnum = String.Empty;
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT cardnum FROM \"AZS\".\"Car\" WHERE car_id = @Car_id", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Car_id", id);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        cardnum = dbDataRecord["cardnum"].ToString();
+                    }
+                }
+                AZSTableReader.Close();
+            }
+            catch (PostgresException pe)
+            {
+                throw pe;
+            }
+            finally { dbc.closeConnection(); }
+
+            return cardnum;
+        }
+
+
         public List<string> GetCardNumList()
         {
             List<string> comboBoxElements = new List<string>();

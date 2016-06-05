@@ -59,7 +59,7 @@ namespace Admin
                 }
                 else
                 {
-                    MessageBox.Show("Название улицы введено неверно! Упущен паттерн ввода!");
+                    MessageBox.Show("Название улицы введено неверно!");
                 }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }

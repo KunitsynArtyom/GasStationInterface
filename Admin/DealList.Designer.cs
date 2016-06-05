@@ -38,6 +38,8 @@
             // 
             // dgvDealList
             // 
+            this.dgvDealList.AllowUserToAddRows = false;
+            this.dgvDealList.AllowUserToDeleteRows = false;
             this.dgvDealList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDealList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.fueltype,
@@ -46,7 +48,7 @@
             this.dealdate});
             this.dgvDealList.Location = new System.Drawing.Point(12, 12);
             this.dgvDealList.Name = "dgvDealList";
-            this.dgvDealList.Size = new System.Drawing.Size(447, 272);
+            this.dgvDealList.Size = new System.Drawing.Size(449, 272);
             this.dgvDealList.TabIndex = 0;
             // 
             // fueltype

@@ -37,11 +37,14 @@ namespace Queries.dgvControllers
             {
                 dgvElements = factory.GetStaffRepository().GetStaff();
                 dgv.Rows.Clear();
-                foreach (Worker wk in dgvElements)
+                if (dgvElements.Count != 0)
                 {
-                    dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(),
-                        factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaff_id())).Trim().Replace(" ", string.Empty),
-                        wk.GetGender(), wk.GetFunction(), wk.GetSalary());
+                    foreach (Worker wk in dgvElements)
+                    {
+                        dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(),
+                            factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                            wk.GetGender(), wk.GetFunction(), wk.GetSalary());
+                    }
                 }
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -67,7 +70,11 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception)
+            {
+                checkFlag = false;
+                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return checkFlag;
         }
 
@@ -91,7 +98,11 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception)
+            {
+                checkFlag = false;
+                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return checkFlag;
         }
 
@@ -115,7 +126,11 @@ namespace Queries.dgvControllers
                     MessageBox.Show(error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (Exception)
+            {
+                checkFlag = false;
+                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return checkFlag;
         }
     }
