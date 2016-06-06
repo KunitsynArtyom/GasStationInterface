@@ -25,7 +25,7 @@ namespace Queries.Entities
             a_accountdate = accountdate;
         }
 
-        public int GetStation_id() => a_station_id;
+        public int GetStationID() => a_station_id;
         public string GetStationAdres() => a_station_adres;
         public string GetAccountRole() => a_accountrole;
         public string GetFuelAccountType() => a_fuelaccounttype;

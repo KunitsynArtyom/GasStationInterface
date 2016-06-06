@@ -162,7 +162,7 @@ namespace Queries.Repositories
                 dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = @Car_id", dbc.getConnection());
                 //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT fueltype, fuelamount, dealprice, dealdate FROM \"AZS\".\"Deal\" WHERE car_id = '" + car.GetCar_id() + "' ", dbc.getConnection());
-                queryCommand.Parameters.AddWithValue("@Car_id", car.GetCar_id());
+                queryCommand.Parameters.AddWithValue("@Car_id", car.GetCarID());
                 AZSTableReader = queryCommand.ExecuteReader();
                 //NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
                 if (AZSTableReader.HasRows)
@@ -193,11 +193,10 @@ namespace Queries.Repositories
                 dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Deal\" SET car_id = @Car_id, fueltype = @Fueltype, fuelamount = @Fuelamount, dealprice = @DealPrice," +
                     "dealdate = @DealDate WHERE deal_id = @Deal_id ", dbc.getConnection());
-                queryCommand.Parameters.AddWithValue("@Car_id", deal.GetCar_id());
+                queryCommand.Parameters.AddWithValue("@Car_id", deal.GetCarID());
                 queryCommand.Parameters.AddWithValue("@Fueltype", deal.GetFuelType());
                 queryCommand.Parameters.AddWithValue("@Fuelamount", deal.GetFuelAmount());
                 queryCommand.Parameters.AddWithValue("@DealPrice", deal.GetDealPrice());
-                //queryCommand.Parameters.AddWithValue("@Cardnum", deal.GetCardNum());
                 queryCommand.Parameters.AddWithValue("@DealDate", deal.GetDealDate());
                 queryCommand.Parameters.AddWithValue("@Deal_id", id);
                 queryCommand.ExecuteNonQuery();
@@ -217,7 +216,7 @@ namespace Queries.Repositories
                 dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Deal\"(Car_ID , Staff_ID , FuelType , FuelAmount , DealPrice , DealDate)" +
                         "VALUES(@Car_id, @Staff_id, @FuelType, @FuelAmount, @DealPrice, @DealDate)", dbc.getConnection());
-                queryCommand.Parameters.AddWithValue("@Car_id", deal.GetCar_id());
+                queryCommand.Parameters.AddWithValue("@Car_id", deal.GetCarID());
                 queryCommand.Parameters.AddWithValue("@Staff_id", deal.GetStaff_id());
                 queryCommand.Parameters.AddWithValue("@FuelType", deal.GetFuelType());
                 queryCommand.Parameters.AddWithValue("@FuelAmount", deal.GetFuelAmount());

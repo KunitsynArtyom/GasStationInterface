@@ -76,6 +76,7 @@ namespace Enter
                     MessageBox.Show("Пользователь не найден!");
 
                 role = role.Trim().Replace(" ", string.Empty);
+                MessageBox.Show(lc.GetDBPassWordByRole(role));
                 rolePass = SecurityCrypt.DESDecrypt(lc.GetDBPassWordByRole(role), SecurityConst.cryptKey);
                 MessageBox.Show(rolePass);
 

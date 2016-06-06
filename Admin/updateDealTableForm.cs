@@ -80,22 +80,45 @@ namespace Admin
                 }
                 else
                 {
-                    dealDate = DateTime.Now;
-                    MessageBox.Show("Неверный формат времени! Выставлено текущее время!");
+                    dealDate = Convert.ToDateTime(updateRow.Cells["dealdate"].Value);
                 }
 
                 Deal deal = new Deal();
-                deal.dealSet( factory.GetCarRepository().FindCarIDByCardnum(cardNum), fuelType, fuelAmount, dealPrice, dealDate);
+                deal.dealSet(factory.GetCarRepository().FindCarIDByCardnum(cardNum), fuelType, fuelAmount, dealPrice, dealDate);
                 var cell = dgv[0, dgv.CurrentRow.Index];
                 int id = Convert.ToInt32(cell.Value);
-                DealController dgds = new DealController(dgv, factory);
-                if (dgds.UpdateTable(id, deal))
+                DealController dealController = new DealController(dgv, factory);
+                if (dealController.UpdateTable(id, deal))
                 {
                     MessageBox.Show("Операция выполнена успешно!");
                     Close();
                 }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        private void tbFuelamount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbDealprice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbHours_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbMinutes_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
         }
 
         public UpdateDealTableForm(DataGridViewRow updateRow, IRepositoryFactory factory, DataGridView dgv)
@@ -122,10 +145,7 @@ namespace Admin
                 
                 ComboBoxDealFiller comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
                 comboBoxDealFiller.СbCardnumFill(); 
-                cbCardNum.SelectedItem = updateRow.Cells["buyercard"].Value.ToString().Trim().Replace(" ", string.Empty);
-                //cbCardNum.SelectedItem = factory.GetCarRepository().FindCarIDByCardnum(updateRow.Cells["buyercard"].Value.ToString());
-                
-         
+                cbCardNum.SelectedItem = updateRow.Cells["buyercard"].Value.ToString().Trim().Replace(" ", string.Empty);              
             }
             catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }

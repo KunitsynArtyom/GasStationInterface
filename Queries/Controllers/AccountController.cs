@@ -40,11 +40,18 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Account account in dgvElements)
                 {
-                    dgv.Rows.Add(account.GetStation_id(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
+                    dgv.Rows.Add(account.GetStationID(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
                         account.GetFuelAccountAmount(), account.GetAccountDate());
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void FilterBYStationID(int id)
@@ -55,11 +62,18 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Account account in dgvElements)
                 {
-                    dgv.Rows.Add(account.GetStation_id(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
+                    dgv.Rows.Add(account.GetStationID(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
                         account.GetFuelAccountAmount(), account.GetAccountDate());
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

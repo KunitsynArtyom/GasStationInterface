@@ -60,11 +60,36 @@ namespace Admin
             catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
+        private void tbSurname_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbSalary_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
-                station_id = factory.GetStationRepository().FindStationIDByLocation(cbStationList.Text);
+                try
+                {
+                    station_id = factory.GetStationRepository().FindStationIDByLocation(cbStationList.Text);
+                } catch(Exception) { station_id = -1; }
+                if (station_id == 0)
+                {
+                    station_id = -1;
+                }
                 surname = tbSurname.Text;
                 name = tbName.Text;
                 if (cbGender.SelectedIndex != -1)
@@ -74,7 +99,6 @@ namespace Admin
                 else gender = String.Empty;
                 birthdate = Convert.ToDateTime(birthDatePick.Text);
                 function = tbFunction.Text;
-                //salary = Convert.ToInt32(tbSalary.Text);
                 int salary;
                 bool checkStorageCap = Int32.TryParse(tbSalary.Text, out salary);
                 if (!checkStorageCap)

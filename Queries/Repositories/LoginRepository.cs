@@ -116,7 +116,7 @@ namespace Queries.Repositories
             }
             catch (PostgresException pe)
             {
-                throw pe;
+                throw pe;          
             }
             finally { dbc.closeConnection(); }
 

@@ -50,6 +50,7 @@
             this.tbSurname.Name = "tbSurname";
             this.tbSurname.Size = new System.Drawing.Size(167, 20);
             this.tbSurname.TabIndex = 2;
+            this.tbSurname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSurname_KeyPress);
             // 
             // tbName
             // 
@@ -57,6 +58,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(167, 20);
             this.tbName.TabIndex = 3;
+            this.tbName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbName_KeyPress);
             // 
             // tbFunction
             // 
@@ -71,6 +73,7 @@
             this.tbSalary.Name = "tbSalary";
             this.tbSalary.Size = new System.Drawing.Size(167, 20);
             this.tbSalary.TabIndex = 8;
+            this.tbSalary.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSalary_KeyPress);
             // 
             // label3
             // 
@@ -128,7 +131,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(246, 168);
+            this.btnAdd.Location = new System.Drawing.Point(246, 175);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 18;
@@ -138,7 +141,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(154, 168);
+            this.btnCancel.Location = new System.Drawing.Point(154, 175);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;

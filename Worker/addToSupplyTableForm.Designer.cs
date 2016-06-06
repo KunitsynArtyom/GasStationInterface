@@ -49,6 +49,7 @@
             this.tbFuelAmount.Name = "tbFuelAmount";
             this.tbFuelAmount.Size = new System.Drawing.Size(146, 20);
             this.tbFuelAmount.TabIndex = 1;
+            this.tbFuelAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbFuelAmount_KeyPress);
             // 
             // supplyDateTimePick
             // 
@@ -148,6 +149,7 @@
             this.tbMinutes.Name = "tbMinutes";
             this.tbMinutes.Size = new System.Drawing.Size(23, 20);
             this.tbMinutes.TabIndex = 56;
+            this.tbMinutes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbMinutes_KeyPress);
             // 
             // tbHours
             // 
@@ -155,8 +157,9 @@
             this.tbHours.Name = "tbHours";
             this.tbHours.Size = new System.Drawing.Size(23, 20);
             this.tbHours.TabIndex = 55;
+            this.tbHours.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbHours_KeyPress);
             // 
-            // addToSupplyTableForm
+            // AddToSupplyTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -174,7 +177,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.supplyDateTimePick);
             this.Controls.Add(this.tbFuelAmount);
-            this.Name = "addToSupplyTableForm";
+            this.Name = "AddToSupplyTableForm";
             this.Text = "Добавление отчета о поставке топлива";
             this.Load += new System.EventHandler(this.addToSupplyTableForm_Load);
             this.ResumeLayout(false);

@@ -10,7 +10,7 @@ namespace Queries.Security
 {
     public static class SecurityCrypt
     {
-        public static string DESEncrypt(string originalString, string key, string iv = "DZuNp0aT")
+        public static string DESEncrypt(string originalString, string key, string iv = "AsdawghT")
         {
             byte[] b_key = Encoding.UTF8.GetBytes(key);
             byte[] b_iv = Encoding.UTF8.GetBytes(iv);
@@ -31,7 +31,7 @@ namespace Queries.Security
             writer.Flush();
             return Convert.ToBase64String(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
         }
-        public static string DESDecrypt(string cryptedString, string key, string iv = "DZuNp0aT")
+        public static string DESDecrypt(string cryptedString, string key, string iv = "AsdawghT")
         {
             byte[] b_key = Encoding.UTF8.GetBytes(key);
             byte[] b_iv = Encoding.UTF8.GetBytes(iv);

@@ -23,8 +23,8 @@ namespace Queries.Entities
             s_supplydate = supplydate;
         }
 
-        public int GetStation_id() => s_station_id;
-        public int GetStaff_id() => s_staff_id;
+        public int GetStationID() => s_station_id;
+        public int GetStaffID() => s_staff_id;
         public string GetFuelSupplyType() => s_fuelsupplytype;
         public int GetFuelSupplyAmount() => s_fuelsupplyamount;
         public DateTime GetSupplyDate() => s_supplydate;

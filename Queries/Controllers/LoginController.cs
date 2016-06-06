@@ -56,7 +56,14 @@ namespace Queries.Validators
             {
                 passWord = factory.GetLoginRepository().GetRolePass(role);
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!"); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             return passWord;
         }
@@ -78,10 +85,19 @@ namespace Queries.Validators
                         k++;
                         error += "Ошибка №" + k + ": " + str + " \n";
                     }
-                    MessageBox.Show(error);
+                    MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception) { MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                checkFlag = false;
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                checkFlag = false;
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return checkFlag;
         }
     }

@@ -96,16 +96,19 @@ namespace Queries.Repositories
         public int FindStationIDByLocation(string location)
         {
             int station_id = 0;
-            List<string> splittedLocation = new List<string>();
-            string[] split = location.Split(new Char[] { ',' });
-            foreach (string s in split)
-            {
-                splittedLocation.Add(s);
-            }
-            splittedLocation[2] = CheckRigthStreet(splittedLocation[2]);
-
             try
             {
+
+                List<string> splittedLocation = new List<string>();
+                if (location != String.Empty)
+                {
+                    string[] split = location.Split(new Char[] { ',' });
+                    foreach (string s in split)
+                    {
+                        splittedLocation.Add(s);
+                    }
+                    splittedLocation[2] = CheckRigthStreet(splittedLocation[2]);
+                }
                 dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country =" +
                   "'" + splittedLocation[0] + "' AND city =" + "'" + splittedLocation[1] + "'" + "AND street =" + "'" + splittedLocation[2] + "'" + "", dbc.getConnection());
@@ -117,15 +120,15 @@ namespace Queries.Repositories
                 if (Station_ID_TableSearcher.HasRows)
                 {
                     foreach (DbDataRecord dbDataRecord in Station_ID_TableSearcher)
-                    {                   
+                    {
                         station_id = Convert.ToInt32(dbDataRecord["station_id"]);
-                    }            
+                    }
                 }
                 Station_ID_TableSearcher.Close();
             }
             catch (PostgresException pe)
             {
-                throw pe;
+                //throw pe;
             }
             finally { dbc.closeConnection(); }
             return station_id;
@@ -240,25 +243,29 @@ namespace Queries.Repositories
 
         private string CheckRigthStreet(string street)
         {
-            for (int i = 1; i < street.Length; i++)
+            try
             {
-                if ((street[i] >= 'А' && street[i] <= 'Я') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                for (int i = 1; i < street.Length; i++)
                 {
-                    street = street.Insert(i, " ");
-                }
-                if ((street[i] >= 'A' && street[i] <= 'Z') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
-                {
-                    street = street.Insert(i, " ");
-                }
-                if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
-                {
-                    street = street.Insert(i, " ");
-                }
-                if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
-                {
-                    street = street.Insert(i, " ");
+                    if ((street[i] >= 'А' && street[i] <= 'Я') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                    {
+                        street = street.Insert(i, " ");
+                    }
+                    if ((street[i] >= 'A' && street[i] <= 'Z') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
+                    {
+                        street = street.Insert(i, " ");
+                    }
+                    if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'а' && street[i - 1] <= 'я'))
+                    {
+                        street = street.Insert(i, " ");
+                    }
+                    if ((street[i] >= '0' && street[i] <= '9') && (street[i - 1] >= 'a' && street[i - 1] <= 'z'))
+                    {
+                        street = street.Insert(i, " ");
+                    }
                 }
             }
+            catch (Exception) { };
             return street;
         }
     }

@@ -265,7 +265,7 @@
             this.btnTableCarView.Name = "btnTableCarView";
             this.btnTableCarView.Size = new System.Drawing.Size(190, 60);
             this.btnTableCarView.TabIndex = 5;
-            this.btnTableCarView.Text = "Обновить таблицу покупателей";
+            this.btnTableCarView.Text = "Обновить список покупателей";
             this.btnTableCarView.UseVisualStyleBackColor = true;
             this.btnTableCarView.Click += new System.EventHandler(this.btnTableCarView_Click);
             // 
@@ -373,7 +373,7 @@
             this.btnTableStaffView.Name = "btnTableStaffView";
             this.btnTableStaffView.Size = new System.Drawing.Size(190, 60);
             this.btnTableStaffView.TabIndex = 1;
-            this.btnTableStaffView.Text = "Обновить таблицу персонала";
+            this.btnTableStaffView.Text = "Обновить список персонала";
             this.btnTableStaffView.UseVisualStyleBackColor = true;
             this.btnTableStaffView.Click += new System.EventHandler(this.btnTableView_Click);
             // 
@@ -506,7 +506,7 @@
             this.btnTableStationView.Name = "btnTableStationView";
             this.btnTableStationView.Size = new System.Drawing.Size(190, 60);
             this.btnTableStationView.TabIndex = 3;
-            this.btnTableStationView.Text = "Обновить таблицу станций";
+            this.btnTableStationView.Text = "Обновить список станций";
             this.btnTableStationView.UseVisualStyleBackColor = true;
             this.btnTableStationView.Click += new System.EventHandler(this.btnTableStationView_Click);
             // 
@@ -617,7 +617,7 @@
             this.btnTableDealView.Name = "btnTableDealView";
             this.btnTableDealView.Size = new System.Drawing.Size(190, 60);
             this.btnTableDealView.TabIndex = 3;
-            this.btnTableDealView.Text = "Обновить таблицу сделок";
+            this.btnTableDealView.Text = "Обновить список сделок";
             this.btnTableDealView.UseVisualStyleBackColor = true;
             this.btnTableDealView.Click += new System.EventHandler(this.btnTableDealView_Click);
             // 
@@ -706,7 +706,7 @@
             this.tabSupplyTable.Name = "tabSupplyTable";
             this.tabSupplyTable.Size = new System.Drawing.Size(820, 462);
             this.tabSupplyTable.TabIndex = 5;
-            this.tabSupplyTable.Text = "Таблица поставок";
+            this.tabSupplyTable.Text = "Список поставок";
             this.tabSupplyTable.UseVisualStyleBackColor = true;
             // 
             // groupBox8
@@ -725,7 +725,7 @@
             this.btnTableSupplyView.Name = "btnTableSupplyView";
             this.btnTableSupplyView.Size = new System.Drawing.Size(140, 50);
             this.btnTableSupplyView.TabIndex = 0;
-            this.btnTableSupplyView.Text = "Обноваить таблицу";
+            this.btnTableSupplyView.Text = "Обновить список поставок";
             this.btnTableSupplyView.UseVisualStyleBackColor = true;
             this.btnTableSupplyView.Click += new System.EventHandler(this.btnTableSupplyView_Click);
             // 

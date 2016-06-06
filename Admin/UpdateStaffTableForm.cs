@@ -33,6 +33,24 @@ namespace Admin
             this.dgv = dgv;
         }
 
+        private void tbSurname_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbSalary_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
         private void updateStaffTableForm_Load(object sender, EventArgs e)
         {
             tbSurname.Text = updateRow.Cells["surname"].Value.ToString().Trim().Replace(" ", string.Empty);

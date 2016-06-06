@@ -31,7 +31,7 @@ namespace Queries.Validators
         {
             errorList = new List<string>();
             bool checkFlag = true;
-            if (wk.GetStation_id() <= 0)
+            if (wk.GetStationID() <= 0)
             {
                 checkFlag = false;
             }

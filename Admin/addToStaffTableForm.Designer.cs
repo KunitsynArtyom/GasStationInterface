@@ -54,6 +54,7 @@
             this.tbSurname.Name = "tbSurname";
             this.tbSurname.Size = new System.Drawing.Size(167, 20);
             this.tbSurname.TabIndex = 2;
+            this.tbSurname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSurname_KeyPress);
             // 
             // tbName
             // 
@@ -61,6 +62,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(167, 20);
             this.tbName.TabIndex = 3;
+            this.tbName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbName_KeyPress);
             // 
             // tbFunction
             // 
@@ -75,6 +77,7 @@
             this.tbSalary.Name = "tbSalary";
             this.tbSalary.Size = new System.Drawing.Size(167, 20);
             this.tbSalary.TabIndex = 8;
+            this.tbSalary.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSalary_KeyPress);
             // 
             // label3
             // 

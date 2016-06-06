@@ -31,11 +31,11 @@ namespace Queries.Validators
         {
             errorList = new List<string>();
             bool checkFlag = true;
-            if (sup.GetStation_id() < 0)
+            if (sup.GetStationID() < 0)
             {
                 checkFlag = false;
             }
-            if (sup.GetStaff_id() < 0)
+            if (sup.GetStaffID() < 0)
             {
                 checkFlag = false;
             }

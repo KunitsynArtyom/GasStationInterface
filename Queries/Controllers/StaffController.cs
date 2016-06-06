@@ -41,13 +41,20 @@ namespace Queries.dgvControllers
                 {
                     foreach (Worker wk in dgvElements)
                     {
-                        dgv.Rows.Add(wk.GetStaff_id(), wk.GetSurname(), wk.GetName(),
-                            factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                        dgv.Rows.Add(wk.GetStaffID(), wk.GetSurname(), wk.GetName(),
+                            factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaffID())).Trim().Replace(" ", string.Empty),
                             wk.GetGender(), wk.GetFunction(), wk.GetSalary());
                     }
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public bool AddToTable(Worker wk)
@@ -67,13 +74,18 @@ namespace Queries.dgvControllers
                         k++;
                         error += "Ошибка №" + k + ": " + str + " \n";
                     }
-                    MessageBox.Show(error);
+                    MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (PostgresException pe)
+            {
+                checkFlag = false;
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception)
             {
                 checkFlag = false;
-                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return checkFlag;
         }
@@ -95,13 +107,18 @@ namespace Queries.dgvControllers
                         k++;
                         error += "Ошибка №" + k + ": " + str + " \n";
                     }
-                    MessageBox.Show(error);
+                    MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (PostgresException pe)
+            {
+                checkFlag = false;
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception)
             {
                 checkFlag = false;
-                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return checkFlag;
         }
@@ -123,13 +140,18 @@ namespace Queries.dgvControllers
                         k++;
                         error += "Ошибка №" + k + ": " + str + " \n";
                     }
-                    MessageBox.Show(error);
+                    MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (PostgresException pe)
+            {
+                checkFlag = false;
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception)
             {
                 checkFlag = false;
-                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return checkFlag;
         }

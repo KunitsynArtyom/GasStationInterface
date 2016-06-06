@@ -50,8 +50,8 @@ namespace Queries.Entities
             w_salary = salary;
         }
 
-        public int GetStaff_id() => w_staff_id;
-        public int GetStation_id() => w_station_id;
+        public int GetStaffID() => w_staff_id;
+        public int GetStationID() => w_station_id;
         public string GetSurname() => w_surname;
         public string GetName() => w_name;
         public string GetGender() => w_gender;

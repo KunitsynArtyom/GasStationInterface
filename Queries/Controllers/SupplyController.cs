@@ -45,10 +45,14 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Supply supply in dgvElements)
                 {
-                    int station_id = supply.GetStation_id();
-                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                    int station_id = supply.GetStationID();
+                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaffID()), supply.GetFuelSupplyType(),
                         supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
                 }
+            }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
@@ -62,10 +66,14 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Supply supply in dgvElements)
                 {
-                    int station_id = supply.GetStation_id();
-                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaff_id()), supply.GetFuelSupplyType(),
+                    int station_id = supply.GetStationID();
+                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaffID()), supply.GetFuelSupplyType(),
                         supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
                 }
+            }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
@@ -87,8 +95,13 @@ namespace Queries.dgvControllers
                         k++;
                         error += "Ошибка №" + k + ": " + str + " \n";
                     }
-                    MessageBox.Show(error);
+                    MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (PostgresException pe)
+            {
+                checkFlag = false;
+                MessageBox.Show(pe.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception)
             {

@@ -46,8 +46,8 @@ namespace Queries.Entities
             d_dealdate = dealdate;
         }
 
-        public int GetDeal_id() => d_deal_id;
-        public int GetCar_id() => d_car_id;
+        public int GetDealID() => d_deal_id;
+        public int GetCarID() => d_car_id;
         public int GetStaff_id() => d_staff_id;
         public string GetFuelType() => d_fueltype;
         public int GetFuelAmount() => d_fuelamount;

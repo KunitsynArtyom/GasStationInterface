@@ -48,6 +48,7 @@
             this.tbOrgName.Name = "tbOrgName";
             this.tbOrgName.Size = new System.Drawing.Size(138, 20);
             this.tbOrgName.TabIndex = 0;
+            this.tbOrgName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbOrgName_KeyPress);
             // 
             // tbCountry
             // 
@@ -55,6 +56,7 @@
             this.tbCountry.Name = "tbCountry";
             this.tbCountry.Size = new System.Drawing.Size(138, 20);
             this.tbCountry.TabIndex = 1;
+            this.tbCountry.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCountry_KeyPress);
             // 
             // tbCity
             // 
@@ -62,6 +64,7 @@
             this.tbCity.Name = "tbCity";
             this.tbCity.Size = new System.Drawing.Size(138, 20);
             this.tbCity.TabIndex = 2;
+            this.tbCity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCity_KeyPress);
             // 
             // tbStreet
             // 
@@ -69,6 +72,7 @@
             this.tbStreet.Name = "tbStreet";
             this.tbStreet.Size = new System.Drawing.Size(138, 20);
             this.tbStreet.TabIndex = 3;
+            this.tbStreet.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbStreet_KeyPress);
             // 
             // tbStorageCap
             // 
@@ -76,6 +80,7 @@
             this.tbStorageCap.Name = "tbStorageCap";
             this.tbStorageCap.Size = new System.Drawing.Size(138, 20);
             this.tbStorageCap.TabIndex = 4;
+            this.tbStorageCap.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbStorageCap_KeyPress);
             // 
             // label1
             // 
@@ -124,7 +129,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(217, 152);
+            this.btnAdd.Location = new System.Drawing.Point(217, 154);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 10;

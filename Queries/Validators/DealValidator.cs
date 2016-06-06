@@ -53,7 +53,7 @@ namespace Queries.Validators
         {
             errorList = new List<string>();
             bool checkFlag = true;
-            if (deal.GetCar_id() < 0)
+            if (deal.GetCarID() < 0)
             {
                 checkFlag = false;
                 errorList.Add("Покупатель не обнаружен!");

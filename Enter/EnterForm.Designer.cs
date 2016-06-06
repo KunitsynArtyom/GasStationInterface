@@ -28,23 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAdminLog = new System.Windows.Forms.Button();
             this.tbLogin = new System.Windows.Forms.TextBox();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.lbLogin = new System.Windows.Forms.Label();
             this.lbPass = new System.Windows.Forms.Label();
+            this.btnAdminLog = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnAdminLog
-            // 
-            this.btnAdminLog.Location = new System.Drawing.Point(12, 104);
-            this.btnAdminLog.Name = "btnAdminLog";
-            this.btnAdminLog.Size = new System.Drawing.Size(129, 23);
-            this.btnAdminLog.TabIndex = 1;
-            this.btnAdminLog.Text = "Суперпользователь";
-            this.btnAdminLog.UseVisualStyleBackColor = true;
-            this.btnAdminLog.Click += new System.EventHandler(this.btnAdminLog_Click);
             // 
             // tbLogin
             // 
@@ -88,6 +78,16 @@
             this.lbPass.TabIndex = 7;
             this.lbPass.Text = "Пароль:";
             // 
+            // btnAdminLog
+            // 
+            this.btnAdminLog.Location = new System.Drawing.Point(12, 104);
+            this.btnAdminLog.Name = "btnAdminLog";
+            this.btnAdminLog.Size = new System.Drawing.Size(129, 23);
+            this.btnAdminLog.TabIndex = 1;
+            this.btnAdminLog.Text = "Суперпользователь";
+            this.btnAdminLog.UseVisualStyleBackColor = true;
+            this.btnAdminLog.Click += new System.EventHandler(this.btnAdminLog_Click);
+            // 
             // EnterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,12 +107,12 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnAdminLog;
         private System.Windows.Forms.TextBox tbLogin;
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label lbLogin;
         private System.Windows.Forms.Label lbPass;
+        private System.Windows.Forms.Button btnAdminLog;
     }
 }
 

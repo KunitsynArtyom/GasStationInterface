@@ -30,17 +30,14 @@ namespace Admin
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            string pattern = "^[А-ЯA-Z]{1}[а-яa-z]+ ?([А-ЯA-Z]{1}[а-яa-z]+ )?[0-9]+$";
-            Regex rgx = new Regex(pattern);
+            //string pattern = "^[А-ЯA-Z]{1}[а-яa-z]+ ?([А-ЯA-Z]{1}[а-яa-z]+ )?[0-9]+$";
+            //Regex rgx = new Regex(pattern);
             try
             {
                 orgname = tbOrgName.Text.ToString();
                 country = tbCountry.Text.ToString();
                 city = tbCity.Text.ToString();
                 street = tbStreet.Text.ToString();
-                Match matches = rgx.Match(street);
-                if (matches.Success)
-                {
                     street = CheckRigthStreet(street);
                     int storagecap;
                     bool checkStorageCap = Int32.TryParse(tbStorageCap.Text, out storagecap);
@@ -56,13 +53,38 @@ namespace Admin
                         MessageBox.Show("Операция выполнена успешно!");
                         Close();
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Название улицы введено неверно!");
-                }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        private void tbOrgName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbCountry_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbCity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
+        }
+
+        private void tbStreet_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && !Char.IsDigit(e.KeyChar) && e.KeyChar != 8 && e.KeyChar != 32 )
+                e.Handled = true;
+        }
+
+        private void tbStorageCap_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+                e.Handled = true;
         }
 
         public AddToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)

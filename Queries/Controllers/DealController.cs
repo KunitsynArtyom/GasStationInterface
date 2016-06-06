@@ -34,16 +34,24 @@ namespace Queries.dgvControllers
         public int ShowDeals(int id)
         {
             var foundDealList = new List<Deal>();
-            var dealList = factory.GetDealRepository().ShowBuyerDealTable(id);
-            if (dealList.Count != 0)
-            {
-                foreach (Deal deal in dealList)
+            var dealList = new List<Deal>();
+            try {
+                dealList = factory.GetDealRepository().ShowBuyerDealTable(id);
+                if (dealList.Count != 0)
                 {
-                    dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
+                    foreach (Deal deal in dealList)
+                    {
+                        dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
+                    }
                 }
-            }
-            else MessageBox.Show("Сделок с данным пользователем не найдено!");
+                else MessageBox.Show("Сделок с данным пользователем не найдено!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception) { MessageBox.Show("Неизвестная ошибка!!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
             return dealList.Count;
         }
 
@@ -56,13 +64,17 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Deal deal in dgvElements)
                 {
-                    string cardnum = factory.GetCarRepository().FindCardNumByCarID(deal.GetCar_id()); 
-                    dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                    string cardnum = factory.GetCarRepository().FindCardNumByCarID(deal.GetCarID()); 
+                    dgv.Rows.Add(deal.GetDealID(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
                         factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(),
                         deal.GetDealPrice(), cardnum, deal.GetDealDate());
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception) { MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public void ShowWorkerTable(int ID)
@@ -73,10 +85,14 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Deal deal in dgvElements)
                 {
-                    dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), factory.GetCarRepository().FindCardNumByCarID(deal.GetCar_id()), deal.GetDealDate());
+                    dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), factory.GetCarRepository().FindCardNumByCarID(deal.GetCarID()), deal.GetDealDate());
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception) { MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public void ShowUserTable(string cardnum)
@@ -90,7 +106,11 @@ namespace Queries.dgvControllers
                     dgv.Rows.Add(deal.GetFuelType(), deal.GetFuelAmount(), deal.GetDealPrice(), deal.GetDealDate());
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception) { MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public void FindDealsByStationID(int station_id)
@@ -108,14 +128,18 @@ namespace Queries.dgvControllers
                         stationDealList = factory.GetDealRepository().ShowWorkerDealTable(id);
                         foreach (Deal deal in stationDealList)
                         {
-                            dgv.Rows.Add(deal.GetDeal_id(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
+                            dgv.Rows.Add(deal.GetDealID(), factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(deal.GetStaff_id())).Trim().Replace(" ", string.Empty),
                                 factory.GetStaffRepository().FindStaffByID(deal.GetStaff_id()), deal.GetFuelType(), deal.GetFuelAmount(),
-                                deal.GetDealPrice(), factory.GetCarRepository().FindCardNumByCarID(deal.GetCar_id()), deal.GetDealDate());
+                                deal.GetDealPrice(), factory.GetCarRepository().FindCardNumByCarID(deal.GetCarID()), deal.GetDealDate());
                         }
                     }
                 }
             }
-            catch (Exception) { MessageBox.Show("Ошибка базы данных!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception) { MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         public bool UpdateTable(int id, Deal deal)
@@ -135,13 +159,18 @@ namespace Queries.dgvControllers
                         k++;
                         error += "Ошибка №" + k + ": " + str + " \n";
                     }
-                    MessageBox.Show(error);
+                    MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (PostgresException pe)
+            {
+                checkFlag = false;
+                MessageBox.Show(pe.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception)
             {
                 checkFlag = false;
-                MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return checkFlag;
         }
@@ -163,13 +192,18 @@ namespace Queries.dgvControllers
                         k++;
                         error += "Ошибка №" + k + ": " + str + " \n";
                     }
-                    MessageBox.Show(error);
+                    MessageBox.Show(error, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (PostgresException pe)
+            {
+                checkFlag = false;
+                MessageBox.Show(pe.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception)
             {
                 checkFlag = false;
-                MessageBox.Show("Недостаточно топлива!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return checkFlag;
         }

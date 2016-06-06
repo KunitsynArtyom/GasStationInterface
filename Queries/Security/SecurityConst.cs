@@ -8,6 +8,6 @@ namespace Queries.Security
 {
     public static class SecurityConst
     {
-        public const string cryptKey = "DefaultK";
+        public const string cryptKey = "SadgesjG";
     }
 }

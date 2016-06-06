@@ -125,6 +125,7 @@
             this.tbDealPrice.Name = "tbDealPrice";
             this.tbDealPrice.Size = new System.Drawing.Size(123, 20);
             this.tbDealPrice.TabIndex = 27;
+            this.tbDealPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDealPrice_KeyPress);
             // 
             // tbFuelamount
             // 
@@ -132,6 +133,7 @@
             this.tbFuelamount.Name = "tbFuelamount";
             this.tbFuelamount.Size = new System.Drawing.Size(123, 20);
             this.tbFuelamount.TabIndex = 26;
+            this.tbFuelamount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbFuelamount_KeyPress);
             // 
             // cbFuelType
             // 
@@ -157,6 +159,7 @@
             this.tbHours.Name = "tbHours";
             this.tbHours.Size = new System.Drawing.Size(23, 20);
             this.tbHours.TabIndex = 50;
+            this.tbHours.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbHours_KeyPress);
             // 
             // tbMinutes
             // 
@@ -164,6 +167,7 @@
             this.tbMinutes.Name = "tbMinutes";
             this.tbMinutes.Size = new System.Drawing.Size(23, 20);
             this.tbMinutes.TabIndex = 51;
+            this.tbMinutes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbMinutes_KeyPress);
             // 
             // label1
             // 

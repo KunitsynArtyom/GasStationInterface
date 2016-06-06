@@ -88,7 +88,7 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // addToCarTableForm
+            // AddToCarTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -99,7 +99,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbCardNum);
             this.Controls.Add(this.tbCarMark);
-            this.Name = "addToCarTableForm";
+            this.Name = "AddToCarTableForm";
             this.Text = "Добавление покупателя";
             this.ResumeLayout(false);
             this.PerformLayout();

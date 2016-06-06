@@ -25,7 +25,7 @@ namespace Queries.Entities
             b_cardnum = cardnum;
         }
 
-        public int GetCar_id() => b_car_id;
+        public int GetCarID() => b_car_id;
         public string GetCarMark() => b_carmark;
         public string GetCardNum() => b_cardnum;
     }

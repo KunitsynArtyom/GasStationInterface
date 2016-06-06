@@ -217,7 +217,7 @@
             this.tabDealUserTable.Padding = new System.Windows.Forms.Padding(3);
             this.tabDealUserTable.Size = new System.Drawing.Size(644, 363);
             this.tabDealUserTable.TabIndex = 1;
-            this.tabDealUserTable.Text = "Список сделок";
+            this.tabDealUserTable.Text = "Журнал сделок";
             this.tabDealUserTable.UseVisualStyleBackColor = true;
             // 
             // lbSessionName2

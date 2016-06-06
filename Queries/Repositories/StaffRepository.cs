@@ -69,7 +69,7 @@ namespace Queries.Repositories
 
                     NpgsqlCommand queryCommand = new NpgsqlCommand("INSERT INTO \"AZS\".\"Staff\"(Station_id, Surname, Name, Gender, Birthdate, Function, Salary)" +
                         "VALUES(@Station_id, @Surname, @Name, @Gender, @Birthdate, @Function, @Salary)", dbc.getConnection());
-                    queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStation_id());
+                    queryCommand.Parameters.AddWithValue("@Station_id", wk.GetStationID());
                     queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
                     queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
                     queryCommand.Parameters.AddWithValue("@Gender", wk.GetGender());
