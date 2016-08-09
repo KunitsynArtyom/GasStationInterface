@@ -9,7 +9,7 @@ using Npgsql;
 
 namespace Queries
 {
-    public class DBConnection //класс, устанавливающий соединение с базой данных
+    public class DBConnection 
     {
         private NpgsqlConnection conn;
 
