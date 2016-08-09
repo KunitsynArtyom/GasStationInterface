@@ -117,7 +117,6 @@ namespace Worker
                 }
             }
             catch (Exception) { MessageBox.Show("Данные введены некорректно!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-            Close();
         }
     }
 }

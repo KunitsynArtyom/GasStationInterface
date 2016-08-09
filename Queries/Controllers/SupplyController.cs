@@ -46,7 +46,7 @@ namespace Queries.dgvControllers
                 foreach (Supply supply in dgvElements)
                 {
                     int station_id = supply.GetStationID();
-                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaffID()), supply.GetFuelSupplyType(),
+                    dgv.Rows.Add(supply.GetStationID(), RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaffID()), supply.GetFuelSupplyType(),
                         supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
                 }
             }
@@ -67,8 +67,7 @@ namespace Queries.dgvControllers
                 foreach (Supply supply in dgvElements)
                 {
                     int station_id = supply.GetStationID();
-                    dgv.Rows.Add(RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(station_id)), factory.GetStaffRepository().FindStaffByID(supply.GetStaffID()), supply.GetFuelSupplyType(),
-                        supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
+                    dgv.Rows.Add(factory.GetStaffRepository().FindStaffByID(supply.GetStaffID()), supply.GetFuelSupplyType(), supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
                 }
             }
             catch (PostgresException pe)
@@ -83,7 +82,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = supplyValidator.checkAddition(sup, out errorList))
+                if (checkFlag = supplyValidator.CheckAddition(sup, out errorList))
                 {
                     factory.GetSupplyRepository().AddToSupplyTable(sup);
                 }
@@ -109,6 +108,28 @@ namespace Queries.dgvControllers
                 MessageBox.Show("Невозможно выполнить операцию!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return checkFlag;
+        }
+
+        public void FilterBYStationID(int id)
+        {
+            try
+            {
+                dgvElements = factory.GetSupplyRepository().GetSupplyBYStationID(id);
+                dgv.Rows.Clear();
+                foreach (Supply supply in dgvElements)
+                {
+                    dgv.Rows.Add(supply.GetStationID(), RemoveSpaces(factory.GetStationRepository().GetStationAdresByID(supply.GetStationID())), factory.GetStaffRepository().FindStaffByID(supply.GetStaffID()), supply.GetFuelSupplyType(),
+                        supply.GetFuelSupplyAmount(), supply.GetSupplyDate());
+                }
+            }
+            catch (PostgresException pe)
+            {
+                MessageBox.Show("Код ошибки: " + pe.SqlState, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Неизвестная ошибка!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private string RemoveSpaces(string inputString)

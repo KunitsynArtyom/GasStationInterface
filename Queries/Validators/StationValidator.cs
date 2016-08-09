@@ -28,7 +28,7 @@ namespace Queries.Validators
 
         }
 
-        public bool checkAddition(Station st, out List<string> errorList)
+        public bool CheckAddition(Station st, out List<string> errorList)
         {
             string pattern = "^[А-ЯA-Z]{1}[а-яa-z]+ ?([А-ЯA-Z]{1}[а-яa-z]+ )?[0-9]+$";
             Regex rgx = new Regex(pattern);

@@ -58,6 +58,7 @@
             // 
             // dealDatePick
             // 
+            this.dealDatePick.Enabled = false;
             this.dealDatePick.Location = new System.Drawing.Point(150, 118);
             this.dealDatePick.Name = "dealDatePick";
             this.dealDatePick.Size = new System.Drawing.Size(123, 20);
@@ -220,6 +221,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbDealPrice);
             this.Controls.Add(this.tbFuelamount);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddToDealTableForm";
             this.Text = "Добавление сделки";
             this.Load += new System.EventHandler(this.updateDealTableForm_Load);

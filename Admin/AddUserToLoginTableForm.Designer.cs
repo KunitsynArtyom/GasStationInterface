@@ -103,6 +103,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbName);
             this.Controls.Add(this.tbPass);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddUserToLoginTableForm";
             this.Text = "Активация карты покупателя";
             this.Load += new System.EventHandler(this.AddToLoginTableForm_Load);

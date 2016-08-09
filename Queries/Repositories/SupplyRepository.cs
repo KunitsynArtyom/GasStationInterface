@@ -113,5 +113,37 @@ namespace Queries.Repositories
 
             return supplyList;
         }
+
+        public List<Supply> GetSupplyBYStationID(int id)
+        {
+            List<Supply> supplyList = new List<Supply>();
+            try
+            {
+                dbc.openConnection();
+                NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"Supply\" WHERE station_id = @Station_id ORDER BY supplydate", dbc.getConnection());
+                queryCommand.Parameters.AddWithValue("@Station_id", id);
+                NpgsqlDataReader AZSTableReader = queryCommand.ExecuteReader();
+                if (AZSTableReader.HasRows)
+                {
+                    foreach (DbDataRecord dbDataRecord in AZSTableReader)
+                    {
+                        Supply supply = new Supply();
+
+                        supply.supplySet(Convert.ToInt32(dbDataRecord["station_id"]), Convert.ToInt32(dbDataRecord["staff_id"]),
+                            dbDataRecord["fuelsupplytype"].ToString(), Convert.ToInt32(dbDataRecord["fuelsupplyamount"]),
+                            Convert.ToDateTime(dbDataRecord["supplydate"].ToString()));
+                        supplyList.Add(supply);
+                    }
+                }
+                AZSTableReader.Close();
+            }
+            catch (PostgresException pe)
+            {
+                throw pe;
+            }
+            finally { dbc.closeConnection(); }
+
+            return supplyList;
+        }
     }
 }

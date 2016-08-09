@@ -27,7 +27,7 @@ namespace Queries.Validators
 
         }
 
-        public bool checkAddition(Car car, out List<string> errorList)
+        public bool CheckAddition(Car car, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;

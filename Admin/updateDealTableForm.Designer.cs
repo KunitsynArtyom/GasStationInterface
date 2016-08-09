@@ -50,6 +50,7 @@
             // 
             this.dealDatePick.CausesValidation = false;
             this.dealDatePick.CustomFormat = "";
+            this.dealDatePick.Enabled = false;
             this.dealDatePick.Location = new System.Drawing.Point(118, 127);
             this.dealDatePick.Name = "dealDatePick";
             this.dealDatePick.Size = new System.Drawing.Size(135, 20);
@@ -209,6 +210,8 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbFuelamount);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "UpdateDealTableForm";
             this.Text = "Обновление данных о сделке";
             this.Load += new System.EventHandler(this.updateDealTableForm_Load);

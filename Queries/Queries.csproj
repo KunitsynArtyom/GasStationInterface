@@ -53,12 +53,12 @@
     <Compile Include="ComboBoxFillers\ComboBoxDealFiller.cs" />
     <Compile Include="ComboBoxFillers\ComboBoxStaffFiller.cs" />
     <Compile Include="ComboBoxFillers\ComboBoxAccountingFiller.cs" />
+    <Compile Include="ComboBoxFillers\ComboBoxSupplyFiller.cs" />
     <Compile Include="Connection\DBConnection.cs" />
     <Compile Include="Validators\CarValidator.cs" />
     <Compile Include="Validators\DBUserValidator.cs" />
     <Compile Include="Validators\DealValidator.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Validators\LoginValidator.cs" />
     <Compile Include="Validators\StaffValidator.cs" />
     <Compile Include="Validators\StationValidator.cs" />
     <Compile Include="Validators\SupplyValidator.cs" />

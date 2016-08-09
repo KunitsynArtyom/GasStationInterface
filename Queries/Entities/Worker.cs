@@ -40,12 +40,10 @@ namespace Queries.Entities
             w_salary = salary;
         }
 
-        public void workerSet(string surname, string name, string gender, DateTime birthdate, string function, int salary)
+        public void workerSet(string surname, string name, string function, int salary)
         {
             w_surname = surname;
             w_name = name;
-            w_gender = gender;
-            w_birthdate = birthdate;
             w_function = function;
             w_salary = salary;
         }

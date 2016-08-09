@@ -61,8 +61,6 @@ namespace Queries.Repositories
             dbc.openConnection();
             try
             {
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
-                //    "'%" + fCountry + "%' AND city LIKE" + "'%" + fCity + "%'", dbc.getConnection());
                 NpgsqlCommand queryCommand = new NpgsqlCommand("SELECT * FROM \"AZS\".\"GasStation\" WHERE country LIKE" +
                 " @fCountry AND city LIKE @fCity ", dbc.getConnection());
                 queryCommand.Parameters.AddWithValue("@fCountry", "%" + fCountry + "%");
@@ -128,7 +126,7 @@ namespace Queries.Repositories
             }
             catch (PostgresException pe)
             {
-                //throw pe;
+                throw pe;
             }
             finally { dbc.closeConnection(); }
             return station_id;

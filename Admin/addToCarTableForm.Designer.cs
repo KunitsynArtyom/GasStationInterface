@@ -99,8 +99,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbCardNum);
             this.Controls.Add(this.tbCarMark);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddToCarTableForm";
-            this.Text = "Добавление покупателя";
+            this.Text = "Оформление покупателя";
             this.ResumeLayout(false);
             this.PerformLayout();
 

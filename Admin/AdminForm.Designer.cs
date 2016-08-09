@@ -35,7 +35,7 @@
             this.btnTableAccountingView = new System.Windows.Forms.Button();
             this.dgvViewAccounting = new System.Windows.Forms.DataGridView();
             this.stationaccountID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stationadres = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stationAccountingAdres = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.accountrole = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelaccounttype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fuelaccountamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,6 +63,7 @@
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.staffStationID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.birthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.function = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAdmin = new System.Windows.Forms.TabControl();
@@ -93,19 +94,22 @@
             this.buyercard = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dealdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabSupplyTable = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cbSupplyFilterByStation = new System.Windows.Forms.ComboBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnTableSupplyView = new System.Windows.Forms.Button();
             this.dgvViewSupply = new System.Windows.Forms.DataGridView();
-            this.stationSupply = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.staffSupply = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fuelSupplyType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fuelSupplyAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplyDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.msAdmin = new System.Windows.Forms.MenuStrip();
             this.допФункцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddNewAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.RefreshTables = new System.Windows.Forms.ToolStripMenuItem();
             this.lbSessionName = new System.Windows.Forms.Label();
+            this.stationSupplyID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stationSupply = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.staffSupply = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelSupplyType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fuelSupplyAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SupplyDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAccountingTable.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -125,6 +129,7 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).BeginInit();
             this.tabSupplyTable.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).BeginInit();
             this.msAdmin.SuspendLayout();
@@ -145,9 +150,9 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.cbAccountingFilterByStation);
-            this.groupBox7.Location = new System.Drawing.Point(656, 419);
+            this.groupBox7.Location = new System.Drawing.Point(604, 416);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(160, 43);
+            this.groupBox7.Size = new System.Drawing.Size(212, 43);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Фильтр по станции";
@@ -158,16 +163,16 @@
             this.cbAccountingFilterByStation.FormattingEnabled = true;
             this.cbAccountingFilterByStation.Location = new System.Drawing.Point(6, 16);
             this.cbAccountingFilterByStation.Name = "cbAccountingFilterByStation";
-            this.cbAccountingFilterByStation.Size = new System.Drawing.Size(148, 21);
+            this.cbAccountingFilterByStation.Size = new System.Drawing.Size(200, 21);
             this.cbAccountingFilterByStation.TabIndex = 0;
             this.cbAccountingFilterByStation.SelectedIndexChanged += new System.EventHandler(this.cbAccountingFilterByStation_SelectedIndexChanged);
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.btnTableAccountingView);
-            this.groupBox6.Location = new System.Drawing.Point(656, 3);
+            this.groupBox6.Location = new System.Drawing.Point(604, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(160, 89);
+            this.groupBox6.Size = new System.Drawing.Size(212, 89);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Функционал";
@@ -176,7 +181,7 @@
             // 
             this.btnTableAccountingView.Location = new System.Drawing.Point(6, 19);
             this.btnTableAccountingView.Name = "btnTableAccountingView";
-            this.btnTableAccountingView.Size = new System.Drawing.Size(150, 60);
+            this.btnTableAccountingView.Size = new System.Drawing.Size(200, 60);
             this.btnTableAccountingView.TabIndex = 4;
             this.btnTableAccountingView.Text = "Обновить таблицу учёта";
             this.btnTableAccountingView.UseVisualStyleBackColor = true;
@@ -189,14 +194,14 @@
             this.dgvViewAccounting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvViewAccounting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.stationaccountID,
-            this.stationadres,
+            this.stationAccountingAdres,
             this.accountrole,
             this.fuelaccounttype,
             this.fuelaccountamount,
             this.accountdate});
             this.dgvViewAccounting.Location = new System.Drawing.Point(3, 3);
             this.dgvViewAccounting.Name = "dgvViewAccounting";
-            this.dgvViewAccounting.Size = new System.Drawing.Size(647, 459);
+            this.dgvViewAccounting.Size = new System.Drawing.Size(595, 459);
             this.dgvViewAccounting.TabIndex = 2;
             // 
             // stationaccountID
@@ -205,11 +210,10 @@
             this.stationaccountID.Name = "stationaccountID";
             this.stationaccountID.Width = 40;
             // 
-            // stationadres
+            // stationAccountingAdres
             // 
-            this.stationadres.HeaderText = "Адрес станции";
-            this.stationadres.Name = "stationadres";
-            this.stationadres.Width = 150;
+            this.stationAccountingAdres.HeaderText = "Адрес станции";
+            this.stationAccountingAdres.Name = "stationAccountingAdres";
             // 
             // accountrole
             // 
@@ -418,6 +422,7 @@
             this.name,
             this.staffStationID,
             this.gender,
+            this.birthdate,
             this.function,
             this.salary});
             this.dgvViewStaff.Location = new System.Drawing.Point(0, 3);
@@ -451,6 +456,11 @@
             this.gender.HeaderText = "Пол";
             this.gender.Name = "gender";
             this.gender.Width = 60;
+            // 
+            // birthdate
+            // 
+            this.birthdate.HeaderText = "Дата рождения";
+            this.birthdate.Name = "birthdate";
             // 
             // function
             // 
@@ -583,9 +593,9 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.cbDealFilterByStation);
-            this.groupBox5.Location = new System.Drawing.Point(607, 405);
+            this.groupBox5.Location = new System.Drawing.Point(607, 411);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 51);
+            this.groupBox5.Size = new System.Drawing.Size(210, 48);
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Фильтр по адресу станции";
@@ -594,9 +604,9 @@
             // 
             this.cbDealFilterByStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDealFilterByStation.FormattingEnabled = true;
-            this.cbDealFilterByStation.Location = new System.Drawing.Point(6, 19);
+            this.cbDealFilterByStation.Location = new System.Drawing.Point(8, 21);
             this.cbDealFilterByStation.Name = "cbDealFilterByStation";
-            this.cbDealFilterByStation.Size = new System.Drawing.Size(188, 21);
+            this.cbDealFilterByStation.Size = new System.Drawing.Size(199, 21);
             this.cbDealFilterByStation.TabIndex = 0;
             this.cbDealFilterByStation.SelectedIndexChanged += new System.EventHandler(this.cbFilterByStation_SelectedIndexChanged);
             // 
@@ -700,6 +710,7 @@
             // 
             // tabSupplyTable
             // 
+            this.tabSupplyTable.Controls.Add(this.groupBox9);
             this.tabSupplyTable.Controls.Add(this.groupBox8);
             this.tabSupplyTable.Controls.Add(this.dgvViewSupply);
             this.tabSupplyTable.Location = new System.Drawing.Point(4, 22);
@@ -708,6 +719,26 @@
             this.tabSupplyTable.TabIndex = 5;
             this.tabSupplyTable.Text = "Список поставок";
             this.tabSupplyTable.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.cbSupplyFilterByStation);
+            this.groupBox9.Location = new System.Drawing.Point(629, 417);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(188, 42);
+            this.groupBox9.TabIndex = 3;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Фильтр по станции";
+            // 
+            // cbSupplyFilterByStation
+            // 
+            this.cbSupplyFilterByStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSupplyFilterByStation.FormattingEnabled = true;
+            this.cbSupplyFilterByStation.Location = new System.Drawing.Point(7, 15);
+            this.cbSupplyFilterByStation.Name = "cbSupplyFilterByStation";
+            this.cbSupplyFilterByStation.Size = new System.Drawing.Size(175, 21);
+            this.cbSupplyFilterByStation.TabIndex = 2;
+            this.cbSupplyFilterByStation.SelectedIndexChanged += new System.EventHandler(this.cbSupplyFilterByStation_SelectedIndexChanged);
             // 
             // groupBox8
             // 
@@ -735,6 +766,7 @@
             this.dgvViewSupply.AllowUserToDeleteRows = false;
             this.dgvViewSupply.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvViewSupply.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.stationSupplyID,
             this.stationSupply,
             this.staffSupply,
             this.fuelSupplyType,
@@ -742,37 +774,8 @@
             this.SupplyDate});
             this.dgvViewSupply.Location = new System.Drawing.Point(3, 3);
             this.dgvViewSupply.Name = "dgvViewSupply";
-            this.dgvViewSupply.Size = new System.Drawing.Size(654, 456);
+            this.dgvViewSupply.Size = new System.Drawing.Size(625, 456);
             this.dgvViewSupply.TabIndex = 0;
-            // 
-            // stationSupply
-            // 
-            this.stationSupply.HeaderText = "Адрес станции";
-            this.stationSupply.Name = "stationSupply";
-            this.stationSupply.Width = 150;
-            // 
-            // staffSupply
-            // 
-            this.staffSupply.HeaderText = "ФИ сотрудника";
-            this.staffSupply.Name = "staffSupply";
-            this.staffSupply.Width = 150;
-            // 
-            // fuelSupplyType
-            // 
-            this.fuelSupplyType.HeaderText = "Тип топлива";
-            this.fuelSupplyType.Name = "fuelSupplyType";
-            this.fuelSupplyType.Width = 60;
-            // 
-            // fuelSupplyAmount
-            // 
-            this.fuelSupplyAmount.HeaderText = "Количество топлива";
-            this.fuelSupplyAmount.Name = "fuelSupplyAmount";
-            // 
-            // SupplyDate
-            // 
-            this.SupplyDate.HeaderText = "Дата поставки";
-            this.SupplyDate.Name = "SupplyDate";
-            this.SupplyDate.Width = 150;
             // 
             // msAdmin
             // 
@@ -816,6 +819,41 @@
             this.lbSessionName.TabIndex = 3;
             this.lbSessionName.Text = "Сессия: admin";
             // 
+            // stationSupplyID
+            // 
+            this.stationSupplyID.HeaderText = "ID станции";
+            this.stationSupplyID.Name = "stationSupplyID";
+            this.stationSupplyID.Width = 40;
+            // 
+            // stationSupply
+            // 
+            this.stationSupply.HeaderText = "Адрес станции";
+            this.stationSupply.Name = "stationSupply";
+            this.stationSupply.Width = 150;
+            // 
+            // staffSupply
+            // 
+            this.staffSupply.HeaderText = "ФИ сотрудника";
+            this.staffSupply.Name = "staffSupply";
+            this.staffSupply.Width = 150;
+            // 
+            // fuelSupplyType
+            // 
+            this.fuelSupplyType.HeaderText = "Тип топлива";
+            this.fuelSupplyType.Name = "fuelSupplyType";
+            this.fuelSupplyType.Width = 60;
+            // 
+            // fuelSupplyAmount
+            // 
+            this.fuelSupplyAmount.HeaderText = "Количество топлива";
+            this.fuelSupplyAmount.Name = "fuelSupplyAmount";
+            // 
+            // SupplyDate
+            // 
+            this.SupplyDate.HeaderText = "Дата поставки";
+            this.SupplyDate.Name = "SupplyDate";
+            this.SupplyDate.Width = 150;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -824,7 +862,9 @@
             this.Controls.Add(this.lbSessionName);
             this.Controls.Add(this.tabAdmin);
             this.Controls.Add(this.msAdmin);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.msAdmin;
+            this.MaximizeBox = false;
             this.Name = "AdminForm";
             this.Text = "Раздел администратора";
             this.Load += new System.EventHandler(this.AdminForm_Load);
@@ -847,6 +887,7 @@
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewDeal)).EndInit();
             this.tabSupplyTable.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvViewSupply)).EndInit();
             this.msAdmin.ResumeLayout(false);
@@ -914,21 +955,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn city;
         private System.Windows.Forms.DataGridViewTextBoxColumn country;
         private System.Windows.Forms.DataGridViewTextBoxColumn orgname;
+        private System.Windows.Forms.TabPage tabSupplyTable;
+        private System.Windows.Forms.DataGridView dgvViewSupply;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button btnTableSupplyView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationAccountingAdres;
         private System.Windows.Forms.DataGridViewTextBoxColumn accountdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccountamount;
         private System.Windows.Forms.DataGridViewTextBoxColumn fuelaccounttype;
         private System.Windows.Forms.DataGridViewTextBoxColumn accountrole;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stationadres;
         private System.Windows.Forms.DataGridViewTextBoxColumn stationaccountID;
-        private System.Windows.Forms.TabPage tabSupplyTable;
-        private System.Windows.Forms.DataGridView dgvViewSupply;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stationSupply;
-        private System.Windows.Forms.DataGridViewTextBoxColumn staffSupply;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelSupplyType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fuelSupplyAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplyDate;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.Button btnTableSupplyView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn birthdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn salary;
         private System.Windows.Forms.DataGridViewTextBoxColumn function;
         private System.Windows.Forms.DataGridViewTextBoxColumn gender;
@@ -936,6 +973,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn surname;
         private System.Windows.Forms.DataGridViewTextBoxColumn staff_id;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.ComboBox cbSupplyFilterByStation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SupplyDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelSupplyAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fuelSupplyType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn staffSupply;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationSupply;
+        private System.Windows.Forms.DataGridViewTextBoxColumn stationSupplyID;
     }
 }
 

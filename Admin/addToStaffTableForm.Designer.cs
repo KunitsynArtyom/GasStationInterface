@@ -229,6 +229,8 @@
             this.Controls.Add(this.tbFunction);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.tbSurname);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddToStaffTableForm";
             this.Text = "Добавление работника";
             this.Load += new System.EventHandler(this.addToStaffTableForm_Load);

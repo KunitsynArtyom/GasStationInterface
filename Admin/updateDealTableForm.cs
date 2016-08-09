@@ -50,7 +50,6 @@ namespace Admin
                 if (!checkFuelAmount)
                 {
                     fuelAmount = -1;
-                    //errorList.Add("Ошибка формата ввода количества топлива!");
                 }
 
                 if (cbCardNum.SelectedIndex != -1)
@@ -65,10 +64,8 @@ namespace Admin
                 if (!checkDealPrice)
                 {
                     dealPrice = -1;
-                    //errorList.Add("Ошибка формата ввода цены сделки!");
                 }
 
-                //dealPrice = Convert.ToInt32(tbDealprice.Text);
 
                 if (tbHours.Text != String.Empty && tbMinutes.Text != String.Empty)
                 {
@@ -133,16 +130,14 @@ namespace Admin
         {
             try
             {
+                dealDatePick.Value = Convert.ToDateTime(updateRow.Cells["dealdate"].Value);
                 tbFuelamount.Text = updateRow.Cells["fuelamount"].Value.ToString();
                 tbDealprice.Text = updateRow.Cells["dealprice"].Value.ToString();
                 dealDate = Convert.ToDateTime(updateRow.Cells["dealdate"].Value);
                 cbFuelType.Items.Add("A92");
                 cbFuelType.Items.Add("A95");
                 cbFuelType.Items.Add("A95+");
-
-
-                cbFuelType.SelectedItem = updateRow.Cells["fueltype"].Value.ToString().Trim().Replace(" ", string.Empty);
-                
+                cbFuelType.SelectedItem = updateRow.Cells["fueltype"].Value.ToString().Trim().Replace(" ", string.Empty);               
                 ComboBoxDealFiller comboBoxDealFiller = new ComboBoxDealFiller(cbCardNum, factory);
                 comboBoxDealFiller.СbCardnumFill(); 
                 cbCardNum.SelectedItem = updateRow.Cells["buyercard"].Value.ToString().Trim().Replace(" ", string.Empty);              

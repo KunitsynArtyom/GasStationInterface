@@ -21,7 +21,6 @@ namespace Admin
     public partial class AdminForm : Form
     {
         private IRepositoryFactory factory;
-        private Form additionalForm;
         private StaffController fillStaffTable;
         private CarController fillCarTable;
         private AccountController fillAccountingTable;
@@ -30,6 +29,7 @@ namespace Admin
         private SupplyController fillSupplyTable;
         private ComboBoxDealFiller fillComboBoxDeal;
         private ComboBoxAccountingFiller fillComboBoxAccounting;
+        private ComboBoxSupplyFiller fillComboBoxSupply;
 
         public AdminForm(IRepositoryFactory factory)
         {
@@ -56,6 +56,8 @@ namespace Admin
             fillComboBoxDeal.СbStationListFill();
             fillComboBoxAccounting = new ComboBoxAccountingFiller(cbAccountingFilterByStation, factory);
             fillComboBoxAccounting.СbStationListFill();
+            fillComboBoxSupply = new ComboBoxSupplyFiller(cbSupplyFilterByStation, factory);
+            fillComboBoxSupply.СbStationListFill();
         }
 
         private void btnTableView_Click(object sender, EventArgs e)
@@ -105,7 +107,7 @@ namespace Admin
 
         private void btnCarAdd_Click(object sender, EventArgs e)
         {
-            AddToCarTableForm addForm = new AddToCarTableForm(additionalForm, factory, dgvViewCars);
+            AddToCarTableForm addForm = new AddToCarTableForm(factory, dgvViewCars);
             addForm.ShowDialog();
             fillCarTable.ShowTable();
         }
@@ -114,12 +116,11 @@ namespace Admin
         {
             UpdateDealTableForm updateDealForm = new UpdateDealTableForm(dgvViewDeal.CurrentRow, factory, dgvViewDeal);
             updateDealForm.ShowDialog();
-            //fillDealTable.ShowTable();
         }
 
         private void btnStationAdd_Click(object sender, EventArgs e)
         {
-            AddToStationTableForm addForm = new AddToStationTableForm(additionalForm, factory, dgvViewCars);
+            AddToStationTableForm addForm = new AddToStationTableForm(factory, dgvViewCars);
             addForm.ShowDialog();
             fillStationTable.ShowAdminTable();
         }
@@ -131,6 +132,12 @@ namespace Admin
             fillCarTable.ShowTable();
             fillAccountingTable.ShowTable();
             fillDealTable.ShowTable();
+            cbDealFilterByStation.Items.Clear();
+            fillComboBoxDeal.СbStationListFill();
+            cbAccountingFilterByStation.Items.Clear();
+            fillComboBoxAccounting.СbStationListFill();
+            cbSupplyFilterByStation.Items.Clear();
+            fillComboBoxSupply.СbStationListFill();
         }
 
         private void AddNewAdmin_Click(object sender, EventArgs e)
@@ -168,28 +175,32 @@ namespace Admin
 
         private void cbFilterByStation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //cbDealFilterByStation.Items.Clear();
-            //fillComboBoxDeal.СbStationListFill();
             if (cbDealFilterByStation.SelectedIndex != -1)
             {
                 fillDealTable.FindDealsByStationID(factory.GetStationRepository().FindStationIDByLocation(cbDealFilterByStation.Text));
                 cbDealFilterByStation.Items.Clear();
                 fillComboBoxDeal.СbStationListFill();
             }
-            //cbDealFilterByStation.Items.Clear();
         }
 
         private void cbAccountingFilterByStation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //cbAccountingFilterByStation.Items.Clear();
-            //fillComboBoxAccounting.СbStationListFill();
             if (cbAccountingFilterByStation.SelectedIndex != -1)
             {
                 fillAccountingTable.FilterBYStationID(factory.GetStationRepository().FindStationIDByLocation(cbAccountingFilterByStation.Text));
                 cbAccountingFilterByStation.Items.Clear();
                 fillComboBoxAccounting.СbStationListFill();
             }
-            //cbAccountingFilterByStation.Items.Clear();
+        }
+
+        private void cbSupplyFilterByStation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbSupplyFilterByStation.SelectedIndex != -1)
+            {
+                fillSupplyTable.FilterBYStationID(factory.GetStationRepository().FindStationIDByLocation(cbSupplyFilterByStation.Text));
+                cbSupplyFilterByStation.Items.Clear();
+                fillComboBoxSupply.СbStationListFill();
+            }
         }
 
         private void btnTableAccountingView_Click(object sender, EventArgs e)
@@ -201,5 +212,7 @@ namespace Admin
         {
             fillSupplyTable.ShowTable();
         }
+
+
     }
 }

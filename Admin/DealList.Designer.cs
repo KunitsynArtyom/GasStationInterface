@@ -77,6 +77,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(473, 299);
             this.Controls.Add(this.dgvDealList);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "DealList";
             this.Text = "Список сделок";
             this.Load += new System.EventHandler(this.DealListForm_Load);

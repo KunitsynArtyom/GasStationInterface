@@ -27,13 +27,14 @@ namespace Queries.Validators
 
         }
 
-        public bool checkAddition(Worker wk, out List<string> errorList)
+        public bool CheckAddition(Worker wk, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;
             if (wk.GetStationID() <= 0)
             {
                 checkFlag = false;
+                errorList.Add("Станция не выбрана!");
             }
             if (wk.GetSurname() == String.Empty)
             {
@@ -49,6 +50,11 @@ namespace Queries.Validators
             {
                 checkFlag = false;
                 errorList.Add("Пол не выбран!");
+            }
+            if (wk.GetBirthdate().Year > 2000 || wk.GetBirthdate().Year < 1955)
+            {
+                checkFlag = false;
+                errorList.Add("Возраст указан неверно!");
             }
             if (wk.GetFunction() == String.Empty)
             {
@@ -64,7 +70,7 @@ namespace Queries.Validators
             return checkFlag;
         }
 
-        public bool checkUpdate(int id, Worker wk, out List<string> errorList)
+        public bool CheckUpdate(int id, Worker wk, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;
@@ -77,11 +83,6 @@ namespace Queries.Validators
             {
                 checkFlag = false;
                 errorList.Add("Имя не задано!");
-            }
-            if (wk.GetGender() == String.Empty)
-            {
-                checkFlag = false;
-                errorList.Add("Пол не выбран!");
             }
             if (wk.GetFunction() == String.Empty)
             {
@@ -99,7 +100,7 @@ namespace Queries.Validators
             return checkFlag;
         }
 
-        public bool checkDelete(int id, out List<string> errorList)
+        public bool CheckDelete(int id, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;

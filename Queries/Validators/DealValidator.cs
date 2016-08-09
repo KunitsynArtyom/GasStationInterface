@@ -26,7 +26,7 @@ namespace Queries.Validators
 
         }
 
-        public bool checkAddition(Deal deal, out List<string> errorList)
+        public bool CheckAddition(Deal deal, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;
@@ -45,11 +45,16 @@ namespace Queries.Validators
                 checkFlag = false;
                 errorList.Add("Цена сделки задана неверно!");
             }
+            //if (deal.GetDealDate().DayOfYear != DateTime.Now.DayOfYear && deal.GetDealDate().Year != DateTime.Now.Year)
+            //{
+            //    checkFlag = false;
+            //    errorList.Add("Дата задана неверно!");
+            //}
 
             return checkFlag;
         }
 
-        public bool checkUpdate(int id, Deal deal, out List<string> errorList)
+        public bool CheckUpdate(int id, Deal deal, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;

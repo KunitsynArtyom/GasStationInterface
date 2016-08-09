@@ -163,6 +163,8 @@
             this.Controls.Add(this.tbCity);
             this.Controls.Add(this.tbCountry);
             this.Controls.Add(this.tbOrgName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddToStationTableForm";
             this.Text = "Добавлении станции";
             this.ResumeLayout(false);

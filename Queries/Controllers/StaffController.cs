@@ -43,7 +43,7 @@ namespace Queries.dgvControllers
                     {
                         dgv.Rows.Add(wk.GetStaffID(), wk.GetSurname(), wk.GetName(),
                             factory.GetStationRepository().GetStationAdresByID(factory.GetStaffRepository().FindStationIDByStaffID(wk.GetStaffID())).Trim().Replace(" ", string.Empty),
-                            wk.GetGender(), wk.GetFunction(), wk.GetSalary());
+                            wk.GetGender(), wk.GetBirthdate(), wk.GetFunction(), wk.GetSalary());
                     }
                 }
             }
@@ -62,7 +62,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = staffValidator.checkAddition(wk, out errorList))
+                if (checkFlag = staffValidator.CheckAddition(wk, out errorList))
                 {
                     factory.GetStaffRepository().AddToStaffTable(wk);
                 }
@@ -95,7 +95,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = staffValidator.checkUpdate(id, wk, out errorList))
+                if (checkFlag = staffValidator.CheckUpdate(id, wk, out errorList))
                 {
                     factory.GetStaffRepository().UpdateStaffTable(id, wk);
                 }
@@ -128,7 +128,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = staffValidator.checkDelete(id, out errorList))
+                if (checkFlag = staffValidator.CheckDelete(id, out errorList))
                 {
                     factory.GetStaffRepository().DeleteFromStaffTable(id);
                 }

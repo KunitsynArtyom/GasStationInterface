@@ -74,8 +74,6 @@ namespace Worker
                 {
                     fuelamount = -1;
                 }
-                //fuelamount = Convert.ToInt32(tbFuelamount.Text);
-                //bool checkStorageCap = Int32.TryParse(tbStorageCap.Text, out storagecap);
                 if (cbCardNum.SelectedIndex != -1)
                 {
                     cardnum = Convert.ToString(cbCardNum.Text);
@@ -88,7 +86,6 @@ namespace Worker
                 {
                     dealprice = -1;
                 }
-                //dealprice = Convert.ToInt32(tbDealPrice.Text);
                 dealdate = Convert.ToDateTime(dealDatePick.Text);
 
                 if (checkNow.Checked)
@@ -110,10 +107,6 @@ namespace Worker
                         dealdate = DateTime.Now;
                         MessageBox.Show("Неверный формат времени! Выставлено текущее время!");
                     }
-                }
-                else
-                {
-                    dealdate = DateTime.Now;
                 }
 
                 Deal deal = new Deal();

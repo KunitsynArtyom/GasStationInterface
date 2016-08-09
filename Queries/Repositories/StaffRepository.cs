@@ -91,12 +91,11 @@ namespace Queries.Repositories
             try
             {
                 dbc.openConnection();
-                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = @Surname, name = @Name, gender = @Gender, function = @Function, " +
+                NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET surname = @Surname, name = @Name, function = @Function, " +
                 "salary = @Salary WHERE staff_id = @Staff_id ", dbc.getConnection());
 
                 queryCommand.Parameters.AddWithValue("@Surname", wk.GetSurname());
                 queryCommand.Parameters.AddWithValue("@Name", wk.GetName());
-                queryCommand.Parameters.AddWithValue("@Gender", wk.GetGender());
                 queryCommand.Parameters.AddWithValue("@Function", wk.GetFunction());
                 queryCommand.Parameters.AddWithValue("@Salary", wk.GetSalary());
                 queryCommand.Parameters.AddWithValue("@Staff_id", id);
@@ -117,8 +116,6 @@ namespace Queries.Repositories
             {
                 dbc.openConnection();
                 NpgsqlCommand queryCommand = new NpgsqlCommand("UPDATE \"AZS\".\"Staff\" SET  function = @DismissedFunction, salary = @DismissedSalary WHERE staff_id = @Staff_id ", dbc.getConnection());
-                //NpgsqlCommand queryCommand = new NpgsqlCommand("DELETE FROM \"AZS\".\"Staff\"  WHERE staff_id = @Staff_id", dbc.getConnection());
-                //queryCommand.Parameters.AddWithValue("@Staff_id", Convert.ToInt32(wkToDelete.GetStaff_id()));
                 queryCommand.Parameters.AddWithValue("@Staff_id", id);
                 queryCommand.Parameters.AddWithValue("@DismissedFunction", "Уволен!");
                 queryCommand.Parameters.AddWithValue("@DismissedSalary", 0);

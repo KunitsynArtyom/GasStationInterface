@@ -24,7 +24,7 @@ namespace Admin
         private DataGridView dgv;
         private IRepositoryFactory factory;
 
-        public AddToCarTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
+        public AddToCarTableForm(IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             this.factory = factory;

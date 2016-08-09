@@ -53,6 +53,7 @@
             // 
             // supplyDateTimePick
             // 
+            this.supplyDateTimePick.Enabled = false;
             this.supplyDateTimePick.Location = new System.Drawing.Point(148, 63);
             this.supplyDateTimePick.Name = "supplyDateTimePick";
             this.supplyDateTimePick.Size = new System.Drawing.Size(146, 20);
@@ -177,6 +178,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.supplyDateTimePick);
             this.Controls.Add(this.tbFuelAmount);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddToSupplyTableForm";
             this.Text = "Добавление отчета о поставке топлива";
             this.Load += new System.EventHandler(this.addToSupplyTableForm_Load);

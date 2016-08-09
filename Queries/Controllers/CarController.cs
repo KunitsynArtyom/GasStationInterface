@@ -55,7 +55,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = carValidator.checkAddition(car, out errorList))
+                if (checkFlag = carValidator.CheckAddition(car, out errorList))
                 {
                     factory.GetCarRepository().AddToCarTable(car);
                 }

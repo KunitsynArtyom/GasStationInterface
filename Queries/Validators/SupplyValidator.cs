@@ -27,7 +27,7 @@ namespace Queries.Validators
 
         }
 
-        public bool checkAddition(Supply sup, out List<string> errorList)
+        public bool CheckAddition(Supply sup, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;

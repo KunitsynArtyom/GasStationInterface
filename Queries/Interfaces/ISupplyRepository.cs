@@ -20,5 +20,7 @@ namespace Queries.Interfaces
 
         List<Supply> ShowSupplyTableByID(int ID);
 
+        List<Supply> GetSupplyBYStationID(int id);
+
     }
 }

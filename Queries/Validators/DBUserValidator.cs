@@ -26,7 +26,7 @@ namespace Queries.Validators
 
         }
 
-        public bool checkAddition(DBUser user, out List<string> errorList)
+        public bool CheckAddition(DBUser user, out List<string> errorList)
         {
             errorList = new List<string>();
             bool checkFlag = true;

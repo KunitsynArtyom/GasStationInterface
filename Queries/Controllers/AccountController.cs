@@ -40,7 +40,7 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Account account in dgvElements)
                 {
-                    dgv.Rows.Add(account.GetStationID(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
+                    dgv.Rows.Add(account.GetStationID(), factory.GetStationRepository().GetStationAdresByID(account.GetStationID()), account.GetAccountRole(), account.GetFuelAccountType(), 
                         account.GetFuelAccountAmount(), account.GetAccountDate());
                 }
             }
@@ -62,7 +62,7 @@ namespace Queries.dgvControllers
                 dgv.Rows.Clear();
                 foreach (Account account in dgvElements)
                 {
-                    dgv.Rows.Add(account.GetStationID(), account.GetStationAdres(), account.GetAccountRole(), account.GetFuelAccountType(),
+                    dgv.Rows.Add(account.GetStationID(), factory.GetStationRepository().GetStationAdresByID(account.GetStationID()), account.GetAccountRole(), account.GetFuelAccountType(),
                         account.GetFuelAccountAmount(), account.GetAccountDate());
                 }
             }

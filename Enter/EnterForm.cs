@@ -43,7 +43,6 @@ namespace Enter
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //RepositoryFactory repFactory = null;
             DBConnection dbc = null;
             string Login = String.Empty, Password = String.Empty, role = String.Empty, rolePass = String.Empty;
             Login login = null;
@@ -64,22 +63,10 @@ namespace Enter
                 RepositoryFactory repLoginFactory = new RepositoryFactory(dbc);
                 LoginController lc = new LoginController(login, repLoginFactory);
                 role = lc.TryLogin();
-
-                MessageBox.Show(Login.ToString());
-                MessageBox.Show(SecurityCrypt.MD5(Password.ToString()));
-                MessageBox.Show(role.ToString());
-
-
-                if (role != String.Empty)
-                    MessageBox.Show("Добро пожаловать, " + role);
-                else
-                    MessageBox.Show("Пользователь не найден!");
-
+                if (role == String.Empty)
+                MessageBox.Show("Пользователь не найден!");
                 role = role.Trim().Replace(" ", string.Empty);
-                MessageBox.Show(lc.GetDBPassWordByRole(role));
                 rolePass = SecurityCrypt.DESDecrypt(lc.GetDBPassWordByRole(role), SecurityConst.cryptKey);
-                MessageBox.Show(rolePass);
-
                 EnterRole(role, Login, rolePass);
             }
             catch (Exception) { MessageBox.Show("Ошибка входа!"); }
@@ -96,6 +83,8 @@ namespace Enter
                     WorkerForm workerForm = new WorkerForm(Convert.ToInt32(Login), repWorkerFactory);
                     Hide();
                     workerForm.ShowDialog();
+                    tbLogin.Clear();
+                    tbPassword.Clear();
                     Show();
                     break;
                 case "admin":
@@ -105,6 +94,8 @@ namespace Enter
                     AdminForm adminForm = new AdminForm(repAdminFactory);
                     Hide();
                     adminForm.ShowDialog();
+                    tbLogin.Clear();
+                    tbPassword.Clear();
                     Show();
                     break;
                 case "user":
@@ -114,6 +105,8 @@ namespace Enter
                     UserForm userForm = new UserForm(Login, repUserFactory);
                     Hide();
                     userForm.ShowDialog();
+                    tbLogin.Clear();
+                    tbPassword.Clear();
                     Show();
                     break;
             }

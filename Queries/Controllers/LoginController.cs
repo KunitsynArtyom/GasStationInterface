@@ -73,7 +73,7 @@ namespace Queries.Validators
             bool checkFlag = false;
             try
             {
-                if (checkFlag = dbUserValidator.checkAddition(dbUser, out errorList))
+                if (checkFlag = dbUserValidator.CheckAddition(dbUser, out errorList))
                 {
                     factory.GetLoginRepository().AddNewDBUser(dbUser);
                 }

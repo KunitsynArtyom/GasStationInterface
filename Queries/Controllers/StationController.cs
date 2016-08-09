@@ -101,7 +101,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = stationValidator.checkAddition(st, out errorList))
+                if (checkFlag = stationValidator.CheckAddition(st, out errorList))
                 {
                     factory.GetStationRepository().AddToStationTable(st);
                 }

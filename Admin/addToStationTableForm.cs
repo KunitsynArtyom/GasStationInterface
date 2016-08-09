@@ -30,8 +30,6 @@ namespace Admin
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //string pattern = "^[А-ЯA-Z]{1}[а-яa-z]+ ?([А-ЯA-Z]{1}[а-яa-z]+ )?[0-9]+$";
-            //Regex rgx = new Regex(pattern);
             try
             {
                 orgname = tbOrgName.Text.ToString();
@@ -87,7 +85,7 @@ namespace Admin
                 e.Handled = true;
         }
 
-        public AddToStationTableForm(Form adminForm, IRepositoryFactory factory, DataGridView dgv)
+        public AddToStationTableForm(IRepositoryFactory factory, DataGridView dgv)
         {
             InitializeComponent();
             this.factory = factory;

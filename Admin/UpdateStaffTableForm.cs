@@ -20,8 +20,7 @@ namespace Admin
     public partial class UpdateStaffTableForm : Form
     {
         private IRepositoryFactory factory;
-        private string surname, name, gender, function;
-        private DateTime birthdate;
+        private string surname, name, function;
         private DataGridViewRow updateRow;
         private DataGridView dgv;
 
@@ -56,9 +55,6 @@ namespace Admin
             tbSurname.Text = updateRow.Cells["surname"].Value.ToString().Trim().Replace(" ", string.Empty);
             tbName.Text = updateRow.Cells["name"].Value.ToString().Trim().Replace(" ", string.Empty);
             tbFunction.Text = updateRow.Cells["function"].Value.ToString().Trim().Replace(" ", string.Empty);
-            cbGender.Items.Add("муж");
-            cbGender.Items.Add("жен");
-            cbGender.SelectedItem = updateRow.Cells["gender"].Value.ToString().Trim().Replace(" ", string.Empty);
             tbFunction.Text = updateRow.Cells["function"].Value.ToString().Trim().Replace(" ", string.Empty);
             tbSalary.Text = updateRow.Cells["salary"].Value.ToString().Trim().Replace(" ", string.Empty);
         }
@@ -69,12 +65,6 @@ namespace Admin
             {
                 surname = tbSurname.Text;
                 name = tbName.Text;
-                if (cbGender.SelectedIndex != -1)
-                {
-                    gender = Convert.ToString(cbGender.Text);
-                }
-                else gender = String.Empty;
-                birthdate = Convert.ToDateTime(birthDatePick.Text);
                 function = tbFunction.Text;
                 int salary;
                 bool checkSalary = Int32.TryParse(tbSalary.Text, out salary);
@@ -82,9 +72,8 @@ namespace Admin
                 {
                     salary = -1;
                 }
-                //salary = Convert.ToInt32(tbSalary.Text);
                 Worker wk = new Worker();
-                wk.workerSet(surname, name, gender, birthdate, function, salary);
+                wk.workerSet(surname, name, function, salary);
                 var cell = dgv[0, dgv.CurrentRow.Index];
                 int id = Convert.ToInt32(cell.Value);
                 StaffController staffController = new StaffController(dgv, factory);

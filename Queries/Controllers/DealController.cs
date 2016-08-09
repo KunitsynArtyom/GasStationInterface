@@ -147,7 +147,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = dealValidator.checkUpdate(id, deal, out errorList))
+                if (checkFlag = dealValidator.CheckUpdate(id, deal, out errorList))
                 {
                     factory.GetDealRepository().UpdateDealTable(id, deal);
                 }
@@ -180,7 +180,7 @@ namespace Queries.dgvControllers
             bool checkFlag = false;
             try
             {
-                if (checkFlag = dealValidator.checkAddition(deal, out errorList))
+                if (checkFlag = dealValidator.CheckAddition(deal, out errorList))
                 {
                     factory.GetDealRepository().AddToDealTable(deal);
                 }

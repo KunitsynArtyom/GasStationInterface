@@ -96,13 +96,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(258, 126);
+            this.ClientSize = new System.Drawing.Size(264, 126);
             this.Controls.Add(this.checkPass);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbName);
             this.Controls.Add(this.tbPass);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddWorkerToLoginTableForm";
             this.Text = "Добавление работника в систему";
             this.Load += new System.EventHandler(this.AddToLoginTableForm_Load);
